@@ -1,12 +1,13 @@
 ---
-title: "A machine learning algorithm to assess the relevance of sociodemographic and dietary variables in adults’ dental caries prediction."
-author: 
+title: "A machine learning algorithm to assess the relevance of sociodemographic and dietary variables in adult’s dental caries prediction."
+author:
+  - name: "Andrea Correa Ramírez"
+    email: "acorrea@odontologia.uchile.cl"
   - name: "Amaru Simón Agüero Jiménez"
-    email: "amaru.aguero@umayor.cl"
+    email: "amaruaguero2004@ug.uchile.cl"
     orcid: "0000-0001-7336-1833"
 format:
   html:
-    lang: es
     toc: true
     number-sections: true
     code-fold: true
@@ -174,12 +175,12 @@ svm_cm <- confusionMatrix(svm_pred, test_data$cariesnt, positive = "caries")
 tree_cm <- confusionMatrix(tree_pred, test_data$cariesnt, positive = "caries")
 knn_cm <- confusionMatrix(knn_pred, test_data$cariesnt, positive = "caries")
 
-# Mostrar las métricas de evaluación
-logistic_cm$byClass  # Sensibilidad, Especificidad, Precisión, etc. para la regresión logística
-rf_cm$byClass        # Sensibilidad, Especificidad, Precisión, etc. para Random Forest
-svm_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para SVM
-tree_cm$byClass      # Sensibilidad, Especificidad, Precisión, etc. para Árbol de Decisión
-knn_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para KNN
+# # Mostrar las métricas de evaluación
+# logistic_cm$byClass  # Sensibilidad, Especificidad, Precisión, etc. para la regresión logística
+# rf_cm$byClass        # Sensibilidad, Especificidad, Precisión, etc. para Random Forest
+# svm_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para SVM
+# tree_cm$byClass      # Sensibilidad, Especificidad, Precisión, etc. para Árbol de Decisión
+# knn_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para KNN
 ```
 
 ```{r}
@@ -223,7 +224,7 @@ roc_data <- data.frame(
 # Graficar las curvas ROC
 ggplot(roc_data, aes(x = FPR, y = TPR, color = Model)) +
   geom_line(size = 0.8, alpha = 0.9) +
-  labs(title = "ROC Curves for Models (K-fold cross validation resampling method)", x = "1 - Specificity (FPR)", y = "Sensitivity (TPR)") +
+  labs(title = "ROC Curves for Models \n(K-fold cross validation resampling method)", x = "1 - Specificity (FPR)", y = "Sensitivity (TPR)") +
   theme_minimal() +
   scale_color_manual(values = c("blue", "green", "red", "purple", "orange")) +
   theme(legend.position = "top")
@@ -299,7 +300,7 @@ ggplot(metrics_data, aes(x = Metric, y = Value, fill = Model)) +
             angle = 90, 
             vjust = 0.5, 
             size = 4) +  # Valores rotados en 90 grados, justo arriba de los intervalos superiores
-  labs(title = "Performance Metrics for Models (K-fold cross validation resampling method) with 95% Confidence Intervals",
+  labs(title = "Performance Metrics for Models (K-fold cross validation resampling method) \nwith 95% Confidence Intervals",
        x = "Metric",
        y = "Value") +
   theme_minimal() +
@@ -347,12 +348,12 @@ svm_cm <- confusionMatrix(svm_pred, test_data$cariesnt, positive = "caries")
 tree_cm <- confusionMatrix(tree_pred, test_data$cariesnt, positive = "caries")
 knn_cm <- confusionMatrix(knn_pred, test_data$cariesnt, positive = "caries")
 
-# Mostrar las métricas de evaluación
-logistic_cm$byClass  # Sensibilidad, Especificidad, Precisión, etc. para la regresión logística
-rf_cm$byClass        # Sensibilidad, Especificidad, Precisión, etc. para Random Forest
-svm_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para SVM
-tree_cm$byClass      # Sensibilidad, Especificidad, Precisión, etc. para Árbol de Decisión
-knn_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para KNN
+# # Mostrar las métricas de evaluación
+# logistic_cm$byClass  # Sensibilidad, Especificidad, Precisión, etc. para la regresión logística
+# rf_cm$byClass        # Sensibilidad, Especificidad, Precisión, etc. para Random Forest
+# svm_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para SVM
+# tree_cm$byClass      # Sensibilidad, Especificidad, Precisión, etc. para Árbol de Decisión
+# knn_cm$byClass       # Sensibilidad, Especificidad, Precisión, etc. para KNN
 ```
 
 ```{r}
