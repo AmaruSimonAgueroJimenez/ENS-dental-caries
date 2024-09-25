@@ -2,9 +2,9 @@
 title: "A machine learning algorithm to assess the relevance of sociodemographic and dietary variables in adult’s dental caries prediction."
 author:
   - name: "Andrea Correa Ramírez"
-    email: "acorrea@odontologia.uchile.cl"
+    email: acorrea@odontologia.uchile.cl
   - name: "Amaru Simón Agüero Jiménez"
-    email: "amaruaguero2004@ug.uchile.cl"
+    email: amaruaguero2004@ug.uchile.cl
     orcid: "0000-0001-7336-1833"
 format:
   html:
@@ -27,7 +27,7 @@ install_and_load_packages <- function(packages) {
 necessary_packages <- c("knitr", "tidyverse", "naniar", "performance", 
                         "party", "caret", "rpart", "partykit", "ROCR", 
                         "data.tree", "randomForest", "caTools", "ggraph", 
-                        "igraph", "e1071", "class", "haven","stringi","class","pROC")
+                        "igraph", "e1071", "class", "haven","stringi","class","pROC","kableExtra")
 
 install_and_load_packages(necessary_packages)
 
@@ -77,7 +77,7 @@ select_data<- data %>% dplyr::select("cariesnt",
                              "frecsembebida",
                              "frecsemjugo",
                              "sexo",
-                             "edad_cat",
+                             # "edad_cat",
                              "zona",
                              "nedu",
                              "region",
@@ -95,7 +95,7 @@ select_data <- select_data %>%
   mutate(
     die7 = replace_na(die7, 0),
     die9 = replace_na(die9, 0),
-    die11 = droplevels(die11) 
+    die11 = as.numeric(droplevels(die11))
   ) %>%
   drop_na()
 ```
@@ -184,6 +184,9 @@ knn_cm <- confusionMatrix(knn_pred, test_data$cariesnt, positive = "caries")
 ```
 
 ```{r}
+#| fig-width: 6
+#| fig-height: 6
+
 # Modelos en una lista
 models <- list(
   Logistic = logistic_model,
@@ -233,6 +236,8 @@ ggsave("fig1.png", width = 6, height = 6, dpi = 600)
 
 ```
 ```{r}
+#| fig-width: 12
+#| fig-height: 8
 # Crear un dataframe vacío para almacenar las métricas
 metrics_data <- data.frame()
 
@@ -302,7 +307,7 @@ ggplot(metrics_data, aes(x = Metric, y = Value, fill = Model)) +
             size = 4) +  # Valores rotados en 90 grados, justo arriba de los intervalos superiores
   labs(title = "Performance Metrics for Models (K-fold cross validation resampling method) \nwith 95% Confidence Intervals",
        x = "Metric",
-       y = "Value") +
+       y = "Proportion (95% CI)") +
   theme_minimal() +
   scale_fill_manual(values = c("blue", "green", "red", "purple", "orange")) +
   scale_color_manual(values = c("blue", "green", "red", "purple", "orange")) +  # Asegurando que los colores coincidan
@@ -311,12 +316,50 @@ ggplot(metrics_data, aes(x = Metric, y = Value, fill = Model)) +
 
 ggsave("fig2.png", width = 12, height = 8, dpi = 800)
 
+rownames(metrics_data) <- NULL
+
+metrics_data %>% 
+  kable("html", 
+        col.names = c("Model", "Metric", "Proportion", "Lower CI 95% ", "Upper CI 95% "),
+        caption = "Table 1: Performance Metrics for Models (K-fold cross validation resampling method) \nwith 95% Confidence Intervals") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F) %>%
+  collapse_rows(columns = 1, valign = "top") 
+
 ```
+```{r}
+#| fig-width: 12
+#| fig-height: 16
+
+
+logistic_summary <- summary(logistic_model$finalModel)
+logistic_df <- as.data.frame(logistic_summary$coefficients)
+logistic_df$OR <- exp(logistic_df$Estimate)
+logistic_df$OR_Lower <- exp(logistic_df$Estimate - 1.96 * logistic_df$`Std. Error`)
+logistic_df$OR_Upper <- exp(logistic_df$Estimate + 1.96 * logistic_df$`Std. Error`)
+colnames(logistic_df) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)", 
+                           "Odds Ratio (OR)", "OR 95% CI Lower", "OR 95% CI Upper")
+
+
+logistic_df %>%
+  kbl(caption = "Summary of Logistic Regression Model Coefficients with Odds Ratio and 95% Confidence Interval") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+
+
+# Modelo 1: Regresión logística
+# summary(logistic_model$finalModel)
+rf_importance <- varImp(rf_model)
+# print(rf_importance)
+plot(rf_importance)
+```
+
+
 ## Bootstrap
 
 ```{r}
 # Definir el control de entrenamiento para validación cruzada
-control <- trainControl(method = "boot", number = 10, classProbs = TRUE, summaryFunction = twoClassSummary)
+control <- trainControl(method = "boot", number = 100, classProbs = TRUE, summaryFunction = twoClassSummary)
 
 # Modelo 1: Regresión logística
 logistic_model <- train(cariesnt ~ ., data = train_data, method = "glm", family = "binomial", 
@@ -357,6 +400,9 @@ knn_cm <- confusionMatrix(knn_pred, test_data$cariesnt, positive = "caries")
 ```
 
 ```{r}
+#| fig-width: 6
+#| fig-height: 6
+
 # Modelos en una lista
 models <- list(
   Logistic = logistic_model,
@@ -408,6 +454,9 @@ ggsave("fig3.png", width = 6, height = 6, dpi = 800)
 
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 8
+
 # Crear un dataframe vacío para almacenar las métricas
 metrics_data <- data.frame()
 
@@ -477,7 +526,7 @@ ggplot(metrics_data, aes(x = Metric, y = Value, fill = Model)) +
             size = 4) +  # Valores rotados en 90 grados, justo arriba de los intervalos superiores
   labs(title = "Performance Metrics for Models (Bootstrap resampling method) \nwith 95% Confidence Intervals",
        x = "Metric",
-       y = "Value") +
+       y = "Proportion (95% CI)") +
   theme_minimal() +
   scale_fill_manual(values = c("blue", "green", "red", "purple", "orange")) +
   scale_color_manual(values = c("blue", "green", "red", "purple", "orange")) +  # Asegurando que los colores coincidan
@@ -485,6 +534,43 @@ ggplot(metrics_data, aes(x = Metric, y = Value, fill = Model)) +
   theme(legend.position = "top")
 
 ggsave("fig4.png", width = 12, height = 8, dpi = 800)
+
+rownames(metrics_data) <- NULL
+
+metrics_data %>% 
+  kable("html", 
+        col.names = c("Model", "Metric", "Proportion", "Lower CI 95% ", "Upper CI 95% "),
+        caption = "Table 2: Performance Metrics for Models (Bootstrap resampling method) \nwith 95% Confidence Intervals") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F) %>%
+  collapse_rows(columns = 1, valign = "top") 
+
 ```
 
+```{r}
+#| fig-width: 12
+#| fig-height: 16
+
+
+logistic_summary <- summary(logistic_model$finalModel)
+logistic_df <- as.data.frame(logistic_summary$coefficients)
+logistic_df$OR <- exp(logistic_df$Estimate)
+logistic_df$OR_Lower <- exp(logistic_df$Estimate - 1.96 * logistic_df$`Std. Error`)
+logistic_df$OR_Upper <- exp(logistic_df$Estimate + 1.96 * logistic_df$`Std. Error`)
+colnames(logistic_df) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)", 
+                           "Odds Ratio (OR)", "OR 95% CI Lower", "OR 95% CI Upper")
+
+
+logistic_df %>%
+  kbl(caption = "Summary of Logistic Regression Model Coefficients with Odds Ratio and 95% Confidence Interval") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+
+
+# Modelo 1: Regresión logística
+# summary(logistic_model$finalModel)
+rf_importance <- varImp(rf_model)
+# print(rf_importance)
+plot(rf_importance)
+```
 
