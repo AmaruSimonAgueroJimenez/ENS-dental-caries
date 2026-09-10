@@ -1,0 +1,54 @@
+{
+  "context": [
+    "age",
+    "sex",
+    "region",
+    "rural",
+    "education",
+    "indigenous",
+    "born_chile",
+    "teeth_remaining",
+    "income_band",
+    "health_insurance",
+    "smoking_status",
+    "diabetes_reported",
+    "dental_visit",
+    "dental_visit_reason",
+    "dental_access",
+    "household_water_source",
+    "rural_water_consumption"
+  ],
+  "symptoms": [
+    "oral_health_selfrating",
+    "oral_pain",
+    "oral_speech",
+    "oral_eating",
+    "oral_daily_activities",
+    "oral_social"
+  ],
+  "diet": [
+    "fish",
+    "dairy_frequency",
+    "dairy_type",
+    "wholegrain",
+    "legumes",
+    "fruit_days",
+    "fruit_portions",
+    "vegetable_days",
+    "vegetable_portions",
+    "water",
+    "soda_frequency",
+    "juice_frequency",
+    "oil",
+    "soda_glasses_daily",
+    "juice_glasses_daily"
+  ],
+  "labels": [
+    "label_ingredients",
+    "label_nutrition",
+    "label_warnings",
+    "label_health",
+    "label_brand",
+    "label_discounts"
+  ]
+}

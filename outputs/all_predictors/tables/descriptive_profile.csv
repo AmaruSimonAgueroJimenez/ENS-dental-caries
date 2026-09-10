@@ -1,0 +1,652 @@
+domain,variable,description,kind,domain_n,observed_n,missing_n,df,units,row_type,level,n,estimate,weighted_sd,ci_low,ci_high,se
+No caries,age,Age at survey,numeric,2347,2347,0,1045,years,mean,Mean,2347,39.71736604746539,17.83705700733436,38.5106888130897,40.92404328184108,0.6149498896341257
+No caries,age,Age at survey,numeric,2347,2347,0,1045,years,missing,Missing,0,,,,,
+Caries,age,Age at survey,numeric,2689,2689,0,1045,years,mean,Mean,2689,43.37901098681461,16.635646287461004,42.439671817806435,44.31835015582279,0.4787083918173483
+Caries,age,Age at survey,numeric,2689,2689,0,1045,years,missing,Missing,0,,,,,
+Total,age,Age at survey,numeric,5036,5036,0,1045,years,mean,Mean,5036,41.71802598876856,17.28741581316962,40.92191203642986,42.51413994110726,0.40571759637129784
+Total,age,Age at survey,numeric,5036,5036,0,1045,years,missing,Missing,0,,,,,
+No caries,sex,Recorded sex,categorical,2347,2347,0,1045,percent,category,Female,1546,53.97211297273897,,50.11510401175927,57.78212835648709,1.957461027066782
+No caries,sex,Recorded sex,categorical,2347,2347,0,1045,percent,category,Male,801,46.02788702726102,,42.21787164351291,49.884895988240714,1.9574610270667825
+No caries,sex,Recorded sex,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,sex,Recorded sex,categorical,2689,2689,0,1045,percent,category,Female,1579,46.26771830134571,,43.0352988471886,49.53181753209305,1.6577076284710686
+Caries,sex,Recorded sex,categorical,2689,2689,0,1045,percent,category,Male,1110,53.73228169865429,,50.46818246790695,56.9647011528114,1.6577076284710686
+Caries,sex,Recorded sex,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,sex,Recorded sex,categorical,5036,5036,0,1045,percent,category,Female,3125,49.76256397321594,,47.39268586736014,52.133509397389,1.2089214336098855
+Total,sex,Recorded sex,categorical,5036,5036,0,1045,percent,category,Male,1911,50.23743602678405,,47.86649060261101,52.607314132639836,1.2089214336098855
+Total,sex,Recorded sex,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,01 Arica and Parinacota,154,1.4014959665222724,,1.1302225259602483,1.7367361183685655,0.15343151726586465
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,02 Tarapaca,150,2.170620072329271,,1.6574490686608268,2.8380911764324788,0.297563167994583
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,03 Antofagasta,133,4.067257926741178,,3.121451767827631,5.28401435158879,0.5457961106779717
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,04 Atacama,140,1.9573046191822663,,1.3138532461378631,2.9066008528640066,0.3962172989779114
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,05 Coquimbo,83,3.7371086658066397,,2.574850557851044,5.394945261333092,0.7049603225737131
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,06 Valparaiso,293,12.625828993114466,,10.631541679727981,14.931705480862496,1.093410668256023
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,07 Metropolitan,374,42.329887840330144,,37.8680404179582,46.920445764449354,2.3128267784517402
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,08 O'Higgins,70,2.8156680537343486,,1.9851556778663977,3.9795276083424738,0.49925620904497664
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,09 Maule,117,5.96178008860841,,3.881269571494208,9.052491576735813,1.288818848467051
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,10 Biobio,231,10.127438811216285,,8.212632002224128,12.428240488645278,1.0698970682789002
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,11 La Araucania,102,5.332656429580501,,4.019042229433502,7.04411181839608,0.7630340642749495
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,12 Los Rios,112,1.836824259532701,,1.399100129579265,2.408150598346429,0.25421912095935223
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,13 Los Lagos,97,3.829711473465762,,2.739575704772376,5.329864012346664,0.64991348710997
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,14 Aysen,162,0.7309367650361456,,0.5867361053485507,0.9102527628537659,0.0817963781326227
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,category,15 Magallanes and Antarctica,129,1.0754800347996096,,0.8380266783357595,1.3792795247115555,0.13656242497201176
+No caries,region,Survey region (2016 boundaries),categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,01 Arica and Parinacota,133,1.255682307652415,,0.9834047006720119,1.602126288952168,0.15618215662547041
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,02 Tarapaca,121,1.6022801967496596,,1.149247812552467,2.229869004240257,0.27070150334148335
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,03 Antofagasta,126,2.968341738361342,,2.262758481804061,3.885197018342464,0.40903185220982674
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,04 Atacama,123,1.5140600328524487,,1.0781541697099206,2.122424594147173,0.2613814003198814
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,05 Coquimbo,181,4.797169631878957,,3.773652522324417,6.080749896266116,0.5834407001845876
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,06 Valparaiso,239,8.520777866601982,,6.879213858915177,10.509852213285754,0.9207522537318273
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,07 Metropolitan,397,39.823597352655895,,35.50963698866683,44.301624412480386,2.2458246295897744
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,08 O'Higgins,184,6.568447145956176,,4.7872946723320595,8.949998965552213,1.0483445783022922
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,09 Maule,190,5.7006845473294625,,4.479467592757603,7.229637594522425,0.6957148572069839
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,10 Biobio,317,13.144942641843299,,10.238490164517238,16.72275249065673,1.6454302339407436
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,11 La Araucania,139,5.228714296874838,,3.98969254745811,6.825167746427245,0.7157839166511413
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,12 Los Rios,142,2.5341640855987873,,1.8358320882715946,3.488693900223931,0.4147612892113165
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,13 Los Lagos,167,5.11312781233144,,3.9839540820907433,6.540542675326468,0.6462361406279613
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,14 Aysen,113,0.45122136658700496,,0.30652522601381854,0.6637669737712082,0.0888442964313643
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,category,15 Magallanes and Antarctica,117,0.7767889767262914,,0.6017841434436528,1.0021738358984535,0.10096069119821943
+Caries,region,Survey region (2016 boundaries),categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,01 Arica and Parinacota,287,1.321825886263858,,1.1014681644878341,1.585561204457073,0.12270921791730065
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,02 Tarapaca,271,1.860088920087229,,1.4982266685710401,2.3073034454016152,0.20468929630962315
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,03 Antofagasta,259,3.466828984733531,,2.871165162401529,4.180752440250269,0.33202102103995046
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,04 Atacama,263,1.7151233856770958,,1.2246392935598776,2.3972850452877137,0.29364590540059804
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,05 Coquimbo,264,4.316307781310436,,3.3859742797702737,5.487741249338608,0.5313100341037766
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,06 Valparaiso,532,10.382899522384673,,8.955809933063472,12.007401615198383,0.7760532271582922
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,07 Metropolitan,771,40.96049373931438,,37.51140140326647,44.500875770036636,1.7838006159774085
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,08 O'Higgins,254,4.866122131813986,,3.7559465110372523,6.283019455167549,0.6383059808629994
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,09 Maule,307,5.819121966659945,,4.626946870826904,7.2949764071604335,0.6754308541348388
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,10 Biobio,548,11.7761511076459,,9.931844452182425,13.910046217152205,1.0113832528305078
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,11 La Araucania,241,5.275864232477197,,4.371671953875155,6.354643116700073,0.5029952425114108
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,12 Los Rios,254,2.2178387703863107,,1.775668051961358,2.7670155343275016,0.2507332844922097
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,13 Los Lagos,264,4.5309481306821455,,3.6151637625974584,5.665081711149451,0.5187971384885464
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,14 Aysen,275,0.5781050727469663,,0.4614082238930453,0.7241015471046216,0.06638723691877021
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,category,15 Magallanes and Antarctica,246,0.9122803678163457,,0.7718135509358057,1.0780338178422912,0.07767983840826746
+Total,region,Survey region (2016 boundaries),categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,rural,Urban/rural residence,categorical,2347,2347,0,1045,percent,category,Rural,329,9.878864046453927,,7.93842674435304,12.230600503163034,1.088847253156061
+No caries,rural,Urban/rural residence,categorical,2347,2347,0,1045,percent,category,Urban,2018,90.12113595354607,,87.76939949683697,92.06157325564696,1.088847253156061
+No caries,rural,Urban/rural residence,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,rural,Urban/rural residence,categorical,2689,2689,0,1045,percent,category,Rural,431,11.2616289299991,,9.498005666666101,13.304586182232644,0.967636909646434
+Caries,rural,Urban/rural residence,categorical,2689,2689,0,1045,percent,category,Urban,2258,88.7383710700009,,86.69541381776736,90.50199433333391,0.9676369096464341
+Caries,rural,Urban/rural residence,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,rural,Urban/rural residence,categorical,5036,5036,0,1045,percent,category,Rural,760,10.63438304312684,,9.307294479641413,12.125396864931224,0.7169609576308614
+Total,rural,Urban/rural residence,categorical,5036,5036,0,1045,percent,category,Urban,4276,89.36561695687317,,87.8746031350688,90.6927055203586,0.7169609576308614
+Total,rural,Urban/rural residence,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2347,2331,16,1045,percent,category,High,654,32.936336996552946,,28.62226839687191,37.558491021086596,2.2821282220535672
+No caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2347,2331,16,1045,percent,category,Intermediate,1275,54.890111532476496,,50.533480519573246,59.17304133359503,2.2069052443541834
+No caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2347,2331,16,1045,percent,category,Low,402,12.173551470970562,,9.882122631302185,14.908409291850697,1.276594043621553
+No caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2347,2331,16,1045,percent,missing,Missing,16,,,,,
+Caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2689,2667,22,1045,percent,category,High,525,25.51180350033016,,22.102203181967546,29.2498849349809,1.822825666428718
+Caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2689,2667,22,1045,percent,category,Intermediate,1536,59.192658782548676,,55.439918343858594,62.841184066938816,1.8892515357971738
+Caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2689,2667,22,1045,percent,category,Low,606,15.295537717121164,,13.093611626518758,17.791948760648683,1.1957433225469858
+Caries,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,2689,2667,22,1045,percent,missing,Missing,22,,,,,
+Total,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,5036,4998,38,1045,percent,category,High,1179,28.881490720416036,,25.869128277853214,32.09277232443498,1.5872689158363231
+Total,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,5036,4998,38,1045,percent,category,Intermediate,2811,57.23991138235716,,54.169119903048845,60.25591208433669,1.552859994628331
+Total,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,5036,4998,38,1045,percent,category,Low,1008,13.878597897226802,,12.127215446879328,15.837324998720362,0.9443117355610766
+Total,education,"Low <8, intermediate 8–12, high >=13 years of schooling",categorical,5036,4998,38,1045,percent,missing,Missing,38,,,,,
+No caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2347,2347,0,1045,percent,category,No,2070,91.61634702782476,,89.73090261568164,93.18192044643729,0.875434317736722
+No caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2347,2347,0,1045,percent,category,Yes,277,8.383652972175234,,6.818079553562708,10.269097384318346,0.875434317736722
+No caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2689,2689,0,1045,percent,category,No,2362,91.15883952014354,,89.3534126592247,92.68317610176017,0.8453867245865728
+Caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2689,2689,0,1045,percent,category,Yes,327,8.841160479856462,,7.316823898239844,10.646587340775286,0.8453867245865729
+Caries,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,5036,5036,0,1045,percent,category,No,4432,91.36637277892177,,90.06435166151363,92.51195585259298,0.6223694533255747
+Total,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,5036,5036,0,1045,percent,category,Yes,604,8.633627221078232,,7.488044147407015,9.935648338486374,0.6223694533255746
+Total,indigenous,Self-reported membership/ancestry of a recognized indigenous people,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,born_chile,Born in Chile,categorical,2347,2347,0,1045,percent,category,No,73,3.531807400305736,,2.162856857025572,5.716589529713591,0.8759226120922642
+No caries,born_chile,Born in Chile,categorical,2347,2347,0,1045,percent,category,Yes,2274,96.46819259969426,,94.2834104702864,97.83714314297443,0.8759226120922642
+No caries,born_chile,Born in Chile,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,born_chile,Born in Chile,categorical,2689,2689,0,1045,percent,category,No,58,3.737215302944083,,1.737160722207988,7.855904814538473,1.4422424870751098
+Caries,born_chile,Born in Chile,categorical,2689,2689,0,1045,percent,category,Yes,2631,96.26278469705592,,92.14409518546152,98.26283927779201,1.4422424870751098
+Caries,born_chile,Born in Chile,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,born_chile,Born in Chile,categorical,5036,5036,0,1045,percent,category,No,131,3.6440387524009172,,2.1361687655212878,6.149396812753917,0.9834720240299413
+Total,born_chile,Born in Chile,categorical,5036,5036,0,1045,percent,category,Yes,4905,96.35596124759908,,93.8506031872461,97.86383123447871,0.9834720240299413
+Total,born_chile,Born in Chile,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,2347,2347,0,1045,teeth,mean,Mean,2347,24.445726342131742,7.035110384615011,24.012943054894716,24.878509629368768,0.2205561082451344
+No caries,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,2347,2347,0,1045,teeth,missing,Missing,0,,,,,
+Caries,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,2689,2689,0,1045,teeth,mean,Mean,2689,23.082961840006938,7.0117264385274165,22.667417598151708,23.498506081862168,0.2117707025434862
+Caries,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,2689,2689,0,1045,teeth,missing,Missing,0,,,,,
+Total,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,5036,5036,0,1045,teeth,mean,Mean,5036,23.701135210552607,7.055040319091191,23.38871866954513,24.013551751560083,0.15921450404409293
+Total,teeth_remaining,"Total remaining teeth, upper plus lower jaw",numeric,5036,5036,0,1045,teeth,missing,Missing,0,,,,,
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"01 <78,000 CLP/month",41,0.9944988564206738,,0.6158908121253702,1.6020976651097314,0.24235212368841144
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"02 78,000–134,999 CLP/month",134,3.391195374266043,,2.5062836646821673,4.573891124857654,0.5200863460559402
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"03 135,000–217,999 CLP/month",258,8.211635210267353,,6.660966320857245,10.084297195798845,0.8682641431305982
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"04 218,000–295,999 CLP/month",236,11.66635210897582,,9.427960558693268,14.351972228581673,1.2502139865500301
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"05 296,000–383,999 CLP/month",308,16.850359990068227,,13.98712475292696,20.16232158172806,1.5715140592985661
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"06 384,000–480,999 CLP/month",247,14.904934220277276,,12.357022733638717,17.87107865814064,1.4024363070262753
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"07 481,000–607,999 CLP/month",281,15.06857575006193,,12.654320685032113,17.849309028833268,1.3216580742546382
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"08 608,000–764,999 CLP/month",97,5.510087464840994,,3.85359378638442,7.820716485876635,0.9948778913297448
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"09 765,000–1,029,999 CLP/month",185,12.948758549483378,,10.209254006787015,16.290004889609015,1.5434898290641457
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"10 1,030,000–1,572,999 CLP/month",89,5.137963624097189,,3.2557426910518417,8.018154213124399,1.1820422118179317
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,category,"11 >=1,573,000 CLP/month",80,5.315638851241113,,3.5565806094716144,7.873685579771143,1.0779576855401831
+No caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2347,1956,391,1045,percent,missing,Missing,391,,,,,
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"01 <78,000 CLP/month",55,1.0419849390228544,,0.6841646188310876,1.5839617851482954,0.2229602657480966
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"02 78,000–134,999 CLP/month",192,4.029571658602507,,3.203712243900513,5.057200082791543,0.4688921559588612
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"03 135,000–217,999 CLP/month",371,12.058121424040799,,9.973390247690794,14.508395309984417,1.152409787894962
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"04 218,000–295,999 CLP/month",348,13.928090979590854,,11.477279443967841,16.802901977285288,1.3539412496226344
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"05 296,000–383,999 CLP/month",414,16.16433443602982,,13.888423389264663,18.73207142516732,1.2330006856746358
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"06 384,000–480,999 CLP/month",250,12.914212081679317,,10.347771698570599,16.00355334337258,1.4363080514099023
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"07 481,000–607,999 CLP/month",325,18.65613124481468,,15.844861119784479,21.836763359314627,1.5259335610615832
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"08 608,000–764,999 CLP/month",98,5.205141801168351,,3.7501198532707254,7.182574442951638,0.8627325245856401
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"09 765,000–1,029,999 CLP/month",165,9.899458741228772,,7.693805781580315,12.650766116082346,1.255709311043576
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"10 1,030,000–1,572,999 CLP/month",51,2.891148977755662,,1.7352419263621144,4.779594933785834,0.7473623958659147
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,category,"11 >=1,573,000 CLP/month",56,3.2118037160663824,,1.9052390299295439,5.365369471696847,0.8485710993628623
+Caries,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,2689,2325,364,1045,percent,missing,Missing,364,,,,,
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"01 <78,000 CLP/month",96,1.0210119720507111,,0.7383944003289644,1.4102634743000408,0.16837109464718641
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"02 78,000–134,999 CLP/month",326,3.7476228434232706,,3.082920209334007,4.548914096565112,0.37156887710731845
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"03 135,000–217,999 CLP/month",629,10.359260960099936,,8.975013449383837,11.929026478983722,0.7513211115169225
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"04 218,000–295,999 CLP/month",584,12.929158828661159,,11.084074480275682,15.02946530275514,1.0036751140412474
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"05 296,000–383,999 CLP/month",722,16.467328292301996,,14.696108291095623,18.405960267103453,0.9448146572372147
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"06 384,000–480,999 CLP/month",497,13.79344547756302,,11.977174130201126,15.83559391383837,0.9819423567693002
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"07 481,000–607,999 CLP/month",606,17.071631560296062,,15.201746332586366,19.11966166819418,0.9978525105304115
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"08 608,000–764,999 CLP/month",195,5.339825796605172,,4.233261779673187,6.715359856456095,0.6281335939690682
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"09 765,000–1,029,999 CLP/month",350,11.246229429863122,,9.356260147115112,13.461277042163683,1.0430846267331726
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"10 1,030,000–1,572,999 CLP/month",140,3.883489612905982,,2.7688806060626834,5.421763555473662,0.6654482440879298
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,category,"11 >=1,573,000 CLP/month",136,4.1409952262295695,,3.0131393062016216,5.666356912194658,0.6668686996699597
+Total,income_band,"Monthly net income of the entire household, in questionnaire bands",categorical,5036,4281,755,1045,percent,missing,Missing,755,,,,,
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Armed forces or police,73,2.5374610576318632,,1.49244040227044,4.282404371672719,0.6823658072915945
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,None,83,4.862788226166722,,3.3582285767283135,6.9926497419608244,0.909802341069161
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Other,3,0.07081163406049,,0.018722647783918755,0.267431727209014,0.04799122259026608
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Private ISAPRE,261,15.09575804727815,,12.086088121843256,18.695514791338248,1.6799316925312784
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Public FONASA A,528,19.806727984254525,,17.169410672856362,22.737945536810617,1.4185924321936796
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Public FONASA B,585,21.13800687520998,,18.53524029113687,23.99859231518952,1.3921303533808886
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Public FONASA C,262,11.679850934284023,,9.473782974257679,14.318372624925008,1.2302027133384308
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,Public FONASA D,243,10.560073166221091,,8.679803971284551,12.790607272459532,1.0439472848870077
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,category,"Public FONASA, group unknown",284,14.248522074893158,,11.47391264858632,17.56098714001511,1.546851478354405
+No caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2347,2322,25,1045,percent,missing,Missing,25,,,,,
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Armed forces or police,37,0.9865242681870329,,0.529792492230684,1.8297595121452597,0.31177148016982603
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,None,117,5.481686508845657,,3.946277230691847,7.567424982140883,0.9103079116896801
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Other,1,0.039920098523676714,,0.0054342795966535904,0.29261176202665207,0.04056022818284588
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Private ISAPRE,230,12.84331578494298,,10.302736271577139,15.899335131324898,1.421286901339131
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Public FONASA A,675,19.673924678435103,,17.218666185613742,22.3846154979671,1.316044446468055
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Public FONASA B,701,21.388800816162252,,18.701968589360497,24.34604297342474,1.4382395697088401
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Public FONASA C,268,10.919165555937049,,9.053164514392108,13.11431885041813,1.0317387014222297
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,Public FONASA D,274,11.506439850342549,,9.580041352287436,13.761252647702854,1.0625436750962074
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,category,"Public FONASA, group unknown",359,17.1602224386237,,14.330626698515788,20.415382383342713,1.54875181656914
+Caries,health_insurance,"Participant's health insurance system, including public insurance group",categorical,2689,2662,27,1045,percent,missing,Missing,27,,,,,
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Armed forces or police,110,1.6901722970663031,,1.0707164775127045,2.658379848646314,0.39188136129525003
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,None,200,5.200897143574566,,4.017338419801705,6.708775213873356,0.6799698297248524
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Other,4,0.05393534933045746,,0.017380056866817956,0.16724839386912288,0.031120884094456548
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Private ISAPRE,491,13.865231422538915,,11.841115963665395,16.17187778469106,1.101829629984919
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Public FONASA A,1203,19.734176511394676,,17.78756053515726,21.837238763007587,1.0317659297387105
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Public FONASA B,1286,21.275017544395837,,19.27836653126684,23.4184674464645,1.054958901883557
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Public FONASA C,530,11.264282630155611,,9.847320083835536,12.856060920907222,0.7655103009717108
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,Public FONASA D,517,11.077080603459612,,9.61256086068351,12.733294081236423,0.7938478983913948
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,category,"Public FONASA, group unknown",643,15.839206498084021,,13.69862231080947,18.243574371446503,1.1569923595597462
+Total,health_insurance,"Participant's health insurance system, including public insurance group",categorical,5036,4984,52,1045,percent,missing,Missing,52,,,,,
+No caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2347,2347,0,1045,percent,category,Current daily,467,22.33910225374821,,19.170019013745204,25.864441966945577,1.7062594210919761
+No caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2347,2347,0,1045,percent,category,Current occasional,177,9.786892458122624,,7.506701107916583,12.664863028586732,1.3057933886333857
+No caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2347,2347,0,1045,percent,category,Former,553,25.200868470822396,,22.293417715481436,28.349167025356163,1.5439472118411703
+No caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2347,2347,0,1045,percent,category,Never,1150,42.67313681730677,,39.052564862559755,46.37397117562265,1.8688442803547973
+No caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2689,2689,0,1045,percent,category,Current daily,656,27.277115653586257,,24.21724588515836,30.567657069347177,1.6194757905993515
+Caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2689,2689,0,1045,percent,category,Current occasional,190,7.726493544116933,,6.008845438661903,9.883507054194334,0.9805200236127872
+Caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2689,2689,0,1045,percent,category,Former,631,25.933936150734493,,22.840057360722042,29.28783095039622,1.64414777030173
+Caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2689,2689,0,1045,percent,category,Never,1212,39.06245465156232,,35.995842593863195,42.21799458012434,1.5874118224881553
+Caries,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,5036,5036,0,1045,percent,category,Current daily,1123,25.037148012502218,,22.842662436276918,27.367677986714124,1.1533782315047476
+Total,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,5036,5036,0,1045,percent,category,Current occasional,367,8.661125859057352,,7.250255626818318,10.316009155959623,0.7786510504935775
+Total,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,5036,5036,0,1045,percent,category,Former,1184,25.601404067734983,,23.398497911907562,27.936071350455645,1.156616398776612
+Total,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,5036,5036,0,1045,percent,category,Never,2362,40.700322060705446,,38.322533480923866,43.1224945993267,1.223988632657231
+Total,smoking_status,"Self-reported current daily, occasional, former or never cigarette smoking",categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2347,2330,17,1045,percent,category,No,2021,88.78324406260975,,86.5353518236428,90.696203883323,1.0571681166348048
+No caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2347,2330,17,1045,percent,category,Yes,309,11.216755937390237,,9.303796116677004,13.46464817635721,1.0571681166348048
+No caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2347,2330,17,1045,percent,missing,Missing,17,,,,,
+Caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2689,2663,26,1045,percent,category,No,2302,90.36508518782811,,88.62513597871079,91.8633193943026,0.8228784565865793
+Caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2689,2663,26,1045,percent,category,Yes,361,9.634914812171875,,8.136680605697402,11.374864021289193,0.8228784565865794
+Caries,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,2689,2663,26,1045,percent,missing,Missing,26,,,,,
+Total,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,5036,4993,43,1045,percent,category,No,4323,89.64721702873607,,88.27315154193228,90.8769194066616,0.6625109321906366
+Total,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,5036,4993,43,1045,percent,category,Yes,670,10.352782971263926,,9.123080593338411,11.726848458067717,0.6625109321906366
+Total,diabetes_reported,Ever told by a health professional that the participant had diabetes,categorical,5036,4993,43,1045,percent,missing,Missing,43,,,,,
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,2 to less than 5 years,377,16.16362796512639,,13.744930063141705,18.914611952530517,1.3158172488991542
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,6–12 months,399,17.57474216075405,,15.033846502117179,20.44176088642952,1.3769643194577843
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,At least 5 years,280,11.39045291835728,,9.284311565574036,13.901157407138351,1.1724411256528329
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,Less than 6 months,793,33.442040871692704,,30.122889705255485,36.933613843075236,1.7377274147711579
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,More than 1 to less than 2 years,446,19.924473503885253,,17.156337830118783,23.01516062260988,1.492546197903133
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,category,Never,52,1.5046625801843214,,0.8247089940382257,2.7297916142960243,0.4593360958078163
+No caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,2 to less than 5 years,473,17.883177978083708,,15.371627780192714,20.70469103294576,1.3580484237384238
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,6–12 months,409,16.490972101293234,,14.164251391914155,19.114783475253148,1.260284032583524
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,At least 5 years,547,19.623362849686465,,17.03097733574868,22.503324403657512,1.3940485788005448
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,Less than 6 months,657,25.681486725405822,,22.825591227644416,28.76153809113791,1.5134351875878964
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,More than 1 to less than 2 years,494,17.71539240045869,,15.291852760050025,20.430389839831207,1.3085173786078264
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,category,Never,109,2.6056079450720757,,1.930323635068167,3.5086748369416854,0.3968911647125413
+Caries,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,2 to less than 5 years,850,17.103160575462574,,15.352653305771033,19.008439841632548,0.9311525030655099
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,6–12 months,808,16.98258880359857,,15.146504138909961,18.99143163924906,0.9792660137056921
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,At least 5 years,827,15.888773583739638,,14.062461722991024,17.902859659247763,0.977913820225123
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,Less than 6 months,1450,29.201807299086997,,26.936587488974943,31.575196139986584,1.1825668705200374
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,More than 1 to less than 2 years,940,18.717469508707932,,16.942420700722735,20.632292323464757,0.9400214451648401
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,category,Never,161,2.1062002294042914,,1.5879754939269328,2.7887515837001304,0.30230920200975686
+Total,dental_visit,"Time since last dental visit; possible reverse causation, extended sensitivity only",categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2347,2265,82,1045,percent,category,Never visited,52,1.550563376102577,,0.8499083449552582,2.81244637248965,0.4732552615124673
+No caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2347,2265,82,1045,percent,category,Pain or discomfort,474,22.193461839227478,,19.169425399527064,25.543793403711096,1.624603089691291
+No caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2347,2265,82,1045,percent,category,Routine check-up,681,32.634060300706814,,28.97907222721208,36.51303369951527,1.9227466936528441
+No caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2347,2265,82,1045,percent,category,Treatment or continuation,1058,43.62191448396313,,39.6021279176591,47.72729875029537,2.074881105106705
+No caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2347,2265,82,1045,percent,missing,Missing,82,,,,,
+Caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2689,2578,111,1045,percent,category,Never visited,109,2.715499498257099,,2.011461040343994,3.6567648165065565,0.4137523383751814
+Caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2689,2578,111,1045,percent,category,Pain or discomfort,840,34.94376025437671,,31.542231077327997,38.505783455848466,1.7769242805332248
+Caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2689,2578,111,1045,percent,category,Routine check-up,565,23.59893435072451,,20.61485755155252,26.868767026106173,1.594226846050779
+Caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2689,2578,111,1045,percent,category,Treatment or continuation,1064,38.74180589664168,,35.597273660350886,41.98303684862771,1.6292505259493855
+Caries,dental_visit_reason,Main reason for the most recent dental visit,categorical,2689,2578,111,1045,percent,missing,Missing,111,,,,,
+Total,dental_visit_reason,Main reason for the most recent dental visit,categorical,5036,4843,193,1045,percent,category,Never visited,161,2.1838116704322483,,1.6465426422194154,2.8912387569511946,0.313381616078538
+Total,dental_visit_reason,Main reason for the most recent dental visit,categorical,5036,4843,193,1045,percent,category,Pain or discomfort,1314,29.124403862601856,,26.71533161059052,31.65687446397234,1.259879323386492
+Total,dental_visit_reason,Main reason for the most recent dental visit,categorical,5036,4843,193,1045,percent,category,Routine check-up,1246,27.722651007038156,,25.36118147675761,30.214992439525513,1.2374185671281197
+Total,dental_visit_reason,Main reason for the most recent dental visit,categorical,5036,4843,193,1045,percent,category,Treatment or continuation,2122,40.96913345992774,,38.46118187438527,43.5249561393221,1.2913714989031368
+Total,dental_visit_reason,Main reason for the most recent dental visit,categorical,5036,4843,193,1045,percent,missing,Missing,193,,,,,
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,category,"Appointment obtained, unable to attend",84,2.589208040987651,,1.5354892777323075,4.3342042450494365,0.6854304509653933
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,category,Did not need care,902,39.21617185249761,,35.659121323674434,42.891509368618074,1.8459447438958718
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,category,"Needed care, did not request",330,16.459903806345245,,13.8221070410869,19.48726326283341,1.4417842427105123
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,category,Received care,877,38.10197229171922,,34.557527863225026,41.77787655034002,1.8428178954455827
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,category,"Requested care, not provided",87,3.632744008450268,,2.2285068284990546,5.868713105168939,0.8976088877729885
+No caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2347,2280,67,1045,percent,missing,Missing,67,,,,,
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,category,"Appointment obtained, unable to attend",92,2.3346450116730724,,1.645857362986411,3.302011233483035,0.41440331633234445
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,category,Did not need care,1097,44.673819443040685,,40.930391696526904,48.47863256149108,1.926999136505234
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,category,"Needed care, did not request",467,18.34064973075777,,15.280808829694944,21.855135136767604,1.673877699402566
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,category,Received care,764,30.115435086958335,,26.940648268833982,33.49283759404988,1.6713489479062136
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,category,"Requested care, not provided",140,4.535450727570136,,3.1155692911108863,6.558620076904603,0.8611593517804315
+Caries,dental_access,Dental care received or unmet need during the previous six months,categorical,2689,2560,129,1045,percent,missing,Missing,129,,,,,
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,category,"Appointment obtained, unable to attend",176,2.4505084675680915,,1.7715914432317597,3.380648721391251,0.4036645286655299
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,category,Did not need care,1999,42.189790585433,,39.382876231924456,45.048087682762024,1.4450663623714037
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,category,"Needed care, did not request",797,17.484634923542295,,15.35270813047777,19.843208149268072,1.1436150809750065
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,category,Received care,1641,33.75047904314191,,31.324617525451963,36.265000880118095,1.259741344129488
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,category,"Requested care, not provided",227,4.124586980314704,,3.0437258808145806,5.567234641532588,0.6350040582246408
+Total,dental_access,Dental care received or unmet need during the previous six months,categorical,5036,4840,196,1045,percent,missing,Missing,196,,,,,
+No caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2347,2342,5,1045,percent,category,Other,35,2.0462711692985547,,1.1117058077598492,3.7367989708594904,0.6329329016907072
+No caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2347,2342,5,1045,percent,category,Public network,2307,97.95372883070145,,96.26320102914052,98.88829419224014,0.6329329016907073
+No caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2347,2342,5,1045,percent,missing,Missing,5,,,,,
+Caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2689,2688,1,1045,percent,category,Other,98,3.0931565846710503,,1.9644450726485587,4.8383852026584035,0.7111854403607256
+Caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2689,2688,1,1045,percent,category,Public network,2590,96.90684341532895,,95.1616147973416,98.03555492735143,0.7111854403607257
+Caries,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,2689,2688,1,1045,percent,missing,Missing,1,,,,,
+Total,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,5036,5030,6,1045,percent,category,Other,133,2.6183881661638675,,1.7234805349435272,3.959251258232928,0.5553340754508131
+Total,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,5036,5030,6,1045,percent,category,Public network,4897,97.38161183383613,,96.04074874176706,98.27651946505647,0.5553340754508131
+Total,household_water_source,Household supply: public network vs other; not a measure of fluoride exposure,categorical,5036,5030,6,1045,percent,missing,Missing,6,,,,,
+No caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2347,2346,1,1045,percent,category,No,2092,89.783156004809,,87.04838003347778,91.99358777592963,1.253382814283028
+No caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2347,2346,1,1045,percent,category,Yes,254,10.216843995190999,,8.00641222407037,12.951619966522236,1.253382814283028
+No caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2347,2346,1,1045,percent,missing,Missing,1,,,,,
+Caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2689,2689,0,1045,percent,category,No,2300,88.76983779487274,,86.51340541683886,90.68937724836113,1.060998726468847
+Caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2689,2689,0,1045,percent,category,Yes,389,11.230162205127264,,9.310622751638878,13.486594583161137,1.060998726468847
+Caries,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,5036,5035,1,1045,percent,category,No,4392,89.229406709207,,87.3746206757846,90.84027277513415,0.8810811601905415
+Total,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,5036,5035,1,1045,percent,category,Yes,643,10.770593290793009,,9.159727224865842,12.62537932421541,0.8810811601905415
+Total,rural_water_consumption,"Consumed well, spring or rural drinking water during the previous week for drinking/cooking; not bottled water or fluoride concentration",categorical,5036,5035,1,1045,percent,missing,Missing,1,,,,,
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,category,Fair,805,33.89818492670279,,30.39923006005486,37.58240726410882,1.8330628909431324
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,category,Good,1156,51.92169027005015,,48.10673365678784,55.71437016738782,1.9422586916523727
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,category,Poor,247,8.187226637140888,,6.611208819244836,10.098319388203612,0.8842562487253347
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,category,Very good,105,4.9572654111996,,3.373577146371602,7.228780195273379,0.9638152559282167
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,category,Very poor,34,1.0356327549065825,,0.6295028657094168,1.6993005970724055,0.2621675150503526
+No caries,oral_health_selfrating,Overall self-rated oral health,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,category,Fair,1167,46.40121981307947,,42.71359969627107,50.12861885814065,1.892886408213964
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,category,Good,934,34.112187847229144,,30.7009483666853,37.69627778775246,1.785004152151794
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,category,Poor,471,14.53684718648455,,12.333061708018514,17.05780316153621,1.202090073594392
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,category,Very good,56,2.438588373344185,,1.6489718071691493,3.592504505164561,0.48416715339595534
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,category,Very poor,61,2.5111567798626533,,1.666262735763416,3.768045944023299,0.5224841866779589
+Caries,oral_health_selfrating,Overall self-rated oral health,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,category,Fair,1972,40.7296285691701,,38.16425639969332,43.346561824819624,1.3216486648226629
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,category,Good,2090,42.19088385324548,,39.611475223649194,44.81361268391678,1.3267294562838041
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,category,Poor,718,11.6565503115999,,10.230134567952827,13.252493638580551,0.7690815866359945
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,category,Very good,161,3.58110351178479,,2.7048980345601126,4.727350026709811,0.5096898758741789
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,category,Very poor,95,1.841833754199727,,1.3145698963120547,2.575060764867134,0.3156637228638937
+Total,oral_health_selfrating,Overall self-rated oral health,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost always,55,1.7938042994562788,,1.171092630213293,2.738458968621979,0.3884828588569815
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost never,111,4.342060588211889,,2.9885530848471036,6.2689554031886505,0.8204657076562489
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,category,Always,47,1.9841635304312142,,1.3155070866640384,2.982418540510909,0.41406041179322867
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,category,Never,1923,82.52546738295999,,79.8435015992953,84.91798645401494,1.292147366827628
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,category,Sometimes,211,9.354504198940639,,7.600936440070001,11.46244078550551,0.9798449376862457
+No caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost always,94,3.4300289343558568,,2.5225940440405514,4.648322991068699,0.5344974824365202
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost never,139,5.739878373152499,,4.385760560476417,7.479379695215337,0.7812407692563652
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,category,Always,65,1.804761067483392,,1.1745277650455375,2.763710531828336,0.3937359785127853
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,category,Never,2049,74.3922002384004,,71.23076281776207,77.3168597375398,1.5517539580355002
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,category,Sometimes,342,14.633131386607841,,12.30051383559143,17.320732584298163,1.277077757207984
+Caries,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost always,149,2.687809353534184,,2.0840654264928675,3.4602741548097122,0.34735514995235167
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost never,250,5.10580423181837,,4.057854034747035,6.406318917751583,0.5943472876340259
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,category,Always,112,1.8861411041894645,,1.3974244715190025,2.541369787689956,0.2875206738341568
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,category,Never,3972,78.08158982586141,,75.88119139715191,80.13379892767199,1.0836884882949485
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,category,Sometimes,553,12.238655484596567,,10.72872316201477,13.927937255328022,0.8141313070606785
+Total,oral_pain,Frequency of suffering or pain attributed to teeth or dentures,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,category,Almost always,47,1.5080749523128703,,0.9628590758829008,2.354677382743383,0.3438125630622424
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,category,Almost never,80,3.009058860514468,,1.935196914981305,4.650559098336558,0.6729163751801607
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,category,Always,49,2.0799659705245577,,1.375268154085984,3.1342808130947115,0.4368458112542676
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,category,Never,2017,86.54535117769973,,84.07145070843684,88.68672878897242,1.1737316618898008
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,category,Sometimes,154,6.857549038948381,,5.221575791733958,8.957646015366768,0.9438591271295342
+No caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,category,Almost always,59,1.9101905966571093,,1.2043263041686145,3.01713261521166,0.44731684910783154
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,category,Almost never,100,3.048369353973375,,2.0851781703342733,4.436322016086983,0.5868578060964977
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,category,Always,94,2.936060932190848,,2.0968638152867767,4.09706253622529,0.5014019775943812
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,category,Never,2219,84.88112490843987,,81.95802429917183,87.40342331352534,1.3851870536134205
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,category,Sometimes,217,7.22425420873879,,5.56658160607602,9.32681052692423,0.9508294220003598
+Caries,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,category,Almost always,106,1.727784037911381,,1.2422943418552779,2.3983958115738617,0.28971062365094746
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,category,Almost never,180,3.03053743936053,,2.248831010651016,4.072648442682669,0.45881031879854656
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,category,Always,143,2.5477215623765694,,1.9381669565357025,3.3424471442910857,0.35389379933997256
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,category,Never,4236,85.6360465112663,,83.55286750994625,87.49486220542003,1.0033472148152935
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,category,Sometimes,371,7.057910449085226,,5.7477244566505075,8.639376159210048,0.7332662535528881
+Total,oral_speech,Frequency of discomfort from teeth or dentures when speaking,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,category,Almost always,67,2.349102713079134,,1.6148037665898791,3.4057503660294155,0.4469348334699369
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,category,Almost never,95,3.0291376260937355,,2.144890911785752,4.262044130721992,0.5303213633019547
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,category,Always,64,1.9439067380160342,,1.3659027774734953,2.759659096003571,0.34850130545339286
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,category,Never,1931,84.42572285708628,,81.81513873074574,86.72235736704224,1.2488992596555033
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,category,Sometimes,190,8.252130065724812,,6.495459296831949,10.430887364142242,0.9967626689028839
+No caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,category,Almost always,116,4.532079109198767,,3.1865938460372263,6.408069693626614,0.8075132418724459
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,category,Almost never,112,4.313513199910321,,3.134620220174918,5.908728513379879,0.6972691910917607
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,category,Always,103,3.190805030788941,,2.288024220688892,4.433631358648672,0.538173526857002
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,category,Never,2071,77.59574291239782,,74.81103620899212,80.15426059232237,1.3617484565786004
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,category,Sometimes,287,10.367859747704143,,8.576318628055798,12.482545776248779,0.9921517889836212
+Caries,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,category,Almost always,183,3.5418435442813854,,2.6846688876341416,4.659596923956934,0.4978375002678087
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,category,Almost never,207,3.730898392821655,,2.9319193190142006,4.73698235685545,0.4562430627094761
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,category,Always,167,2.625190561693769,,2.036288987002327,3.3785307800712387,0.3387814706541758
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,category,Never,4002,80.69393905456643,,78.7223240570742,82.52342003051437,0.968406669031617
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,category,Sometimes,477,9.408128446636765,,8.047304128675522,10.971614991748428,0.7433777399431911
+Total,oral_eating,Frequency of discomfort from teeth or dentures when eating,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost always,30,0.92255561058545,,0.5591626476030617,1.5185068722681583,0.23494367618092163
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost never,83,2.910364259436697,,1.8866343416196307,4.464316798461925,0.639330087333528
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Always,34,1.8104623873789998,,1.028958039531092,3.1665367032186955,0.5190749645502164
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Never,2126,91.59423935306215,,89.38969497013368,93.37468611098544,1.009451181070144
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Sometimes,74,2.7623783895366967,,1.8608867697479115,4.08242353056297,0.553394232359915
+No caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost always,53,1.8430210991138964,,1.1247169509444541,3.0061251475815123,0.46204224845554265
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost never,92,3.7988912968883746,,2.7133666048745395,5.295060297832597,0.6476494310587503
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Always,56,1.6678498393099674,,1.0941529748833043,2.534644274912021,0.3571965295977786
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Never,2346,88.52035736420643,,86.07594981161765,90.58259158222259,1.1447231905287196
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Sometimes,142,4.1698804004813335,,3.123138398552067,5.547356609310149,0.6107577566929001
+Caries,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost always,83,1.4254821533698547,,0.9791886992513957,2.0709325413099977,0.27216059429268197
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost never,175,3.3958401807886696,,2.549568466252141,4.510012584619895,0.4937730615109616
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Always,90,1.7325413391138462,,1.223226373805419,2.4486628330196156,0.30651020049532374
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Never,4472,89.91472299872935,,88.14821180329395,91.44349367268532,0.8375897643268561
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Sometimes,216,3.5314133279982785,,2.7845487919009315,4.469390332079596,0.4259161359124503
+Total,oral_daily_activities,Frequency of interference with daily activities from teeth or dentures,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost always,38,0.9848376748706471,,0.6421616051906281,1.5076009951828138,0.214232144098372
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Almost never,83,2.9701858797747613,,1.9281817404665003,4.549176634159031,0.6502423450570884
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Always,42,2.2196261414761076,,1.3512725609948626,3.6254922190452983,0.5587097566144589
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Never,2111,91.39530106339303,,89.21543011662938,93.1682977617258,1.0017465314002751
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,category,Sometimes,73,2.4300492404854523,,1.6765861394200543,3.5100330945023135,0.4577630438823091
+No caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost always,56,1.8535293363707641,,1.1646223641857671,2.9378312458460445,0.43729933930898063
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Almost never,89,3.128223080491679,,2.1611829784464325,4.508036044840192,0.5864525523822276
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Always,61,1.6229147877090595,,1.061493628830524,2.473845602027435,0.3500631751684653
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Never,2332,88.34136237205298,,85.82891337408283,90.45789161851798,1.1757791918180927
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,category,Sometimes,151,5.053970423375521,,3.8547782294449244,6.600610714013845,0.6930683934817435
+Caries,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost always,94,1.4594758872846179,,1.0290162906953222,2.066246585614729,0.25933352341713006
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Almost never,172,3.056534693476567,,2.2634125061201944,4.115871116847844,0.4659407983849674
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Always,103,1.8935933005598902,,1.364112511291871,2.6231267009056634,0.31560164580605776
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Never,4443,89.72668138448834,,87.96106695709184,91.25908487129098,0.8383882785263613
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,category,Sometimes,224,3.863714734190581,,3.1007879576752586,4.805045894202856,0.43136235400324074
+Total,oral_social,Frequency of interference with social relationships from teeth or dentures,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,fish,Fish/seafood consumption frequency,categorical,2347,2347,0,1045,percent,category,Less than once/month or never,784,32.08079601593059,,28.835877868771302,35.50866702304012,1.7023500198803854
+No caries,fish,Fish/seafood consumption frequency,categorical,2347,2347,0,1045,percent,category,Less than three times/month,559,23.051065207727355,,20.178555473581813,26.198279462518027,1.5343726387289127
+No caries,fish,Fish/seafood consumption frequency,categorical,2347,2347,0,1045,percent,category,More than once/week,227,8.140613486807279,,6.536539015849671,10.095809040413126,0.9023076814500048
+No caries,fish,Fish/seafood consumption frequency,categorical,2347,2347,0,1045,percent,category,Once/week,777,36.72752528953477,,33.05919120664465,40.556296050244356,1.9136247256586563
+No caries,fish,Fish/seafood consumption frequency,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,fish,Fish/seafood consumption frequency,categorical,2689,2689,0,1045,percent,category,Less than once/month or never,936,32.93050284564035,,29.627880150251766,36.410790341591316,1.730577221852027
+Caries,fish,Fish/seafood consumption frequency,categorical,2689,2689,0,1045,percent,category,Less than three times/month,611,22.935280732249286,,20.15077326089313,25.97937352801796,1.4856054974824222
+Caries,fish,Fish/seafood consumption frequency,categorical,2689,2689,0,1045,percent,category,More than once/week,265,9.534240476479752,,7.778425133594642,11.63638469594425,0.9791584017248176
+Caries,fish,Fish/seafood consumption frequency,categorical,2689,2689,0,1045,percent,category,Once/week,877,34.59997594563061,,31.217791472181233,38.1453754537229,1.7676997382306836
+Caries,fish,Fish/seafood consumption frequency,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,fish,Fish/seafood consumption frequency,categorical,5036,5036,0,1045,percent,category,Less than once/month or never,1720,32.54506124213632,,30.02704284570028,35.1681099702169,1.3109529492546927
+Total,fish,Fish/seafood consumption frequency,categorical,5036,5036,0,1045,percent,category,Less than three times/month,1170,22.98780255781162,,20.91932338689041,25.19564631354901,1.0898211528182344
+Total,fish,Fish/seafood consumption frequency,categorical,5036,5036,0,1045,percent,category,More than once/week,492,8.902067351815878,,7.696057254966629,10.276025523453706,0.6559929461549775
+Total,fish,Fish/seafood consumption frequency,categorical,5036,5036,0,1045,percent,category,Once/week,1654,35.56506884823618,,33.00140335480472,38.21429621415547,1.3293795016394065
+Total,fish,Fish/seafood consumption frequency,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,At least once/month,107,4.974364981490855,,3.619604983293779,6.800412374542882,0.7999842560707235
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,At least once/week,426,17.348351213667385,,14.821845594737052,20.20337157445909,1.3701637097887363
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,At least three times/day,152,5.739866664870111,,4.365185938042456,7.513449321057419,0.7947919659014787
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,Every other day,419,19.031851631348616,,16.40048429011101,21.97443362579011,1.4197315575189218
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,Less than three times/day,183,10.589007120553688,,8.17743391930512,13.60638280508092,1.3753699782408584
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,Never,169,6.003215891273409,,4.525854528213789,7.922808967504329,0.8572035516822089
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,category,Once/day,891,36.31334249679593,,32.74810307955352,40.03565970789792,1.859939184704477
+No caries,dairy_frequency,Dairy consumption frequency,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,At least once/month,173,6.540774412509307,,4.9693523807582345,8.564332502650213,0.9079239493283381
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,At least once/week,551,19.834912909833843,,17.340430289552916,22.590167713461675,1.337419211360093
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,At least three times/day,155,6.579198058796034,,5.066012984649607,8.5038749040406,0.8689865997836161
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,Every other day,494,19.72374710773704,,16.730237804414834,23.10426384222305,1.6236422574776186
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,Less than three times/day,210,6.839090900417477,,5.361436843452484,8.686617353973922,0.8414882795628448
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,Never,236,8.829571091835508,,7.048937288594678,11.006747678284672,1.003342394624401
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,category,Once/day,870,31.65270551887079,,28.69608761223657,34.76542415435328,1.548050639811347
+Caries,dairy_frequency,Dairy consumption frequency,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,At least once/month,280,5.830224206573198,,4.742687294352904,7.148427818123501,0.6097762258128702
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,At least once/week,977,18.706965841655663,,16.80931869117039,20.765368868669054,1.0077993390994786
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,At least three times/day,307,6.198462931061935,,5.113282034525054,7.495756016930634,0.604355690439638
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,Every other day,913,19.409891442992727,,17.42094663802577,21.566609311301683,1.0561736869337846
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,Less than three times/day,393,8.54011726663932,,7.04869806721182,10.312093539434517,0.8283806981414508
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,Never,405,7.547487857376015,,6.305879764598969,9.010055482212023,0.6865787545469547
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,category,Once/day,1761,33.76685045370114,,31.3543633982929,36.26689212830563,1.252629316742894
+Total,dairy_frequency,Dairy consumption frequency,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2347,2347,0,1045,percent,category,Full fat,1155,51.23396209173862,,47.49103057587495,54.96310636347436,1.9075221921047911
+No caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2347,2347,0,1045,percent,category,No dairy,169,6.003215891273409,,4.525854528213789,7.922808967504329,0.8572035516822089
+No caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2347,2347,0,1045,percent,category,Reduced fat,1023,42.762822016987975,,39.042322565059315,46.567020236059676,1.9209278172306243
+No caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2689,2689,0,1045,percent,category,Full fat,1413,54.20450831607112,,50.76124207848536,57.60807442893447,1.7473641715012038
+Caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2689,2689,0,1045,percent,category,No dairy,236,8.829571091835508,,7.048937288594678,11.006747678284672,1.003342394624401
+Caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2689,2689,0,1045,percent,category,Reduced fat,1040,36.965920592093376,,33.68467067033191,40.372212119613785,1.7063953990182619
+Caries,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,5036,5036,0,1045,percent,category,Full fat,2568,52.85701755813446,,50.27098480608196,55.42780544939638,1.3151787527160517
+Total,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,5036,5036,0,1045,percent,category,No dairy,405,7.547487857376015,,6.305879764598969,9.010055482212023,0.6865787545469547
+Total,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,5036,5036,0,1045,percent,category,Reduced fat,2063,39.59549458448953,,37.04613415466074,42.20268326213198,1.3150556628379308
+Total,dairy_type,"Usual dairy fat content, with structural category for nonconsumers",categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,At least once/month,209,9.076929153065537,,7.269381321208288,11.279258971079638,1.0167813657845846
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,At least once/week,278,11.876007216644267,,9.844620649185122,14.260258616997252,1.1220895845793821
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,Daily,385,17.698446148225976,,14.943576334874962,20.836765733626006,1.5003806104868636
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,Every other day,213,8.282396779624994,,6.5208670125689965,10.46650187076775,0.9993732308547485
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,More than once/day,63,4.016673868835201,,2.648345332192033,6.048059149857876,0.8461746159655253
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,category,Never,1199,49.049546833604026,,45.19840766462301,52.91200036662035,1.969421055617847
+No caries,wholegrain,Wholegrain consumption frequency,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,At least once/month,228,8.774809828870488,,7.1711946058399745,10.695706209627383,0.8943725484853838
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,At least once/week,314,11.941599638641282,,9.952705432988258,14.264980968953589,1.0960096930875747
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,Daily,326,12.85428432547024,,10.691519705770608,15.379210867962364,1.1916550981913285
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,Every other day,203,7.324892682625654,,5.767702207882102,9.26118176464054,0.8844820624054316
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,More than once/day,53,2.945545432989545,,1.8994951625629,4.540989361698724,0.6547690752974166
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,category,Never,1565,56.158868091402795,,52.6577237940664,59.599741240333096,1.7717087401732017
+Caries,wholegrain,Wholegrain consumption frequency,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,At least once/month,437,8.91185634032088,,7.667897764420347,10.335032711713025,0.6780613653691333
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,At least once/week,592,11.911845790104042,,10.525502908940977,13.453332216607594,0.7451525135387158
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,Daily,711,15.051679280190978,,13.146755422583151,17.1780292989091,1.0262308105350595
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,Every other day,416,7.75923297695419,,6.516937916208574,9.214997630960802,0.6852003074176556
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,More than once/day,116,3.431427677824668,,2.522082164904016,4.6529905162909735,0.5357722486572497
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,category,Never,2764,52.933957934605246,,50.10069803020476,55.74843651540916,1.440635057839729
+Total,wholegrain,Wholegrain consumption frequency,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,legumes,Legume consumption frequency,categorical,2347,2347,0,1045,percent,category,At least once/week,1209,50.68205359596784,,46.6854011280196,54.670007734492266,2.038907189359424
+No caries,legumes,Legume consumption frequency,categorical,2347,2347,0,1045,percent,category,At least twice/week,594,22.001660528791593,,18.746256062127134,25.643968908539815,1.75798060011944
+No caries,legumes,Legume consumption frequency,categorical,2347,2347,0,1045,percent,category,Less than once/month or never,289,13.237893455683972,,10.742388095020013,16.207848028034284,1.388642752517699
+No caries,legumes,Legume consumption frequency,categorical,2347,2347,0,1045,percent,category,One to three times/month,255,14.078392419556602,,11.51372098001959,17.103917211187916,1.421023118208672
+No caries,legumes,Legume consumption frequency,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,legumes,Legume consumption frequency,categorical,2689,2689,0,1045,percent,category,At least once/week,1326,48.58354241404456,,45.312800684818704,51.86646137736797,1.6723416142569019
+Caries,legumes,Legume consumption frequency,categorical,2689,2689,0,1045,percent,category,At least twice/week,709,25.110048747011355,,22.502114971011046,27.911376727925237,1.3789532198956687
+Caries,legumes,Legume consumption frequency,categorical,2689,2689,0,1045,percent,category,Less than once/month or never,312,12.159339057235158,,10.192882175887053,14.444156344291908,1.0807340177410927
+Caries,legumes,Legume consumption frequency,categorical,2689,2689,0,1045,percent,category,One to three times/month,342,14.147069781708932,,11.8705363988895,16.777083322941674,1.247964874968991
+Caries,legumes,Legume consumption frequency,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,legumes,Legume consumption frequency,categorical,5036,5036,0,1045,percent,category,At least once/week,2535,49.53546310792427,,46.990650782475825,52.08268461842024,1.298630628975095
+Total,legumes,Legume consumption frequency,categorical,5036,5036,0,1045,percent,category,At least twice/week,1303,23.70003049453608,,21.63202742453768,25.900393804295614,1.0878434012758917
+Total,legumes,Legume consumption frequency,categorical,5036,5036,0,1045,percent,category,Less than once/month or never,601,12.648589846176606,,10.9969066487791,14.507910668003184,0.8933838736381919
+Total,legumes,Legume consumption frequency,categorical,5036,5036,0,1045,percent,category,One to three times/month,597,14.115916551363044,,12.382547044888462,16.047490090078202,0.9329058958081348
+Total,legumes,Legume consumption frequency,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,fruit_days,Fruit consumption days in a typical week,numeric,2347,2347,0,1045,days/week,mean,Mean,2347,4.389043583202011,2.4857810098081368,4.189247609721523,4.588839556682499,0.10182052693215586
+No caries,fruit_days,Fruit consumption days in a typical week,numeric,2347,2347,0,1045,days/week,missing,Missing,0,,,,,
+Caries,fruit_days,Fruit consumption days in a typical week,numeric,2689,2689,0,1045,days/week,mean,Mean,2689,4.225539907313734,2.551953888576218,4.054082744184655,4.396997070442812,0.08737843106633103
+Caries,fruit_days,Fruit consumption days in a typical week,numeric,2689,2689,0,1045,days/week,missing,Missing,0,,,,,
+Total,fruit_days,Fruit consumption days in a typical week,numeric,5036,5036,0,1045,days/week,mean,Mean,5036,4.2997079813007435,2.52346508520419,4.16857720161787,4.430838760983617,0.06682719802478178
+Total,fruit_days,Fruit consumption days in a typical week,numeric,5036,5036,0,1045,days/week,missing,Missing,0,,,,,
+No caries,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,2347,2347,0,1045,portions/consumption day,mean,Mean,2347,1.8995097409786155,1.8353234131892546,1.7768944230428732,2.022125058914358,0.062487526974062464
+No caries,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,2347,2347,0,1045,portions/consumption day,missing,Missing,0,,,,,
+Caries,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,2689,2689,0,1045,portions/consumption day,mean,Mean,2689,2.005058043755884,2.2744333774644585,1.8334077402263815,2.1767083472853863,0.08747685976336865
+Caries,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,2689,2689,0,1045,portions/consumption day,missing,Missing,0,,,,,
+Total,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,5036,5036,0,1045,portions/consumption day,mean,Mean,5036,1.957179521838512,2.0873894815475267,1.8399299544988108,2.074429089178213,0.0597530196486243
+Total,fruit_portions,Fruit portions on a consumption day; zero for nonconsumers,numeric,5036,5036,0,1045,portions/consumption day,missing,Missing,0,,,,,
+No caries,vegetable_days,Vegetable consumption days in a typical week,numeric,2347,2347,0,1045,days/week,mean,Mean,2347,5.563187369842888,2.056101333587763,5.410583178368327,5.715791561317449,0.0777705321949982
+No caries,vegetable_days,Vegetable consumption days in a typical week,numeric,2347,2347,0,1045,days/week,missing,Missing,0,,,,,
+Caries,vegetable_days,Vegetable consumption days in a typical week,numeric,2689,2689,0,1045,days/week,mean,Mean,2689,5.347559128079933,2.2156836890043667,5.186969026316181,5.508149229843685,0.08184033189873371
+Caries,vegetable_days,Vegetable consumption days in a typical week,numeric,2689,2689,0,1045,days/week,missing,Missing,0,,,,,
+Total,vegetable_days,Vegetable consumption days in a typical week,numeric,5036,5036,0,1045,days/week,mean,Mean,5036,5.44537179988611,2.147451176671444,5.3312918714970285,5.559451728275191,0.05813770026798495
+Total,vegetable_days,Vegetable consumption days in a typical week,numeric,5036,5036,0,1045,days/week,missing,Missing,0,,,,,
+No caries,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,2347,2347,0,1045,portions/consumption day,mean,Mean,2347,1.880710336973281,1.5671398603503865,1.722745076917768,2.038675597028794,0.08050265346012139
+No caries,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,2347,2347,0,1045,portions/consumption day,missing,Missing,0,,,,,
+Caries,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,2689,2689,0,1045,portions/consumption day,mean,Mean,2689,1.7938223773966613,1.3266496200328772,1.6966182432942678,1.8910265114990548,0.049537415503802425
+Caries,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,2689,2689,0,1045,portions/consumption day,missing,Missing,0,,,,,
+Total,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,5036,5036,0,1045,portions/consumption day,mean,Mean,5036,1.8332362473261816,1.4413727125445652,1.7370849803058885,1.9293875143464747,0.049000850731142125
+Total,vegetable_portions,Vegetable portions on a consumption day; zero for nonconsumers,numeric,5036,5036,0,1045,portions/consumption day,missing,Missing,0,,,,,
+No caries,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,2347,2346,1,1045,glasses/day,mean,Mean,2346,4.306777469196116,3.1650830744221006,4.08087794227374,4.532676996118492,0.11512348554515418
+No caries,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,2347,2346,1,1045,glasses/day,missing,Missing,1,,,,,
+Caries,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,2689,2686,3,1045,glasses/day,mean,Mean,2686,4.131689300223626,3.2566206853524804,3.915945265502164,4.347433334945088,0.10994801804628879
+Caries,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,2689,2686,3,1045,glasses/day,missing,Missing,3,,,,,
+Total,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,5036,5032,4,1045,glasses/day,mean,Mean,5032,4.211116002460616,3.2165999629562196,4.045802783423475,4.376429221497758,0.08424733881264328
+Total,water,Self-reported glasses of water per day; water source/fluoride exposure not identified,numeric,5036,5032,4,1045,glasses/day,missing,Missing,4,,,,,
+No caries,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,2347,2347,0,1045,times/day,mean,Mean,2347,0.7279679928112117,1.7236115784470265,0.6229590202078765,0.8329769654145469,0.05351493694701539
+No caries,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,2347,2347,0,1045,times/day,missing,Missing,0,,,,,
+Caries,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,2689,2689,0,1045,times/day,mean,Mean,2689,0.9094015105763147,2.059448903048396,0.7641548700554035,1.0546481510972259,0.07402095855754993
+Caries,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,2689,2689,0,1045,times/day,missing,Missing,0,,,,,
+Total,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,5036,5036,0,1045,times/day,mean,Mean,5036,0.8271001525412788,1.9165518784381401,0.7307976481555045,0.923402656927053,0.04907792469803381
+Total,soda_frequency,Sugar-sweetened soda consumption frequency converted to times/day,numeric,5036,5036,0,1045,times/day,missing,Missing,0,,,,,
+No caries,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,2347,2347,0,1045,times/day,mean,Mean,2347,0.6287186812261528,1.844452390078307,0.524049365325606,0.7333879971266997,0.053341840243155546
+No caries,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,2347,2347,0,1045,times/day,missing,Missing,0,,,,,
+Caries,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,2689,2689,0,1045,times/day,mean,Mean,2689,0.6968074370293503,1.8958646194928082,0.5799245834033356,0.813690290655365,0.05956613408276259
+Caries,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,2689,2689,0,1045,times/day,missing,Missing,0,,,,,
+Total,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,5036,5036,0,1045,times/day,mean,Mean,5036,0.6659212086270868,1.8730248292859828,0.5867775286946548,0.7450648885595188,0.04033340138787672
+Total,juice_frequency,Sugar-sweetened juice consumption frequency converted to times/day,numeric,5036,5036,0,1045,times/day,missing,Missing,0,,,,,
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Butter,14,0.4793736954246912,,0.16519843546095062,1.3827733848508035,0.2597791715417472
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Lard,2,0.028640122380169997,,0.005537178608725389,0.14799353867863102,0.023981879207459224
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Margarine,17,0.3162859339346368,,0.16984126269148625,0.5882576342816831,0.10014177356683124
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,None,11,0.4030513440852336,,0.1439671388850977,1.123140989674,0.21113831268130012
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Olive oil,222,7.649993907934433,,5.994967658273849,9.714704689505599,0.9416648768016354
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Other,1,0.001985586327608784,,0.0002693626193108456,0.014635000248099285,0.0020213588369213608
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,category,Vegetable oil,2080,91.12066940991322,,88.98714384607226,92.87396522577039,0.9855938844623027
+No caries,oil,Most frequently used cooking oil/fat,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Butter,8,0.1262755405679751,,0.04979609670233468,0.3198402302208984,0.05985583074730969
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Lard,3,0.05482035843856174,,0.008847109918611231,0.3388800105396579,0.0509424345005994
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Margarine,19,0.22912724643582677,,0.10598442412076178,0.49464067796182126,0.08996415864111026
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,None,14,0.23138227096479147,,0.11569491101611222,0.4622141325363086,0.08167764155473617
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Olive oil,170,7.592318101787192,,5.742346097093219,9.975209402803307,1.0693859172191171
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Other,3,0.0464520495632872,,0.012425667740072812,0.17349441454837408,0.03121011674072125
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,category,Vegetable oil,2472,91.71962443224237,,89.32232829367669,93.61715298200647,1.086632681932962
+Caries,oil,Most frequently used cooking oil/fat,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Butter,22,0.28644692467792193,,0.12369763408123263,0.6619067752276612,0.12246741194858701
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Lard,5,0.042944553968557196,,0.011535831466226625,0.1597335012759525,0.028761970597543284
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Margarine,36,0.26866392319800264,,0.16498204967331104,0.437218627116275,0.06672669587631677
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,None,25,0.3092543092985253,,0.15826682082689633,0.6034142063819526,0.1054866068529886
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Olive oil,392,7.6184808374831885,,6.335200436461337,9.136351107392256,0.7110784852196951
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Other,4,0.02628129855547516,,0.007348703652558122,0.09394444574502542,0.017065890925875866
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,category,Vegetable oil,4552,91.44792815281832,,89.8885534948807,92.78611777548056,0.7361151382030129
+Total,oil,Most frequently used cooking oil/fat,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2347,2345,2,1045,glasses/day,mean,Mean,2345,2.370080567944328,15.909335922854336,1.6337948484602647,3.1063662874283917,0.37522778174411037
+No caries,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2347,2345,2,1045,glasses/day,missing,Missing,2,,,,,
+Caries,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2689,2688,1,1045,glasses/day,mean,Mean,2688,3.108511499939958,16.096163001742763,2.1175402706423223,4.099482729237593,0.5050212523504393
+Caries,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2689,2688,1,1045,glasses/day,missing,Missing,1,,,,,
+Total,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,5036,5033,3,1045,glasses/day,mean,Mean,5033,2.7736476560500556,16.0159302267137,2.1302481518454175,3.4170471602546937,0.32789087489994734
+Total,soda_glasses_daily,Soda frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,5036,5033,3,1045,glasses/day,missing,Missing,3,,,,,
+No caries,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2347,2346,1,1045,glasses/day,mean,Mean,2346,1.5130026845567561,5.883054416575088,1.2087360330046508,1.8172693361088614,0.15506113686492026
+No caries,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2347,2346,1,1045,glasses/day,missing,Missing,1,,,,,
+Caries,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2689,2688,1,1045,glasses/day,mean,Mean,2688,1.9260629485468272,7.568963568610402,1.4549364674228262,2.3971894296708283,0.24009666323141785
+Caries,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,2689,2688,1,1045,glasses/day,missing,Missing,1,,,,,
+Total,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,5036,5034,2,1045,glasses/day,mean,Mean,5034,1.7387380693826873,6.859045899136617,1.4478501172945188,2.0296260214708557,0.1482430503672059
+Total,juice_glasses_daily,Juice frequency times reported glasses/occasion; ancillary exposure with extreme-value audit,numeric,5036,5034,2,1045,glasses/day,missing,Missing,2,,,,,
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,category,Almost always,228,10.866279397672002,,8.667167774936862,13.540645695222208,1.2364324803337834
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,category,Always,599,22.57949850150919,,19.918203159855917,25.483222237753544,1.4183266885256753
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,category,Never,1010,44.2979875909207,,40.77759739782328,47.87660272645364,1.8119132037674313
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,category,Rarely,244,11.07192432546755,,8.92837670742976,13.652950138577404,1.199228217092792
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,category,Sometimes,266,11.184310184430561,,9.365021370389101,13.305139598871229,1.0013585100984752
+No caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,category,Almost always,234,8.512730240742536,,6.866661923484767,10.508867487703123,0.9236474829463399
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,category,Always,564,19.518856148645135,,16.81536814180797,22.53922597481896,1.4580502635574915
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,category,Never,1288,48.85557206029609,,45.16283398112208,52.56084370329741,1.888544773892469
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,category,Rarely,320,11.818476017036419,,9.87216739632174,14.088520011708402,1.0716615450876534
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,category,Sometimes,283,11.294365533279814,,9.308926554750062,13.639578706279803,1.100119417040557
+Caries,label_ingredients,Frequency of checking/considering package ingredients,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,category,Almost always,462,9.580340537910933,,8.103035790616081,11.293879570001453,0.81087852626973
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,category,Always,1163,20.907216057018744,,18.91126485837436,23.053934580891603,1.0555787303724284
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,category,Never,2298,46.78817351228023,,44.143229502470035,49.45129127703009,1.3538210344131052
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,category,Rarely,564,11.4798273548911,,9.894805342326016,13.281325334823837,0.8613777804149048
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,category,Sometimes,549,11.244442537898994,,9.839039437109086,12.822043862720514,0.7589754977196248
+Total,label_ingredients,Frequency of checking/considering package ingredients,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,category,Almost always,231,10.698952055199937,,8.583420246403856,13.260261082003474,1.1867247383632342
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,category,Always,580,23.26809802219902,,20.482660730082223,26.307009949728887,1.484583676218615
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,category,Never,1043,44.22876529381229,,40.416970501313806,48.109784447363594,1.964042398104868
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,category,Rarely,229,10.622201779885764,,8.507546487875242,13.186723005904511,1.1872071462772047
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,category,Sometimes,264,11.18198284890299,,9.1134333849759,13.649534866324325,1.1518523583829923
+No caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,category,Almost always,218,7.673416424738678,,6.088474802668804,9.628645078297039,0.8967886482554941
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,category,Always,555,19.618896199901506,,16.89042134696144,22.66791292669731,1.4717375534327977
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,category,Never,1320,49.03165842884913,,45.466984206929844,52.60620732038177,1.8222534018102037
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,category,Rarely,318,12.384155855810253,,10.18999487443767,14.972012309135401,1.215119042710269
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,category,Sometimes,278,11.291873090700436,,9.304705465599845,13.639607996338368,1.1011903227848128
+Caries,label_nutrition,Frequency of checking/considering package nutrition,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,category,Almost always,449,9.045851321209854,,7.681521578844475,10.62461436853189,0.747928988651996
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,category,Always,1135,21.274236786461966,,19.241113771342196,23.459784238912704,1.074980133271
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,category,Never,2363,46.852983659270734,,44.22343792871085,49.500123628798434,1.345803906028428
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,category,Rarely,547,11.584903242345003,,9.927231326170924,13.47795802759757,0.9030345249284705
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,category,Sometimes,542,11.242024990712443,,9.751779878500164,12.927384544672277,0.8078197014790657
+Total,label_nutrition,Frequency of checking/considering package nutrition,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,category,Almost always,244,10.944410500691076,,8.797819346929307,13.537011760168543,1.2027465096167673
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,category,Always,797,34.15331241137222,,30.363376332152058,38.15709600624128,1.9894126846345657
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,category,Never,850,35.178104939434654,,31.57026734980512,38.96348233025477,1.8869228245131264
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,category,Rarely,203,8.574291122358952,,6.728852746770385,10.866886892974792,1.0480753928492652
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,category,Sometimes,253,11.149881026143097,,9.150301392948165,13.52138709363635,1.1101900534437743
+No caries,label_warnings,Frequency of checking/considering package warnings,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,category,Almost always,275,10.278158120334213,,8.2945932260691,12.67053305751171,1.1104446850839023
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,category,Always,773,27.621388490758576,,24.508227947149475,30.967779674329233,1.6474006381975879
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,category,Never,1155,43.36199227260315,,39.89131912167936,46.89902495982507,1.7885194851910449
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,category,Rarely,245,9.055351071449182,,7.31313435372905,11.162632059790651,0.9764545881027835
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,category,Sometimes,241,9.683110044854876,,7.829570305097147,11.918707193375456,1.037522391226426
+Caries,label_warnings,Frequency of checking/considering package warnings,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,category,Almost always,519,10.580381636544908,,9.060298187977656,12.320942966351883,0.8290871193214102
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,category,Always,1570,30.584381304159447,,28.046829998153484,33.245440200982706,1.3255723666645811
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,category,Never,2005,39.649640498673946,,37.085134334593235,42.272332509031656,1.3228859900133296
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,category,Rarely,448,8.837134020961027,,7.464569620300556,10.433624846906808,0.7543604295873159
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,category,Sometimes,494,10.348462539660671,,8.984205583224002,11.892813208627436,0.7398103340648907
+Total,label_warnings,Frequency of checking/considering package warnings,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,category,Almost always,257,11.288548811600577,,9.155690741010714,13.84255579734882,1.1899854499581157
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,category,Always,620,23.471301373778033,,20.837634580698815,26.327134417576975,1.399213193718742
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,category,Never,993,43.48453426337785,,40.038612183884325,46.99459102091098,1.7752775454798266
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,category,Rarely,230,11.12160963907191,,8.7848135932377,13.984702417889421,1.3188996741376247
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,category,Sometimes,247,10.634005912171625,,8.67579275296575,12.971428609051708,1.0906322330728326
+No caries,label_health,Frequency of checking/considering package health,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,category,Almost always,242,9.087328943995477,,7.351349199301177,11.183765804803325,0.9722010427969628
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,category,Always,603,21.453932428988313,,18.667854070110206,24.530407471957673,1.4939354061536534
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,category,Never,1293,48.07713202985848,,44.48308155952738,51.69119318281581,1.8398941948558662
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,category,Rarely,295,10.581821585246011,,8.755362144065915,12.736116088137726,1.011150155726512
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,category,Sometimes,256,10.799785011911718,,8.791637923234664,13.200239424317978,1.119288986939396
+Caries,label_health,Frequency of checking/considering package health,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,category,Almost always,499,10.085840060734938,,8.686392069376804,11.681906647815557,0.7617220509998157
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,category,Always,1223,22.369045611266237,,20.428173427092702,24.437686829332577,1.0217652063738931
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,category,Never,2286,45.99385084925884,,43.38697887599824,48.6228293671929,1.3353668263204563
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,category,Rarely,525,10.82667871213299,,9.209248768232813,12.68847917541093,0.8845483255849536
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,category,Sometimes,503,10.724584766606991,,9.265524069414328,12.382052389850259,0.7926465118126358
+Total,label_health,Frequency of checking/considering package health,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,category,Almost always,281,14.694537099989688,,12.07993833833485,17.760724367057264,1.4445043477134107
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,category,Always,838,36.10873379085345,,32.58901595025701,39.784243017792036,1.8362890728962842
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,category,Never,779,30.62114654912928,,27.402657010258952,34.04040356250981,1.6932682466098956
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,category,Rarely,199,8.514347337813351,,6.611241105811856,10.901331952050281,1.085979369685039
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,category,Sometimes,250,10.061235222214233,,8.058925014214195,12.493435121643534,1.1248887115151656
+No caries,label_brand,Frequency of checking/considering package brand,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,category,Almost always,295,11.145734610888578,,9.1110773477787,13.566941103778953,1.1315760774057364
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,category,Always,863,35.083628207692,,31.643560263057697,38.68602395035938,1.7971274209297456
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,category,Never,1010,35.75861905687887,,32.622974184769184,39.02110564176835,1.6323145362896923
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,category,Rarely,252,8.718444527668904,,7.042628718145101,10.746924191150503,0.9395198877273422
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,category,Sometimes,269,9.293573596871644,,7.525330676094005,11.425967548342882,0.9896165708650573
+Caries,label_brand,Frequency of checking/considering package brand,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,category,Almost always,576,12.75553233651761,,11.076156063072741,14.647594509321493,0.9087547593325052
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,category,Always,1701,35.54863369654943,,32.9880575679062,38.19468089548115,1.327777703455345
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,category,Never,1789,33.42817334065312,,31.12165865883488,35.81674035126078,1.1971045530408408
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,category,Rarely,451,8.625862538942908,,7.292971408474188,10.175619656274474,0.7323963422668063
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,category,Sometimes,519,9.641798087336934,,8.317114091182768,11.151804168502668,0.7208027070424925
+Total,label_brand,Frequency of checking/considering package brand,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,category,Almost always,282,15.048316862650267,,12.542550573822147,17.951931664088765,1.3760076970420223
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,category,Always,989,42.737971888693934,,39.07687860174982,46.48037990413083,1.8898758919249483
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,category,Never,664,25.726445315644174,,22.548194279418514,29.18388111005566,1.6920994940113372
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,category,Rarely,171,6.451245995930514,,4.772668853494454,8.666460997201481,0.9815843876509772
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,category,Sometimes,241,10.036019937081104,,7.952807530105304,12.590283155471083,1.1758465713624267
+No caries,label_discounts,Frequency of checking/considering package discounts,categorical,2347,2347,0,1045,percent,missing,Missing,0,,,,,
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,category,Almost always,315,14.523459465273666,,12.15274955290559,17.265743139195838,1.3005281498718202
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,category,Always,1152,43.93864173280028,,40.47196282454878,47.465492074301515,1.7848990652805234
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,category,Never,794,27.907339461062403,,24.893653318145372,31.134627064477726,1.5915958135510466
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,category,Rarely,198,5.751948425071989,,4.447238572261075,7.409745596427718,0.7487058290561298
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,category,Sometimes,230,7.8786109157916675,,6.325830677047023,9.772781881096954,0.8737469079396366
+Caries,label_discounts,Frequency of checking/considering package discounts,categorical,2689,2689,0,1045,percent,missing,Missing,0,,,,,
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,category,Almost always,597,14.761543790104728,,12.923900628187296,16.81003782386717,0.9892739350281543
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,category,Always,2141,43.39399728154953,,40.85888691077724,45.96415320732581,1.3019904710501542
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,category,Never,1458,26.91804844080582,,24.763405144681965,29.187436524714144,1.1277222632462967
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,category,Rarely,369,6.069161806927766,,4.983338779399896,7.373216293751403,0.6060783814214555
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,category,Sometimes,471,8.857248680612154,,7.567993053744036,10.34156401219567,0.704961462295721
+Total,label_discounts,Frequency of checking/considering package discounts,categorical,5036,5036,0,1045,percent,missing,Missing,0,,,,,

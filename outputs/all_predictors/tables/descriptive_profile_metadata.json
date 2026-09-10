@@ -1,0 +1,17 @@
+{
+  "design_n": 5520,
+  "n_psu": 1075,
+  "n_strata": 30,
+  "df": 1045,
+  "singleton_strata": 1,
+  "predictors": 44,
+  "domain_counts": {
+    "No caries": 2347,
+    "Caries": 2689,
+    "Total": 5036
+  },
+  "variance": "Full-design ratio linearization; average variance for singleton stratum",
+  "intervals": "Design-t mean intervals and logit-t categorical intervals; boundary limits unavailable",
+  "imputation": false,
+  "numeric_scale": "Original untransformed units"
+}

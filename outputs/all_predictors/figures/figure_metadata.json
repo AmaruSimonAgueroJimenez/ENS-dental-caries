@@ -1,0 +1,191 @@
+{
+  "scope": "All-predictor proposal: classical models and a regularized neural benchmark",
+  "figures": [
+    {
+      "name": "figure1_performance",
+      "panels": 4,
+      "caption": "Comparison of four model families in 5,036 dentate participants. Hatched bars use 38 context, dietary and label constructs; solid bars add six concurrent oral-status indicators (44 constructs). Panels a–c show weighted held-out estimates and conditional 95% intervals from 1,000 shared stratified PSU-bootstrap draws. Panel d shows calibration-slope estimates without intervals, with open circles for 38 predictors and filled squares for 44. Reference lines are AUC 0.5 and slope 1. Higher AUC and lower Brier/log loss are desirable; a slope near one indicates less calibration distortion. These are exploratory internally validated classification results, with all preprocessing and tuning inside training partitions. Neural pooled slopes are sensitive to small between-fold shifts because the fitted neural probabilities are nearly constant within folds. No outer results were used to choose a model.",
+      "alt_text": "Comparison of four model families in 5,036 dentate participants. Hatched bars use 38 context, dietary and label constructs; solid bars add six concurrent oral-status indicators (44 constructs). Panels a–c show weighted held-out estimates and conditional 95% intervals from 1,000 shared stratified PSU-bootstrap draws. Panel d shows calibration-slope estimates without intervals, with open circles for 38 predictors and filled squares for 44. Reference lines are AUC 0.5 and slope 1. Higher AUC and lower Brier/log loss are desirable; a slope near one indicates less calibration distortion. These are exploratory internally validated classification results, with all preprocessing and tuning inside training partitions. Neural pooled slopes are sensitive to small between-fold shifts because the fitted neural probabilities are nearly constant within folds. No outer results were used to choose a model.",
+      "width_mm": 180.0,
+      "height_mm": 171.0,
+      "dpi": 300,
+      "source_tables": [
+        "model_performance.csv"
+      ],
+      "source_sha256": {
+        "model_performance.csv": "5f30cd884f713e0ec62cb441f91b58ba64d9c3b0750faeae9ee99e5fbd17efc5"
+      },
+      "files": {
+        "figure1_performance.png": "c8c8f15e93ad6b323225c156d017c40f4cef4c87aff243524e4946b4ad6ff6f6",
+        "figure1_performance.pdf": "32f8cfbd2f528e1d1cbda7b91db091e01c5c78c3431b3e0f0c296f7a9f2d88cb",
+        "figure1_performance.svg": "b9bbd153eb29a965765cb338cb96c8e96c1192ee6ce74e3cfddc435c81d28a1c"
+      }
+    },
+    {
+      "name": "figure2_leading_predictors",
+      "panels": 4,
+      "caption": "Individual predictor importance in the 44 predictors scenario. The 12 largest signed mean importances are shown separately within each family; their selection is descriptive and is not predictor screening. All 44 constructs remain fitted and their complete signed results are tabulated. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "alt_text": "Individual predictor importance in the 44 predictors scenario. The 12 largest signed mean importances are shown separately within each family; their selection is descriptive and is not predictor screening. All 44 constructs remain fitted and their complete signed results are tabulated. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "width_mm": 180.0,
+      "height_mm": 199.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54"
+      },
+      "files": {
+        "figure2_leading_predictors.png": "a5f9151da738ca184d300689b443d87d406a759a0642ebdaa9f5caaeb12a7868",
+        "figure2_leading_predictors.pdf": "5e3c306dc9c9ee76bbcfcd006448717f126ea2748619897847f7c9ac64a28937",
+        "figure2_leading_predictors.svg": "34303c44654402133668ad3b174a53bb0aaf0db1df30c0f49d539184b5ad115a"
+      }
+    },
+    {
+      "name": "figure3_all_predictor_ranks",
+      "panels": 4,
+      "caption": "Ranks of all 44 predictors in the complete models, displayed by questionnaire block. Each column ranks the same 44 raw constructs within one family using weighted mean held-out Brier permutation increase; rank 1 is the largest signed score and ties receive their minimum rank. The common 1–44 scale is ordinal: differences in rank are not equal differences in predictive information. A rank does not establish a positive importance or statistical significance. Signed magnitudes are provided in Table 3 and complete fold-stability results in the supplement. Grey cells mark models whose absolute mean Brier importances are all below 10⁻⁸; ranks at that scale are not interpreted. This is a presentation rule applied after observing the near-constant neural predictions, not a significance threshold or a model-selection rule. The raw signed scores and computed ranks remain in the aggregate tables. Water, label behaviours and concurrent symptoms remain visible irrespective of their rank.",
+      "alt_text": "Ranks of all 44 predictors in the complete models, displayed by questionnaire block. Each column ranks the same 44 raw constructs within one family using weighted mean held-out Brier permutation increase; rank 1 is the largest signed score and ties receive their minimum rank. The common 1–44 scale is ordinal: differences in rank are not equal differences in predictive information. A rank does not establish a positive importance or statistical significance. Signed magnitudes are provided in Table 3 and complete fold-stability results in the supplement. Grey cells mark models whose absolute mean Brier importances are all below 10⁻⁸; ranks at that scale are not interpreted. This is a presentation rule applied after observing the near-constant neural predictions, not a significance threshold or a model-selection rule. The raw signed scores and computed ranks remain in the aggregate tables. Water, label behaviours and concurrent symptoms remain visible irrespective of their rank.",
+      "width_mm": 180.0,
+      "height_mm": 222.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv",
+        "feature_blocks.json"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54",
+        "feature_blocks.json": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+      },
+      "files": {
+        "figure3_all_predictor_ranks.png": "f81f4f2751350ba93e9d2366d672ee1b07ab8e8768d9872cdbffc573df5713a6",
+        "figure3_all_predictor_ranks.pdf": "d88c75cc58c21f3bec5117608fa59be21487481e055e2683d4e9b3ff7b1eb172",
+        "figure3_all_predictor_ranks.svg": "9208ae92eaa44af8d2997c258456cd9dcd9ee1aa00f62ec367187d5671a6010a"
+      }
+    },
+    {
+      "name": "figure4_blocks",
+      "panels": 4,
+      "caption": "Joint importance of the four predictor blocks in each model family. A single donor-row permutation moves all raw variables of a block together, preserving internal combinations. Hatched bars use 38 predictors and solid bars use 44; oral-status information is absent from the 38-predictor scenario. Bars are weighted averages of fold means and whiskers span minimum–maximum fold means over five outer folds, with five perturbations per block per fold. Ranges are not confidence intervals. The common signed axis preserves negative estimates. Block sizes differ; scores are not additive, are not percentages explained, and do not measure improvement from refitting after removing a block.",
+      "alt_text": "Joint importance of the four predictor blocks in each model family. A single donor-row permutation moves all raw variables of a block together, preserving internal combinations. Hatched bars use 38 predictors and solid bars use 44; oral-status information is absent from the 38-predictor scenario. Bars are weighted averages of fold means and whiskers span minimum–maximum fold means over five outer folds, with five perturbations per block per fold. Ranges are not confidence intervals. The common signed axis preserves negative estimates. Block sizes differ; scores are not additive, are not percentages explained, and do not measure improvement from refitting after removing a block.",
+      "width_mm": 180.0,
+      "height_mm": 166.0,
+      "dpi": 300,
+      "source_tables": [
+        "grouped_importance_stability.csv"
+      ],
+      "source_sha256": {
+        "grouped_importance_stability.csv": "0a12df08c91c9617095c16a054c8283bd7195960a1c2522ce7515a1f26a99b60"
+      },
+      "files": {
+        "figure4_blocks.png": "689ff28917ba12868e2fbdc947a17a67089ca8b42bc0e08634c29f6a76f06a3e",
+        "figure4_blocks.pdf": "8ba94f286450b61fab565f0f0f4d04f4a3f0ed271d85555894b0f7eee697fddd",
+        "figure4_blocks.svg": "9b911af40304237c07802877a0d42d2a43a2d69f783732136f7aced300d705a7"
+      }
+    },
+    {
+      "name": "figure5_validation",
+      "panels": 6,
+      "caption": "ROC and calibration displays for the complete 44-predictor models (a–b) and the 38-predictor complementary models (c–d). Calibration points use deciles of held-out predictions with weighted mean predicted and observed proportions; lines are descriptive and do not carry intervals. The diagonal is the reference for chance discrimination or ideal calibration. Panels e–f compare the neural network with each classical family on identical held-out participants. Labels identify the reference family and number of constructs. Positive AUC gain or reference-minus-neural Brier gain favours the neural model. Whiskers are paired conditional 95% intervals from 1,000 shared PSU-bootstrap draws, with fitted models and tuning decisions held fixed. All comparisons are exploratory.",
+      "alt_text": "ROC and calibration displays for the complete 44-predictor models (a–b) and the 38-predictor complementary models (c–d). Calibration points use deciles of held-out predictions with weighted mean predicted and observed proportions; lines are descriptive and do not carry intervals. The diagonal is the reference for chance discrimination or ideal calibration. Panels e–f compare the neural network with each classical family on identical held-out participants. Labels identify the reference family and number of constructs. Positive AUC gain or reference-minus-neural Brier gain favours the neural model. Whiskers are paired conditional 95% intervals from 1,000 shared PSU-bootstrap draws, with fitted models and tuning decisions held fixed. All comparisons are exploratory.",
+      "width_mm": 180.0,
+      "height_mm": 221.0,
+      "dpi": 300,
+      "source_tables": [
+        "roc.csv",
+        "calibration.csv",
+        "paired_contrasts.csv"
+      ],
+      "source_sha256": {
+        "roc.csv": "0c9a9d763d8a17cbf407a6ce5fd3954a328117ea7d5183473350468c9e09f018",
+        "calibration.csv": "35098dfc8d3ebacc09bd0831854b58d615e4dcb62b58989e70613a291756d32c",
+        "paired_contrasts.csv": "e5f5ff8ff20c0ac5f8c5bdece7be39f322323cdb24f3eef17e0e42c57641966f"
+      },
+      "files": {
+        "figure5_validation.png": "17ba4bcd75749a66850bd09c7aae8c7e1a33b8a679677d83046392f3fb9fd2e2",
+        "figure5_validation.pdf": "3a616515ae1fcdd5aba96867deafbbcbe58709bc3b28bcf04db054b32aef1600",
+        "figure5_validation.svg": "b81a51e3f564601ac8ab585724d104d823fcbeb468040d5de29e13162697afae"
+      }
+    },
+    {
+      "name": "supplementary1_context_importance",
+      "panels": 4,
+      "caption": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "alt_text": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "width_mm": 180.0,
+      "height_mm": 221.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54"
+      },
+      "files": {
+        "supplementary1_context_importance.png": "1c6702d535ab9c7bd447b1f31a90a4fbea951b085d0ec563364be055765df618",
+        "supplementary1_context_importance.pdf": "7186fa72f886c08d9c2a155eafc5c64df2ebbb7b932692841c95517faa3c80ef",
+        "supplementary1_context_importance.svg": "96dc70acd353df8578e199370b51e433e81a762cc918dd2a77c4243ed16c9279"
+      }
+    },
+    {
+      "name": "supplementary2_diet_importance",
+      "panels": 4,
+      "caption": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "alt_text": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "width_mm": 180.0,
+      "height_mm": 221.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54"
+      },
+      "files": {
+        "supplementary2_diet_importance.png": "18d704196c175000e52b1931aa833a57ea23b8cb5741c81bd32404a061b8e2ba",
+        "supplementary2_diet_importance.pdf": "b96171b7b1fab6cc03ffcb2974a57b3a65410b28d509146e54d74c13143a58af",
+        "supplementary2_diet_importance.svg": "7a82e49df7d27b52d6e57ed1b17b88b8243bc026c3b35ff69c721c57de1eb851"
+      }
+    },
+    {
+      "name": "supplementary3_labels_symptoms",
+      "panels": 4,
+      "caption": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "alt_text": "Individual predictor importance in the 44 predictors scenario. Every construct in the indicated block is shown in questionnaire order, including zero and negative values. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "width_mm": 180.0,
+      "height_mm": 199.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54"
+      },
+      "files": {
+        "supplementary3_labels_symptoms.png": "c5638a17655cada585968aa941ce1022ab3407e89047520dc1fb52f3229c33c6",
+        "supplementary3_labels_symptoms.pdf": "294e8ea12ebc5c3ab743b490f7eedcf2be2b196ead81d256d47ca82b20f6988a",
+        "supplementary3_labels_symptoms.svg": "8a7afa7261bfd8edf9bb632d264821508230143cc3ed78d7a56aed250eba8e5e"
+      }
+    },
+    {
+      "name": "supplementary4_non_symptom_leaders",
+      "panels": 4,
+      "caption": "Individual predictor importance in the 38 predictors scenario. The 12 largest signed mean importances are shown for each 38-predictor model; all 38 constructs remain fitted. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "alt_text": "Individual predictor importance in the 38 predictors scenario. The 12 largest signed mean importances are shown for each 38-predictor model; all 38 constructs remain fitted. Blue horizontal bars preserve the visual line of the earlier manuscript. Bars are means of held-out Brier increases after marginal permutation of each raw variable, with five perturbations per outer fold and weighting by fold expansion totals. Whiskers are the minimum and maximum fold means, not confidence intervals. A positive value indicates deterioration after perturbation; a negative value indicates improvement. Correlated predictors may share information, and permutation can create unusual combinations. The scores describe reliance of these fitted classifiers, not causal effects, protective directions or percentages of disease explained. Neural results below absolute mean Brier 10⁻⁸ are marked as numerically near zero; this reporting rule was adopted after observing nearly constant predictions and is not a significance threshold. Neural ranks, sign fractions and AUC permutation scores are not interpreted; all raw signed values remain available in the supplementary results.",
+      "width_mm": 180.0,
+      "height_mm": 199.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "bf03f002bbe2231e0fe61c422c57135a3a88a3116d84c9c2b09fa19ed226bf54"
+      },
+      "files": {
+        "supplementary4_non_symptom_leaders.png": "2f1be0dda301152b95060452cd84fd1aad24b7dd004f57061f80b75362f96c50",
+        "supplementary4_non_symptom_leaders.pdf": "a47acee851d10ae967bb5bf92623ca1ee22f2b78c16cb9d9c063ce40dc1d8d2f",
+        "supplementary4_non_symptom_leaders.svg": "8385ff1c4d183a0102d56c47ed4730497fd508acce54777b798d80e7e67596f2"
+      }
+    }
+  ]
+}
