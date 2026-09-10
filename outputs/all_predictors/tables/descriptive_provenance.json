@@ -1,0 +1,37 @@
+{
+  "data_audit.json": {
+    "source": "outputs/dietary/tables/data_audit.json",
+    "source_sha256": "ca2cddc802fbf242a33838f47a1b8ae8562ee511ac29e80c5530e29d10d7aff5",
+    "output_sha256": "ca2cddc802fbf242a33838f47a1b8ae8562ee511ac29e80c5530e29d10d7aff5"
+  },
+  "descriptive_profile.csv": {
+    "source": "outputs/dietary/tables/descriptive_profile.csv",
+    "source_sha256": "312df580c10fb2e0418f5c2fe23abd046043266e025626e1d9b180c0debfec86",
+    "output_sha256": "312df580c10fb2e0418f5c2fe23abd046043266e025626e1d9b180c0debfec86"
+  },
+  "descriptive_profile_metadata.json": {
+    "source": "outputs/dietary/tables/descriptive_profile_metadata.json",
+    "source_sha256": "5d97e466b9cbac5128af77e57576bb0ed78db28680ed990e38ece2a7fcd15349",
+    "output_sha256": "5d97e466b9cbac5128af77e57576bb0ed78db28680ed990e38ece2a7fcd15349"
+  },
+  "feature_blocks.json": {
+    "source": "outputs/dietary/tables/feature_blocks.json",
+    "source_sha256": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912",
+    "output_sha256": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+  },
+  "predictor_missingness.csv": {
+    "source": "outputs/dietary/tables/predictor_missingness.csv",
+    "source_sha256": "1e566113b4932a97311af9fbf1517333426aade285fc0e82f0cd857ddc9f9138",
+    "output_sha256": "1e566113b4932a97311af9fbf1517333426aade285fc0e82f0cd857ddc9f9138"
+  },
+  "variable_dictionary.csv": {
+    "source": "outputs/dietary/tables/variable_dictionary.csv",
+    "source_sha256": "09a0f2fdd3e3181878511cf2e808cec385dab4ebb6087830ba0782ab9e74732d",
+    "description_only_overrides": {
+      "dental_visit": "Time since last dental visit; potentially responsive to existing disease or treatment",
+      "soda_glasses_daily": "Estimated daily soda volume in glasses; extreme reported values retained and audited",
+      "juice_glasses_daily": "Estimated daily juice volume in glasses; extreme reported values retained and audited"
+    },
+    "output_sha256": "b08218b823eb219e5334fd30ef47894ade93703b5edbc49e28c644a12b3fb945"
+  }
+}

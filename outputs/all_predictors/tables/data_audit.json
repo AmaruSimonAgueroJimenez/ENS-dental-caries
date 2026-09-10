@@ -1,0 +1,652 @@
+{
+  "sample_flow": {
+    "all_participants": 6233,
+    "dental_examination": 5520,
+    "no_complete_dental_examination": 713,
+    "edentulous": 484,
+    "dentate_eligible": 5036,
+    "dentate_outcome_missing": 0,
+    "dentate_cases": 2689,
+    "dentate_non_cases": 2347,
+    "dentate_missing_education": 38,
+    "dentate_missing_water": 4,
+    "dentate_missing_both_education_water": 0,
+    "paper_complete": 4994,
+    "paper_cases": 2664,
+    "paper_non_cases": 2330
+  },
+  "structural_skips": {
+    "dairy_nonconsumers": 508,
+    "dairy_missing_recoded_no_dairy": 508,
+    "fruit_nonconsumers": 424,
+    "fruit_missing_portions_recoded_zero": 424,
+    "vegetable_nonconsumers": 156,
+    "vegetable_missing_portions_recoded_zero": 156,
+    "soda_nonconsumers": 2539,
+    "juice_nonconsumers": 3372,
+    "dental_never_visited_all": 219,
+    "dental_never_visited_dentate": 161
+  },
+  "raw_negative_special_codes": {
+    "as29": 6
+  },
+  "raw_missing_counts": {
+    "IdEncuesta": 0,
+    "Edad": 0,
+    "Sexo": 0,
+    "Region": 0,
+    "Zona": 0,
+    "NEDU1_MINSAL_1": 59,
+    "c6": 0,
+    "c1": 0,
+    "m5p3": 713,
+    "m5p6": 713,
+    "m5p5": 713,
+    "m5p8": 713,
+    "Fexp_F1F2p_Corr": 713,
+    "Estrato": 0,
+    "Conglomerado": 0,
+    "die11": 5,
+    "die1a": 0,
+    "die2": 0,
+    "die3": 508,
+    "die4": 0,
+    "die5": 0,
+    "die6": 0,
+    "die7": 424,
+    "die8": 0,
+    "die9": 156,
+    "die10_a": 0,
+    "die10_b": 0,
+    "die10_c": 0,
+    "die10_d": 0,
+    "die10_e": 0,
+    "die10_f": 0,
+    "die12_cantidad": 0,
+    "die12_unidad": 0,
+    "die13_cantidad": 0,
+    "die13_unidad": 0,
+    "die14": 0,
+    "as29": 0,
+    "m8p13": 714,
+    "sb2": 0,
+    "die12e": 4,
+    "die13e": 3,
+    "Fexp_F2p_Corr": 713
+  },
+  "derived_missing_all": {
+    "participant_id": 0,
+    "age": 0,
+    "sex": 0,
+    "region": 0,
+    "rural": 0,
+    "education": 59,
+    "indigenous": 0,
+    "born_chile": 0,
+    "teeth_remaining": 713,
+    "decayed_teeth": 713,
+    "caries": 713,
+    "weight": 713,
+    "stratum": 0,
+    "psu": 0,
+    "eligible": 0,
+    "paper_complete": 0,
+    "fish": 0,
+    "dairy_frequency": 0,
+    "dairy_type": 0,
+    "wholegrain": 0,
+    "legumes": 0,
+    "fruit_days": 0,
+    "fruit_portions": 0,
+    "vegetable_days": 0,
+    "vegetable_portions": 0,
+    "label_ingredients": 0,
+    "label_nutrition": 0,
+    "label_warnings": 0,
+    "label_health": 0,
+    "label_brand": 0,
+    "label_discounts": 0,
+    "water": 5,
+    "soda_frequency": 0,
+    "juice_frequency": 0,
+    "oil": 0,
+    "household_water_source": 6,
+    "rural_water_consumption": 714,
+    "dental_visit": 0,
+    "soda_glasses_daily": 4,
+    "juice_glasses_daily": 3,
+    "income_band": 946,
+    "health_insurance": 75,
+    "smoking_status": 0,
+    "diabetes_reported": 53,
+    "dental_visit_reason": 298,
+    "dental_access": 258,
+    "oral_health_selfrating": 0,
+    "oral_pain": 0,
+    "oral_speech": 0,
+    "oral_eating": 0,
+    "oral_daily_activities": 0,
+    "oral_social": 0
+  },
+  "derived_missing_dentate": {
+    "participant_id": 0,
+    "age": 0,
+    "sex": 0,
+    "region": 0,
+    "rural": 0,
+    "education": 38,
+    "indigenous": 0,
+    "born_chile": 0,
+    "teeth_remaining": 0,
+    "decayed_teeth": 0,
+    "caries": 0,
+    "weight": 0,
+    "stratum": 0,
+    "psu": 0,
+    "eligible": 0,
+    "paper_complete": 0,
+    "fish": 0,
+    "dairy_frequency": 0,
+    "dairy_type": 0,
+    "wholegrain": 0,
+    "legumes": 0,
+    "fruit_days": 0,
+    "fruit_portions": 0,
+    "vegetable_days": 0,
+    "vegetable_portions": 0,
+    "label_ingredients": 0,
+    "label_nutrition": 0,
+    "label_warnings": 0,
+    "label_health": 0,
+    "label_brand": 0,
+    "label_discounts": 0,
+    "water": 4,
+    "soda_frequency": 0,
+    "juice_frequency": 0,
+    "oil": 0,
+    "household_water_source": 6,
+    "rural_water_consumption": 1,
+    "dental_visit": 0,
+    "soda_glasses_daily": 3,
+    "juice_glasses_daily": 2,
+    "income_band": 755,
+    "health_insurance": 52,
+    "smoking_status": 0,
+    "diabetes_reported": 43,
+    "dental_visit_reason": 193,
+    "dental_access": 196,
+    "oral_health_selfrating": 0,
+    "oral_pain": 0,
+    "oral_speech": 0,
+    "oral_eating": 0,
+    "oral_daily_activities": 0,
+    "oral_social": 0
+  },
+  "unquantified_water_code_51": 0,
+  "extreme_values_dentate": {
+    "water": {
+      "n_observed": 5032,
+      "min": 0.0,
+      "median": 4.0,
+      "p99": 15.0,
+      "max": 40.0,
+      "audit_threshold": 20,
+      "n_above_threshold": 11,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "fruit_portions": {
+      "n_observed": 5036,
+      "min": 0.0,
+      "median": 1.75,
+      "p99": 7.0,
+      "max": 62.5,
+      "audit_threshold": 10,
+      "n_above_threshold": 23,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "vegetable_portions": {
+      "n_observed": 5036,
+      "min": 0.0,
+      "median": 2.0,
+      "p99": 6.0,
+      "max": 54.0,
+      "audit_threshold": 10,
+      "n_above_threshold": 8,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "soda_frequency": {
+      "n_observed": 5036,
+      "min": 0.0,
+      "median": 0.14285714285714285,
+      "p99": 7.0,
+      "max": 31.0,
+      "audit_threshold": 10,
+      "n_above_threshold": 14,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "juice_frequency": {
+      "n_observed": 5036,
+      "min": 0.0,
+      "median": 0.0,
+      "p99": 7.0,
+      "max": 40.42857142857143,
+      "audit_threshold": 10,
+      "n_above_threshold": 11,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "soda_glasses_daily": {
+      "n_observed": 5033,
+      "min": 0.0,
+      "median": 0.14285714285714285,
+      "p99": 35.0,
+      "max": 700.0,
+      "audit_threshold": 20,
+      "n_above_threshold": 111,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    },
+    "juice_glasses_daily": {
+      "n_observed": 5034,
+      "min": 0.0,
+      "median": 0.0,
+      "p99": 28.0,
+      "max": 270.0,
+      "audit_threshold": 20,
+      "n_above_threshold": 81,
+      "action": "Retained; threshold is a review flag, not a validated cutoff or exclusion"
+    }
+  },
+  "survey_design": {
+    "weight_variable": "Fexp_F1F2p_Corr",
+    "weight_identical_to_F2": true,
+    "n_strata_full": 30,
+    "n_psu_full": 1077,
+    "n_strata_dentate": 30,
+    "n_psu_dentate": 1072,
+    "singleton_strata_full": [
+      "22"
+    ],
+    "singleton_strata_dentate": [
+      "22"
+    ],
+    "dentate_weight_sum": 13797196.792731762,
+    "dentate_kish_effective_n": 1617.9570810099108
+  },
+  "integrity": {
+    "participant_ids_unique": true,
+    "impossible_dental_counts": 0,
+    "outcomes_imputed": 0,
+    "predictors_statistically_imputed": 0,
+    "extreme_values_clipped": 0,
+    "expanded_id_join_one_to_one": true,
+    "expanded_derivations_use_outcome": false,
+    "expanded_predictors_statistically_imputed": 0
+  },
+  "interpretation_notes": [
+    "Cross-sectional prevalent caries, not incident caries or causal protection.",
+    "The main dentate cohort retains predictor missingness for training-fold-only imputation.",
+    "The reconstructed manuscript cohort requires observed education and water only.",
+    "Beverage quantities are frequency reports; glasses/day additionally use glasses/occasion.",
+    "Household supply and rural-water consumption do not measure fluoridation or bottled-water intake.",
+    "Raw free-text/string columns are intentionally not imported or exported.",
+    "Additional predictors form a separate dietary contribution proposal; the original27 analysis is unchanged.",
+    "Oral self-rating, symptoms and dental care are concurrent reports and may reflect existing disease or treatment, not temporally established causes.",
+    "The loader retains raw derived beverage volumes without clipping or log transformation. Any log1p or p99 sensitivity is applied by the model pipeline, with p99 learned from training observations only.",
+    "Extreme-value quantiles in this audit are descriptive only, not preprocessing thresholds.",
+    "No brushing, toothpaste/fluoride, floss or xerostomia measures were found in this SAV's variable labels."
+  ],
+  "source_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+  "source_file": "data/data.sav",
+  "source_size_bytes": 18157353,
+  "source_encoding": "WINDOWS-1252",
+  "source_numeric_columns_read": [
+    "IdEncuesta",
+    "Edad",
+    "Sexo",
+    "Region",
+    "Zona",
+    "NEDU1_MINSAL_1",
+    "c6",
+    "c1",
+    "m5p3",
+    "m5p6",
+    "m5p5",
+    "m5p8",
+    "Fexp_F1F2p_Corr",
+    "Estrato",
+    "Conglomerado",
+    "die11",
+    "die1a",
+    "die2",
+    "die3",
+    "die4",
+    "die5",
+    "die6",
+    "die7",
+    "die8",
+    "die9",
+    "die10_a",
+    "die10_b",
+    "die10_c",
+    "die10_d",
+    "die10_e",
+    "die10_f",
+    "die12_cantidad",
+    "die12_unidad",
+    "die13_cantidad",
+    "die13_unidad",
+    "die14",
+    "as29",
+    "m8p13",
+    "sb2",
+    "die12e",
+    "die13e",
+    "Fexp_F2p_Corr",
+    "as27",
+    "as28",
+    "as5_1",
+    "ta3",
+    "di3",
+    "sb3",
+    "sb4",
+    "sb1",
+    "sb5_2",
+    "sb5_1",
+    "sb5_3",
+    "sb5_4",
+    "sb5_5"
+  ],
+  "expanded_feature_blocks": {
+    "context": [
+      "age",
+      "sex",
+      "region",
+      "rural",
+      "education",
+      "indigenous",
+      "born_chile",
+      "teeth_remaining",
+      "income_band",
+      "health_insurance",
+      "smoking_status",
+      "diabetes_reported",
+      "dental_visit",
+      "dental_visit_reason",
+      "dental_access",
+      "household_water_source",
+      "rural_water_consumption"
+    ],
+    "oral_symptoms": [
+      "oral_health_selfrating",
+      "oral_pain",
+      "oral_speech",
+      "oral_eating",
+      "oral_daily_activities",
+      "oral_social"
+    ],
+    "dietary_intake": [
+      "fish",
+      "dairy_frequency",
+      "dairy_type",
+      "wholegrain",
+      "legumes",
+      "fruit_days",
+      "fruit_portions",
+      "vegetable_days",
+      "vegetable_portions",
+      "water",
+      "soda_frequency",
+      "juice_frequency",
+      "oil",
+      "soda_glasses_daily",
+      "juice_glasses_daily"
+    ],
+    "label_behaviour": [
+      "label_ingredients",
+      "label_nutrition",
+      "label_warnings",
+      "label_health",
+      "label_brand",
+      "label_discounts"
+    ]
+  },
+  "expanded_income_coding": {
+    "lower_bounds_clp": [
+      78000,
+      135000,
+      218000,
+      296000,
+      384000,
+      481000,
+      608000,
+      765000,
+      1030000,
+      1573000
+    ],
+    "midpoints_used": false,
+    "exact_amount_available_all": 5100,
+    "exact_amount_available_dentate": 4112,
+    "fallback_band_used_all": 187,
+    "fallback_band_used_dentate": 169,
+    "amount_and_band_observed_all": 5100,
+    "amount_band_disagreements_all": 0,
+    "amount_band_disagreements_dentate": 0,
+    "boundary_rule": "Each fixed lower bound belongs to the upper band; >=1,573,000 is band11. Exact amount takes precedence over supplied band."
+  },
+  "expanded_positive_unknown_diabetes": {
+    "all": 53,
+    "dentate": 43
+  },
+  "expanded_raw_special_codes": {
+    "as28": {
+      "-9999": 946
+    },
+    "as5_1": {
+      "-8888": 75
+    },
+    "sb3": {
+      "-9999": 203,
+      "-8888": 95
+    }
+  },
+  "expanded_raw_missing_counts": {
+    "as27": 1133,
+    "as28": 0,
+    "as5_1": 0,
+    "ta3": 0,
+    "di3": 0,
+    "sb2": 0,
+    "sb3": 219,
+    "sb4": 258,
+    "sb1": 0,
+    "sb5_2": 0,
+    "sb5_1": 0,
+    "sb5_3": 0,
+    "sb5_4": 0,
+    "sb5_5": 0
+  },
+  "expanded_coverage_dentate": {
+    "age": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "sex": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "region": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "rural": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "education": {
+      "observed": 4998,
+      "missing": 38
+    },
+    "indigenous": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "born_chile": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "teeth_remaining": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "income_band": {
+      "observed": 4281,
+      "missing": 755
+    },
+    "health_insurance": {
+      "observed": 4984,
+      "missing": 52
+    },
+    "smoking_status": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "diabetes_reported": {
+      "observed": 4993,
+      "missing": 43
+    },
+    "dental_visit": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "dental_visit_reason": {
+      "observed": 4843,
+      "missing": 193
+    },
+    "dental_access": {
+      "observed": 4840,
+      "missing": 196
+    },
+    "household_water_source": {
+      "observed": 5030,
+      "missing": 6
+    },
+    "rural_water_consumption": {
+      "observed": 5035,
+      "missing": 1
+    },
+    "oral_health_selfrating": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oral_pain": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oral_speech": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oral_eating": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oral_daily_activities": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oral_social": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "fish": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "dairy_frequency": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "dairy_type": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "wholegrain": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "legumes": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "fruit_days": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "fruit_portions": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "vegetable_days": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "vegetable_portions": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "water": {
+      "observed": 5032,
+      "missing": 4
+    },
+    "soda_frequency": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "juice_frequency": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "oil": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "soda_glasses_daily": {
+      "observed": 5033,
+      "missing": 3
+    },
+    "juice_glasses_daily": {
+      "observed": 5034,
+      "missing": 2
+    },
+    "label_ingredients": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "label_nutrition": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "label_warnings": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "label_health": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "label_brand": {
+      "observed": 5036,
+      "missing": 0
+    },
+    "label_discounts": {
+      "observed": 5036,
+      "missing": 0
+    }
+  },
+  "expanded_cohort_validation": {
+    "status": "verified",
+    "all_participants": 6233,
+    "dentate_eligible": 5036,
+    "dentate_cases": 2689,
+    "dentate_outcome_missing": 0
+  }
+}

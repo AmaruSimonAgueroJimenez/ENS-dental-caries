@@ -1,0 +1,11 @@
+model,fold,maximum_absolute_probability_difference,tolerance,n_test,params,retuned,status,reconstruction_seconds
+hist_gradient_boosting__context_diet_labels,1,0.0,1e-12,1006,"{""l2_regularization"": 1.0, ""max_leaf_nodes"": 3}",False,verified,0.22171512500062818
+hist_gradient_boosting__context_diet_labels,2,0.0,1e-12,1007,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.22241191599459853
+hist_gradient_boosting__context_diet_labels,3,0.0,1e-12,1011,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.22953887499897974
+hist_gradient_boosting__context_diet_labels,4,0.0,1e-12,1007,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.21663604100467637
+hist_gradient_boosting__context_diet_labels,5,0.0,1e-12,1005,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.22152945800189627
+hist_gradient_boosting__symptoms_diet_labels,1,0.0,1e-12,1006,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.2380757920036558
+hist_gradient_boosting__symptoms_diet_labels,2,0.0,1e-12,1007,"{""l2_regularization"": 10.0, ""max_leaf_nodes"": 3}",False,verified,0.24389991700445535
+hist_gradient_boosting__symptoms_diet_labels,3,0.0,1e-12,1011,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.2528180000008433
+hist_gradient_boosting__symptoms_diet_labels,4,0.0,1e-12,1007,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.25599391700234264
+hist_gradient_boosting__symptoms_diet_labels,5,0.0,1e-12,1005,"{""l2_regularization"": 100.0, ""max_leaf_nodes"": 3}",False,verified,0.24378866700135404

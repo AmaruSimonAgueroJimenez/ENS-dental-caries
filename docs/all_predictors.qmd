@@ -1,0 +1,458 @@
+---
+title: "Which variables inform classification of prevalent dental caries?"
+subtitle: "All-predictor importance, stability and a neural-network comparison in ENS 2016–17"
+lang: en
+jupyter: python3
+format:
+  html:
+    theme: cosmo
+    css: caries-report.css
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    toc-location: right
+    number-sections: true
+    code-fold: true
+    code-summary: "Show report code"
+    code-tools: true
+    smooth-scroll: true
+    page-layout: article
+execute:
+  echo: false
+  warning: false
+  error: false
+  cache: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+from pathlib import Path
+from hashlib import sha256
+from html import escape
+import base64
+import json
+import numpy as np
+import pandas as pd
+from IPython.display import display, HTML, Markdown
+
+ROOT = Path.cwd()
+if ROOT.name == 'docs':
+    ROOT = ROOT.parent
+TABLES = ROOT / 'outputs/all_predictors/tables'
+FIGURES = ROOT / 'outputs/all_predictors/figures'
+csv_names = ['variable_dictionary', 'predictor_missingness', 'descriptive_profile',
+             'model_performance', 'paired_contrasts', 'importance_stability',
+             'grouped_importance_stability', 'cross_model_agreement', 'calibration', 'roc',
+             'subgroup_performance', 'hyperparameter_search', 'outer_fold_performance',
+             'permutation_importance', 'grouped_permutation_importance',
+             'validation_split_checks', 'training_diagnostics', 'reconstruction_checks', 'prediction_spread']
+json_names = ['data_audit', 'descriptive_profile_metadata', 'feature_blocks',
+              'model_manifest', 'run_manifest', 'descriptive_provenance']
+for name in csv_names:
+    assert (TABLES / f'{name}.csv').is_file(), f'Missing aggregate: {name}'
+for name in json_names:
+    assert (TABLES / f'{name}.json').is_file(), f'Missing metadata: {name}'
+# Preserve the literal category None, distinct from a missing response.
+tables = {n: pd.read_csv(TABLES / f'{n}.csv', keep_default_na=False, na_values=['']) for n in csv_names}
+meta = {n: json.loads((TABLES / f'{n}.json').read_text()) for n in json_names}
+run, manifest = meta['run_manifest'], meta['model_manifest']
+audit, blocks, profile_meta = meta['data_audit'], meta['feature_blocks'], meta['descriptive_profile_metadata']
+assert run['status'] == 'complete'
+assert run['code_sha256'], 'Analysis-source provenance is missing.'
+for relative, expected in run['code_sha256'].items():
+    path = (ROOT / relative).resolve()
+    assert path.is_relative_to(ROOT) and path.is_file(), f'Invalid source path: {relative}'
+    assert sha256(path.read_bytes()).hexdigest() == expected, f'Analysis source changed: {relative}'
+assert run['plan_sha256'] == sha256((ROOT / 'docs/all-predictor-analysis-plan.md').read_bytes()).hexdigest()
+assert run['input_sha256'] == audit['source_sha256']
+assert run['model_manifest'] == manifest
+for filename, record in meta['descriptive_provenance'].items():
+    assert sha256((TABLES / filename).read_bytes()).hexdigest() == record['output_sha256']
+reconstruction=tables['reconstruction_checks']
+assert len(reconstruction) == 10 and reconstruction.status.eq('verified').all()
+assert reconstruction.maximum_absolute_probability_difference.le(1e-12).all()
+assert set(manifest['all_predictor_importance']) == set(manifest['models'])
+assert all(item['available'] for item in manifest['all_predictor_importance'].values())
+assert audit['expanded_cohort_validation']['status'] == 'verified'
+assert run['n_participants'] == manifest['n_participants'] == audit['sample_flow']['dentate_eligible'] == 5036
+assert run['events'] == manifest['n_events'] == audit['sample_flow']['dentate_cases'] == 2689
+assert run['n_predictors'] == profile_meta['predictors'] == 44
+assert run['n_model_variants'] == 8 and run['bootstrap_replicates'] == 1000
+assert profile_meta['domain_counts']['Total'] == run['n_participants']
+assert manifest['settings']['outer_folds'] == 5 and manifest['settings']['inner_folds'] == 3
+assert {k: len(v) for k,v in blocks.items()} == {'context':17, 'symptoms':6, 'diet':15, 'labels':6}
+features = [f for values in blocks.values() for f in values]
+assert len(features) == len(set(features)) == 44
+assert tables['validation_split_checks'].psu_overlap.eq(0).all()
+families = ['spline_logistic', 'random_forest', 'hist_gradient_boosting', 'mlp']
+family_labels = dict(zip(families, ['Spline logistic', 'Random forest', 'Histogram boosting', 'Neural network (MLP)']))
+scenarios = ['context_diet_labels', 'symptoms_diet_labels']
+full_models = [f'{family}__{scenarios[1]}' for family in families]
+reduced_models = [f'{family}__{scenarios[0]}' for family in families]
+fitted_models = full_models + reduced_models
+assert set(manifest['models']) == set(fitted_models)
+weighted = tables['model_performance'].query("weighting == 'Survey weighted'").set_index('model')
+unweighted = tables['model_performance'].query("weighting == 'Unweighted'").set_index('model')
+assert set(weighted.index) == set(fitted_models + ['prevalence_only'])
+assert weighted.index.is_unique and unweighted.index.is_unique
+assert weighted.n.eq(run['n_participants']).all() and weighted.events.eq(run['events']).all()
+for metric in ['auc','brier','log_loss']:
+    assert weighted[f'{metric}_bootstrap_valid'].eq(1000).all()
+pairs = tables['paired_contrasts']
+assert len(pairs) == 30 and pairs.contrast_id.nunique() == 10
+assert pairs.role.eq('exploratory_conditional_comparison').all()
+assert np.isfinite(pairs[['difference','ci_low','ci_high']].to_numpy(float)).all()
+assert pairs.ci_low.le(pairs.ci_high).all()
+for r in pairs.itertuples():
+    value = weighted.loc[r.model,r.metric] - weighted.loc[r.reference,r.metric]
+    assert np.isclose(r.difference, value if r.metric == 'auc' else -value, rtol=0, atol=1e-12)
+importance = tables['importance_stability']
+# A disclosed post-result display rule, not a significance or selection threshold.
+near_zero_models = set(importance.groupby('model').brier_increase.apply(lambda v: v.abs().max()).loc[lambda v: v.lt(1e-8)].index)
+grouped = tables['grouped_importance_stability']
+for model in fitted_models:
+    found = importance.loc[importance.model.eq(model)]
+    assert found.feature.is_unique
+    assert set(found.feature) == set(manifest['models'][model]['features'])
+    assert found.folds.eq(5).all() and found.repeats_per_fold.eq(5).all()
+assert set(tables['cross_model_agreement'].feature) == set(features)
+assert tables['cross_model_agreement'].models.eq(4).all()
+training = tables['training_diagnostics']
+assert training.optimizer_status.eq('fixed_epoch_budget_completed').all()
+assert training.epochs_requested.eq(training.epochs_completed).all()
+assert np.isfinite(training[['optimizer_loss_initial','optimizer_loss_final']].to_numpy(float)).all()
+# Fixed-epoch MLP fits intentionally make no tolerance-based convergence claim.
+outer_training = training.loc[training.phase.eq('outer')]
+assert len(outer_training) == 10
+spread=tables['prediction_spread']
+assert len(spread) == 40 and not spread.duplicated(['model','fold']).any()
+assert set(spread.model) == set(fitted_models)
+neural_spread=spread.loc[spread.model.str.startswith('mlp__')].copy()
+assert len(neural_spread) == 10
+
+dictionary = tables['variable_dictionary'].set_index('variable').copy()
+dictionary.loc['dental_visit','description'] = 'Time since last dental visit'
+dictionary.loc['soda_glasses_daily','description'] = 'Estimated daily soda volume'
+dictionary.loc['juice_glasses_daily','description'] = 'Estimated daily juice volume'
+feature_labels = dictionary.description.to_dict()
+profile = tables['descriptive_profile']
+figure_names = ['figure1_performance', 'figure2_leading_predictors', 'figure3_all_predictor_ranks',
+                'figure4_blocks', 'figure5_validation', 'supplementary1_context_importance',
+                'supplementary2_diet_importance', 'supplementary3_labels_symptoms',
+                'supplementary4_non_symptom_leaders']
+figure_meta = json.loads((FIGURES / 'figure_metadata.json').read_text())
+figure_lookup = {item['name']: item for item in figure_meta['figures']}
+for name in figure_names:
+    assert name in figure_lookup
+    for ext in ['png','svg','pdf']:
+        assert (FIGURES / f'{name}.{ext}').is_file()
+
+def number(value, digits=3):
+    return '—' if pd.isna(value) else f'{float(value):.{digits}f}'
+
+def interval(row, metric, digits=3):
+    return f'{number(row[metric],digits)} ({number(row[metric+"_low"],digits)} to {number(row[metric+"_high"],digits)})'
+
+def model_label(model):
+    if model == 'prevalence_only': return 'Training-fold prevalence benchmark'
+    family, scenario = model.split('__')
+    return f'{family_labels[family]}: ' + ('44 constructs' if scenario == scenarios[1] else '38 constructs; excluding S6')
+
+def show_table(frame, caption, note=''):
+    html = frame.to_html(index=False, escape=True, border=0, classes='report-table', na_rep='—')
+    display(HTML(f'<div class="table-block"><div class="table-caption">{escape(caption)}</div>'
+                 f'<div class="table-scroll" tabindex="0">{html}</div><p class="table-note">{escape(note)}</p></div>'))
+
+def show_figure(name):
+    item=figure_lookup[name]
+    payload=base64.b64encode((FIGURES/f'{name}.png').read_bytes()).decode('ascii')
+    alt=escape(item.get('alt_text',item['caption']))
+    display(HTML(f'<figure class="analysis-figure"><img src="data:image/png;base64,{payload}" alt="{alt}">'
+                 f'<figcaption>{escape(item["caption"])}</figcaption></figure>'))
+
+def performance_table(models):
+    return pd.DataFrame([{'Model':model_label(m), 'AUC (95% CI)':interval(weighted.loc[m],'auc'),
+                          'Brier (95% CI)':interval(weighted.loc[m],'brier',4),
+                          'Log loss (95% CI)':interval(weighted.loc[m],'log_loss',4)} for m in models])
+
+def contribution_table(data):
+    out=data[['model','feature','brier_increase','minimum_fold_brier_increase','maximum_fold_brier_increase',
+              'auc_drop','overall_rank','median_rank','fraction_positive_folds','fraction_top10']].copy()
+    out.insert(2,'Description',out.feature.map(feature_labels))
+    not_interpreted=out.model.isin(near_zero_models)
+    for col in ['overall_rank','median_rank','fraction_positive_folds','fraction_top10']:
+        out[col]=out[col].astype(object)
+        out.loc[not_interpreted,col]='Not interpreted: negligible magnitude'
+    out['model']=out.model.map(model_label)
+    for col in ['brier_increase','minimum_fold_brier_increase','maximum_fold_brier_increase']:
+        out[col]=out[col].map(lambda x:f'{x:.3e}' if pd.notna(x) and 0 < abs(x) < 1e-6 else number(x,6))
+    out['auc_drop']=out.auc_drop.map(lambda x:number(x,4))
+    out.loc[not_interpreted,'auc_drop']='Not interpreted: negligible probability variation'
+    return out.rename(columns={'model':'Model','feature':'Variable','brier_increase':'Mean Brier increase',
+        'minimum_fold_brier_increase':'Fold minimum','maximum_fold_brier_increase':'Fold maximum',
+        'auc_drop':'Mean AUC decrease','overall_rank':'Rank by mean Brier increase','median_rank':'Median fold rank',
+        'fraction_positive_folds':'Fraction of positive folds','fraction_top10':'Fraction among fold top ten'})
+
+def contrasts_table(selected):
+    rows=[]
+    for code, group in selected.groupby('contrast_id',sort=False):
+        row={'Compared model':model_label(group.iloc[0].model),'Reference':model_label(group.iloc[0].reference)}
+        for metric,label,digits in [('brier','Brier gain (95% CI)',6),('auc','AUC gain (95% CI)',4),('log_loss','Log-loss gain (95% CI)',6)]:
+            r=group.loc[group.metric.eq(metric)].iloc[0]
+            row[label]=f'{number(r.difference,digits)} ({number(r.ci_low,digits)} to {number(r.ci_high,digits)})'
+        rows.append(row)
+    return pd.DataFrame(rows)
+```
+
+## Population and analytical question
+
+This exploratory analysis asks **which of 44 available contextual, dietary, label-related and oral-status constructs inform classification of caries present at examination**, and how their apparent importance varies across model families and validation folds. It compares spline logistic regression, random forest, histogram gradient boosting and a two-layer neural network. A complementary scenario retains 38 constructs after excluding the six concurrent oral-status indicators.
+
+```{python}
+#| label: population
+cards=[(f'{run["n_participants"]:,}','Dentate participants evaluated in every variant'),
+       ('44','Constructs evaluated individually'),('4','Model families compared')]
+display(HTML('<div class="summary-grid">'+''.join(f'<div class="summary-card"><strong>{escape(v)}</strong><span>{escape(l)}</span></div>' for v,l in cards)+'</div>'))
+flow=audit['sample_flow']
+show_table(pd.DataFrame([(label,flow[key]) for label,key in [
+    ('Survey records','all_participants'),('Complete dental examinations','dental_examination'),
+    ('Edentulous participants','edentulous'),('Dentate eligible participants','dentate_eligible'),
+    ('Caries cases','dentate_cases'),('Participants without caries','dentate_non_cases')]],
+    columns=['Population','Unweighted count']), 'Study population.')
+show_table(pd.DataFrame([('C17',17,'Sociodemographic, general-health, dental-attendance and household water context'),
+    ('D15',15,'Food and beverage intake, including water and estimated soda/juice volumes'),
+    ('L6',6,'Attention to labels, packaging information and purchase considerations'),
+    ('S6',6,'Concurrent oral self-rating, pain and functional/social interference')],
+    columns=['Block','Constructs','Content']), 'Four disjoint predictor blocks.',
+    'C17+D15+L6 gives 38 constructs; adding S6 gives 44. The contextual block includes remaining teeth and dental attendance in both scenarios.')
+display(Markdown(f'There were **{run["events"]:,} observed cases**. Survey-weighted prevalence was '
+                 f'**{weighted.loc[full_models[0],"prevalence"]:.1%}**; the unweighted proportion was '
+                 f'{run["events"]/run["n_participants"]:.1%}.'))
+```
+
+Eligibility requires an observed dental examination and at least one remaining tooth. The outcome is at least one clinically observed decayed tooth. Missing examinations are not coded caries-free, and outcomes are never imputed. The 44 constructs form the defined scope of this analysis, rather than an exhaustive inventory of every ENS measurement. Decayed-tooth counts, the outcome itself and participant identifiers never enter the predictors.
+
+```{python}
+#| label: selected-profile
+rows=[]
+for variable in ['age','teeth_remaining','water','soda_frequency','juice_frequency','soda_glasses_daily','juice_glasses_daily']:
+    row={'Measure':feature_labels[variable],'Units':dictionary.loc[variable,'units']}
+    for domain in ['No caries','Caries','Total']:
+        r=profile.loc[profile.variable.eq(variable)&profile.domain.eq(domain)&profile.row_type.eq('mean')].iloc[0]
+        row[domain]=f'{number(r.estimate,2)} ({number(r.ci_low,2)} to {number(r.ci_high,2)}); n={int(r.observed_n):,}'
+    rows.append(row)
+show_table(pd.DataFrame(rows),'Selected quantitative characteristics by caries status.',
+    'Survey-weighted mean with 95% design-based CI; n is the unweighted observed denominator. Original measurement scales are retained. No descriptive p-value screen selects the predictors.')
+```
+
+## Development and validation
+
+The six classical-family variants reuse their authenticated outer held-out probabilities, tuning decisions and fold metrics from the completed dietary analysis. Their candidate grids and predictions are unchanged. The two neural-network variants undergo a new bounded search fixed before these neural fits. The extension is dataset-informed: earlier results were already known, and reuse of their held-out folds does not create a new independent validation cohort.
+
+Every variant uses five PSU-disjoint outer folds and three inner folds. Inner pooled, survey-weighted log loss selects settings. All fitted estimators receive training weights normalized to mean one. Preprocessing is learned inside each relevant training partition. Numeric predictors use median imputation with missingness indicators; categorical responses retain named levels and explicit missingness, with unknown validation levels handled by the trained encoder. MLP numeric inputs are standardized. Income remains in its questionnaire bands.
+
+Four soda/juice frequency and volume fields retain the earlier `log1p` transformation, including valid zeros and the original extreme observations. Frequencies use seven-day weeks and 30-day months; estimated glasses per day are not grams of sugar. Water is physical glasses per day and does not establish individual fluoride exposure. Splines are applied only to age, remaining teeth and water in the spline-logistic family. No class balancing or synthetic oversampling is performed.
+
+```{python}
+#| label: model-specifications
+show_table(pd.DataFrame([
+    ('Spline logistic','C = 0.0001, 0.001, 0.01, 0.1, 1, 10; retained nested fits'),
+    ('Random forest','200 trees; leaf size 5, 20, 50, 100 × maximum features sqrt or 0.7; retained nested fits'),
+    ('Histogram boosting','Maximum leaves 3, 7, 15 × L2 1, 10, 100; 150 iterations; retained nested fits'),
+    ('Neural network (MLP)','ReLU layers (32,16) or (64,32) × (alpha, epochs): (1,100), (10,100), (10,250); Adam; batch 128; learning rate 0.001')
+],columns=['Family','Declared candidate set']), 'Model-development specifications.',
+'The neural grid contains six coupled regularization/training-budget candidates. This is a bounded comparison, not an exhaustive architecture benchmark.')
+show_table(outer_training[['model','fold','epochs_requested','epochs_completed','optimizer_status','n_input_columns','n_parameters']].assign(
+    model=lambda d:d.model.map(model_label)), 'Neural outer-training budgets and diagnostics.',
+'All requested epochs must complete with finite parameters and losses. Fixed-budget completion does not claim tolerance-based optimization convergence. No internal row-based validation or validation-accuracy early stopping is used.')
+```
+
+Performance uses survey-weighted held-out probabilities. The working examination-phase expansion weight is `Fexp_F1F2p_Corr`, numerically identical to `Fexp_F2p_Corr` in this release; confirmation against the official phase-specific manual remains outstanding. The 1,000 shared, rescaled stratified PSU-bootstrap draws retain the full positive-weight design before subsetting to the dentate domain. Intervals hold fitted models, selected settings and validation partitions fixed. Singleton strata remain fixed in this bootstrap. Descriptive profile intervals instead use ratio linearization, design-t intervals and the average-stratum convention for singleton strata. Neither convention recovers otherwise unidentified singleton variation.
+
+## Performance of the four model families
+
+```{python}
+#| label: full-performance
+show_figure('figure1_performance')
+show_table(performance_table(full_models), 'Performance with all 44 constructs.',
+    'AUC is better when higher; Brier score and log loss are better when lower. The 95% intervals are conditional survey-bootstrap intervals on the same participants.')
+show_table(performance_table(['prevalence_only']), 'Training-fold prevalence benchmark.',
+    'Each held-out participant receives the prevalence from the corresponding training partition. The pooled calibration slope of this within-fold constant benchmark is not interpreted.')
+```
+
+An AUC of 0.5 is a chance-ranking reference; an AUC above it does not establish accurate or useful individual predictions. Brier score and log loss assess probability accuracy, while calibration assesses agreement between probabilities and observed outcomes. All four families are retained in the interpretation. No family becomes the primary analysis because it achieves the largest observed outer AUC.
+
+## Individual contributions across all 44 constructs
+
+Each raw predictor is permuted on outer held-out participants before model preprocessing, linking its encoded categories and missingness representation. Five donor permutations per variable per fold follow the same deterministic convention across families. Recipient outcomes and expansion weights stay fixed. Repeat changes are averaged within fold, then fold means are weighted by held-out expansion totals. Brier increase leads the display and AUC decrease complements it: positive values indicate worse performance after perturbation.
+
+Spline and random-forest importances are reused. The ten boosting outer fits are reconstructed solely to obtain their missing importances, with the original selected settings and seeds; reconstructed probabilities must match archived probabilities within absolute tolerance 1e-12 before permutation. Neural importance uses its newly selected outer-training fits. No classical family is retuned for this extension.
+
+```{python}
+#| label: leading-importance
+show_figure('figure2_leading_predictors')
+leaders=pd.concat([importance.loc[importance.model.eq(model)].sort_values(['overall_rank','feature']).head(10) for model in full_models if model not in near_zero_models])
+show_table(contribution_table(leaders), 'Ten leading mean permutation contributions in the full models with discernible magnitudes.',
+    'A descriptive ordering of signed model reliance. Fold minimum–maximum values are stability ranges, not 95% confidence limits. Complete results retain all weak, zero and negative estimates below. Models with all absolute mean Brier changes below 1e-8 are retained in performance but their numerical ranks are not interpreted.')
+show_figure('figure3_all_predictor_ranks')
+water=importance.loc[importance.model.isin(full_models)&importance.feature.eq('water')]
+show_table(contribution_table(water), 'Water alongside the full set of predictors.',
+    'Water is neither forced into the leading ranks nor omitted because its contribution is small. Permutation importance does not identify a protective direction or a causal effect.')
+```
+
+Permutation importance is specific to the fitted model, its correlated predictors and the chosen perturbation. It does not estimate a uniquely independent exposure contribution or the percentage of caries explained. Correlated predictors can share predictive information; shuffling one can create combinations rarely seen in the survey. This issue is particularly relevant to beverage frequencies and their derived volumes.
+
+## Joint blocks and stability across models
+
+Joint-block permutation uses one donor row for every variable within that block, preserving their within-block combinations. Context, diet, labels and oral status are disjoint, but their block sizes differ. A block's permutation contribution is neither the sum of individual contributions nor the gain from refitting a model with or without that block.
+
+```{python}
+#| label: block-and-agreement
+show_figure('figure4_blocks')
+g=grouped.loc[grouped.model.isin(full_models)].copy()
+g['Model']=g.model.map(model_label)
+for column in ['auc_drop','fraction_positive_folds']:
+    g[column]=g[column].astype(object)
+    g.loc[g.model.isin(near_zero_models),column]='Not interpreted: negligible magnitude'
+show_table(g[['Model','block','brier_increase','minimum_fold_brier_increase','maximum_fold_brier_increase','auc_drop',
+              'fraction_positive_folds']].round(6), 'Joint block contributions in the full models.',
+    'Signed changes and descriptive fold ranges. Different block sizes and dependencies limit direct attribution comparisons.')
+agreement=tables['cross_model_agreement'].copy()
+agreement.insert(1,'Description',agreement.feature.map(feature_labels))
+classical_columns=['feature','Description']+[c for c in agreement if c.startswith('classical_')]
+show_table(agreement[classical_columns], 'Agreement across the three classical full models for every construct.',
+    'The MLP is omitted only from this interpretive ranking summary because its contributions are practically zero under the fitted procedure. All four-model numeric summaries remain below and in CSV. Positive means and top-ten counts are descriptive, not significance tests or causal rankings. Minimum-rank ties can include more than ten variables at a boundary.')
+```
+
+In this completed run, the neural benchmark produces practically zero Brier contributions for every variable. Its numerical ranks and signs therefore do not identify informative variables; tiny arithmetic differences can change the signs of fold averages. The visual rule marking all absolute mean Brier changes below 1e-8 was introduced after inspecting this result and is solely a presentation rule, not a significance threshold or a reason to alter the model search. The classical-only agreement view is explicitly labelled; the neural performance and raw contribution outputs remain available.
+
+Rank differences and fold ranges show sensitivity to the training sample and the model family. They are not independent replications of the study, and the five permutation repeats do not multiply the effective sample size. A consistent positive contribution is stronger descriptive evidence of model reliance than a high rank that appears in one family or one fold. It still requires scientific interpretation and independent validation.
+
+## Calibration and the complementary 38-construct scenario
+
+The 38-construct scenario excludes S6 but retains dental attendance and examined remaining teeth. Comparing 44 versus 38 asks about concurrent oral-status information under each development procedure. It does not identify mediation, biological effects or future caries risk. The MLP comparisons with each classical family are exploratory and paired on the same participants; there is no multiplicity-adjusted confirmatory claim.
+
+```{python}
+#| label: calibration-and-comparisons
+show_figure('figure5_validation')
+show_table(performance_table(reduced_models), 'Complementary performance excluding the six oral-status indicators.')
+show_table(contrasts_table(pairs.loc[pairs.contrast_id.str.startswith('neural_vs_')]), 'Neural network versus each classical family.',
+    'Positive AUC gain is compared minus reference; positive Brier and log-loss gains are reference minus compared. These 95% intervals condition on the fitted models and partitions.')
+show_table(contrasts_table(pairs.loc[pairs.contrast_id.str.startswith('oral_status__')]), 'All 44 versus 38 constructs within each family.',
+    'These contrasts include the effect of the independently selected training settings for each information scenario.')
+rows=[]
+for m in fitted_models:
+    r=weighted.loc[m]
+    rows.append({'Model':model_label(m),'Calibration-in-the-large':number(r.calibration_intercept),
+                 'Calibration slope':number(r.calibration_slope),'Status':r.calibration_status})
+show_table(pd.DataFrame(rows), 'Pooled held-out calibration.',
+    'Intercept target 0 and slope target 1. Estimates and curves are descriptive; no calibration-parameter confidence intervals or deployment recalibration are claimed.')
+```
+
+## Interpretation and limitations
+
+The contribution analysis evaluates all 44 defined constructs and preserves their weak or unstable findings. Its scientific value is the identification of information that models use consistently, accompanied by honest assessment of discrimination, probability accuracy and calibration. It does not establish determinants of caries or justify selecting exposures by an importance threshold.
+
+Concurrent oral self-rating, pain, dental attendance and treatment-related responses may be consequences of existing disease. The use of remaining teeth also means neither scenario represents a fully remote questionnaire-only screening tool. No future-incidence prediction, external validation, clinical decision threshold or net benefit has been established. The available measurements lack verified brushing, toothpaste/fluoride, flossing and xerostomia constructs; water quantity and household source do not substitute for individual fluoride exposure.
+
+A two-layer MLP adds a specified neural family, not a comprehensive test of deep learning. Tabular benchmark studies support comparing networks with strong conventional baselines rather than assuming a neural advantage. Grinsztajn and colleagues found competitive tree performance across 45 medium-sized tabular datasets; McElfresh and colleagues showed that relative performance across 19 algorithms and 176 datasets depended on tuning and dataset characteristics. These benchmarks do not directly validate performance in this complex survey. [NeurIPS 2022 original study](https://proceedings.neurips.cc/paper_files/paper/2022/file/0378c7692da36807bdec87ab043cdadc-Paper-Datasets_and_Benchmarks.pdf); [NeurIPS 2023 original study](https://papers.neurips.cc/paper_files/paper/2023/file/f06d5ebd4ff40b40dd97e30cee632123-Paper-Datasets_and_Benchmarks.pdf).
+
+The fixed neural search may not identify an optimal architecture. Reaching its epoch budget is not proof of convergence, while poor performance in this bounded procedure would not establish that all neural approaches fail. No architecture, seed, preprocessing change or new covariate is added after inspecting its outer performance. This extension remains exploratory because the same dataset and earlier findings informed its design.
+
+## Supplementary results
+
+### Complete importance by domain and scenario
+
+```{python}
+#| label: domain-figures
+for name in figure_names[5:]:
+    show_figure(name)
+show_table(agreement, 'Complete four-model and classical-only numeric agreement inventories.',
+    'Four-model ranks retain the near-zero neural contributions for reproducibility and are not used as evidence of consensus. The main interpretive agreement view uses the three classical families. No model is removed from performance comparisons.')
+show_table(contribution_table(importance.sort_values(['model','overall_rank','feature'])),
+    'Complete individual importance for all eight variants.',
+    'The full scenarios each contain 44 constructs; complementary scenarios contain 38. All signed effects are retained. Near-zero model ranks and sign frequencies are labelled uninterpretable in this display; exact numeric values remain in the aggregate CSV.')
+```
+
+### Complete participant profile, missingness and definitions
+
+```{python}
+#| label: complete-profile
+missing=tables['predictor_missingness'].copy()
+missing.insert(1,'Description',missing.variable.map(feature_labels))
+show_table(missing.round(3), 'Observed missingness of all 44 constructs.',
+    'Predictor missingness never removes an eligible participant from validation. Outcomes are not imputed.')
+show_table(dictionary.loc[features].reset_index()[['variable','description','raw_variables','units','missing_and_derivation_rule']],
+    'Source definitions and deterministic derivations.',
+    'The literal None category remains distinct from missingness. Income bands remain categorical. Three displayed descriptions are adapted to the current roles; original labels and mappings remain in the source dictionary.')
+full=profile[['domain','variable','level','n','observed_n','missing_n','estimate','ci_low','ci_high','units']].copy()
+for c in ['estimate','ci_low','ci_high']:
+    full[c]=full[c].map(lambda x:number(x,2))
+show_table(full, 'Complete descriptive profile of all 44 constructs.',
+    'Counts and missingness are unweighted. Category percentages use observed responses within each domain as denominator; numeric estimates are weighted means. Missing rows contain counts only. Boundary confidence intervals may be unidentifiable.')
+```
+
+### Subgroups, thresholds and model diagnostics
+
+```{python}
+#| label: detailed-validation
+subgroups=tables['subgroup_performance'].copy()
+subgroups['Model']=subgroups.model.map(model_label)
+show_table(subgroups[['Model','variable','level','n','events','auc','brier']].round(4),
+    'Exploratory survey-weighted subgroup performance.',
+    'Sex, age, residence and observed education are described without subgroup confidence intervals, heterogeneity tests or formal fairness claims. Missing education is not an observed education category.')
+rows=[]
+for m in fitted_models:
+    r=weighted.loc[m]
+    row={'Model':model_label(m)}
+    for metric in ['sensitivity','specificity','ppv','accuracy']:
+        row[metric+' (95% CI)']=interval(r,metric)
+    rows.append(row)
+show_table(pd.DataFrame(rows), 'Classification at the fixed probability threshold 0.5.',
+    'The threshold is not optimized or proposed as a clinical rule. The same conditional PSU-bootstrap replicates yield these intervals, with undefined ratios omitted as recorded in model_performance.csv.')
+folds=tables['outer_fold_performance'].copy()
+folds['Model']=folds.model.map(model_label)
+show_table(folds[['Model','fold','n_train','n_test','selected_params']], 'Selected settings and outer-fold sample sizes.',
+    'Classical settings are retained. Neural settings are selected only by pooled inner weighted log loss.')
+show_table(reconstruction[['model','fold','n_test','maximum_absolute_probability_difference','tolerance','status']],
+    'Authenticated reconstruction of boosting outer fits.',
+    'Reconstruction obtains missing held-out importance only. Original probabilities and selected hyperparameters are retained; no retuning occurs.')
+show_table(tables['validation_split_checks'], 'Training–validation PSU separation.',
+    'Every outer and inner split must have zero PSU overlap. Individual identities and predictions remain private.')
+spread_display=neural_spread[['model','fold','n_test','min_probability','max_probability','probability_range',
+    'probability_sd','distinct_probabilities_at_six_decimals','weighted_mean_probability','training_prevalence']].copy()
+spread_display['model']=spread_display.model.map(model_label)
+for column in ['probability_range','probability_sd']:
+    spread_display[column]=spread_display[column].map(lambda x:f'{x:.3e}')
+for column in ['min_probability','max_probability','weighted_mean_probability','training_prevalence']:
+    spread_display[column]=spread_display[column].map(lambda x:number(x,8))
+show_table(spread_display, 'Neural probability variation within each held-out fold.',
+    'Within-fold ranges and standard deviations describe the nearly constant predictions. AUC permutation changes can be driven by ordering of tiny numerical differences and are not interpreted as evidence of neural variable importance. Training prevalence is shown as context; no refit or post-result retuning is performed.')
+show_table(outer_training[['model','fold','optimizer_loss_initial','optimizer_loss_final','last_10_epoch_loss_change','warnings']],
+    'Neural training diagnostics.',
+    'Optimizer losses include regularization and are training diagnostics, not validation performance. Warnings about fixed iteration budgets are retained; no tolerance-based convergence claim is made.')
+show_table(pd.DataFrame([{'Model':model_label(m),'Weighted AUC':number(weighted.loc[m,'auc']),
+    'Unweighted AUC':number(unweighted.loc[m,'auc']),'Weighted Brier':number(weighted.loc[m,'brier'],4),
+    'Unweighted Brier':number(unweighted.loc[m,'brier'],4)} for m in fitted_models]),
+    'Weighted and unweighted evaluation.',
+    'Both evaluate the same survey-weighted fits. Unweighted results are descriptive and receive no survey-bootstrap intervals.')
+```
+
+### Reproducibility
+
+```{python}
+#| label: reproducibility
+show_table(pd.DataFrame([
+    ('Run completed (UTC)',run.get('completed_utc','Recorded in run_manifest.json')),
+    ('Participants / cases',f'{run["n_participants"]} / {run["events"]}'),
+    ('Constructs / variants / benchmark','44 / 8 / 1'),
+    ('Outer / inner folds','5 / 3; PSU-disjoint'),
+    ('Conditional bootstrap replicates',str(run['bootstrap_replicates'])),
+    ('SAV SHA-256',run['input_sha256']),('Extension-plan SHA-256',run['plan_sha256']),
+    ('Software',json.dumps(manifest['software'],sort_keys=True)),('Scope',run['scope'])
+],columns=['Record','Value']), 'Verified analysis record.',
+    'Rendering verifies the exact source paths declared in this run, plan, input provenance, cohort, model manifest, importance completeness, finite neural diagnostics and paired-gain direction. The report reads aggregate tables only.')
+```
+
+The [fixed extension plan](all-predictor-analysis-plan.md) and [independent methods review](all-predictor-methods-review.md) describe this new question and its limits. Aggregate outputs and figure exports occupy `outputs/all_predictors/`; participant records, probabilities, folds and caches remain private. The earlier dietary proposal and Andrea manuscript correction remain separately preserved.

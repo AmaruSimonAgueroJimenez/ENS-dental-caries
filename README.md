@@ -1,44 +1,40 @@
-# Dietary information and prevalent dental caries in ENS 2016–2017
+# Predictor importance for prevalent dental caries in ENS 2016–2017
 
-The current proposal asks how much dietary questionnaire information improves classification of prevalent cavitated caries beyond demographic, dental, socioeconomic, health and dental-care information. It is a new, dataset-informed analysis of 5,036 dentate participants, including 2,689 with caries. It does not predict future lesions or estimate causal dietary effects.
+The current proposal examines which available variables inform classification of prevalent caries, returning to the earlier manuscript sequence of participant profile, model comparison and predictor importance. It evaluates 44 constructs in 5,036 dentate participants, including 2,689 cases. A complementary 38-construct scenario excludes concurrent oral-status indicators. The analysis is exploratory and was reframed after inspecting previous results.
 
-## Current independent proposal
+## Current report and results
 
-- [Executable English report](docs/dietary_incremental.html) and [Python Quarto source](docs/dietary_incremental.qmd).
-- [Analysis plan fixed before the new model fits](docs/dietary-incremental-analysis-plan.md), with the primary comparison and all exploratory extensions.
-- [Verified reference register](docs/dietary-manuscript-references.json).
-- [New aggregate tables](outputs/dietary/tables) and [new composite figures](outputs/dietary/figures).
+- [Executed English report](docs/all_predictors.html) and [Python Quarto source](docs/all_predictors.qmd).
+- [Extension plan fixed before the neural fits](docs/all-predictor-analysis-plan.md) and [independent methods review with primary references](docs/all-predictor-methods-review.md).
+- [Aggregate results](outputs/all_predictors/tables) and [nine composite figures](outputs/all_predictors/figures), each exported as PNG, SVG and PDF.
 
-The expanded data contain 44 predictor constructs: 17 context variables, 15 direct dietary indicators, six label behaviours and six concurrent oral-status indicators. The direct dietary block includes questionnaire-derived soda and juice volumes in addition to consumption frequency. Symptoms are kept in a distinct information scenario because they may reflect existing disease. Labels are not treated as direct measures of food intake.
+The 44 constructs comprise 17 context variables, 15 dietary-consumption indicators, six label behaviours and six concurrent oral-status indicators. Water and questionnaire-derived soda/juice volumes remain included. The complete models retain all 44 constructs; top-variable plots are descriptive displays, not feature screening. All signed scores and ranks are supplied in the tables.
 
-Seven information sets are evaluated with penalized spline logistic regression, random forest and histogram gradient boosting, yielding 21 main variants. Two additional spline variants examine beverage extremes using positive-training-value percentile caps. All models use the same five outer and three inner PSU-disjoint partitions, survey-weighted training and evaluation, and training-only statistical preprocessing. No outcome balancing is used.
+Four model families are compared in each scenario: penalized spline logistic regression, random forest, histogram gradient boosting and a regularized multilayer perceptron (MLP). Six classical prediction sets are preserved exactly from the preceding analysis. Boosting outer fits are reconstructed only to obtain missing importance, with predictions required to reproduce the original held-out values. The two new MLP variants use a fixed six-candidate search over two hidden-layer architectures and regularization/epoch settings. All share the same five outer and three inner PSU-disjoint partitions, survey-weighted fitting/tuning/evaluation and training-only preprocessing. No synthetic balancing is used.
 
-The primary estimand is the spline Brier-score gain from adding direct diet to expanded context. Paired AUC and log-loss gains, dietary increments conditional on oral symptoms, label-behaviour increments and whole-block/individual permutation scores are also reported. Positive refitted performance gains uniformly indicate improvement; permutation Brier increases instead measure deterioration after perturbation. Intervals use 1,000 shared stratified PSU-bootstrap draws conditional on fitted models and partitions. They are not external validation or uncertainty for the entire redevelopment process.
+## Findings and limits
 
-## Main finding
+With all 44 constructs, the classical-model AUCs are 0.630 for spline logistic, 0.637 for random forest and 0.635 for boosting. Age, self-rated oral health, remaining teeth and reason for dental consultation are repeatedly among the leading classical-model predictors, with different rankings across families. These results describe model reliance and modest discrimination; they do not establish causal determinants or clinical utility.
 
-Adding the 15 dietary indicators did not demonstrate incremental predictive value in any of the three model families. In the primary spline comparison, the Brier score increased from 0.23349 to 0.23788: the prespecified gain was −0.00439 (conditional 95% interval −0.00716 to −0.00162), a 1.88% increase in error. AUC decreased from 0.63691 to 0.62251. Expanded context and concurrent oral-status information contributed more than the measured diet block. This finding concerns the available questionnaire measurements and the specified validation procedure; it does not contradict a biological role of diet in caries.
+The regularized MLP obtained AUC 0.488 in both information scenarios and made nearly constant predictions within each outer fold. Its variable ranks, positive-fold fractions and permutation AUC changes are numerically uninformative and are not interpreted. Raw values remain available. A reporting-only rule marks a model as near zero in the rank figure when every absolute mean Brier importance is below 1e-8; this rule was adopted after observing the neural predictions, without changing any fitted model or search setting. Cross-model interpretation uses separately reported agreement across the three classical families. This result concerns the bounded MLP search, not all deep-learning architectures.
 
-## Run the new analysis
+Individual and joint-block importance use held-out permutation with five repeats per outer fold. Fold ranges describe stability rather than sampling confidence intervals. Performance intervals and paired model comparisons use 1,000 shared stratified PSU-bootstrap draws conditional on trained models and fixed partitions; they do not represent external validation or the uncertainty of repeating all development. Both scenarios contain examined remaining-teeth information and dental-care variables, while the complete scenario also contains symptoms that may reflect existing disease. Neither scenario predicts future caries incidence.
 
-Use the pinned analysis environment in requirements-lock.txt. Place the privately held ENS SPSS release at data/data.sav; participant records are not distributed in this repository.
+## Reproduce the extension
+
+Use the pinned environment in requirements-lock.txt and privately authorized data/data.sav. Native MLP sample weighting requires scikit-learn 1.7 or later; the recorded analysis used 1.9.0. The original private dietary results must exist. If reproducing from a fresh checkout with no private caches, first execute scripts/run_dietary.py --stage all --jobs 3 --bootstrap 1000 to reconstruct them from the same source release.
 
 ```sh
-.venv/bin/python scripts/run_dietary.py --stage all --jobs 3 --bootstrap 1000
-.venv/bin/python scripts/render_dietary.py
+.venv/bin/python scripts/run_all_predictor_models.py --jobs 3
+.venv/bin/python scripts/summarize_all_predictors.py --bootstrap 1000
+.venv/bin/python scripts/render_all_predictors.py
 .venv/bin/python -m pytest -q
 ```
 
-The prepare, models and summarize stages may be run separately. Validated private fold caches allow interrupted model runs to resume. The summarize stage refreshes all new descriptive tables and checks training provenance before evaluation. The renderer refuses incomplete or stale aggregate runs. Individual records, fold assignments, probabilities and caches remain under ignored private paths.
+Authenticated private caches allow the new model run to resume. The summary and report verify the exact declared fitting and evaluation source hashes and the fixed extension plan. New outputs are written under outputs/all_predictors and outputs/private/all_predictors. Individual records, predictions, fold assignments and caches remain excluded from Git. The reviewed local Word package can be rebuilt using scripts/package_all_predictors.py once its editorial sources and document QA are complete.
 
-Core modules are expanded_data.py for questionnaire reconstruction, dietary_models.py for nested validation, dietary_results.py for aggregate evaluation and dietary_figures.py for the figures. The new analysis writes only outputs/dietary and outputs/private/dietary; it does not replace historical results.
+## Preserved earlier work
 
-## Earlier analysis and Andrea revision
+The [dietary-increment proposal](docs/dietary_incremental.html), its [guide](DIETARY_ANALYSIS.md), the [earlier general reanalysis](docs/caries_python.html), original R sources, [historical coding audit](docs/historical-analysis-audit.md), and [migration audit](docs/r-to-python-migration.md) remain available. The earlier Andrea correction stays separate under manuscript_drafts/andrea_revision_separate. New English manuscript, supplement and reporting maps are local author-review artifacts under manuscript_drafts/all_predictor_proposal. No journal submission or public preprint deposit is performed.
 
-The [earlier 27-predictor reanalysis](docs/caries_python.html), [historical coding audit](docs/historical-analysis-audit.md), [R-to-Python migration audit](docs/r-to-python-migration.md), original R sources and saved reference outputs remain available. The prior guide is preserved in [LEGACY_ANALYSIS.md](LEGACY_ANALYSIS.md).
-
-The earlier Andrea manuscript correction is a separate local editorial deliverable. The new manuscript and supplement are created in manuscript_drafts/dietary_incremental_proposal, and a preserved copy of the previous correction is in manuscript_drafts/andrea_revision_separate. These local manuscripts and private source materials are excluded from Git. No journal submission or public preprint deposit is made by this workflow.
-
-## Interpretation and outstanding source confirmation
-
-The working examination-phase weight is Fexp_F1F2p_Corr, equal to Fexp_F2p_Corr in this release; confirmation against the official ENS phase-selection manual remains outstanding. Available beverage volumes are reported standard glasses, not grams of sugar. Direct measures of brushing, dentifrice/fluoride exposure, plaque and xerostomia were not identified in the supplied questionnaire metadata. Missing or coarse exposure measurements limit interpretation of dietary increments. Small or absent gains do not establish a lack of biological dietary importance.
+The working examination weight is Fexp_F1F2p_Corr, equal to Fexp_F2p_Corr in the supplied release; official examination-phase documentation still requires confirmation. Beverage volumes are reported glasses, not grams of sugar, and extreme values warrant source confirmation. Direct measures of brushing, dentifrice/fluoride exposure, plaque and xerostomia were not identified in the available questionnaire metadata. Authorship, affiliations, declarations and data-access wording require author review before submission.
