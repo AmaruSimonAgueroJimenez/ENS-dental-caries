@@ -15,6 +15,7 @@ This is a **Python reanalysis with verified original data and an audited R refer
 - `docs/caries-analysis-plan.md`: analysis decisions, the internal-grid amendment and the dated correction of reporting focus.
 - `docs/methodological-sources.md`: source verification and outstanding survey-documentation questions.
 - `docs/r-to-python-migration.md`: comparison of the original caries R workflow and the Python reanalysis, including verified source reconciliation and intentional methodological changes.
+- `docs/historical-analysis-audit.md`: recovered water-coding chronology, exact match of the original chart and spreadsheet, and distinction between the intended importance metric and the preserved implementation evidence.
 - `docs/caries-research-submission-plan.md`: journal fit, verified requirements and proposed manuscript allocation.
 - `docs/manuscript-references.json`: thirteen verified scientific references with links and verification scope.
 - `docs/index.qmd` and `docs/index.html`: preserved original R source and saved reference results.
