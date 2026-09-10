@@ -1,0 +1,2482 @@
+{
+  "settings": {
+    "seed": 20260910,
+    "outer_folds": 5,
+    "inner_folds": 3,
+    "permutation_repeats": 5,
+    "cache_version": 1,
+    "selection": "pooled_inner_validation_weighted_log_loss",
+    "primary_family": "spline_logistic",
+    "primary_comparison": "context_diet versus context",
+    "primary_increment_metric": "reference_Brier_minus_expanded_Brier",
+    "probability_log_epsilon": 1e-07,
+    "numeric_features": [
+      "age",
+      "fruit_days",
+      "fruit_portions",
+      "juice_frequency",
+      "juice_glasses_daily",
+      "soda_frequency",
+      "soda_glasses_daily",
+      "teeth_remaining",
+      "vegetable_days",
+      "vegetable_portions",
+      "water"
+    ],
+    "spline_features": [
+      "age",
+      "teeth_remaining",
+      "water"
+    ],
+    "beverage_log1p": [
+      "soda_frequency",
+      "juice_frequency",
+      "soda_glasses_daily",
+      "juice_glasses_daily"
+    ],
+    "winsor_quantile_population": "strictly positive observed training values",
+    "source_hashes": {
+      "models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
+      "data.py": "373b1c00a0969e3a95b2ae214daa47c485d32f82bc06273e398f33ccec2bc4b6",
+      "expanded_data.py": "8ac193961af8a707e5379cd3ed04ec6bb8b815cb4a9ea31d8f5728b9b6d6bfbd",
+      "dietary_models.py": "6b77706d355661e83ba385281606a17ae8bb58145319091a9285fdf93a946d3b"
+    },
+    "software": {
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1"
+    }
+  },
+  "models": {
+    "spline_logistic__basic": {
+      "kind": "spline_logistic",
+      "feature_set": "basic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining"
+      ],
+      "groups": {},
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": false,
+      "fingerprint": "e4c6a4273134fcacaf2fe10ee00447561b516f052ac6b01d90ff113d9322dd67"
+    },
+    "spline_logistic__context": {
+      "kind": "spline_logistic",
+      "feature_set": "context",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": false,
+      "fingerprint": "1e67f591024a6453417d45138648603c893efbb133d2423bcafe72157992d7b7"
+    },
+    "spline_logistic__context_diet": {
+      "kind": "spline_logistic",
+      "feature_set": "context_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": false,
+      "fingerprint": "cb597cee2f77ace2ba896740e2c71f3a030945440d263c9b4ca1992265624ab1"
+    },
+    "spline_logistic__context_diet_labels": {
+      "kind": "spline_logistic",
+      "feature_set": "context_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": true,
+      "fingerprint": "1f96231aaccdf0f1347e06b34d08813731e109149446ddaf79af0f6f0fd32ebb"
+    },
+    "spline_logistic__symptoms": {
+      "kind": "spline_logistic",
+      "feature_set": "symptoms",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": false,
+      "fingerprint": "1a99dec71ef8e2a181c1a533cf0ecc19aabf98cb823ee38cb8ef3342cf297bb6"
+    },
+    "spline_logistic__symptoms_diet": {
+      "kind": "spline_logistic",
+      "feature_set": "symptoms_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": false,
+      "fingerprint": "c904476b7064dc87ac1e50b18a7bcd317fc72e3cc9f8733cace36fd476e732da"
+    },
+    "spline_logistic__symptoms_diet_labels": {
+      "kind": "spline_logistic",
+      "feature_set": "symptoms_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "primary_family",
+      "compute_importance": true,
+      "fingerprint": "97abe4a6c3e3b6aeb553f76477a6ac632bbe9a6e3de86f2d31ca6c2668073838"
+    },
+    "random_forest__basic": {
+      "kind": "random_forest",
+      "feature_set": "basic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining"
+      ],
+      "groups": {},
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "71519240d3dd944354b939073684cf3d7178f5d5e0af2eefbdf2dda5ca96fc80"
+    },
+    "random_forest__context": {
+      "kind": "random_forest",
+      "feature_set": "context",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "061abe025ce9fd6ac223cb7cf669b8c0b13434c68bee6e5cd870a6e4bab80a67"
+    },
+    "random_forest__context_diet": {
+      "kind": "random_forest",
+      "feature_set": "context_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "f650e215ac33b9fe7bb1acb128c9c4755a2de8a3620760038cc415d0743b0e38"
+    },
+    "random_forest__context_diet_labels": {
+      "kind": "random_forest",
+      "feature_set": "context_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": true,
+      "fingerprint": "88fbeda4a2f20241ef620d3ad1bb27fad4f05e593505a124fda39c1bf5df40f6"
+    },
+    "random_forest__symptoms": {
+      "kind": "random_forest",
+      "feature_set": "symptoms",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "84648a8f9cebd3a1bbf66fc2bcb2d0d68a2b267354f5cd75de91bed66966b1c7"
+    },
+    "random_forest__symptoms_diet": {
+      "kind": "random_forest",
+      "feature_set": "symptoms_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "e9bc5a30479b117201dec0560e45407669221cd2f7e27380f9b67db5a78ec363"
+    },
+    "random_forest__symptoms_diet_labels": {
+      "kind": "random_forest",
+      "feature_set": "symptoms_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": true,
+      "fingerprint": "3e6d849466464b4689925a880855fbab7a2c6dab47fcf494cf0e941b19b740ce"
+    },
+    "hist_gradient_boosting__basic": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "basic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining"
+      ],
+      "groups": {},
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "ccbc307153e1a512a97f820fdd47edd04d2a3f65fe45ce3fe63895409f2a2801"
+    },
+    "hist_gradient_boosting__context": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "context",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "0b6a53a694604401abe6c13f639aea721ba78406e8804bafb936da3aa14a2f35"
+    },
+    "hist_gradient_boosting__context_diet": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "context_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "e0aca20c7b11eb5365e567aeceaae91245c49386ea9622742dcf875e301f6ad6"
+    },
+    "hist_gradient_boosting__context_diet_labels": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "context_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "5da498ebcffb3a1c9d8839e8195a1ad87c8aa30150d6b434eb2dcbe973402f9a"
+    },
+    "hist_gradient_boosting__symptoms": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "symptoms",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "fd97c3b1b1583407d293491814f4e99e752b8d99a801a1457b3e4cfcc20645ac"
+    },
+    "hist_gradient_boosting__symptoms_diet": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "symptoms_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "9bcb0c88f77184fb7e3aa69eef3f1d8fab9056fbaf48f6377ab07ef426121afc"
+    },
+    "hist_gradient_boosting__symptoms_diet_labels": {
+      "kind": "hist_gradient_boosting",
+      "feature_set": "symptoms_diet_labels",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "labels": [
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": null,
+      "role": "robustness_family",
+      "compute_importance": false,
+      "fingerprint": "577defed0a62685b12859541fafd8fa2f79bb8692f75848f0b6166b5b941c3c8"
+    },
+    "spline_logistic__context_diet__winsor99": {
+      "kind": "spline_logistic",
+      "feature_set": "context_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": 0.99,
+      "role": "beverage_extreme_sensitivity",
+      "compute_importance": false,
+      "fingerprint": "302fd12b6263ea2e240602b97e11a85549d3272d0b5e614004adfd1975e585bd"
+    },
+    "spline_logistic__symptoms_diet__winsor99": {
+      "kind": "spline_logistic",
+      "feature_set": "symptoms_diet",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "income_band",
+        "health_insurance",
+        "smoking_status",
+        "diabetes_reported",
+        "dental_visit",
+        "dental_visit_reason",
+        "dental_access",
+        "household_water_source",
+        "rural_water_consumption",
+        "oral_health_selfrating",
+        "oral_pain",
+        "oral_speech",
+        "oral_eating",
+        "oral_daily_activities",
+        "oral_social",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "soda_glasses_daily",
+        "juice_glasses_daily"
+      ],
+      "groups": {
+        "context": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "income_band",
+          "health_insurance",
+          "smoking_status",
+          "diabetes_reported",
+          "dental_visit",
+          "dental_visit_reason",
+          "dental_access",
+          "household_water_source",
+          "rural_water_consumption"
+        ],
+        "intake": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "oil",
+          "soda_glasses_daily",
+          "juice_glasses_daily"
+        ],
+        "symptoms": [
+          "oral_health_selfrating",
+          "oral_pain",
+          "oral_speech",
+          "oral_eating",
+          "oral_daily_activities",
+          "oral_social"
+        ]
+      },
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "winsor_positive_quantile": 0.99,
+      "role": "beverage_extreme_sensitivity",
+      "compute_importance": false,
+      "fingerprint": "979b697dbc0c2edd94278868d583afedd3984b3c1e6fec1600f187891d09cbd9"
+    }
+  },
+  "n_participants": 5036,
+  "n_events": 2689,
+  "n_psu": 1072,
+  "n_strata": 30,
+  "software": {
+    "sklearn": "1.9.0",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "source_hashes": {
+    "models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
+    "data.py": "373b1c00a0969e3a95b2ae214daa47c485d32f82bc06273e398f33ccec2bc4b6",
+    "expanded_data.py": "8ac193961af8a707e5379cd3ed04ec6bb8b815cb4a9ea31d8f5728b9b6d6bfbd",
+    "dietary_models.py": "6b77706d355661e83ba385281606a17ae8bb58145319091a9285fdf93a946d3b"
+  },
+  "cache_hits": 0,
+  "fitted_model_folds": 115,
+  "expected_model_folds": 115,
+  "elapsed_seconds": 495.4479837079998,
+  "notes": [
+    "The eligible domain preserves original participant order and index; no predictor complete-case exclusion.",
+    "All variants share the original five outer and three inner PSU-disjoint folds and random seeds.",
+    "All fitted models use training sample weights normalized to mean one; tuning uses pooled inner weighted log loss.",
+    "Four beverage fields undergo log1p; only two declared sensitivity variants cap positive extremes at training p99 first.",
+    "Zero and missing beverage values remain unchanged by capping; numeric imputation, scaling and spline knots are fitted only in training.",
+    "No balancing, oversampling, outcome-derived predictors or outcome-based screening of individual predictors.",
+    "Importance is raw held-out marginal permutation, with five repeats; each disjoint block is jointly permuted using one donor row.",
+    "Individual permutations can break dependence between beverage frequency and derived volume; the intact intake block provides complementary context.",
+    "Importance does not establish causality or protective direction; fold ranges are stability descriptions, not confidence intervals.",
+    "Symptom models address concurrent classification with information that may reflect existing disease, not prediction of incidence.",
+    "Cached probabilities and returned OOF, fold assignments and split positions are private participant-level artifacts."
+  ]
+}

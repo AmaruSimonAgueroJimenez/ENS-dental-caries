@@ -1,0 +1,501 @@
+---
+title: "Does dietary information improve classification of prevalent dental caries?"
+subtitle: "An independent survey-weighted analysis of ENS 2016–17"
+lang: en
+jupyter: python3
+format:
+  html:
+    theme: cosmo
+    css: caries-report.css
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    toc-location: right
+    number-sections: true
+    code-fold: true
+    code-summary: "Show report code"
+    code-tools: true
+    smooth-scroll: true
+    page-layout: article
+execute:
+  echo: false
+  warning: false
+  error: false
+  cache: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+from pathlib import Path
+from hashlib import sha256
+from html import escape
+import base64
+import json
+import numpy as np
+import pandas as pd
+from IPython.display import display, HTML, Markdown
+
+ROOT = Path.cwd()
+if ROOT.name == "docs":
+    ROOT = ROOT.parent
+TABLES = ROOT / "outputs" / "dietary" / "tables"
+FIGURES = ROOT / "outputs" / "dietary" / "figures"
+csv_names = [
+    "variable_dictionary", "predictor_missingness", "descriptive_profile",
+    "model_performance", "paired_contrasts", "importance_stability",
+    "grouped_importance_stability", "calibration", "roc", "subgroup_performance",
+    "hyperparameter_search", "outer_fold_performance", "permutation_importance",
+    "grouped_permutation_importance", "validation_split_checks",
+]
+json_names = ["data_audit", "descriptive_profile_metadata", "feature_blocks", "model_manifest", "run_manifest"]
+for name in csv_names:
+    assert (TABLES / f"{name}.csv").is_file(), f"Required new aggregate is missing: {name}.csv"
+for name in json_names:
+    assert (TABLES / f"{name}.json").is_file(), f"Required new metadata are missing: {name}.json"
+# The literal category 'None' (cooking fat/insurance) must survive CSV reading.
+tables = {name: pd.read_csv(TABLES / f"{name}.csv", keep_default_na=False, na_values=[""])
+          for name in csv_names}
+meta = {name: json.loads((TABLES / f"{name}.json").read_text()) for name in json_names}
+run, model_manifest = meta["run_manifest"], meta["model_manifest"]
+audit, blocks = meta["data_audit"], meta["feature_blocks"]
+profile_meta = meta["descriptive_profile_metadata"]
+assert run["status"] == "complete", "The independent dietary run is not complete."
+source_paths = sorted((ROOT / "src").rglob("*.py")) + [ROOT / "scripts" / "run_dietary.py"]
+current_hashes = {p.relative_to(ROOT).as_posix(): sha256(p.read_bytes()).hexdigest() for p in source_paths}
+assert run["code_sha256"] == current_hashes, "Analysis sources changed after the completed dietary run."
+assert run["training_provenance"]["plan_sha256"] == sha256((ROOT / "docs/dietary-incremental-analysis-plan.md").read_bytes()).hexdigest(), "The pre-fit plan changed."
+assert run["input_sha256"] == audit["source_sha256"] == run["training_provenance"]["input_sha256"]
+assert run["model_manifest"] == model_manifest, "Model and run manifests disagree."
+assert audit["expanded_cohort_validation"]["status"] == "verified"
+assert run["n_participants"] == model_manifest["n_participants"] == audit["sample_flow"]["dentate_eligible"] == 5036
+assert run["events"] == model_manifest["n_events"] == audit["sample_flow"]["dentate_cases"] == 2689
+assert run["n_predictors"] == 44 and run["n_model_variants"] == 23
+assert model_manifest["settings"]["outer_folds"] == 5 and model_manifest["settings"]["inner_folds"] == 3
+assert run["bootstrap_replicates"] == 1000, "The planned 1000-replicate evaluation is required."
+assert profile_meta["domain_counts"]["Total"] == run["n_participants"] and profile_meta["predictors"] == 44
+assert {name: len(values) for name, values in blocks.items()} == {"context": 17, "symptoms": 6, "diet": 15, "labels": 6}
+all_features = [name for values in blocks.values() for name in values]
+assert len(all_features) == len(set(all_features)) == 44
+assert tables["validation_split_checks"]["psu_overlap"].eq(0).all(), "A training/test partition shares PSUs."
+assert tables["outer_fold_performance"]["converged"].all(), "A fitted model failed convergence checks."
+
+families = ["spline_logistic", "random_forest", "hist_gradient_boosting"]
+family_labels = {"spline_logistic": "Spline logistic", "random_forest": "Random forest", "hist_gradient_boosting": "Histogram boosting"}
+set_order = ["basic", "context", "context_diet", "context_diet_labels", "symptoms", "symptoms_diet", "symptoms_diet_labels"]
+set_labels = {"basic": "B8", "context": "C17", "context_diet": "C17+D15", "context_diet_labels": "C17+D15+L6",
+              "symptoms": "C17+S6", "symptoms_diet": "C17+S6+D15", "symptoms_diet_labels": "C17+S6+D15+L6"}
+main_models = [f"{family}__{setting}" for setting in set_order for family in families]
+sensitivity_models = [f"spline_logistic__{setting}__winsor99" for setting in ["context_diet", "symptoms_diet"]]
+fitted_models = main_models + sensitivity_models
+assert set(model_manifest["models"]) == set(fitted_models)
+perf = tables["model_performance"]
+weighted = perf.loc[perf.weighting.eq("Survey weighted")].set_index("model")
+unweighted = perf.loc[perf.weighting.eq("Unweighted")].set_index("model")
+assert set(weighted.index) == set(fitted_models + ["prevalence_only"])
+assert weighted.n.eq(run["n_participants"]).all() and weighted.events.eq(run["events"]).all()
+assert weighted.index.is_unique and unweighted.index.is_unique
+for metric in ["auc", "brier", "log_loss"]:
+    assert weighted[f"{metric}_bootstrap_valid"].eq(run["bootstrap_replicates"]).all(), f"Some {metric} replicates are undefined."
+pairs = tables["paired_contrasts"]
+assert np.isfinite(pairs[["difference", "ci_low", "ci_high"]].to_numpy(float)).all()
+assert pairs["role"].eq("primary_incremental_contrast").sum() == 1
+# Check the estimand's sign directly against independently stored point metrics.
+for r in pairs.itertuples():
+    expected = weighted.loc[r.model, r.metric] - weighted.loc[r.reference, r.metric]
+    if r.metric in ["brier", "log_loss"]:
+        expected = -expected
+    assert np.isclose(r.difference, expected, atol=1e-12), "A paired contrast has the wrong direction."
+
+dictionary = tables["variable_dictionary"].set_index("variable").copy()
+# Present the roles in this proposal without altering the retained source dictionary.
+dictionary.loc["dental_visit", "description"] = "Time since last dental visit; potentially responsive to existing disease or treatment"
+dictionary.loc["soda_glasses_daily", "description"] = "Estimated daily soda volume in glasses; extreme reported values retained and audited"
+dictionary.loc["juice_glasses_daily", "description"] = "Estimated daily juice volume in glasses; extreme reported values retained and audited"
+feature_labels = dictionary.description.to_dict()
+importance = tables["importance_stability"]
+importance_models = [f"{family}__{setting}" for family in ["spline_logistic", "random_forest"]
+                     for setting in ["context_diet_labels", "symptoms_diet_labels"]]
+for model in importance_models:
+    assert set(importance.loc[importance.model.eq(model), "feature"]) == set(model_manifest["models"][model]["features"])
+
+figure_names = ["figure1_performance", "figure2_dietary_gain", "figure3_dietary_importance", "figure4_blocks", "figure5_validation",
+                "supplement1_context_importance", "supplement2_symptom_importance", "supplement3_missingness", "supplement4_calibration"]
+figure_meta = json.loads((FIGURES / "figure_metadata.json").read_text())
+figure_lookup = {item["name"]: item for item in figure_meta["figures"]}
+for name in figure_names:
+    assert name in figure_lookup, f"Missing figure metadata: {name}"
+    for extension in ["png", "svg", "pdf"]:
+        assert (FIGURES / f"{name}.{extension}").is_file(), f"Missing export: {name}.{extension}"
+
+def number(x, digits=3):
+    return "—" if pd.isna(x) else f"{float(x):.{digits}f}"
+
+def interval(row, value="estimate", low="ci_low", high="ci_high", digits=3):
+    return f"{number(row[value], digits)} ({number(row[low], digits)} to {number(row[high], digits)})"
+
+def model_label(model):
+    if model == "prevalence_only":
+        return "Training-fold prevalence benchmark"
+    parts = model.split("__")
+    suffix = "; positive-p99 sensitivity" if len(parts) > 2 else ""
+    return f"{family_labels[parts[0]]}: {set_labels[parts[1]]}{suffix}"
+
+def contrast(family, contrast_id, metric="brier"):
+    found = pairs.loc[pairs.family.eq(family) & pairs.contrast_id.eq(contrast_id) & pairs.metric.eq(metric)]
+    assert len(found) == 1, f"Expected one contrast: {family}/{contrast_id}/{metric}"
+    return found.iloc[0]
+
+def direction(row):
+    if row.ci_low > 0:
+        return "the conditional interval favours the added information"
+    if row.ci_high < 0:
+        return "the conditional interval favours the reference"
+    return "the conditional interval includes no difference"
+
+def show_table(frame, caption, note=""):
+    html = frame.to_html(index=False, escape=True, border=0, classes="report-table", na_rep="—")
+    display(HTML(f'<div class="table-block"><div class="table-caption">{escape(caption)}</div>'
+                 f'<div class="table-scroll" tabindex="0">{html}</div><p class="table-note">{escape(note)}</p></div>'))
+
+def show_figure(name):
+    item = figure_lookup[name]
+    payload = base64.b64encode((FIGURES / f"{name}.png").read_bytes()).decode("ascii")
+    alt = escape(item.get("alt_text", item["caption"]))
+    display(HTML(f'<figure class="analysis-figure"><img src="data:image/png;base64,{payload}" alt="{alt}">'
+                 f'<figcaption>{escape(item["caption"])}</figcaption></figure>'))
+
+def performance_table(models):
+    rows = []
+    for model in models:
+        r = weighted.loc[model]
+        rows.append({"Model and information set": model_label(model),
+                     "AUC (95% CI)": interval(r, "auc", "auc_low", "auc_high", 3),
+                     "Brier (95% CI)": interval(r, "brier", "brier_low", "brier_high", 4),
+                     "Log loss (95% CI)": interval(r, "log_loss", "log_loss_low", "log_loss_high", 4)})
+    return pd.DataFrame(rows)
+
+def contrast_table(ids, selected_families=families):
+    rows = []
+    for code in ids:
+        for family in selected_families:
+            brier, auc, loss = [contrast(family, code, metric) for metric in ["brier", "auc", "log_loss"]]
+            rows.append({"Comparison": brier.comparison, "Family": family_labels[family],
+                         "Brier gain (95% CI)": interval(brier, "difference", digits=6),
+                         "AUC gain (95% CI)": interval(auc, "difference", digits=4),
+                         "Log-loss gain (95% CI)": interval(loss, "difference", digits=6)})
+    return pd.DataFrame(rows)
+
+primary = contrast("spline_logistic", "diet_context")
+primary_auc = contrast("spline_logistic", "diet_context", "auc")
+primary_loss = contrast("spline_logistic", "diet_context", "log_loss")
+relative_change_text = (f'{abs(primary.relative_loss_reduction_percent):.2f}% relative '
+                        + ("reduction" if primary.relative_loss_reduction_percent >= 0 else "increase"))
+if primary.ci_low > 0:
+    primary_conclusion = "The primary analysis supports incremental probability accuracy from the measured dietary block beyond expanded context, conditional on these fitted models and validation partitions."
+elif primary.ci_high < 0:
+    primary_conclusion = "Adding the measured dietary block worsened probability accuracy in the primary analysis; these results do not support its proposed incremental benefit under this specification."
+else:
+    primary_conclusion = "The primary interval does not resolve whether the measured dietary block improves probability accuracy beyond expanded context. This is not evidence of equivalence or evidence that diet is biologically unimportant."
+```
+
+## Question and principal finding
+
+This independent analysis asks whether **15 dietary intake constructs improve classification of existing cavitated caries beyond 17 contextual predictors**. Six behaviours concerning food labels are assessed separately. A second information scenario adds six concurrent oral symptoms and self-ratings. The analysis is an exploratory, dataset-informed extension; its specification was fixed before these new fits after earlier work on the same survey.
+
+```{python}
+#| label: principal-finding
+display(HTML('<div class="summary-grid">' + ''.join(
+    f'<div class="summary-card"><strong>{escape(value)}</strong><span>{escape(label)}</span></div>'
+    for value, label in [(f'{run["n_participants"]:,}', "Dentate participants evaluated in every variant"),
+                         ("15", "Dietary constructs in the primary incremental comparison"),
+                         (f'{weighted.loc["spline_logistic__context", "prevalence"]:.1%}', "Survey-weighted prevalence of cavitated caries")]
+) + '</div>'))
+display(Markdown(
+    f'**Primary result.** Spline logistic regression changed from a Brier score of '
+    f'{weighted.loc["spline_logistic__context", "brier"]:.4f} with C17 to '
+    f'{weighted.loc["spline_logistic__context_diet", "brier"]:.4f} with C17+D15. '
+    f'The paired Brier gain was **{interval(primary, "difference", digits=6)}**, '
+    f'corresponding to a {relative_change_text} in the reference Brier score. '
+    f'The AUC gain was {interval(primary_auc, "difference", digits=4)} and the log-loss gain was '
+    f'{interval(primary_loss, "difference", digits=6)}. All intervals are conditional 95% survey-bootstrap intervals.'
+))
+display(Markdown(f'**Interpretation.** {primary_conclusion}'))
+```
+
+AUC describes ranking, while Brier score evaluates the accuracy of predicted probabilities. AUC 0.5 is a chance-ranking reference; an AUC above that value does not by itself establish useful individual predictions. The primary question is the paired gain from dietary information, with calibration and absolute performance providing context. No model family is promoted to primary because it has the largest observed AUC.
+
+## Population, measurements and information sets
+
+The source is the ENS 2016–17 SPSS release. Participants were eligible if both jaw counts were observed and at least one tooth remained. The outcome is at least one clinically observed decayed tooth. Missing examinations are not treated as caries-free. All eligible participants retain their place in validation despite predictor missingness; outcomes are never imputed.
+
+```{python}
+#| label: participant-flow
+flow = audit["sample_flow"]
+show_table(pd.DataFrame([
+    ("Survey records", flow["all_participants"]),
+    ("Complete dental examinations", flow["dental_examination"]),
+    ("Edentulous participants", flow["edentulous"]),
+    ("Dentate eligible participants", flow["dentate_eligible"]),
+    ("Caries cases", flow["dentate_cases"]),
+    ("Participants without caries", flow["dentate_non_cases"]),
+    ("Missing outcomes among eligible participants", flow["dentate_outcome_missing"]),
+], columns=["Population step", "Unweighted count"]), "Population and outcome completeness.")
+show_table(pd.DataFrame([
+    ("B8", 8, "Age, sex, region, residence, education, indigenous identification, birthplace and remaining teeth"),
+    ("C17", 17, "B8 plus household income, health insurance, smoking, reported diabetes, dental attendance/reason/access and two water-context variables"),
+    ("D15", 15, "Fish, dairy frequency/type, wholegrain, legumes, fruit and vegetable days/portions, water, soda/juice frequencies and volumes, cooking fat"),
+    ("L6", 6, "Attention to ingredients, nutrition, warnings, health information, brand and discounts"),
+    ("S6", 6, "Self-rated oral health, pain and interference with speaking, eating, daily activities and social relationships"),
+], columns=["Block", "Constructs", "Content"]), "Declared information blocks.",
+"C17, D15, L6 and S6 are disjoint. B8 is a subset of C17. Labels are behaviours concerning packaging, not direct measures of food consumption.")
+```
+
+Household income is grouped into the questionnaire's 11 fixed bands, using the exact reported amount when available and the supplied band otherwise. No monetary midpoint is invented. “Never visited a dentist” is a structural category; an unknown visit reason stays missing. A positive diabetes code meaning “does not remember” is missing. Dental-access “not applicable” is not interpreted as absence of need.
+
+Soda and juice volumes are standard glasses per day, calculated from frequency and glasses per occasion. They are not grams of sugar. Frequencies use seven days per week and 30 days per month. All four beverage frequency/volume fields undergo `log1p` in the model pipeline. Valid zeros and the original extreme observations are retained in the primary analysis. Water remains reported glasses per day, with no inferred fluoride exposure.
+
+```{python}
+#| label: numeric-profile
+profile = tables["descriptive_profile"]
+numeric_variables = ["age", "teeth_remaining", "water", "soda_frequency", "juice_frequency", "soda_glasses_daily", "juice_glasses_daily"]
+rows = []
+for variable in numeric_variables:
+    row = {"Measure": feature_labels[variable], "Units": dictionary.loc[variable, "units"]}
+    for domain in ["No caries", "Caries", "Total"]:
+        found = profile.loc[profile.variable.eq(variable) & profile.domain.eq(domain) & profile.row_type.eq("mean")]
+        assert len(found) == 1
+        r = found.iloc[0]
+        row[domain] = f'{interval(r, digits=2)}; n={int(r.observed_n):,}'
+    rows.append(row)
+show_table(pd.DataFrame(rows), "Selected quantitative characteristics by caries status.",
+"Survey-weighted mean (95% design-based CI); n is the unweighted observed denominator. Quantities are shown on their original scale. The complete 44-construct profile and missingness appear below; these descriptive comparisons do not select predictors.")
+```
+
+## Development and evaluation
+
+Each of seven information sets was fitted using penalized spline logistic regression, random forest and histogram gradient boosting, producing 21 main variants. Spline logistic regression was the primary family. Two separately tuned spline variants assessed beverage extremes. An intercept-only benchmark uses the weighted caries prevalence in each outer training partition.
+
+All variants share five outer validation folds, with three inner folds for tuning. Survey PSUs stay intact in both layers. Imputation, category vocabularies, scaling, spline knots and sensitivity cutoffs are learned only from the respective training partition. Numeric missingness indicators accompany training-median imputation. Categorical missing responses form an explicit level; unseen validation categories are handled by the fitted encoder. The same participant receives one held-out probability from each variant.
+
+The candidate grids were fixed before these new fits and inherited earlier methodological development on this dataset. Inner pooled survey-weighted log loss selects parameters. All fitted estimators receive training weights normalized to mean one. Splines with three training-derived quantile knots model age, remaining teeth and water; other numeric terms, including transformed beverages, enter linearly in the spline logistic family. There is no class balancing, oversampling or outer-test-based threshold selection.
+
+```{python}
+#| label: validation-specification
+show_table(pd.DataFrame([
+    ("Spline logistic", "C: 0.0001, 0.001, 0.01, 0.1, 1, 10; L2 regularization; up to 3000 iterations"),
+    ("Random forest", "200 trees; minimum leaf size 5, 20, 50, 100 × maximum features sqrt or 0.7"),
+    ("Histogram boosting", "Maximum leaves 3, 7, 15 × L2 regularization 1, 10, 100; 150 iterations; no early stopping"),
+], columns=["Family", "Fixed search space"]), "Development specifications.")
+display(Markdown(f'**Survey-weight status.** {run["weight_confirmation"]}. The supplied weight is '
+                 '`Fexp_F1F2p_Corr`, numerically identical to `Fexp_F2p_Corr` in this release.'))
+```
+
+Performance is evaluated from held-out probabilities using survey weights. The primary gain is **Brier(C17) − Brier(C17+D15)** for spline logistic regression. AUC gain is expanded minus reference AUC, while log-loss gain is reference minus expanded log loss: positive values consistently favour the added information. Relative loss reduction divides the absolute gain by the reference loss.
+
+The 1000 paired, rescaled PSU-bootstrap replicates are shared across models and retain the full positive-weight sampling design before subsetting to the dentate domain. They condition on the fitted models, selected parameters and validation folds; they do not capture repeating the entire development process or transport to another population. Singleton strata remain fixed in this bootstrap. Descriptive tables instead use ratio linearization, design-t intervals and the average-stratum variance convention for singleton strata. The two variance conventions are disclosed because neither recovers otherwise unidentified within-singleton variation.
+
+## Absolute performance
+
+```{python}
+#| label: main-performance
+show_figure("figure1_performance")
+show_table(performance_table(main_models), "Performance of the 21 main variants.",
+"AUC is better when higher; Brier score and log loss are better when lower. Intervals condition on the fitted nested-validation models. Every row uses the same eligible participants.")
+show_table(performance_table(["prevalence_only"]), "Training-fold prevalence benchmark.",
+"Each fold receives a probability estimated from its training participants only. The pooled calibration slope of this within-fold constant benchmark is not interpreted.")
+```
+
+## Incremental contribution of diet
+
+```{python}
+#| label: dietary-increment
+show_figure("figure2_dietary_gain")
+show_table(contrast_table(["diet_context", "diet_symptoms"]), "Paired dietary gains in both information scenarios.",
+"Positive values indicate improvement. The spline C17+D15 versus C17 Brier contrast is primary. Other metrics, model families and symptom-conditioned comparisons are secondary exploratory analyses without multiplicity-adjusted confirmatory claims.")
+for family in families:
+    without = contrast(family, "diet_context")
+    with_symptoms = contrast(family, "diet_symptoms")
+    display(Markdown(f'**{family_labels[family]}.** Without S6, the Brier gain was '
+                     f'{interval(without, "difference", digits=6)}; {direction(without)}. '
+                     f'With S6, it was {interval(with_symptoms, "difference", digits=6)}; '
+                     f'{direction(with_symptoms)}.'))
+```
+
+An interval that includes zero does not establish equivalence. A favourable secondary estimate does not replace an unfavourable or imprecise primary finding. Differences in gain after adding symptoms describe different information scenarios; they do not identify mediation or a causal mechanism.
+
+## Separate contributions of label behaviours and context
+
+```{python}
+#| label: secondary-information
+show_table(contrast_table(["labels_context", "labels_symptoms"]), "Label-related behaviours beyond reported intake.",
+"These six constructs are excluded from D15. They concern information-seeking and purchase considerations rather than direct food or nutrient quantities.")
+show_table(contrast_table(["context_basic", "symptoms_context", "symptoms_full"]), "Expanded context and concurrent oral status.",
+"Secondary exploratory comparisons. Dental symptoms and attendance may respond to existing disease or treatment; these contrasts are not causal effects.")
+```
+
+## Individual dietary and joint block contributions
+
+Permutation contributions are evaluated only on held-out participants for the spline and random-forest C17+D15+L6 and C17+S6+D15+L6 fits. Each original construct is permuted before preprocessing, so its encoded levels and missingness information remain linked. Five repeats per outer fold are averaged within each fold and combined using held-out weight totals. The displayed minimum and maximum are the five fold means, **not confidence limits**.
+
+```{python}
+#| label: dietary-importance
+show_figure("figure3_dietary_importance")
+dietary = importance.loc[importance.feature.isin(blocks["diet"])].copy()
+rows = []
+for model in importance_models:
+    m = dietary.loc[dietary.model.eq(model)]
+    assert len(m) == 15
+    rows.append({"Model": model_label(model), "Dietary constructs shown": len(m),
+                 "Positive mean ΔBrier": int(m.brier_increase.gt(0).sum()),
+                 "Negative mean ΔBrier": int(m.brier_increase.lt(0).sum()),
+                 "Fold range spans zero": int((m.minimum_fold_brier_increase.le(0) & m.maximum_fold_brier_increase.ge(0)).sum())})
+show_table(pd.DataFrame(rows), "Sign and fold stability of all dietary contributions.",
+"These counts are descriptive, not significance tests. Negative contributions are retained. No diet variable is forced into a leading rank.")
+show_figure("figure4_blocks")
+group_rows = []
+grouped = tables["grouped_importance_stability"]
+for r in grouped.itertuples():
+    group_rows.append({"Model": model_label(r.model), "Block": r.block,
+                       "Mean ΔBrier": number(r.brier_increase, 6),
+                       "Fold minimum to maximum": f'{r.minimum_fold_brier_increase:.6f} to {r.maximum_fold_brier_increase:.6f}',
+                       "Mean AUC decrease": number(r.auc_drop, 4)})
+show_table(pd.DataFrame(group_rows), "Joint block permutation contributions.",
+"All variables in a block share a donor-row permutation. Positive values indicate greater model reliance. Block sizes differ; joint importance is neither a sum of individual contributions nor the gain obtained by refitting a model with additional predictors.")
+```
+
+Beverage frequencies and their derived volumes are dependent. Permuting one while retaining the other can generate implausible combinations and alter individual attribution. Joint D15 permutation preserves relationships within the dietary block, while the primary refitted comparison asks a different question about additional predictive information. Neither method measures dietary causation, protection, independent exposure effects or the percentage of caries explained.
+
+## Calibration, beverage sensitivity and subgroups
+
+The tail sensitivity caps each beverage variable at the 99th percentile among strictly positive observations in the relevant training partition before `log1p`. The percentile is unweighted and uses linear interpolation. Zeros and missing values are retained. When there are no positive training observations, no cap is estimable and only the logarithmic transformation is applied. These variants are independently tuned using the same inner-fold grid.
+
+```{python}
+#| label: validation-and-sensitivity
+show_figure("figure5_validation")
+show_table(performance_table(sensitivity_models), "Training-positive-p99 beverage sensitivity variants.")
+show_table(contrast_table(["winsor_context_diet", "winsor_symptoms_diet"], ["spline_logistic"]),
+           "Capped versus corresponding uncapped spline models.",
+           "These paired contrasts concern the handling of extreme beverage reports. They do not validate the original units or establish a biological threshold.")
+cal_rows = []
+for model in [f"spline_logistic__{s}" for s in ["context", "context_diet", "symptoms", "symptoms_diet"]]:
+    r = weighted.loc[model]
+    cal_rows.append({"Model": model_label(model), "Calibration-in-the-large": number(r.calibration_intercept),
+                     "Calibration slope": number(r.calibration_slope), "Status": r.calibration_status})
+show_table(pd.DataFrame(cal_rows), "Calibration of the primary information scenarios.",
+"Intercept target 0 and slope target 1. These pooled held-out calibration estimates and curves are descriptive; no separate confidence intervals were calculated for them.")
+subgroup = tables["subgroup_performance"].copy()
+subgroup["Model"] = subgroup.model.map(model_label)
+show_table(subgroup[["Model", "variable", "level", "n", "events", "auc", "brier"]].rename(
+    columns={"variable": "Subgroup", "level": "Level", "n": "n", "events": "Cases", "auc": "AUC", "brier": "Brier"}).assign(
+        AUC=lambda x: x.AUC.map(number), Brier=lambda x: x.Brier.map(lambda v: number(v, 4))),
+    "Descriptive survey-weighted subgroup performance.",
+    "Subgroups are sex, age, residence and observed education. No subgroup intervals, interaction tests or heterogeneity claims are supplied; missing education is not an observed education category.")
+```
+
+## Interpretation and limits
+
+```{python}
+#| label: final-interpretation
+display(Markdown(primary_conclusion))
+display(Markdown(
+    f'The primary dietary comparison changed AUC from '
+    f'{weighted.loc["spline_logistic__context", "auc"]:.3f} to '
+    f'{weighted.loc["spline_logistic__context_diet", "auc"]:.3f}, with a paired gain of '
+    f'{interval(primary_auc, "difference", digits=4)}. '
+    'Absolute discrimination and calibration must therefore be considered alongside the signed probability-score gain; '
+    'the analysis does not establish a threshold for clinical decisions or clinical net benefit.'
+))
+```
+
+The dietary questionnaire measures broad consumption habits and beverage reports. It contains no verified brushing, toothpaste/fluoride, floss or xerostomia variables. Water quantity and supply do not measure individual fluoride exposure. Measurement error, sparse consumption categories and correlated predictors can limit the information available to the models. Adding more variables cannot guarantee improved predictions.
+
+This is classification of caries present at examination, not prediction of future lesions. S6 may encode consequences of current disease or denture problems; attendance, treatment and access in C17 may also respond to disease. The context set already includes a tooth count, so these results do not establish a questionnaire-only remote screening tool. Medication classes and laboratory markers were not added merely to maximize AUC.
+
+The same dataset informed earlier analyses and the choice of this extension. Although the new plan preceded the new fits, the work is not an independent confirmatory study. The held-out survey partitions provide internal validation; transportability, prospective performance, full model-development uncertainty and clinical utility remain untested. Secondary comparisons and contribution analyses should be read as exploratory.
+
+## Supplementary results and reproducibility
+
+### Missingness and complete source definitions
+
+```{python}
+#| label: full-missingness
+show_figure("supplement3_missingness")
+missing = tables["predictor_missingness"].copy()
+missing["Description"] = missing.variable.map(feature_labels)
+missing["percent_missing"] = missing.percent_missing.map(lambda x: number(x, 2))
+show_table(missing[["variable", "Description", "n", "missing", "percent_missing"]],
+           "Missingness across all 44 constructs.", "No participant is removed because a predictor is missing.")
+show_table(dictionary.loc[all_features].reset_index()[["variable", "description", "raw_variables", "units", "missing_and_derivation_rule"]],
+           "Source dictionary and deterministic derivations.",
+           "All categorical variables retain named categories. Full Spanish source/value labels and English mappings are retained in the unchanged variable_dictionary.csv. Three descriptions are adapted here to their current analytical roles: dental_visit belongs to C17, and soda_glasses_daily and juice_glasses_daily belong to D15. Earlier dictionary wording described these as sensitivity or ancillary exposures.")
+```
+
+### Complete participant profile
+
+```{python}
+#| label: full-profile
+full_profile = profile[["domain", "variable", "level", "n", "observed_n", "missing_n", "estimate", "ci_low", "ci_high", "units"]].copy()
+for column in ["estimate", "ci_low", "ci_high"]:
+    full_profile[column] = full_profile[column].map(lambda x: number(x, 2))
+show_table(full_profile, "All 44 constructs by caries status and overall.",
+           "Counts and missingness are unweighted. Category estimates are weighted percentages among observed responses; numeric estimates are weighted means in the stated units. Missing rows carry counts only. Intervals at category boundaries may be unidentifiable.")
+```
+
+### Context, oral status and full calibration
+
+```{python}
+#| label: supplementary-figures
+show_figure("supplement1_context_importance")
+show_figure("supplement2_symptom_importance")
+show_figure("supplement4_calibration")
+```
+
+### Selected parameters, folds and descriptive thresholds
+
+```{python}
+#| label: model-diagnostics
+folds = tables["outer_fold_performance"].copy()
+folds["Model"] = folds.model.map(model_label)
+show_table(folds[["Model", "fold", "n_train", "n_test", "selected_params", "converged", "beverage_training_caps"]],
+           "Selected outer-training fits and beverage sensitivity caps.",
+           "Each selected parameter set came from inner validation. Empty cap dictionaries identify the uncapped primary variants. A missing cap inside a sensitivity dictionary means no positive training observations were available.")
+show_table(tables["validation_split_checks"], "PSU separation and validation counts.",
+           "Every outer and inner split must have zero PSU overlap. No participant-level IDs or probabilities are shown.")
+threshold_rows = []
+for model in main_models:
+    r = weighted.loc[model]
+    threshold_rows.append({"Model": model_label(model), "Sensitivity": number(r.sensitivity),
+                          "Specificity": number(r.specificity), "PPV": number(r.ppv), "Accuracy": number(r.accuracy)})
+show_table(pd.DataFrame(threshold_rows), "Descriptive classification at probability 0.5.",
+           "The threshold was not optimized and is not a proposed clinical decision rule. Probability metrics lead the main analysis.")
+comparison_rows = []
+for model in main_models:
+    comparison_rows.append({"Model": model_label(model), "Weighted AUC": number(weighted.loc[model, "auc"]),
+                           "Unweighted AUC": number(unweighted.loc[model, "auc"]),
+                           "Weighted Brier": number(weighted.loc[model, "brier"], 4),
+                           "Unweighted Brier": number(unweighted.loc[model, "brier"], 4)})
+show_table(pd.DataFrame(comparison_rows), "Weighted and unweighted evaluation.",
+           "Both evaluate the same survey-weighted fitted models. Unweighted estimates are secondary diagnostics and receive no survey-bootstrap intervals.")
+```
+
+### Reproducibility record
+
+```{python}
+#| label: reproducibility
+checks = [
+    ("Run completed (UTC)", run["completed_utc"]),
+    ("Eligible participants / events", f'{run["n_participants"]} / {run["events"]}'),
+    ("Fitted variants / benchmark", f'{run["n_model_variants"]} / 1'),
+    ("Outer / inner folds", "5 / 3, PSU-grouped"),
+    ("Valid paired probability-score replicates", str(run["bootstrap_replicates"])),
+    ("SAV SHA-256", run["input_sha256"]),
+    ("Pre-fit plan SHA-256", run["training_provenance"]["plan_sha256"]),
+    ("Software", json.dumps(model_manifest["software"], sort_keys=True)),
+    ("Scope", run["scope"]),
+]
+show_table(pd.DataFrame(checks, columns=["Record", "Value"]), "Verified analysis record.",
+           "Rendering stops if analysis code, the pre-fit plan, input provenance, model manifests, cohort sizes or validation checks are inconsistent. The report reads aggregate tables only.")
+```
+
+The [analysis plan](dietary-incremental-analysis-plan.md) records the hypothesis, design choices, limitations and checked background sources. The executable runner is `scripts/run_dietary.py`; aggregate outputs live in `outputs/dietary/tables` and figure exports in `outputs/dietary/figures`. Held-out participant probabilities, folds and caches remain private. This report and its new results are independent of the preserved Andrea manuscript correction and earlier model estimates.
