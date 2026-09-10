@@ -107,7 +107,11 @@ for r in pairs.itertuples():
         expected = -expected
     assert np.isclose(r.difference, expected, atol=1e-12), "A paired contrast has the wrong direction."
 
-dictionary = tables["variable_dictionary"].set_index("variable")
+dictionary = tables["variable_dictionary"].set_index("variable").copy()
+# Present the roles in this proposal without altering the retained source dictionary.
+dictionary.loc["dental_visit", "description"] = "Time since last dental visit; potentially responsive to existing disease or treatment"
+dictionary.loc["soda_glasses_daily", "description"] = "Estimated daily soda volume in glasses; extreme reported values retained and audited"
+dictionary.loc["juice_glasses_daily", "description"] = "Estimated daily juice volume in glasses; extreme reported values retained and audited"
 feature_labels = dictionary.description.to_dict()
 importance = tables["importance_stability"]
 importance_models = [f"{family}__{setting}" for family in ["spline_logistic", "random_forest"]
@@ -424,7 +428,7 @@ show_table(missing[["variable", "Description", "n", "missing", "percent_missing"
            "Missingness across all 44 constructs.", "No participant is removed because a predictor is missing.")
 show_table(dictionary.loc[all_features].reset_index()[["variable", "description", "raw_variables", "units", "missing_and_derivation_rule"]],
            "Source dictionary and deterministic derivations.",
-           "All categorical variables retain named categories. Full Spanish source/value labels and English mappings are retained in variable_dictionary.csv.")
+           "All categorical variables retain named categories. Full Spanish source/value labels and English mappings are retained in the unchanged variable_dictionary.csv. Three descriptions are adapted here to their current analytical roles: dental_visit belongs to C17, and soda_glasses_daily and juice_glasses_daily belong to D15. Earlier dictionary wording described these as sensitivity or ancillary exposures.")
 ```
 
 ### Complete participant profile
