@@ -1,0 +1,28 @@
+feature,n_compared,n_equal_primary,n_discrepant_primary,n_different_legacy_unit_examined,n_different_legacy_unit_dentate,primary_rule,legacy_rule
+age,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+sex,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+region,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+rural,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+education,5520,5520,0,0,0,"Decode education: DTA0 high,1 intermediate,2 low",Equivalent after documented category decoding
+indigenous,5520,5520,0,0,0,Decode indigenous indicator,Equivalent after documented category decoding
+born_chile,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+teeth_remaining,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+fish,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+dairy_frequency,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+dairy_type,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+wholegrain,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+legumes,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+fruit_days,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+fruit_portions,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+vegetable_days,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+vegetable_portions,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_ingredients,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_nutrition,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_warnings,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_health,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_brand,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+label_discounts,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding
+water,5520,5520,0,0,0,"Original reported glasses/day, not R factor indices",as.numeric(droplevels(die11)) after labelled-to-factor conversion
+soda_frequency,5520,5520,0,569,520,Recalculate from original quantity/unit using 30 days per month,DTA weekly frequency /7; monthly frequency uses four weeks (28 days)
+juice_frequency,5520,5520,0,305,286,Recalculate from original quantity/unit using 30 days per month,DTA weekly frequency /7; monthly frequency uses four weeks (28 days)
+oil,5520,5520,0,0,0,Same physical questionnaire values; structural skips harmonized,Equivalent after documented category decoding

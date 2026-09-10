@@ -1,0 +1,4 @@
+comparison,model,reference,metric,difference,ci_low,ci_high,representation
+"Historical coding minus modern coding, same complete cohort",rf_complete_historical,rf_complete_modern,auc,9.390359377570157e-05,-0.008892896768053868,0.008708666057556077,"Historical 90-term coding, complete cohort"
+"Historical coding minus modern coding, same complete cohort",rf_complete_historical,rf_complete_modern,brier,-0.0001512355013623401,-0.0014680286267186142,0.0010898903031713125,"Historical 90-term coding, complete cohort"
+"Historical coding minus modern coding, same complete cohort",rf_complete_historical,rf_complete_modern,log_loss,-0.0003364167817658803,-0.003074551063285605,0.0021784514831337033,"Historical 90-term coding, complete cohort"

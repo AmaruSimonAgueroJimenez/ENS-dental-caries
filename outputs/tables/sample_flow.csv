@@ -1,0 +1,15 @@
+stage,n
+all_participants,6233
+dental_examination,5520
+no_complete_dental_examination,713
+edentulous,484
+dentate_eligible,5036
+dentate_outcome_missing,0
+dentate_cases,2689
+dentate_non_cases,2347
+dentate_missing_education,38
+dentate_missing_water,4
+dentate_missing_both_education_water,0
+paper_complete,4994
+paper_cases,2664
+paper_non_cases,2330

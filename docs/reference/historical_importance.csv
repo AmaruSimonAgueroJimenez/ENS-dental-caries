@@ -1,0 +1,91 @@
+rank,term,raw_construct,score,kind,original_chart,display_label
+1,Edad,Edad,100.0,single_numeric_model_column,True,Age
+2,remanentes,remanentes,77.9155633166657,single_numeric_model_column,True,Remaining teeth
+3,die11,die11,53.981911139722,single_numeric_model_column,True,Water intake
+4,frecsembebida,frecsembebida,45.5470783335195,single_numeric_model_column,True,Sugared soda frequency
+5,frecsemjugo,frecsemjugo,38.223475969295,single_numeric_model_column,True,Sugared juice frequency
+6,die7,die7,36.7813106715315,single_numeric_model_column,True,Fruit portions
+7,die9,die9,31.136903470074,single_numeric_model_column,True,Vegetable portions
+8,sexomujer,sexo,14.0015633355089,category_indicator,True,Sex: women
+9,die5al_menos_una_vez_por_semana,die5,11.9097129028126,category_indicator,True,Legumes: at least once/week
+10,die2una_vez_al_dia,die2,11.8800673080662,category_indicator,True,Dairy: once/day
+11,nedu8-12,nedu,11.4860247587383,category_indicator,True,Education: 8–12 years
+12,die3enteros,die3,11.0555535610236,category_indicator,False,die3enteros
+13,die67,die6,10.9188967591449,category_indicator,False,die67
+14,die1a1_vez_a_la_semana,die1a,10.8094658979621,category_indicator,False,die1a1_vez_a_la_semana
+15,die4nunca,die4,10.5745912342965,category_indicator,False,die4nunca
+16,die87,die8,10.4574238425542,category_indicator,False,die87
+17,die1amenos_de_1_vez_al_mes_o_nunca,die1a,10.4063947860472,category_indicator,False,die1amenos_de_1_vez_al_mes_o_nunca
+18,die1amenos_de_3_veces_al_mes,die1a,10.2507931873929,category_indicator,False,die1amenos_de_3_veces_al_mes
+19,regionxiii._metropolitana,region,10.2451835550679,category_indicator,False,regionxiii._metropolitana
+20,zonarural,zona,10.0608980265823,category_indicator,False,zonarural
+21,regionv._valparaiso,region,9.85966336057029,category_indicator,False,regionv._valparaiso
+22,die10_fnunca,die10_f,9.68465744645323,category_indicator,False,die10_fnunca
+23,die2al_menos_una_vez_por_semana,die2,9.48793858568626,category_indicator,False,die2al_menos_una_vez_por_semana
+24,regionviii._biobio,region,9.40373131366958,category_indicator,False,regionviii._biobio
+25,die63,die6,9.3753866762154,category_indicator,False,die63
+26,die62,die6,9.02562800014468,category_indicator,False,die62
+27,die2dia_por_medio,die2,8.89001204565565,category_indicator,False,die2dia_por_medio
+28,regionvi._l._bdo._ohiggins,region,8.828595351963,category_indicator,False,regionvi._l._bdo._ohiggins
+29,die10_cnunca,die10_c,8.71399296066345,category_indicator,False,die10_cnunca
+30,die5menos_de_una_vez_al_mes_o_nunca,die5,8.64102790671181,category_indicator,False,die5menos_de_una_vez_al_mes_o_nunca
+31,die10_enunca,die10_e,8.50243764051013,category_indicator,False,die10_enunca
+32,regionxi._aysen,region,8.44148164632523,category_indicator,False,regionxi._aysen
+33,regioniv._coquimbo,region,8.34364306471627,category_indicator,False,regioniv._coquimbo
+34,die5entre_una_y_tres_veces_al_mes,die5,8.11787541498424,category_indicator,False,die5entre_una_y_tres_veces_al_mes
+35,die4a_diario,die4,7.94650248971823,category_indicator,False,die4a_diario
+36,die4al_menos_una_vez_por_semana,die4,7.75563612906151,category_indicator,False,die4al_menos_una_vez_por_semana
+37,indigenasi,indigena,7.72908424242684,category_indicator,False,indigenasi
+38,die83,die8,7.61262812744564,category_indicator,False,die83
+39,regionvii._maule,region,7.56152978459876,category_indicator,False,regionvii._maule
+40,die64,die6,7.36823581421511,category_indicator,False,die64
+41,die10_fcasi_siempre,die10_f,7.29938252574063,category_indicator,False,die10_fcasi_siempre
+42,nedu<8,nedu,7.27087138038795,category_indicator,False,nedu<8
+43,die10_dnunca,die10_d,7.15757122629365,category_indicator,False,die10_dnunca
+44,die61,die6,6.92067263068204,category_indicator,False,die61
+45,die10_ecasi_siempre,die10_e,6.89699300184542,category_indicator,False,die10_ecasi_siempre
+46,die10_ealgunas_veces,die10_e,6.85017783949234,category_indicator,False,die10_ealgunas_veces
+47,die10_falgunas_veces,die10_f,6.66548651700303,category_indicator,False,die10_falgunas_veces
+48,die4al_menos_una_vez_por_mes,die4,6.65864697250143,category_indicator,False,die4al_menos_una_vez_por_mes
+49,regioniii._atacama,region,6.55486460344579,category_indicator,False,regioniii._atacama
+50,die82,die8,6.45952228847632,category_indicator,False,die82
+51,die84,die8,6.45587316522545,category_indicator,False,die84
+52,regionx._los_lagos,region,6.41886508978084,category_indicator,False,regionx._los_lagos
+53,die10_brara_vez,die10_b,6.3283665506357,category_indicator,False,die10_brara_vez
+54,die10_bnunca,die10_b,6.2814176145999,category_indicator,False,die10_bnunca
+55,die65,die6,6.26855235545307,category_indicator,False,die65
+56,regioni._tarapaca,region,6.22209539114549,category_indicator,False,regioni._tarapaca
+57,die2menos_de_tres_veces_al_dia,die2,6.18057131281581,category_indicator,False,die2menos_de_tres_veces_al_dia
+58,die85,die8,6.12190227336089,category_indicator,False,die85
+59,die4dia_por_medio,die4,6.12129904737985,category_indicator,False,die4dia_por_medio
+60,die10_anunca,die10_a,6.02040857082205,category_indicator,False,die10_anunca
+61,die10_erara_vez,die10_e,5.87675906338878,category_indicator,False,die10_erara_vez
+62,die14aceite_de_oliva,die14,5.81509973178666,category_indicator,False,die14aceite_de_oliva
+63,"die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",die14,5.65677518927528,category_indicator,False,"die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)"
+64,regionxiv._los_rios,region,5.58738314268875,category_indicator,False,regionxiv._los_rios
+65,regionix._la_araucania,region,5.41824361708977,category_indicator,False,regionix._la_araucania
+66,die10_arara_vez,die10_a,5.3489245738452,category_indicator,False,die10_arara_vez
+67,regionxii._magallanes_y_antartica,region,5.3065331027957,category_indicator,False,regionxii._magallanes_y_antartica
+68,die10_drara_vez,die10_d,5.29554230489938,category_indicator,False,die10_drara_vez
+69,die10_frara_vez,die10_f,5.28691964445247,category_indicator,False,die10_frara_vez
+70,die10_calgunas_veces,die10_c,5.15328270423924,category_indicator,False,die10_calgunas_veces
+71,die2al_menos_una_vez_por_mes,die2,5.10886978418616,category_indicator,False,die2al_menos_una_vez_por_mes
+72,die10_dcasi_siempre,die10_d,5.04417238293292,category_indicator,False,die10_dcasi_siempre
+73,die10_acasi_siempre,die10_a,4.94170287222622,category_indicator,False,die10_acasi_siempre
+74,die10_ccasi_siempre,die10_c,4.89782220720157,category_indicator,False,die10_ccasi_siempre
+75,die10_dalgunas_veces,die10_d,4.85342370023786,category_indicator,False,die10_dalgunas_veces
+76,regionii._antofagasta,region,4.84961965893204,category_indicator,False,regionii._antofagasta
+77,die10_aalgunas_veces,die10_a,4.81270782001343,category_indicator,False,die10_aalgunas_veces
+78,die10_balgunas_veces,die10_b,4.65526853087588,category_indicator,False,die10_balgunas_veces
+79,die3no_consume_lacteos,die3,4.63115007542832,category_indicator,False,die3no_consume_lacteos
+80,die2nunca,die2,4.58142544715624,category_indicator,False,die2nunca
+81,die66,die6,4.47307840386128,category_indicator,False,die66
+82,die81,die8,4.19978604576968,category_indicator,False,die81
+83,die10_bcasi_siempre,die10_b,4.16235754743358,category_indicator,False,die10_bcasi_siempre
+84,die10_crara_vez,die10_c,3.78841633458647,category_indicator,False,die10_crara_vez
+85,die86,die8,3.71541860690704,category_indicator,False,die86
+86,c1otro_(?cual?),c1,3.32236085772141,category_indicator,False,c1otro_(?cual?)
+87,die14mantequilla,die14,1.10471424712783,category_indicator,False,die14mantequilla
+88,die14margarina,die14,0.590393881868639,category_indicator,False,die14margarina
+89,die14otro._especifique:,die14,0.00888952008726298,category_indicator,False,die14otro._especifique:
+90,die14manteca,die14,0.0,category_indicator,False,die14manteca

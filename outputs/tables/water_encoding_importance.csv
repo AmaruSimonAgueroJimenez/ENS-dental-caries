@@ -1,0 +1,151 @@
+model,fold,feature,repeat,brier_increase,auc_drop,n_test,test_weight_sum,base_model,encoding,encoding_label
+random_forest,1,water,1,0.0007137616043735029,0.011141043472159051,1006,2861322.5562906265,random_forest,physical,Reported glasses/day
+random_forest,1,water,2,0.00019200458263851639,0.0020481182030163136,1006,2861322.5562906265,random_forest,physical,Reported glasses/day
+random_forest,1,water,3,-0.0005375301613111672,0.0008301525395741916,1006,2861322.5562906265,random_forest,physical,Reported glasses/day
+random_forest,1,water,4,-0.00035910521423340724,-0.0001856262583278534,1006,2861322.5562906265,random_forest,physical,Reported glasses/day
+random_forest,1,water,5,1.0238781450233603e-05,0.001720059791813,1006,2861322.5562906265,random_forest,physical,Reported glasses/day
+random_forest,2,water,1,-0.0014866926902844246,-0.00545296206800816,1007,2574325.41285038,random_forest,physical,Reported glasses/day
+random_forest,2,water,2,-0.001615783462566911,-0.008935793384153623,1007,2574325.41285038,random_forest,physical,Reported glasses/day
+random_forest,2,water,3,-0.0004089789717861836,0.0003675176615238751,1007,2574325.41285038,random_forest,physical,Reported glasses/day
+random_forest,2,water,4,-0.0028888429542171523,-0.016214531121765074,1007,2574325.41285038,random_forest,physical,Reported glasses/day
+random_forest,2,water,5,0.0010752158379441212,0.007691121881811425,1007,2574325.41285038,random_forest,physical,Reported glasses/day
+random_forest,3,water,1,8.70899949317605e-05,0.0009290182281109782,1011,2776332.157348156,random_forest,physical,Reported glasses/day
+random_forest,3,water,2,-0.00011300028251715055,-0.00028908117535364486,1011,2776332.157348156,random_forest,physical,Reported glasses/day
+random_forest,3,water,3,9.097620409298512e-05,0.001304354065222335,1011,2776332.157348156,random_forest,physical,Reported glasses/day
+random_forest,3,water,4,1.9885725922097475e-05,0.0003433187885882871,1011,2776332.157348156,random_forest,physical,Reported glasses/day
+random_forest,3,water,5,0.0001865139602382493,0.0011681152948914697,1011,2776332.157348156,random_forest,physical,Reported glasses/day
+random_forest,4,water,1,8.660896432405307e-05,0.0026775025055435497,1007,2777806.4952178,random_forest,physical,Reported glasses/day
+random_forest,4,water,2,-0.00019075372747032193,-0.001322739169351772,1007,2777806.4952178,random_forest,physical,Reported glasses/day
+random_forest,4,water,3,8.983676626744819e-06,0.002475455598043408,1007,2777806.4952178,random_forest,physical,Reported glasses/day
+random_forest,4,water,4,-0.0001634296431868576,-0.0009181461336281727,1007,2777806.4952178,random_forest,physical,Reported glasses/day
+random_forest,4,water,5,-0.00011745517027045294,-0.0012988686502339863,1007,2777806.4952178,random_forest,physical,Reported glasses/day
+random_forest,5,water,1,-9.328695794280639e-05,-0.001618259311093495,1005,2807410.1710247993,random_forest,physical,Reported glasses/day
+random_forest,5,water,2,0.0006592605256750816,0.004503877079621077,1005,2807410.1710247993,random_forest,physical,Reported glasses/day
+random_forest,5,water,3,-6.942614661495372e-05,0.00023426609380139407,1005,2807410.1710247993,random_forest,physical,Reported glasses/day
+random_forest,5,water,4,0.0005434046939140347,0.005557399450825229,1005,2807410.1710247993,random_forest,physical,Reported glasses/day
+random_forest,5,water,5,0.00010308404691758422,0.0005066506113865499,1005,2807410.1710247993,random_forest,physical,Reported glasses/day
+spline_logistic,1,water,1,0.0005096745998419694,0.0069497308530459545,1006,2861322.5562906265,spline_logistic,physical,Reported glasses/day
+spline_logistic,1,water,2,0.0004798398001001347,0.004305927942684917,1006,2861322.5562906265,spline_logistic,physical,Reported glasses/day
+spline_logistic,1,water,3,-0.0009865229042712031,-0.007669047951689212,1006,2861322.5562906265,spline_logistic,physical,Reported glasses/day
+spline_logistic,1,water,4,-0.0010437292117548291,-0.008230520444908018,1006,2861322.5562906265,spline_logistic,physical,Reported glasses/day
+spline_logistic,1,water,5,-0.00048221928271199865,-0.006107804415759643,1006,2861322.5562906265,spline_logistic,physical,Reported glasses/day
+spline_logistic,2,water,1,-0.0008732704666476743,-0.007384380307263627,1007,2574325.41285038,spline_logistic,physical,Reported glasses/day
+spline_logistic,2,water,2,-0.0005910657804024666,-0.004594892148869212,1007,2574325.41285038,spline_logistic,physical,Reported glasses/day
+spline_logistic,2,water,3,-0.00036269237102526386,-0.0024771659521255485,1007,2574325.41285038,spline_logistic,physical,Reported glasses/day
+spline_logistic,2,water,4,-0.0007442713576016613,-0.009442612603811629,1007,2574325.41285038,spline_logistic,physical,Reported glasses/day
+spline_logistic,2,water,5,0.00027214301999287094,0.0014271884308704186,1007,2574325.41285038,spline_logistic,physical,Reported glasses/day
+spline_logistic,3,water,1,0.00015582886377535354,0.0008654645857663068,1011,2776332.157348156,spline_logistic,physical,Reported glasses/day
+spline_logistic,3,water,2,0.00012126910085819009,0.0010146342521728524,1011,2776332.157348156,spline_logistic,physical,Reported glasses/day
+spline_logistic,3,water,3,0.00011365716886718724,0.0005008957466234865,1011,2776332.157348156,spline_logistic,physical,Reported glasses/day
+spline_logistic,3,water,4,9.97677657900431e-05,0.00022925061198630914,1011,2776332.157348156,spline_logistic,physical,Reported glasses/day
+spline_logistic,3,water,5,0.00011728544835395982,0.00042041178673135615,1011,2776332.157348156,spline_logistic,physical,Reported glasses/day
+spline_logistic,4,water,1,0.00011316659806456797,0.0023391282230840194,1007,2777806.4952178,spline_logistic,physical,Reported glasses/day
+spline_logistic,4,water,2,-6.371418658140948e-06,0.0005334519379919245,1007,2777806.4952178,spline_logistic,physical,Reported glasses/day
+spline_logistic,4,water,3,0.000549466400956683,0.003144889324616762,1007,2777806.4952178,spline_logistic,physical,Reported glasses/day
+spline_logistic,4,water,4,0.0001787694283659491,0.0010946915164617987,1007,2777806.4952178,spline_logistic,physical,Reported glasses/day
+spline_logistic,4,water,5,0.0005145032592793475,0.0036841161467656702,1007,2777806.4952178,spline_logistic,physical,Reported glasses/day
+spline_logistic,5,water,1,-0.0008249135735963198,-0.005433144548657176,1005,2807410.1710247993,spline_logistic,physical,Reported glasses/day
+spline_logistic,5,water,2,-0.00045214865394654913,-0.0028348350480641438,1005,2807410.1710247993,spline_logistic,physical,Reported glasses/day
+spline_logistic,5,water,3,-0.0006951204439250291,-0.005019800789969664,1005,2807410.1710247993,spline_logistic,physical,Reported glasses/day
+spline_logistic,5,water,4,-0.0005989773497479534,-0.0028754286327510314,1005,2807410.1710247993,spline_logistic,physical,Reported glasses/day
+spline_logistic,5,water,5,3.973927548631129e-05,0.0016076993826977803,1005,2807410.1710247993,spline_logistic,physical,Reported glasses/day
+random_forest_water_index,1,water,1,0.0007137616043735029,0.011141043472159051,1006,2861322.5562906265,random_forest,index,Historical factor index
+random_forest_water_index,1,water,2,0.00019200458263851639,0.0020481182030163136,1006,2861322.5562906265,random_forest,index,Historical factor index
+random_forest_water_index,1,water,3,-0.0005375301613111672,0.0008301525395741916,1006,2861322.5562906265,random_forest,index,Historical factor index
+random_forest_water_index,1,water,4,-0.00035910521423340724,-0.0001856262583278534,1006,2861322.5562906265,random_forest,index,Historical factor index
+random_forest_water_index,1,water,5,1.0238781450233603e-05,0.001720059791813,1006,2861322.5562906265,random_forest,index,Historical factor index
+random_forest_water_index,2,water,1,-0.0014866926902844246,-0.00545296206800816,1007,2574325.41285038,random_forest,index,Historical factor index
+random_forest_water_index,2,water,2,-0.001615783462566911,-0.008935793384153623,1007,2574325.41285038,random_forest,index,Historical factor index
+random_forest_water_index,2,water,3,-0.0004089789717861836,0.0003675176615238751,1007,2574325.41285038,random_forest,index,Historical factor index
+random_forest_water_index,2,water,4,-0.0028888429542171523,-0.016214531121765074,1007,2574325.41285038,random_forest,index,Historical factor index
+random_forest_water_index,2,water,5,0.0010752158379441212,0.007691121881811425,1007,2574325.41285038,random_forest,index,Historical factor index
+random_forest_water_index,3,water,1,8.708999493178826e-05,0.0009290182281109782,1011,2776332.157348156,random_forest,index,Historical factor index
+random_forest_water_index,3,water,2,-0.00011300028251720606,-0.00028908117535364486,1011,2776332.157348156,random_forest,index,Historical factor index
+random_forest_water_index,3,water,3,9.097620409298512e-05,0.001304354065222335,1011,2776332.157348156,random_forest,index,Historical factor index
+random_forest_water_index,3,water,4,1.9885725922097475e-05,0.0003433187885882871,1011,2776332.157348156,random_forest,index,Historical factor index
+random_forest_water_index,3,water,5,0.0001865139602382493,0.0011681152948914697,1011,2776332.157348156,random_forest,index,Historical factor index
+random_forest_water_index,4,water,1,8.660896432410858e-05,0.0026775025055435497,1007,2777806.4952178,random_forest,index,Historical factor index
+random_forest_water_index,4,water,2,-0.0001907537274702109,-0.001322739169351772,1007,2777806.4952178,random_forest,index,Historical factor index
+random_forest_water_index,4,water,3,8.98367662680033e-06,0.002475455598043408,1007,2777806.4952178,random_forest,index,Historical factor index
+random_forest_water_index,4,water,4,-0.0001634296431868021,-0.0009181461336281727,1007,2777806.4952178,random_forest,index,Historical factor index
+random_forest_water_index,4,water,5,-0.00011745517027039742,-0.0012988686502339863,1007,2777806.4952178,random_forest,index,Historical factor index
+random_forest_water_index,5,water,1,-9.328695794280639e-05,-0.001618259311093495,1005,2807410.1710247993,random_forest,index,Historical factor index
+random_forest_water_index,5,water,2,0.0006592605256750816,0.004503877079621077,1005,2807410.1710247993,random_forest,index,Historical factor index
+random_forest_water_index,5,water,3,-6.942614661500923e-05,0.00023426609380139407,1005,2807410.1710247993,random_forest,index,Historical factor index
+random_forest_water_index,5,water,4,0.0005434046939140347,0.005557399450825229,1005,2807410.1710247993,random_forest,index,Historical factor index
+random_forest_water_index,5,water,5,0.00010308404691758422,0.0005066506113865499,1005,2807410.1710247993,random_forest,index,Historical factor index
+random_forest_water_nominal,1,water,1,-4.6085249035654474e-05,0.0011748740383573653,1006,2861322.5562906265,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,1,water,2,-8.919457997719205e-06,0.0007618002081737352,1006,2861322.5562906265,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,1,water,3,-0.0005338391871186066,-0.0013935749610608505,1006,2861322.5562906265,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,1,water,4,-8.639298912144211e-05,0.0007354661521797867,1006,2861322.5562906265,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,1,water,5,-7.804019400589612e-05,0.0030036189381162925,1006,2861322.5562906265,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,2,water,1,-0.002600600846154544,-0.011556511751848353,1007,2574325.41285038,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,2,water,2,-0.0024678112565243437,-0.013255255142996414,1007,2574325.41285038,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,2,water,3,-0.001067238012999988,-0.002108356928391064,1007,2574325.41285038,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,2,water,4,-0.002140182873798968,-0.014098261579232108,1007,2574325.41285038,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,2,water,5,-6.676222690352174e-05,-2.5074752213471996e-06,1007,2574325.41285038,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,3,water,1,-6.43909663750053e-06,-0.0002796654664799503,1011,2776332.157348156,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,3,water,2,1.1079478220571426e-05,4.144337011846577e-05,1011,2776332.157348156,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,3,water,3,2.1024978660855176e-06,-0.00012489596852338636,1011,2776332.157348156,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,3,water,4,-6.358719339044638e-06,-8.691042778830038e-05,1011,2776332.157348156,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,3,water,5,7.526027111487421e-06,-2.37063993060449e-05,1011,2776332.157348156,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,4,water,1,3.265895737708524e-06,-0.0023337703803163468,1007,2777806.4952178,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,4,water,2,6.0415478705749814e-05,-0.0011683280685325093,1007,2777806.4952178,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,4,water,3,-6.140443315325039e-05,-0.0014738118341227624,1007,2777806.4952178,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,4,water,4,-6.869176846296954e-05,-0.0004919286046386473,1007,2777806.4952178,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,4,water,5,3.0217916500152597e-06,-0.002381329129749421,1007,2777806.4952178,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,5,water,1,-7.145147971651666e-05,-0.0012587817365431464,1005,2807410.1710247993,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,5,water,2,3.268265423353456e-05,-0.0006640333225279571,1005,2807410.1710247993,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,5,water,3,-0.0002157906538509946,-0.0015241183822822801,1005,2807410.1710247993,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,5,water,4,-0.0005145158499097469,-0.003160763668939137,1005,2807410.1710247993,random_forest,nominal,Nominal water categories
+random_forest_water_nominal,5,water,5,-4.908419022736643e-05,-0.00019071393932901248,1005,2807410.1710247993,random_forest,nominal,Nominal water categories
+spline_logistic_water_index,1,water,1,0.0005357497161087854,0.006755500532023118,1006,2861322.5562906265,spline_logistic,index,Historical factor index
+spline_logistic_water_index,1,water,2,0.0005125752450759746,0.004308966041747908,1006,2861322.5562906265,spline_logistic,index,Historical factor index
+spline_logistic_water_index,1,water,3,-0.001089339558558916,-0.008156432772800315,1006,2861322.5562906265,spline_logistic,index,Historical factor index
+spline_logistic_water_index,1,water,4,-0.0012123221090183933,-0.008983399244248402,1006,2861322.5562906265,spline_logistic,index,Historical factor index
+spline_logistic_water_index,1,water,5,-0.0005500593723370417,-0.007843970979743653,1006,2861322.5562906265,spline_logistic,index,Historical factor index
+spline_logistic_water_index,2,water,1,-0.0012639457804226317,-0.010502121671408404,1007,2574325.41285038,spline_logistic,index,Historical factor index
+spline_logistic_water_index,2,water,2,-0.0007163377581531627,-0.005120925719488301,1007,2574325.41285038,spline_logistic,index,Historical factor index
+spline_logistic_water_index,2,water,3,-0.0003986444616479179,-0.00256561448408843,1007,2574325.41285038,spline_logistic,index,Historical factor index
+spline_logistic_water_index,2,water,4,-0.0009788252976996314,-0.010396975581768664,1007,2574325.41285038,spline_logistic,index,Historical factor index
+spline_logistic_water_index,2,water,5,0.00033469753556047976,0.0017681664395198249,1007,2574325.41285038,spline_logistic,index,Historical factor index
+spline_logistic_water_index,3,water,1,0.00016605091226232216,0.0009253403664304383,1011,2776332.157348156,spline_logistic,index,Historical factor index
+spline_logistic_water_index,3,water,2,0.00011039048154840025,0.0013978811115678003,1011,2776332.157348156,spline_logistic,index,Historical factor index
+spline_logistic_water_index,3,water,3,8.531370589923148e-05,0.0006824777607563615,1011,2776332.157348156,spline_logistic,index,Historical factor index
+spline_logistic_water_index,3,water,4,6.893884725278632e-05,4.057851862204753e-05,1011,2776332.157348156,spline_logistic,index,Historical factor index
+spline_logistic_water_index,3,water,5,0.0001380260007747547,0.00039338630806418085,1011,2776332.157348156,spline_logistic,index,Historical factor index
+spline_logistic_water_index,4,water,1,0.0001944554485291683,0.0026771537597392037,1007,2777806.4952178,spline_logistic,index,Historical factor index
+spline_logistic_water_index,4,water,2,4.9000435388413255e-05,0.0009882199728132868,1007,2777806.4952178,spline_logistic,index,Historical factor index
+spline_logistic_water_index,4,water,3,0.0006255615381870472,0.004078680657903178,1007,2777806.4952178,spline_logistic,index,Historical factor index
+spline_logistic_water_index,4,water,4,0.0001858411684746708,0.0017021577108992103,1007,2777806.4952178,spline_logistic,index,Historical factor index
+spline_logistic_water_index,4,water,5,0.0005012827177167667,0.004214223279072726,1007,2777806.4952178,spline_logistic,index,Historical factor index
+spline_logistic_water_index,5,water,1,-0.0008410519777274916,-0.0056149767319061406,1005,2807410.1710247993,spline_logistic,index,Historical factor index
+spline_logistic_water_index,5,water,2,-0.0004765797758836121,-0.0027921170647408067,1005,2807410.1710247993,spline_logistic,index,Historical factor index
+spline_logistic_water_index,5,water,3,-0.0006553603125302176,-0.0049844619843723015,1005,2807410.1710247993,spline_logistic,index,Historical factor index
+spline_logistic_water_index,5,water,4,-0.0006002265656007144,-0.0031196842443234063,1005,2807410.1710247993,spline_logistic,index,Historical factor index
+spline_logistic_water_index,5,water,5,9.482298295671043e-06,0.0016040579537472954,1005,2807410.1710247993,spline_logistic,index,Historical factor index
+spline_logistic_water_nominal,1,water,1,0.00016339255931607788,0.0009320425278160904,1006,2861322.5562906265,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,1,water,2,-2.982428180692276e-05,-0.0008209286151934503,1006,2861322.5562906265,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,1,water,3,-0.00019923420308237683,-0.0017766129272803743,1006,2861322.5562906265,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,1,water,4,-9.702304363498615e-05,-0.0009545550135852121,1006,2861322.5562906265,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,1,water,5,-4.9439836700249096e-05,-0.0009711052500858131,1006,2861322.5562906265,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,2,water,1,-0.000617959181165223,-0.0042906732450452845,1007,2574325.41285038,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,2,water,2,-0.0008398096099834496,-0.005477993571099571,1007,2574325.41285038,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,2,water,3,-0.00041471377880347715,-0.0026756389618628473,1007,2574325.41285038,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,2,water,4,-0.0006225255090015203,-0.004903171956419539,1007,2574325.41285038,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,2,water,5,-4.3485020374628425e-05,-0.00013478222090412828,1007,2574325.41285038,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,3,water,1,-0.00010728844886578881,0.0005441043914242716,1011,2776332.157348156,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,3,water,2,-7.82211767379748e-05,0.0003852559734884853,1011,2776332.157348156,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,3,water,3,3.288152068475769e-05,0.0013961319551886175,1011,2776332.157348156,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,3,water,4,-2.227217040490226e-05,0.0006542480800360018,1011,2776332.157348156,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,3,water,5,-8.82247912424583e-05,0.0002715273949750463,1011,2776332.157348156,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,4,water,1,2.4252525620882537e-05,0.0005730382310139559,1007,2777806.4952178,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,4,water,2,5.1727424860953386e-05,0.0002957744757025038,1007,2777806.4952178,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,4,water,3,0.00017657779543922558,0.0022653080737635722,1007,2777806.4952178,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,4,water,4,4.247078439731378e-05,0.001133903787388979,1007,2777806.4952178,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,4,water,5,0.0001595864714969697,0.0011612143667824038,1007,2777806.4952178,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,5,water,1,-0.0002463177353358714,-0.0013848158201110738,1005,2807410.1710247993,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,5,water,2,-4.903695475114156e-05,-0.0004088246945483931,1005,2807410.1710247993,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,5,water,3,-0.00022646850532198615,-0.00026814630025395747,1005,2807410.1710247993,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,5,water,4,-0.0003928674336759197,-0.0026525751333559278,1005,2807410.1710247993,spline_logistic,nominal,Nominal water categories
+spline_logistic_water_nominal,5,water,5,-7.998584405971565e-05,-0.00044965961381282504,1005,2807410.1710247993,spline_logistic,nominal,Nominal water categories

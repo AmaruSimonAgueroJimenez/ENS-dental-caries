@@ -1,0 +1,25 @@
+comparison,model,reference,metric,difference,ci_low,ci_high
+Random forest versus linear logistic,random_forest,logistic,auc,0.017786344542923715,0.0004756313635708831,0.036702445386851794
+Random forest versus linear logistic,random_forest,logistic,brier,-0.0025141433291437365,-0.005097779519980753,0.00015931920731309749
+Random forest versus linear logistic,random_forest,logistic,log_loss,-0.005359234379488376,-0.010886385511340312,0.0003720914986797996
+Spline versus linear logistic,spline_logistic,logistic,auc,0.03108895758583141,0.01590931384329513,0.04662507436070708
+Spline versus linear logistic,spline_logistic,logistic,brier,-0.004422867123182073,-0.006439373829314011,-0.002541906251030271
+Spline versus linear logistic,spline_logistic,logistic,log_loss,-0.009151958205580235,-0.0133081007618394,-0.005280672171902512
+Adding water to random forest,random_forest,rf_no_water,auc,-0.0015478544328269006,-0.009190824795936478,0.005888741715734227
+Adding water to random forest,random_forest,rf_no_water,brier,0.0005426757538488369,-0.0004987942856882463,0.0015524282352405111
+Adding water to random forest,random_forest,rf_no_water,log_loss,0.0012518321086515405,-0.000885309303477555,0.0033161530601554237
+Adding water to spline logistic,spline_logistic,spline_no_water,auc,-0.0028225055856144765,-0.005850438875717556,4.746724119528923e-05
+Adding water to spline logistic,spline_logistic,spline_no_water,brier,0.00032603529732649905,-1.7070249884638258e-05,0.0006858631995550563
+Adding water to spline logistic,spline_logistic,spline_no_water,log_loss,0.0006759316497626511,-2.164789590716753e-05,0.0014271622210762333
+Adding dietary variables to random forest,random_forest,rf_base,auc,-0.008528504603101172,-0.030053762139546348,0.013105784237267371
+Adding dietary variables to random forest,random_forest,rf_base,brier,0.0011507484623365372,-0.002290214766254533,0.004570398800429835
+Adding dietary variables to random forest,random_forest,rf_base,log_loss,0.001843785264631026,-0.005423777010089953,0.00902209151879317
+Adding dietary variables to spline logistic,spline_logistic,spline_base,auc,-0.012747323459805782,-0.027230234987864966,0.0020311932294156394
+Adding dietary variables to spline logistic,spline_logistic,spline_base,brier,0.0019538964473929943,-0.000848706604107062,0.004616225903868798
+Adding dietary variables to spline logistic,spline_logistic,spline_base,log_loss,0.004033241197101134,-0.0018220961716041038,0.009730099634275784
+Adding water context and dental attendance,spline_extended,spline_logistic,auc,0.0049399551759965465,0.0020511825827596334,0.007996327429896965
+Adding water context and dental attendance,spline_extended,spline_logistic,brier,-0.0006674482249868219,-0.0010735617152592366,-0.00027763481348344344
+Adding water context and dental attendance,spline_extended,spline_logistic,log_loss,-0.0014014439967042769,-0.002226780197841219,-0.0006056995543387515
+Adding remaining teeth,spline_logistic,spline_no_teeth,auc,0.015477072511621448,0.004699722990857977,0.02563258593537928
+Adding remaining teeth,spline_logistic,spline_no_teeth,brier,-0.0020402231636099666,-0.0032133502759834564,-0.0007018387121880052
+Adding remaining teeth,spline_logistic,spline_no_teeth,log_loss,-0.004316385409716128,-0.0067406226285363306,-0.001562506888636281

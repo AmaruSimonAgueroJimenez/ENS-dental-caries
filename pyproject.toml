@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ens-oral-health"
+version = "0.1.0"
+description = "Reproducible Python analyses of oral health in the Chilean ENS 2016–2017"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.0", "pandas>=2.2", "scipy>=1.14", "scikit-learn>=1.6",
+  "statsmodels>=0.14", "pyreadstat>=1.2", "matplotlib>=3.9",
+  "seaborn>=0.13", "pyyaml>=6", "patsy>=1", "joblib>=1.4", "tabulate>=0.9"
+]
+
+[project.optional-dependencies]
+report = ["jupyter>=1.1", "ipykernel>=6"]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

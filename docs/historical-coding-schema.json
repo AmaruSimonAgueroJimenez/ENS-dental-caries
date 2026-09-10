@@ -1,0 +1,1033 @@
+{
+  "n": 4994,
+  "p": 90,
+  "case_count": 2664,
+  "outcome_levels": [
+    "libre_de_caries",
+    "caries"
+  ],
+  "feature_order": [
+    "die1a",
+    "die2",
+    "die3",
+    "die4",
+    "die5",
+    "die6",
+    "die7",
+    "die8",
+    "die9",
+    "die10_a",
+    "die10_b",
+    "die10_c",
+    "die10_d",
+    "die10_e",
+    "die10_f",
+    "die11",
+    "die14",
+    "frecsembebida",
+    "frecsemjugo",
+    "sexo",
+    "zona",
+    "nedu",
+    "region",
+    "indigena",
+    "c1",
+    "remanentes",
+    "Edad"
+  ],
+  "column_order": [
+    "die1a1_vez_a_la_semana",
+    "die1amenos_de_3_veces_al_mes",
+    "die1amenos_de_1_vez_al_mes_o_nunca",
+    "die2menos_de_tres_veces_al_dia",
+    "die2una_vez_al_dia",
+    "die2dia_por_medio",
+    "die2al_menos_una_vez_por_semana",
+    "die2al_menos_una_vez_por_mes",
+    "die2nunca",
+    "die3enteros",
+    "die3no_consume_lacteos",
+    "die4a_diario",
+    "die4dia_por_medio",
+    "die4al_menos_una_vez_por_semana",
+    "die4al_menos_una_vez_por_mes",
+    "die4nunca",
+    "die5al_menos_una_vez_por_semana",
+    "die5entre_una_y_tres_veces_al_mes",
+    "die5menos_de_una_vez_al_mes_o_nunca",
+    "die61",
+    "die62",
+    "die63",
+    "die64",
+    "die65",
+    "die66",
+    "die67",
+    "die7",
+    "die81",
+    "die82",
+    "die83",
+    "die84",
+    "die85",
+    "die86",
+    "die87",
+    "die9",
+    "die10_acasi_siempre",
+    "die10_aalgunas_veces",
+    "die10_arara_vez",
+    "die10_anunca",
+    "die10_bcasi_siempre",
+    "die10_balgunas_veces",
+    "die10_brara_vez",
+    "die10_bnunca",
+    "die10_ccasi_siempre",
+    "die10_calgunas_veces",
+    "die10_crara_vez",
+    "die10_cnunca",
+    "die10_dcasi_siempre",
+    "die10_dalgunas_veces",
+    "die10_drara_vez",
+    "die10_dnunca",
+    "die10_ecasi_siempre",
+    "die10_ealgunas_veces",
+    "die10_erara_vez",
+    "die10_enunca",
+    "die10_fcasi_siempre",
+    "die10_falgunas_veces",
+    "die10_frara_vez",
+    "die10_fnunca",
+    "die11",
+    "die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+    "die14aceite_de_oliva",
+    "die14manteca",
+    "die14mantequilla",
+    "die14margarina",
+    "die14otro._especifique:",
+    "frecsembebida",
+    "frecsemjugo",
+    "sexomujer",
+    "zonarural",
+    "nedu8-12",
+    "nedu<8",
+    "regioni._tarapaca",
+    "regionii._antofagasta",
+    "regioniii._atacama",
+    "regioniv._coquimbo",
+    "regionv._valparaiso",
+    "regionxiii._metropolitana",
+    "regionvi._l._bdo._ohiggins",
+    "regionvii._maule",
+    "regionviii._biobio",
+    "regionix._la_araucania",
+    "regionxiv._los_rios",
+    "regionx._los_lagos",
+    "regionxi._aysen",
+    "regionxii._magallanes_y_antartica",
+    "indigenasi",
+    "c1otro_(?cual?)",
+    "remanentes",
+    "Edad"
+  ],
+  "schema": [
+    {
+      "raw_variable": "die1a",
+      "class": "factor",
+      "levels": [
+        "mas_de_una_vez_a_la_semana",
+        "1_vez_a_la_semana",
+        "menos_de_3_veces_al_mes",
+        "menos_de_1_vez_al_mes_o_nunca"
+      ],
+      "baseline": "mas_de_una_vez_a_la_semana",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "mas_de_una_vez_a_la_semana"
+        },
+        {
+          "code": 2,
+          "level": "1_vez_a_la_semana"
+        },
+        {
+          "code": 3,
+          "level": "menos_de_3_veces_al_mes"
+        },
+        {
+          "code": 4,
+          "level": "menos_de_1_vez_al_mes_o_nunca"
+        }
+      ],
+      "columns": [
+        "die1a1_vez_a_la_semana",
+        "die1amenos_de_3_veces_al_mes",
+        "die1amenos_de_1_vez_al_mes_o_nunca"
+      ]
+    },
+    {
+      "raw_variable": "die2",
+      "class": "factor",
+      "levels": [
+        "tres_o_mas_veces_al_dia",
+        "menos_de_tres_veces_al_dia",
+        "una_vez_al_dia",
+        "dia_por_medio",
+        "al_menos_una_vez_por_semana",
+        "al_menos_una_vez_por_mes",
+        "nunca"
+      ],
+      "baseline": "tres_o_mas_veces_al_dia",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "code": 2,
+          "level": "menos_de_tres_veces_al_dia"
+        },
+        {
+          "code": 3,
+          "level": "una_vez_al_dia"
+        },
+        {
+          "code": 4,
+          "level": "dia_por_medio"
+        },
+        {
+          "code": 5,
+          "level": "al_menos_una_vez_por_semana"
+        },
+        {
+          "code": 6,
+          "level": "al_menos_una_vez_por_mes"
+        },
+        {
+          "code": 7,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die2menos_de_tres_veces_al_dia",
+        "die2una_vez_al_dia",
+        "die2dia_por_medio",
+        "die2al_menos_una_vez_por_semana",
+        "die2al_menos_una_vez_por_mes",
+        "die2nunca"
+      ]
+    },
+    {
+      "raw_variable": "die3",
+      "class": "factor",
+      "levels": [
+        "semi_descremados,_descremados_o_bajos_en_grasas",
+        "enteros",
+        "no_consume_lacteos"
+      ],
+      "baseline": "semi_descremados,_descremados_o_bajos_en_grasas",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "semi_descremados,_descremados_o_bajos_en_grasas"
+        },
+        {
+          "code": 2,
+          "level": "enteros"
+        },
+        {
+          "code": null,
+          "level": "no_consume_lacteos"
+        }
+      ],
+      "columns": [
+        "die3enteros",
+        "die3no_consume_lacteos"
+      ]
+    },
+    {
+      "raw_variable": "die4",
+      "class": "factor",
+      "levels": [
+        "mas_de_una_vez_por_dia",
+        "a_diario",
+        "dia_por_medio",
+        "al_menos_una_vez_por_semana",
+        "al_menos_una_vez_por_mes",
+        "nunca"
+      ],
+      "baseline": "mas_de_una_vez_por_dia",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "code": 2,
+          "level": "a_diario"
+        },
+        {
+          "code": 3,
+          "level": "dia_por_medio"
+        },
+        {
+          "code": 4,
+          "level": "al_menos_una_vez_por_semana"
+        },
+        {
+          "code": 5,
+          "level": "al_menos_una_vez_por_mes"
+        },
+        {
+          "code": 6,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die4a_diario",
+        "die4dia_por_medio",
+        "die4al_menos_una_vez_por_semana",
+        "die4al_menos_una_vez_por_mes",
+        "die4nunca"
+      ]
+    },
+    {
+      "raw_variable": "die5",
+      "class": "factor",
+      "levels": [
+        "dos_o_mas_veces_por_semana",
+        "al_menos_una_vez_por_semana",
+        "entre_una_y_tres_veces_al_mes",
+        "menos_de_una_vez_al_mes_o_nunca"
+      ],
+      "baseline": "dos_o_mas_veces_por_semana",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "dos_o_mas_veces_por_semana"
+        },
+        {
+          "code": 2,
+          "level": "al_menos_una_vez_por_semana"
+        },
+        {
+          "code": 3,
+          "level": "entre_una_y_tres_veces_al_mes"
+        },
+        {
+          "code": 4,
+          "level": "menos_de_una_vez_al_mes_o_nunca"
+        }
+      ],
+      "columns": [
+        "die5al_menos_una_vez_por_semana",
+        "die5entre_una_y_tres_veces_al_mes",
+        "die5menos_de_una_vez_al_mes_o_nunca"
+      ]
+    },
+    {
+      "raw_variable": "die6",
+      "class": "factor",
+      "levels": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "baseline": "0",
+      "raw_code_levels": [
+        {
+          "code": 0,
+          "level": "0"
+        },
+        {
+          "code": 1,
+          "level": "1"
+        },
+        {
+          "code": 2,
+          "level": "2"
+        },
+        {
+          "code": 3,
+          "level": "3"
+        },
+        {
+          "code": 4,
+          "level": "4"
+        },
+        {
+          "code": 5,
+          "level": "5"
+        },
+        {
+          "code": 6,
+          "level": "6"
+        },
+        {
+          "code": 7,
+          "level": "7"
+        }
+      ],
+      "columns": [
+        "die61",
+        "die62",
+        "die63",
+        "die64",
+        "die65",
+        "die66",
+        "die67"
+      ]
+    },
+    {
+      "raw_variable": "die7",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "die7"
+    },
+    {
+      "raw_variable": "die8",
+      "class": "factor",
+      "levels": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "baseline": "0",
+      "raw_code_levels": [
+        {
+          "code": 0,
+          "level": "0"
+        },
+        {
+          "code": 1,
+          "level": "1"
+        },
+        {
+          "code": 2,
+          "level": "2"
+        },
+        {
+          "code": 3,
+          "level": "3"
+        },
+        {
+          "code": 4,
+          "level": "4"
+        },
+        {
+          "code": 5,
+          "level": "5"
+        },
+        {
+          "code": 6,
+          "level": "6"
+        },
+        {
+          "code": 7,
+          "level": "7"
+        }
+      ],
+      "columns": [
+        "die81",
+        "die82",
+        "die83",
+        "die84",
+        "die85",
+        "die86",
+        "die87"
+      ]
+    },
+    {
+      "raw_variable": "die9",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "die9"
+    },
+    {
+      "raw_variable": "die10_a",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_acasi_siempre",
+        "die10_aalgunas_veces",
+        "die10_arara_vez",
+        "die10_anunca"
+      ]
+    },
+    {
+      "raw_variable": "die10_b",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_bcasi_siempre",
+        "die10_balgunas_veces",
+        "die10_brara_vez",
+        "die10_bnunca"
+      ]
+    },
+    {
+      "raw_variable": "die10_c",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_ccasi_siempre",
+        "die10_calgunas_veces",
+        "die10_crara_vez",
+        "die10_cnunca"
+      ]
+    },
+    {
+      "raw_variable": "die10_d",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_dcasi_siempre",
+        "die10_dalgunas_veces",
+        "die10_drara_vez",
+        "die10_dnunca"
+      ]
+    },
+    {
+      "raw_variable": "die10_e",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_ecasi_siempre",
+        "die10_ealgunas_veces",
+        "die10_erara_vez",
+        "die10_enunca"
+      ]
+    },
+    {
+      "raw_variable": "die10_f",
+      "class": "factor",
+      "levels": [
+        "siempre",
+        "casi_siempre",
+        "algunas_veces",
+        "rara_vez",
+        "nunca"
+      ],
+      "baseline": "siempre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "siempre"
+        },
+        {
+          "code": 2,
+          "level": "casi_siempre"
+        },
+        {
+          "code": 3,
+          "level": "algunas_veces"
+        },
+        {
+          "code": 4,
+          "level": "rara_vez"
+        },
+        {
+          "code": 5,
+          "level": "nunca"
+        }
+      ],
+      "columns": [
+        "die10_fcasi_siempre",
+        "die10_falgunas_veces",
+        "die10_frara_vez",
+        "die10_fnunca"
+      ]
+    },
+    {
+      "raw_variable": "die11",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "die11"
+    },
+    {
+      "raw_variable": "die14",
+      "class": "factor",
+      "levels": [
+        "ninguno",
+        "aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+        "aceite_de_oliva",
+        "manteca",
+        "mantequilla",
+        "margarina",
+        "otro._especifique:"
+      ],
+      "baseline": "ninguno",
+      "raw_code_levels": [
+        {
+          "code": 0,
+          "level": "ninguno"
+        },
+        {
+          "code": 1,
+          "level": "aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)"
+        },
+        {
+          "code": 2,
+          "level": "aceite_de_oliva"
+        },
+        {
+          "code": 3,
+          "level": "manteca"
+        },
+        {
+          "code": 4,
+          "level": "mantequilla"
+        },
+        {
+          "code": 5,
+          "level": "margarina"
+        },
+        {
+          "code": 6,
+          "level": "otro._especifique:"
+        }
+      ],
+      "columns": [
+        "die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+        "die14aceite_de_oliva",
+        "die14manteca",
+        "die14mantequilla",
+        "die14margarina",
+        "die14otro._especifique:"
+      ]
+    },
+    {
+      "raw_variable": "frecsembebida",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "frecsembebida"
+    },
+    {
+      "raw_variable": "frecsemjugo",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "frecsemjugo"
+    },
+    {
+      "raw_variable": "sexo",
+      "class": "factor",
+      "levels": [
+        "hombre",
+        "mujer"
+      ],
+      "baseline": "hombre",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "hombre"
+        },
+        {
+          "code": 2,
+          "level": "mujer"
+        }
+      ],
+      "columns": "sexomujer"
+    },
+    {
+      "raw_variable": "zona",
+      "class": "factor",
+      "levels": [
+        "urbana",
+        "rural"
+      ],
+      "baseline": "urbana",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "urbana"
+        },
+        {
+          "code": 2,
+          "level": "rural"
+        }
+      ],
+      "columns": "zonarural"
+    },
+    {
+      "raw_variable": "nedu",
+      "class": "factor",
+      "levels": [
+        "13_o_mas",
+        "8-12",
+        "<8"
+      ],
+      "baseline": "13_o_mas",
+      "raw_code_levels": [
+        {
+          "code": 0,
+          "level": "13_o_mas"
+        },
+        {
+          "code": 1,
+          "level": "8-12"
+        },
+        {
+          "code": 2,
+          "level": "<8"
+        }
+      ],
+      "columns": [
+        "nedu8-12",
+        "nedu<8"
+      ]
+    },
+    {
+      "raw_variable": "region",
+      "class": "factor",
+      "levels": [
+        "xv._arica_y_parinacota",
+        "i._tarapaca",
+        "ii._antofagasta",
+        "iii._atacama",
+        "iv._coquimbo",
+        "v._valparaiso",
+        "xiii._metropolitana",
+        "vi._l._bdo._ohiggins",
+        "vii._maule",
+        "viii._biobio",
+        "ix._la_araucania",
+        "xiv._los_rios",
+        "x._los_lagos",
+        "xi._aysen",
+        "xii._magallanes_y_antartica"
+      ],
+      "baseline": "xv._arica_y_parinacota",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "xv._arica_y_parinacota"
+        },
+        {
+          "code": 2,
+          "level": "i._tarapaca"
+        },
+        {
+          "code": 3,
+          "level": "ii._antofagasta"
+        },
+        {
+          "code": 4,
+          "level": "iii._atacama"
+        },
+        {
+          "code": 5,
+          "level": "iv._coquimbo"
+        },
+        {
+          "code": 6,
+          "level": "v._valparaiso"
+        },
+        {
+          "code": 7,
+          "level": "xiii._metropolitana"
+        },
+        {
+          "code": 8,
+          "level": "vi._l._bdo._ohiggins"
+        },
+        {
+          "code": 9,
+          "level": "vii._maule"
+        },
+        {
+          "code": 10,
+          "level": "viii._biobio"
+        },
+        {
+          "code": 11,
+          "level": "ix._la_araucania"
+        },
+        {
+          "code": 12,
+          "level": "xiv._los_rios"
+        },
+        {
+          "code": 13,
+          "level": "x._los_lagos"
+        },
+        {
+          "code": 14,
+          "level": "xi._aysen"
+        },
+        {
+          "code": 15,
+          "level": "xii._magallanes_y_antartica"
+        }
+      ],
+      "columns": [
+        "regioni._tarapaca",
+        "regionii._antofagasta",
+        "regioniii._atacama",
+        "regioniv._coquimbo",
+        "regionv._valparaiso",
+        "regionxiii._metropolitana",
+        "regionvi._l._bdo._ohiggins",
+        "regionvii._maule",
+        "regionviii._biobio",
+        "regionix._la_araucania",
+        "regionxiv._los_rios",
+        "regionx._los_lagos",
+        "regionxi._aysen",
+        "regionxii._magallanes_y_antartica"
+      ]
+    },
+    {
+      "raw_variable": "indigena",
+      "class": "factor",
+      "levels": [
+        "no",
+        "si"
+      ],
+      "baseline": "no",
+      "raw_code_levels": [
+        {
+          "code": 0,
+          "level": "no"
+        },
+        {
+          "code": 1,
+          "level": "si"
+        }
+      ],
+      "columns": "indigenasi"
+    },
+    {
+      "raw_variable": "c1",
+      "class": "factor",
+      "levels": [
+        "chile",
+        "otro_(?cual?)"
+      ],
+      "baseline": "chile",
+      "raw_code_levels": [
+        {
+          "code": 1,
+          "level": "chile"
+        },
+        {
+          "code": 2,
+          "level": "otro_(?cual?)"
+        }
+      ],
+      "columns": "c1otro_(?cual?)"
+    },
+    {
+      "raw_variable": "remanentes",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "remanentes"
+    },
+    {
+      "raw_variable": "Edad",
+      "class": "numeric",
+      "levels": null,
+      "baseline": null,
+      "raw_code_levels": null,
+      "columns": "Edad"
+    }
+  ],
+  "cache_equal": true,
+  "cache_comparison": "[1] TRUE",
+  "r_version": "R version 4.5.2 (2025-10-31)",
+  "packages": [
+    {
+      "name": "haven",
+      "version": "2.5.5"
+    },
+    {
+      "name": "dplyr",
+      "version": "1.2.0"
+    },
+    {
+      "name": "forcats",
+      "version": "1.0.1"
+    },
+    {
+      "name": "tidyr",
+      "version": "1.3.2"
+    },
+    {
+      "name": "stringi",
+      "version": "1.8.7"
+    }
+  ],
+  "contrasts": {
+    "contrasts": [
+      "contr.treatment",
+      "contr.poly"
+    ]
+  },
+  "scope": "Aggregate original treatment-contrast coding schema; no participant IDs or individual values",
+  "cache_sha256": "6711aa2744a91740332a099c88e8f92bbe53f4827bf95146754d401b3e42b28e",
+  "reference_generation": "Only original pre-processing and model.matrix were executed; no historical model training",
+  "note": "die3 has a final no_consume_lacteos level for missing responses; its null raw code is intentional."
+}

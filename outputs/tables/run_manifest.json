@@ -1,0 +1,2372 @@
+{
+  "status": "complete",
+  "stage": "summarize",
+  "started_utc": "2026-09-10T18:39:43.684062+00:00",
+  "completed_utc": "2026-09-10T18:40:25.678797+00:00",
+  "input_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+  "bootstrap_replicates": 1000,
+  "code_sha256": {
+    "scripts/render_caries.py": "8ef0f286a278b2f3c231ea52428cf2697c7aff505f43a2dec7602440faecffb4",
+    "scripts/run_caries.py": "0c7d09b03dc50f863f485808f9fb3dd91230123487889cb0a47bc13e75bcbfa8",
+    "src/ens_analysis/__init__.py": "84c150d27bf0c0806a30aae5f330c98109d5cc23a7be7c8a21e7f7664b4adff0",
+    "src/ens_analysis/contributions.py": "9ad53a10b6d7faa4a4178bf31636e5678c9fe3ab272efd24456707528925eec5",
+    "src/ens_analysis/correa_figures.py": "35efa02923abb346ba700d18228fca4d09ff9aa08f9d0a1c51922e4cf7fc319d",
+    "src/ens_analysis/correa_validation_figures.py": "47e8d52dfba096734d7f9807c45314a056b84fa39cb9cd88669a2c33dc64cace",
+    "src/ens_analysis/data.py": "373b1c00a0969e3a95b2ae214daa47c485d32f82bc06273e398f33ccec2bc4b6",
+    "src/ens_analysis/descriptive_profile.py": "ee45bd7112521d161d69d1e314a08a19d99da5f2ac97048b21714777a9daa24f",
+    "src/ens_analysis/evaluation.py": "82201d4236d73f8248cc202e85075103e03f7fbd69d5eade23eefc3df4d1bc49",
+    "src/ens_analysis/figures.py": "c78f7e03f313175528e5fea062abed2e37105b8128d3ff02ab91464d243a2fe4",
+    "src/ens_analysis/historical_coding.py": "f451bae7ae925ed12729e59c2bf03a2120d7b938c60667f41433be63a614cb40",
+    "src/ens_analysis/historical_comparison.py": "0b025270c5525a0b5f69f71add1baa03e72187a0fcd3dad0a748f2d612e55429",
+    "src/ens_analysis/historical_figures.py": "64ee4d5fedf2e6db1b8d10415d110309712f71d984bda10edc62648b611cd17a",
+    "src/ens_analysis/inference.py": "2626c20ec665130bc3b462918e02405dc24b7bd3518de194253154c77620eb0d",
+    "src/ens_analysis/models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
+    "src/ens_analysis/reconciliation.py": "77a60c74f952ad25737a82a3f53a588d70acdf2ef1f7ab65cf3e47c4088c020f",
+    "src/ens_analysis/study_flow.py": "1b2a9d2cbcefeecaeec0a87343e07dad0d75da7c657a3b2f7f7a0420d237dbe5",
+    "src/ens_analysis/survey.py": "9707c7b0498a891451f130e6788fdc941b3a800adf4b1e30a58b346443a67bb1",
+    "src/ens_analysis/water_encoding.py": "1e9023001016003da3e3387b6214856169a31d99650ef57fa31e156624ea1275"
+  },
+  "original_input_sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966",
+  "source_reconciliation": {
+    "status": "verified",
+    "identity": {
+      "key": "IdEncuesta",
+      "n_original_participants": 5520,
+      "original_ids_unique": true,
+      "unmatched_original_ids": 0,
+      "ids_equal_complete_sav_examination_cohort": true,
+      "row_order_equal_to_sav": false,
+      "join_requirement": "Match by IdEncuesta; original row order differs from SAV"
+    },
+    "cohorts": {
+      "examined": 5520,
+      "dentate": 5036,
+      "original_complete_cases": 4994,
+      "original_complete_case_events": 2664,
+      "original_complete_case_ids_equal_python": true
+    },
+    "outcome": {
+      "caries_discrepancies": 0,
+      "remaining_teeth_discrepancies": 0,
+      "decayed_teeth_discrepancies": 0
+    },
+    "raw_numeric_checks": [
+      {
+        "dta_variable": "IdEncuesta",
+        "sav_variable": "IdEncuesta",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "Edad",
+        "sav_variable": "Edad",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "region",
+        "sav_variable": "Region",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "zona",
+        "sav_variable": "Zona",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "sexo",
+        "sav_variable": "Sexo",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "c1",
+        "sav_variable": "c1",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "Estrato",
+        "sav_variable": "Estrato",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "m5p3",
+        "sav_variable": "m5p3",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "m5p5",
+        "sav_variable": "m5p5",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "m5p6",
+        "sav_variable": "m5p6",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "m5p8",
+        "sav_variable": "m5p8",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die1a",
+        "sav_variable": "die1a",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die2",
+        "sav_variable": "die2",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die3",
+        "sav_variable": "die3",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die4",
+        "sav_variable": "die4",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die5",
+        "sav_variable": "die5",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die6",
+        "sav_variable": "die6",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die7",
+        "sav_variable": "die7",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die8",
+        "sav_variable": "die8",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die9",
+        "sav_variable": "die9",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_a",
+        "sav_variable": "die10_a",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_b",
+        "sav_variable": "die10_b",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_c",
+        "sav_variable": "die10_c",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_d",
+        "sav_variable": "die10_d",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_e",
+        "sav_variable": "die10_e",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die10_f",
+        "sav_variable": "die10_f",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die11",
+        "sav_variable": "die11",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die14",
+        "sav_variable": "die14",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die12_cantidad",
+        "sav_variable": "die12_cantidad",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die12_unidad",
+        "sav_variable": "die12_unidad",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die13_cantidad",
+        "sav_variable": "die13_cantidad",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      },
+      {
+        "dta_variable": "die13_unidad",
+        "sav_variable": "die13_unidad",
+        "n_compared": 5520,
+        "n_discrepant": 0
+      }
+    ],
+    "primary_predictors": {
+      "n": 27,
+      "n_matching_after_declared_harmonization": 27,
+      "n_matching_without_beverage_month_harmonization": 25,
+      "unexpected_discrepancies": 0
+    },
+    "category_harmonization": {
+      "education": "DTA nedu0=high,1=intermediate,2=low; SAV education3=high,2=intermediate,1=low",
+      "indigenous": "DTA c6=0 replaces SAV c6=10; DTA indigena0/1 equals decoded SAV indicator"
+    },
+    "beverage_month_conversion": {
+      "original": "Quantity *7 daily; quantity weekly; quantity /4 monthly; zero for nonconsumers. Divide weekly result by7 for legacy daily sensitivity.",
+      "primary": "Quantity daily; quantity /7 weekly; quantity /30 monthly; zero for nonconsumers.",
+      "interpretation": "Original monthly conversion implies28 days; primary conversion uses30 days. Source quantity/unit values are identical.",
+      "differences": {
+        "soda_frequency": {
+          "n_different_examined": 569,
+          "n_different_dentate": 520,
+          "maximum_absolute_difference_times_per_day": 0.0714285714285714
+        },
+        "juice_frequency": {
+          "n_different_examined": 305,
+          "n_different_dentate": 286,
+          "maximum_absolute_difference_times_per_day": 0.0714285714285714
+        }
+      }
+    },
+    "water_coding": {
+      "reported_glasses_match": true,
+      "original_r_uses_factor_indices": true,
+      "observed_levels_before_complete_case_deletion": 25,
+      "note": "An ordered factor index preserves ranking but changes cardinal spacing and the meaning of a unit increase."
+    },
+    "structural_skip_handling": "Original unconditional and corrected questionnaire-conditional recoding give identical values in this observed dataset; validation rejects unexplained missing responses.",
+    "aggregate_outputs_contain_identifiers": false,
+    "legacy_frequency_table": "Contains participant_id for in-memory joining only; do not export as a public result.",
+    "sources": {
+      "original_dta": {
+        "file": "23.07.26_base_ens_5520_R_enviar.dta",
+        "sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966",
+        "size_bytes": 18595786,
+        "rows": 5520,
+        "numeric_columns_read": [
+          "IdEncuesta",
+          "Edad",
+          "region",
+          "zona",
+          "sexo",
+          "c1",
+          "Estrato",
+          "m5p3",
+          "m5p5",
+          "m5p6",
+          "m5p8",
+          "die1a",
+          "die2",
+          "die3",
+          "die4",
+          "die5",
+          "die6",
+          "die7",
+          "die8",
+          "die9",
+          "die10_a",
+          "die10_b",
+          "die10_c",
+          "die10_d",
+          "die10_e",
+          "die10_f",
+          "die11",
+          "die14",
+          "die12_cantidad",
+          "die12_unidad",
+          "die13_cantidad",
+          "die13_unidad",
+          "c6",
+          "nedu",
+          "indigena",
+          "remanentes",
+          "cariados",
+          "cariesnt",
+          "frecsembebida",
+          "frecsemjugo"
+        ],
+        "read_encoding": "latin1",
+        "encoding_note": "Fallback for a truncated UTF-8 source label; numeric values unchanged. Labels interpreted through an explicit dictionary, not mojibake text."
+      },
+      "supplemental_sav": {
+        "file": "data.sav",
+        "sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+        "size_bytes": 18157353,
+        "rows": 6233,
+        "role": "Survey weight/PSU and additional water context absent from original DTA; ID-matched supplementation"
+      },
+      "original_code": {
+        "repository": "https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries",
+        "commit": "77c107feb56d3f825cd4ad26354b672f8bfebe38",
+        "file": "docs/index.qmd"
+      }
+    },
+    "sav_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+    "original_dta_sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966"
+  },
+  "analysis_origin": "Python reanalysis with original Stata cohort and source variables reconciled against the full ENS release; documented methodological corrections intentionally change the original R analysis",
+  "python": "3.14.3",
+  "analysis_seed": 20260910,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.0",
+    "statsmodels": "0.15.0",
+    "pyreadstat": "1.3.6",
+    "matplotlib": "3.11.1",
+    "patsy": "1.0.3"
+  },
+  "n_primary": 5036,
+  "n_manuscript": 4994,
+  "model_names": [
+    "logistic",
+    "spline_logistic",
+    "random_forest",
+    "hist_gradient_boosting",
+    "svm",
+    "decision_tree",
+    "knn",
+    "spline_base",
+    "spline_no_water",
+    "rf_no_water",
+    "rf_base",
+    "spline_extended",
+    "spline_no_teeth"
+  ],
+  "predictor_contributions": {
+    "status": "complete",
+    "scope": "Exploratory predictor-contribution analysis",
+    "seed": 20260910,
+    "permutation_repeats": 5,
+    "model_names": [
+      "random_forest",
+      "spline_logistic"
+    ],
+    "n_participants": 5036,
+    "groups": {
+      "Sociodemographic": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile"
+      ],
+      "Remaining teeth": [
+        "teeth_remaining"
+      ],
+      "Food intake": [
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions"
+      ],
+      "Label-related behaviours": [
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "Beverages": [
+        "water",
+        "soda_frequency",
+        "juice_frequency"
+      ],
+      "Cooking fat": [
+        "oil"
+      ]
+    },
+    "model_fingerprints": {
+      "random_forest": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee",
+      "spline_logistic": "919734e44ef9f897fd8497e1a29e7dc2c3d5e97913289d8db5f48c9fc64b6a0e"
+    },
+    "refit_checks": [
+      {
+        "model": "random_forest",
+        "fold": 1,
+        "n_test": 1006,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 2,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 3,
+        "n_test": 1011,
+        "max_absolute_probability_difference": 3.3306690738754696e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 4,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 3.3306690738754696e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 5,
+        "n_test": 1005,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 1,
+        "n_test": 1006,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 2,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 3,
+        "n_test": 1011,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 4,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 5,
+        "n_test": 1005,
+        "max_absolute_probability_difference": 0.0
+      }
+    ],
+    "prediction_match_tolerance": 1e-10,
+    "grouping_status": "Conceptual grouping added after initial model results, 2026-09-10",
+    "method": "Joint uniform held-out row permutation within predictor families, fixed outcomes and survey scoring weights",
+    "aggregation": "Mean over repeats within fold, then mean over folds weighted by held-out expansion-weight totals",
+    "uncertainty": "Minimum to maximum fold means are stability ranges, not confidence intervals",
+    "interpretation": "Model-specific marginal perturbation; not a causal effect, conditional importance, refitted feature-ablation contrast, or additive percentage of explained disease"
+  },
+  "water_encoding": {
+    "status": "complete",
+    "scope": "Post hoc water-encoding sensitivity with fixed physical-model hyperparameters",
+    "analysis_fingerprint": "9e3fcf85fa5722b58318b3e1c196aaac00f9d271e594dd130240674b9b2b7d0f",
+    "source_sha256": {
+      "water_encoding.py": "1e9023001016003da3e3387b6214856169a31d99650ef57fa31e156624ea1275",
+      "models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
+      "evaluation.py": "82201d4236d73f8248cc202e85075103e03f7fbd69d5eade23eefc3df4d1bc49"
+    },
+    "full_frame_sha256": "50900f76d981c434d29a2862e47600188567bcb72ffa0ec52bef0fc6299dde8c",
+    "physical_oof_sha256": "7bc71072ce55cbba578ff6ddafb9afd9ca76375b8fa4e709bcc1d4af7606e1b9",
+    "physical_scores_sha256": "0ead3f957fadf35bc741a83dce5119a6b4ca8185218155a5c9cde0e65ba5ddf5",
+    "physical_water_importance_sha256": "c2578452825ce5f4f602ad86967556f8eaf4ffcaf0c657c35882ab9aca920f49",
+    "water_mapping_sha256": "c29e575e764d10dd4685ebe754e869ba8b62c5a9a91e67c610634405d398eadb",
+    "water_mapping": [
+      {
+        "reported_glasses_per_day": 0.0,
+        "original_r_factor_index": 1
+      },
+      {
+        "reported_glasses_per_day": 1.0,
+        "original_r_factor_index": 2
+      },
+      {
+        "reported_glasses_per_day": 2.0,
+        "original_r_factor_index": 3
+      },
+      {
+        "reported_glasses_per_day": 3.0,
+        "original_r_factor_index": 4
+      },
+      {
+        "reported_glasses_per_day": 4.0,
+        "original_r_factor_index": 5
+      },
+      {
+        "reported_glasses_per_day": 5.0,
+        "original_r_factor_index": 6
+      },
+      {
+        "reported_glasses_per_day": 6.0,
+        "original_r_factor_index": 7
+      },
+      {
+        "reported_glasses_per_day": 7.0,
+        "original_r_factor_index": 8
+      },
+      {
+        "reported_glasses_per_day": 8.0,
+        "original_r_factor_index": 9
+      },
+      {
+        "reported_glasses_per_day": 9.0,
+        "original_r_factor_index": 10
+      },
+      {
+        "reported_glasses_per_day": 10.0,
+        "original_r_factor_index": 11
+      },
+      {
+        "reported_glasses_per_day": 11.0,
+        "original_r_factor_index": 12
+      },
+      {
+        "reported_glasses_per_day": 12.0,
+        "original_r_factor_index": 13
+      },
+      {
+        "reported_glasses_per_day": 13.0,
+        "original_r_factor_index": 14
+      },
+      {
+        "reported_glasses_per_day": 14.0,
+        "original_r_factor_index": 15
+      },
+      {
+        "reported_glasses_per_day": 15.0,
+        "original_r_factor_index": 16
+      },
+      {
+        "reported_glasses_per_day": 16.0,
+        "original_r_factor_index": 17
+      },
+      {
+        "reported_glasses_per_day": 18.0,
+        "original_r_factor_index": 18
+      },
+      {
+        "reported_glasses_per_day": 20.0,
+        "original_r_factor_index": 19
+      },
+      {
+        "reported_glasses_per_day": 24.0,
+        "original_r_factor_index": 20
+      },
+      {
+        "reported_glasses_per_day": 25.0,
+        "original_r_factor_index": 21
+      },
+      {
+        "reported_glasses_per_day": 28.0,
+        "original_r_factor_index": 22
+      },
+      {
+        "reported_glasses_per_day": 30.0,
+        "original_r_factor_index": 23
+      },
+      {
+        "reported_glasses_per_day": 32.0,
+        "original_r_factor_index": 24
+      },
+      {
+        "reported_glasses_per_day": 40.0,
+        "original_r_factor_index": 25
+      }
+    ],
+    "original_model_fingerprints": {
+      "random_forest": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee",
+      "spline_logistic": "919734e44ef9f897fd8497e1a29e7dc2c3d5e97913289d8db5f48c9fc64b6a0e"
+    },
+    "software": {
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "numpy": "2.5.3"
+    },
+    "seed": 20260910,
+    "bootstrap_replicates": 1000,
+    "permutation_repeats": 5,
+    "outer_folds": 5,
+    "n_jobs": 3,
+    "n_participants": 5036,
+    "n_events": 2689,
+    "n_psu": 1072,
+    "n_strata": 30,
+    "n_full_design_psu": 1075,
+    "n_full_design_strata": 30,
+    "physical_outer_fits_reused": 10,
+    "alternative_outer_fits_required": 20,
+    "alternative_outer_fits_this_call": 0,
+    "cache_hits_this_call": 20,
+    "new_hyperparameter_searches": 0,
+    "n_oof_rows_private": 30216,
+    "n_water_permutation_rows": 150,
+    "variants": {
+      "random_forest": {
+        "base_model": "random_forest",
+        "encoding": "physical",
+        "encoding_label": "Reported glasses/day"
+      },
+      "spline_logistic": {
+        "base_model": "spline_logistic",
+        "encoding": "physical",
+        "encoding_label": "Reported glasses/day"
+      },
+      "random_forest_water_index": {
+        "base_model": "random_forest",
+        "encoding": "index",
+        "encoding_label": "Historical factor index"
+      },
+      "random_forest_water_nominal": {
+        "base_model": "random_forest",
+        "encoding": "nominal",
+        "encoding_label": "Nominal water categories"
+      },
+      "spline_logistic_water_index": {
+        "base_model": "spline_logistic",
+        "encoding": "index",
+        "encoding_label": "Historical factor index"
+      },
+      "spline_logistic_water_nominal": {
+        "base_model": "spline_logistic",
+        "encoding": "nominal",
+        "encoding_label": "Nominal water categories"
+      }
+    },
+    "bootstrap_valid_replicates": {
+      "random_forest": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "random_forest_water_index": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "random_forest_water_nominal": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "spline_logistic": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "spline_logistic_water_index": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "spline_logistic_water_nominal": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      }
+    },
+    "elapsed_seconds": 7.1962060000005295,
+    "notes": [
+      "Physical OOF predictions, selected hyperparameters and held-out water permutations are reused unchanged; no physical model is refitted.",
+      "Alternative encodings use the identical outer training/test participants, original model seeds and selected physical-model hyperparameters; no retuning is performed.",
+      "The historical factor-index mapping is a fixed, data-derived source artifact: observed dentate levels before original complete-case deletion. It is not a training-only learned transformation or a set of water-intake bins.",
+      "All statistical imputation, spline knots, scaling and nominal one-hot vocabulary are learned only in the outer training sample. Unseen nominal levels are ignored by the trained one-hot encoder.",
+      "Nominal water replaces the numeric/spline water input; age and remaining-teeth splines remain. Encoding changes dimensionality and may change RF feature-subsampling behaviour under the fixed hyperparameters.",
+      "Nominal one-hot encoding is not an exact reproduction of native R factor handling; this is not an independently tuned algorithm comparison or an exact reconstruction of the historical pipeline.",
+      "The same five uniform held-out donor-row permutations (including missing water) are used for each encoding; outcomes and survey scoring weights stay fixed.",
+      "Water-only permutation provides no rank relative to other predictors in alternative encodings. Weighted fold means and fold minima/maxima describe stability; the ranges are not confidence intervals.",
+      "Paired percentile confidence intervals use shared rescaled stratified PSU bootstrap draws from the full positive-weight survey design, conditional on fixed fits, hyperparameters and outer folds; singleton PSUs remain fixed.",
+      "Paired AUC differences use pooled OOF probabilities; mean fold permutation AUC drops are a different estimand. Negative permutation importance is retained."
+    ]
+  },
+  "historical_comparison": {
+    "status": "complete",
+    "scope": "Post hoc historical-versus-modern coding in the same complete cohort",
+    "analysis_fingerprint": "33bfed94ebf29a9512db7d73de62c7828cb7eceb63c1576a9cfe3116499bd636",
+    "source_sha256": {
+      "models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
+      "evaluation.py": "82201d4236d73f8248cc202e85075103e03f7fbd69d5eade23eefc3df4d1bc49",
+      "contributions.py": "9ad53a10b6d7faa4a4178bf31636e5678c9fe3ab272efd24456707528925eec5",
+      "historical_comparison.py": "0b025270c5525a0b5f69f71add1baa03e72187a0fcd3dad0a748f2d612e55429"
+    },
+    "full_frame_sha256": "76634d41be64f1c1f2bd032b899636a5dcaa7f5a0321162e14f30d6b4e57169c",
+    "historical_matrix_sha256": "66b14ebdfc89ff21ea3b8581f98ea9da6476526b5e56d3035c1bae062db410b0",
+    "column_map_sha256": "0e4a7cb5660d748e371fdf43883daf19c1f573a3f7be4271bb4072196bf0ec57",
+    "original_oof_sha256": "9043e053de033ed72d019d8f3b937aa205374b01be04fdbc6be8d190a2bc3c76",
+    "original_foldscores_sha256": "8a13ecf79a3deed16326225ca4b52bd4d7ea105537e9f453c107fda6b597a318",
+    "original_model_fingerprint": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee",
+    "selected_params_by_fold": {
+      "1": {
+        "max_features": "sqrt",
+        "min_samples_leaf": 20
+      },
+      "2": {
+        "max_features": "sqrt",
+        "min_samples_leaf": 5
+      },
+      "3": {
+        "max_features": 0.7,
+        "min_samples_leaf": 100
+      },
+      "4": {
+        "max_features": "sqrt",
+        "min_samples_leaf": 50
+      },
+      "5": {
+        "max_features": "sqrt",
+        "min_samples_leaf": 20
+      }
+    },
+    "seed": 20260910,
+    "permutation_repeats": 5,
+    "bootstrap_replicates": 1000,
+    "software": {
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "numpy": "2.5.3"
+    },
+    "n_original_eligible": 5036,
+    "n_participants": 4994,
+    "n_events": 2664,
+    "n_predictors": 27,
+    "n_historical_columns": 90,
+    "n_psu": 1072,
+    "n_strata": 30,
+    "n_full_design_psu": 1075,
+    "n_full_design_strata": 30,
+    "outer_folds": 5,
+    "outer_fits_required": 10,
+    "outer_fits_this_call": 0,
+    "cache_hits_this_call": 10,
+    "new_hyperparameter_searches": 0,
+    "n_oof_rows_private": 9988,
+    "n_permutation_rows": 1350,
+    "model_names": [
+      "rf_complete_modern",
+      "rf_complete_historical"
+    ],
+    "bootstrap_valid_replicates": {
+      "rf_complete_historical": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      },
+      "rf_complete_modern": {
+        "auc": 1000,
+        "brier": 1000,
+        "log_loss": 1000,
+        "sensitivity": 1000,
+        "specificity": 1000,
+        "ppv": 1000,
+        "accuracy": 1000
+      }
+    },
+    "elapsed_seconds": 2.5299440000017057,
+    "notes": [
+      "Both variants are newly fitted in the identical complete cohort. Primary probabilities and fitted models are not used as the modern complete-cohort reference.",
+      "Outer folds are restrictions of the original eligible-cohort PSU assignments; no participant or PSU enters both training and validation in a fold.",
+      "Parameters were selected using each original outer training cohort, which can include additional incomplete participants, and are transported unchanged to both representations. No outer validation outcomes inform that selection and no retuning is performed.",
+      "Historical column vocabulary and reference contrasts are fixed source artifacts, verified separately against the original R matrix. They are not claimed to be learned within modern training folds.",
+      "The historical coding package changes water indices, categorical fruit/vegetable days, reference contrasts and original beverage units/conversion. The comparison does not isolate each component or reproduce the historical unweighted caret forest.",
+      "The modern pipeline learns its categorical vocabulary and preprocessing within training folds, retaining its explicit missing indicators, including constant ones in this complete cohort.",
+      "Both forests use the same estimator settings and normalized survey fitting weights. Different input dimensionality changes feature-subsampling behaviour even when max_features is unchanged.",
+      "MDI is normalized sklearn fitted-model impurity importance; its 0–100 min–max rescaling is descriptive and is not an exact reproduction of the original R score. Tied values share the minimum rank; an all-zero vector receives scaled zeros.",
+      "MDI sums over all encoded columns of an original predictor conserve total MDI. They are not whole-predictor permutation importance, causal contributions or percentages of disease explained.",
+      "Whole-predictor importance uses five common uniform donor-row permutations per outer test fold. All indicator columns of a predictor move together; outcomes and survey scoring weights stay fixed.",
+      "Importance summaries average repeats within folds, then weight fold means by held-out expansion-weight totals. Fold ranges and ranks describe stability and are not confidence intervals. Negative permutation values are retained.",
+      "Paired percentile intervals use shared stratified rescaled PSU bootstrap draws from the full positive-weight design, conditional on fixed fitted forests, parameters and folds. Singleton PSUs remain fixed; threshold metrics use 0.5.",
+      "Only aggregate tables and this manifest are public outputs. OOF records, matrices, row positions and fold caches must remain private."
+    ],
+    "saved_reference_sha256": "1e4d1980dfcbf144265896b7fbc2236884ca471e44d39c565bf4405cfb0d84f3",
+    "coding_metadata": {
+      "status": "verified",
+      "schema_version": 1,
+      "n_source": 5520,
+      "n_dentate": 5036,
+      "n_complete": 4994,
+      "n_cases": 2664,
+      "n_columns": 90,
+      "n_raw_predictors": 27,
+      "n_numeric_columns": 7,
+      "n_category_indicators": 83,
+      "source_feature_order": [
+        "die1a",
+        "die2",
+        "die3",
+        "die4",
+        "die5",
+        "die6",
+        "die7",
+        "die8",
+        "die9",
+        "die10_a",
+        "die10_b",
+        "die10_c",
+        "die10_d",
+        "die10_e",
+        "die10_f",
+        "die11",
+        "die14",
+        "frecsembebida",
+        "frecsemjugo",
+        "sexo",
+        "zona",
+        "nedu",
+        "region",
+        "indigena",
+        "c1",
+        "remanentes",
+        "Edad"
+      ],
+      "column_order": [
+        "die1a1_vez_a_la_semana",
+        "die1amenos_de_3_veces_al_mes",
+        "die1amenos_de_1_vez_al_mes_o_nunca",
+        "die2menos_de_tres_veces_al_dia",
+        "die2una_vez_al_dia",
+        "die2dia_por_medio",
+        "die2al_menos_una_vez_por_semana",
+        "die2al_menos_una_vez_por_mes",
+        "die2nunca",
+        "die3enteros",
+        "die3no_consume_lacteos",
+        "die4a_diario",
+        "die4dia_por_medio",
+        "die4al_menos_una_vez_por_semana",
+        "die4al_menos_una_vez_por_mes",
+        "die4nunca",
+        "die5al_menos_una_vez_por_semana",
+        "die5entre_una_y_tres_veces_al_mes",
+        "die5menos_de_una_vez_al_mes_o_nunca",
+        "die61",
+        "die62",
+        "die63",
+        "die64",
+        "die65",
+        "die66",
+        "die67",
+        "die7",
+        "die81",
+        "die82",
+        "die83",
+        "die84",
+        "die85",
+        "die86",
+        "die87",
+        "die9",
+        "die10_acasi_siempre",
+        "die10_aalgunas_veces",
+        "die10_arara_vez",
+        "die10_anunca",
+        "die10_bcasi_siempre",
+        "die10_balgunas_veces",
+        "die10_brara_vez",
+        "die10_bnunca",
+        "die10_ccasi_siempre",
+        "die10_calgunas_veces",
+        "die10_crara_vez",
+        "die10_cnunca",
+        "die10_dcasi_siempre",
+        "die10_dalgunas_veces",
+        "die10_drara_vez",
+        "die10_dnunca",
+        "die10_ecasi_siempre",
+        "die10_ealgunas_veces",
+        "die10_erara_vez",
+        "die10_enunca",
+        "die10_fcasi_siempre",
+        "die10_falgunas_veces",
+        "die10_frara_vez",
+        "die10_fnunca",
+        "die11",
+        "die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+        "die14aceite_de_oliva",
+        "die14manteca",
+        "die14mantequilla",
+        "die14margarina",
+        "die14otro._especifique:",
+        "frecsembebida",
+        "frecsemjugo",
+        "sexomujer",
+        "zonarural",
+        "nedu8-12",
+        "nedu<8",
+        "regioni._tarapaca",
+        "regionii._antofagasta",
+        "regioniii._atacama",
+        "regioniv._coquimbo",
+        "regionv._valparaiso",
+        "regionxiii._metropolitana",
+        "regionvi._l._bdo._ohiggins",
+        "regionvii._maule",
+        "regionviii._biobio",
+        "regionix._la_araucania",
+        "regionxiv._los_rios",
+        "regionx._los_lagos",
+        "regionxi._aysen",
+        "regionxii._magallanes_y_antartica",
+        "indigenasi",
+        "c1otro_(?cual?)",
+        "remanentes",
+        "Edad"
+      ],
+      "column_map": [
+        {
+          "encoded_column": "die1a1_vez_a_la_semana",
+          "predictor": "fish",
+          "raw_variable": "die1a",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "1_vez_a_la_semana",
+          "reference_level": "mas_de_una_vez_a_la_semana"
+        },
+        {
+          "encoded_column": "die1amenos_de_3_veces_al_mes",
+          "predictor": "fish",
+          "raw_variable": "die1a",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "menos_de_3_veces_al_mes",
+          "reference_level": "mas_de_una_vez_a_la_semana"
+        },
+        {
+          "encoded_column": "die1amenos_de_1_vez_al_mes_o_nunca",
+          "predictor": "fish",
+          "raw_variable": "die1a",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "menos_de_1_vez_al_mes_o_nunca",
+          "reference_level": "mas_de_una_vez_a_la_semana"
+        },
+        {
+          "encoded_column": "die2menos_de_tres_veces_al_dia",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "menos_de_tres_veces_al_dia",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die2una_vez_al_dia",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "una_vez_al_dia",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die2dia_por_medio",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "dia_por_medio",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die2al_menos_una_vez_por_semana",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "al_menos_una_vez_por_semana",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die2al_menos_una_vez_por_mes",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "al_menos_una_vez_por_mes",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die2nunca",
+          "predictor": "dairy_frequency",
+          "raw_variable": "die2",
+          "kind": "category_indicator",
+          "raw_code": 7,
+          "level": "nunca",
+          "reference_level": "tres_o_mas_veces_al_dia"
+        },
+        {
+          "encoded_column": "die3enteros",
+          "predictor": "dairy_type",
+          "raw_variable": "die3",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "enteros",
+          "reference_level": "semi_descremados,_descremados_o_bajos_en_grasas"
+        },
+        {
+          "encoded_column": "die3no_consume_lacteos",
+          "predictor": "dairy_type",
+          "raw_variable": "die3",
+          "kind": "category_indicator",
+          "raw_code": null,
+          "level": "no_consume_lacteos",
+          "reference_level": "semi_descremados,_descremados_o_bajos_en_grasas"
+        },
+        {
+          "encoded_column": "die4a_diario",
+          "predictor": "wholegrain",
+          "raw_variable": "die4",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "a_diario",
+          "reference_level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "encoded_column": "die4dia_por_medio",
+          "predictor": "wholegrain",
+          "raw_variable": "die4",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "dia_por_medio",
+          "reference_level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "encoded_column": "die4al_menos_una_vez_por_semana",
+          "predictor": "wholegrain",
+          "raw_variable": "die4",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "al_menos_una_vez_por_semana",
+          "reference_level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "encoded_column": "die4al_menos_una_vez_por_mes",
+          "predictor": "wholegrain",
+          "raw_variable": "die4",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "al_menos_una_vez_por_mes",
+          "reference_level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "encoded_column": "die4nunca",
+          "predictor": "wholegrain",
+          "raw_variable": "die4",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "nunca",
+          "reference_level": "mas_de_una_vez_por_dia"
+        },
+        {
+          "encoded_column": "die5al_menos_una_vez_por_semana",
+          "predictor": "legumes",
+          "raw_variable": "die5",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "al_menos_una_vez_por_semana",
+          "reference_level": "dos_o_mas_veces_por_semana"
+        },
+        {
+          "encoded_column": "die5entre_una_y_tres_veces_al_mes",
+          "predictor": "legumes",
+          "raw_variable": "die5",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "entre_una_y_tres_veces_al_mes",
+          "reference_level": "dos_o_mas_veces_por_semana"
+        },
+        {
+          "encoded_column": "die5menos_de_una_vez_al_mes_o_nunca",
+          "predictor": "legumes",
+          "raw_variable": "die5",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "menos_de_una_vez_al_mes_o_nunca",
+          "reference_level": "dos_o_mas_veces_por_semana"
+        },
+        {
+          "encoded_column": "die61",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 1,
+          "level": "1",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die62",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "2",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die63",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "3",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die64",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "4",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die65",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "5",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die66",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "6",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die67",
+          "predictor": "fruit_days",
+          "raw_variable": "die6",
+          "kind": "category_indicator",
+          "raw_code": 7,
+          "level": "7",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die7",
+          "predictor": "fruit_portions",
+          "raw_variable": "die7",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "die81",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 1,
+          "level": "1",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die82",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "2",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die83",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "3",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die84",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "4",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die85",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "5",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die86",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "6",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die87",
+          "predictor": "vegetable_days",
+          "raw_variable": "die8",
+          "kind": "category_indicator",
+          "raw_code": 7,
+          "level": "7",
+          "reference_level": "0"
+        },
+        {
+          "encoded_column": "die9",
+          "predictor": "vegetable_portions",
+          "raw_variable": "die9",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "die10_acasi_siempre",
+          "predictor": "label_ingredients",
+          "raw_variable": "die10_a",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_aalgunas_veces",
+          "predictor": "label_ingredients",
+          "raw_variable": "die10_a",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_arara_vez",
+          "predictor": "label_ingredients",
+          "raw_variable": "die10_a",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_anunca",
+          "predictor": "label_ingredients",
+          "raw_variable": "die10_a",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_bcasi_siempre",
+          "predictor": "label_nutrition",
+          "raw_variable": "die10_b",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_balgunas_veces",
+          "predictor": "label_nutrition",
+          "raw_variable": "die10_b",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_brara_vez",
+          "predictor": "label_nutrition",
+          "raw_variable": "die10_b",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_bnunca",
+          "predictor": "label_nutrition",
+          "raw_variable": "die10_b",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_ccasi_siempre",
+          "predictor": "label_warnings",
+          "raw_variable": "die10_c",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_calgunas_veces",
+          "predictor": "label_warnings",
+          "raw_variable": "die10_c",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_crara_vez",
+          "predictor": "label_warnings",
+          "raw_variable": "die10_c",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_cnunca",
+          "predictor": "label_warnings",
+          "raw_variable": "die10_c",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_dcasi_siempre",
+          "predictor": "label_health",
+          "raw_variable": "die10_d",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_dalgunas_veces",
+          "predictor": "label_health",
+          "raw_variable": "die10_d",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_drara_vez",
+          "predictor": "label_health",
+          "raw_variable": "die10_d",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_dnunca",
+          "predictor": "label_health",
+          "raw_variable": "die10_d",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_ecasi_siempre",
+          "predictor": "label_brand",
+          "raw_variable": "die10_e",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_ealgunas_veces",
+          "predictor": "label_brand",
+          "raw_variable": "die10_e",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_erara_vez",
+          "predictor": "label_brand",
+          "raw_variable": "die10_e",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_enunca",
+          "predictor": "label_brand",
+          "raw_variable": "die10_e",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_fcasi_siempre",
+          "predictor": "label_discounts",
+          "raw_variable": "die10_f",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "casi_siempre",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_falgunas_veces",
+          "predictor": "label_discounts",
+          "raw_variable": "die10_f",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "algunas_veces",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_frara_vez",
+          "predictor": "label_discounts",
+          "raw_variable": "die10_f",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "rara_vez",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die10_fnunca",
+          "predictor": "label_discounts",
+          "raw_variable": "die10_f",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "nunca",
+          "reference_level": "siempre"
+        },
+        {
+          "encoded_column": "die11",
+          "predictor": "water",
+          "raw_variable": "die11",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "die14aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 1,
+          "level": "aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "die14aceite_de_oliva",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "aceite_de_oliva",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "die14manteca",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "manteca",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "die14mantequilla",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "mantequilla",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "die14margarina",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "margarina",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "die14otro._especifique:",
+          "predictor": "oil",
+          "raw_variable": "die14",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "otro._especifique:",
+          "reference_level": "ninguno"
+        },
+        {
+          "encoded_column": "frecsembebida",
+          "predictor": "soda_frequency",
+          "raw_variable": "frecsembebida",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "frecsemjugo",
+          "predictor": "juice_frequency",
+          "raw_variable": "frecsemjugo",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "sexomujer",
+          "predictor": "sex",
+          "raw_variable": "sexo",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "mujer",
+          "reference_level": "hombre"
+        },
+        {
+          "encoded_column": "zonarural",
+          "predictor": "rural",
+          "raw_variable": "zona",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "rural",
+          "reference_level": "urbana"
+        },
+        {
+          "encoded_column": "nedu8-12",
+          "predictor": "education",
+          "raw_variable": "nedu",
+          "kind": "category_indicator",
+          "raw_code": 1,
+          "level": "8-12",
+          "reference_level": "13_o_mas"
+        },
+        {
+          "encoded_column": "nedu<8",
+          "predictor": "education",
+          "raw_variable": "nedu",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "<8",
+          "reference_level": "13_o_mas"
+        },
+        {
+          "encoded_column": "regioni._tarapaca",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "i._tarapaca",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionii._antofagasta",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 3,
+          "level": "ii._antofagasta",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regioniii._atacama",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 4,
+          "level": "iii._atacama",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regioniv._coquimbo",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 5,
+          "level": "iv._coquimbo",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionv._valparaiso",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 6,
+          "level": "v._valparaiso",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionxiii._metropolitana",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 7,
+          "level": "xiii._metropolitana",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionvi._l._bdo._ohiggins",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 8,
+          "level": "vi._l._bdo._ohiggins",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionvii._maule",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 9,
+          "level": "vii._maule",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionviii._biobio",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 10,
+          "level": "viii._biobio",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionix._la_araucania",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 11,
+          "level": "ix._la_araucania",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionxiv._los_rios",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 12,
+          "level": "xiv._los_rios",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionx._los_lagos",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 13,
+          "level": "x._los_lagos",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionxi._aysen",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 14,
+          "level": "xi._aysen",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "regionxii._magallanes_y_antartica",
+          "predictor": "region",
+          "raw_variable": "region",
+          "kind": "category_indicator",
+          "raw_code": 15,
+          "level": "xii._magallanes_y_antartica",
+          "reference_level": "xv._arica_y_parinacota"
+        },
+        {
+          "encoded_column": "indigenasi",
+          "predictor": "indigenous",
+          "raw_variable": "indigena",
+          "kind": "category_indicator",
+          "raw_code": 1,
+          "level": "si",
+          "reference_level": "no"
+        },
+        {
+          "encoded_column": "c1otro_(?cual?)",
+          "predictor": "born_chile",
+          "raw_variable": "c1",
+          "kind": "category_indicator",
+          "raw_code": 2,
+          "level": "otro_(?cual?)",
+          "reference_level": "chile"
+        },
+        {
+          "encoded_column": "remanentes",
+          "predictor": "teeth_remaining",
+          "raw_variable": "remanentes",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        },
+        {
+          "encoded_column": "Edad",
+          "predictor": "age",
+          "raw_variable": "Edad",
+          "kind": "numeric",
+          "raw_code": null,
+          "level": null,
+          "reference_level": null
+        }
+      ],
+      "category_levels": {
+        "die1a": [
+          {
+            "code": 1,
+            "label": "mas_de_una_vez_a_la_semana"
+          },
+          {
+            "code": 2,
+            "label": "1_vez_a_la_semana"
+          },
+          {
+            "code": 3,
+            "label": "menos_de_3_veces_al_mes"
+          },
+          {
+            "code": 4,
+            "label": "menos_de_1_vez_al_mes_o_nunca"
+          }
+        ],
+        "die2": [
+          {
+            "code": 1,
+            "label": "tres_o_mas_veces_al_dia"
+          },
+          {
+            "code": 2,
+            "label": "menos_de_tres_veces_al_dia"
+          },
+          {
+            "code": 3,
+            "label": "una_vez_al_dia"
+          },
+          {
+            "code": 4,
+            "label": "dia_por_medio"
+          },
+          {
+            "code": 5,
+            "label": "al_menos_una_vez_por_semana"
+          },
+          {
+            "code": 6,
+            "label": "al_menos_una_vez_por_mes"
+          },
+          {
+            "code": 7,
+            "label": "nunca"
+          }
+        ],
+        "die3": [
+          {
+            "code": 1,
+            "label": "semi_descremados,_descremados_o_bajos_en_grasas"
+          },
+          {
+            "code": 2,
+            "label": "enteros"
+          },
+          {
+            "code": null,
+            "label": "no_consume_lacteos"
+          }
+        ],
+        "die4": [
+          {
+            "code": 1,
+            "label": "mas_de_una_vez_por_dia"
+          },
+          {
+            "code": 2,
+            "label": "a_diario"
+          },
+          {
+            "code": 3,
+            "label": "dia_por_medio"
+          },
+          {
+            "code": 4,
+            "label": "al_menos_una_vez_por_semana"
+          },
+          {
+            "code": 5,
+            "label": "al_menos_una_vez_por_mes"
+          },
+          {
+            "code": 6,
+            "label": "nunca"
+          }
+        ],
+        "die5": [
+          {
+            "code": 1,
+            "label": "dos_o_mas_veces_por_semana"
+          },
+          {
+            "code": 2,
+            "label": "al_menos_una_vez_por_semana"
+          },
+          {
+            "code": 3,
+            "label": "entre_una_y_tres_veces_al_mes"
+          },
+          {
+            "code": 4,
+            "label": "menos_de_una_vez_al_mes_o_nunca"
+          }
+        ],
+        "die6": [
+          {
+            "code": 0,
+            "label": "0"
+          },
+          {
+            "code": 1,
+            "label": "1"
+          },
+          {
+            "code": 2,
+            "label": "2"
+          },
+          {
+            "code": 3,
+            "label": "3"
+          },
+          {
+            "code": 4,
+            "label": "4"
+          },
+          {
+            "code": 5,
+            "label": "5"
+          },
+          {
+            "code": 6,
+            "label": "6"
+          },
+          {
+            "code": 7,
+            "label": "7"
+          }
+        ],
+        "die8": [
+          {
+            "code": 0,
+            "label": "0"
+          },
+          {
+            "code": 1,
+            "label": "1"
+          },
+          {
+            "code": 2,
+            "label": "2"
+          },
+          {
+            "code": 3,
+            "label": "3"
+          },
+          {
+            "code": 4,
+            "label": "4"
+          },
+          {
+            "code": 5,
+            "label": "5"
+          },
+          {
+            "code": 6,
+            "label": "6"
+          },
+          {
+            "code": 7,
+            "label": "7"
+          }
+        ],
+        "die10_a": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die10_b": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die10_c": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die10_d": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die10_e": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die10_f": [
+          {
+            "code": 1,
+            "label": "siempre"
+          },
+          {
+            "code": 2,
+            "label": "casi_siempre"
+          },
+          {
+            "code": 3,
+            "label": "algunas_veces"
+          },
+          {
+            "code": 4,
+            "label": "rara_vez"
+          },
+          {
+            "code": 5,
+            "label": "nunca"
+          }
+        ],
+        "die14": [
+          {
+            "code": 0,
+            "label": "ninguno"
+          },
+          {
+            "code": 1,
+            "label": "aceite_vegetal_(maravilla,_maiz,_pepa_de_uva)"
+          },
+          {
+            "code": 2,
+            "label": "aceite_de_oliva"
+          },
+          {
+            "code": 3,
+            "label": "manteca"
+          },
+          {
+            "code": 4,
+            "label": "mantequilla"
+          },
+          {
+            "code": 5,
+            "label": "margarina"
+          },
+          {
+            "code": 6,
+            "label": "otro._especifique:"
+          }
+        ],
+        "sexo": [
+          {
+            "code": 1,
+            "label": "hombre"
+          },
+          {
+            "code": 2,
+            "label": "mujer"
+          }
+        ],
+        "zona": [
+          {
+            "code": 1,
+            "label": "urbana"
+          },
+          {
+            "code": 2,
+            "label": "rural"
+          }
+        ],
+        "nedu": [
+          {
+            "code": 0,
+            "label": "13_o_mas"
+          },
+          {
+            "code": 1,
+            "label": "8-12"
+          },
+          {
+            "code": 2,
+            "label": "<8"
+          }
+        ],
+        "region": [
+          {
+            "code": 1,
+            "label": "xv._arica_y_parinacota"
+          },
+          {
+            "code": 2,
+            "label": "i._tarapaca"
+          },
+          {
+            "code": 3,
+            "label": "ii._antofagasta"
+          },
+          {
+            "code": 4,
+            "label": "iii._atacama"
+          },
+          {
+            "code": 5,
+            "label": "iv._coquimbo"
+          },
+          {
+            "code": 6,
+            "label": "v._valparaiso"
+          },
+          {
+            "code": 7,
+            "label": "xiii._metropolitana"
+          },
+          {
+            "code": 8,
+            "label": "vi._l._bdo._ohiggins"
+          },
+          {
+            "code": 9,
+            "label": "vii._maule"
+          },
+          {
+            "code": 10,
+            "label": "viii._biobio"
+          },
+          {
+            "code": 11,
+            "label": "ix._la_araucania"
+          },
+          {
+            "code": 12,
+            "label": "xiv._los_rios"
+          },
+          {
+            "code": 13,
+            "label": "x._los_lagos"
+          },
+          {
+            "code": 14,
+            "label": "xi._aysen"
+          },
+          {
+            "code": 15,
+            "label": "xii._magallanes_y_antartica"
+          }
+        ],
+        "indigena": [
+          {
+            "code": 0,
+            "label": "no"
+          },
+          {
+            "code": 1,
+            "label": "si"
+          }
+        ],
+        "c1": [
+          {
+            "code": 1,
+            "label": "chile"
+          },
+          {
+            "code": 2,
+            "label": "otro_(?cual?)"
+          }
+        ]
+      },
+      "water_mapping": [
+        {
+          "reported_glasses_per_day": 0.0,
+          "original_r_factor_index": 1
+        },
+        {
+          "reported_glasses_per_day": 1.0,
+          "original_r_factor_index": 2
+        },
+        {
+          "reported_glasses_per_day": 2.0,
+          "original_r_factor_index": 3
+        },
+        {
+          "reported_glasses_per_day": 3.0,
+          "original_r_factor_index": 4
+        },
+        {
+          "reported_glasses_per_day": 4.0,
+          "original_r_factor_index": 5
+        },
+        {
+          "reported_glasses_per_day": 5.0,
+          "original_r_factor_index": 6
+        },
+        {
+          "reported_glasses_per_day": 6.0,
+          "original_r_factor_index": 7
+        },
+        {
+          "reported_glasses_per_day": 7.0,
+          "original_r_factor_index": 8
+        },
+        {
+          "reported_glasses_per_day": 8.0,
+          "original_r_factor_index": 9
+        },
+        {
+          "reported_glasses_per_day": 9.0,
+          "original_r_factor_index": 10
+        },
+        {
+          "reported_glasses_per_day": 10.0,
+          "original_r_factor_index": 11
+        },
+        {
+          "reported_glasses_per_day": 11.0,
+          "original_r_factor_index": 12
+        },
+        {
+          "reported_glasses_per_day": 12.0,
+          "original_r_factor_index": 13
+        },
+        {
+          "reported_glasses_per_day": 13.0,
+          "original_r_factor_index": 14
+        },
+        {
+          "reported_glasses_per_day": 14.0,
+          "original_r_factor_index": 15
+        },
+        {
+          "reported_glasses_per_day": 15.0,
+          "original_r_factor_index": 16
+        },
+        {
+          "reported_glasses_per_day": 16.0,
+          "original_r_factor_index": 17
+        },
+        {
+          "reported_glasses_per_day": 18.0,
+          "original_r_factor_index": 18
+        },
+        {
+          "reported_glasses_per_day": 20.0,
+          "original_r_factor_index": 19
+        },
+        {
+          "reported_glasses_per_day": 24.0,
+          "original_r_factor_index": 20
+        },
+        {
+          "reported_glasses_per_day": 25.0,
+          "original_r_factor_index": 21
+        },
+        {
+          "reported_glasses_per_day": 28.0,
+          "original_r_factor_index": 22
+        },
+        {
+          "reported_glasses_per_day": 30.0,
+          "original_r_factor_index": 23
+        },
+        {
+          "reported_glasses_per_day": 32.0,
+          "original_r_factor_index": 24
+        },
+        {
+          "reported_glasses_per_day": 40.0,
+          "original_r_factor_index": 25
+        }
+      ],
+      "contrast": "Unordered treatment contrasts; first original factor level is reference; no intercept column",
+      "outcome": "caries=1, libre_de_caries=0; original factor level order libre_de_caries then caries",
+      "beverage_units": "Weekly frequencies retained from DTA: daily quantity*7; weekly quantity; monthly quantity/4; never=0 (28-day month)",
+      "fruit_vegetable_days": "Unordered factors with levels 0..7; reference zero; seven indicators each",
+      "missingness": "Dentate restriction, missing dairy type assigned no_consume_lacteos, missing die7/die9 set zero, then complete-case deletion",
+      "water_support_scope": "Observed original dentate data before complete-case deletion, reproducing historical droplevels; not estimated independently within each training fold",
+      "index_privacy": "X/y index contains participant_id and must remain private; no IDs occur in this metadata",
+      "numeric_preprocessing": "No scaling, centering or imputation; reproduces formula-derived model matrix only",
+      "source_dta_file": "23.07.26_base_ens_5520_R_enviar.dta",
+      "source_dta_sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966",
+      "read_encoding": "latin1 numeric-only fallback for truncated source label; labels come from the audited fixed schema",
+      "analytical_frame_id_outcome_predictor_design_checks": "passed",
+      "historical_cached_frame_sha256": "6711aa2744a91740332a099c88e8f92bbe53f4827bf95146754d401b3e42b28e",
+      "reference_validation": "R preprocessing was all.equal to the saved 2024 4994x28 frame; Python's 90-column matrix is independently tested against that R model.matrix reference when privately available"
+    }
+  },
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "weight_confirmation": "Working phase-based choice; official manual confirmation outstanding",
+  "uncertainty": "PSU bootstrap intervals conditional on fixed fitted models and CV splits; singleton fixed"
+}
