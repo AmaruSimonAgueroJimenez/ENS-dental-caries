@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "label": "Pitts et al., 2017",
+    "citation": "Pitts NB, Zero DT, Marsh PD, Ekstrand K, Weintraub JA, Ramos-Gomez F, et al. Dental caries. Nat Rev Dis Primers. 2017;3:17030.",
+    "doi": "10.1038/nrdp.2017.30",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/28540937/",
+    "verified_scope": "PubMed record and abstract: caries as a biofilm-mediated, sugar-driven, multifactorial dynamic disease.",
+    "key": "pitts2017",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "label": "Bernabé et al., 2016",
+    "citation": "Bernabé E, Vehkalahti MM, Sheiham A, Lundqvist A, Suominen AL. The shape of the dose-response relationship between sugars and caries in adults. J Dent Res. 2016;95(2):167–172.",
+    "doi": "10.1177/0022034515616572",
+    "url": "https://journals.sagepub.com/doi/10.1177/0022034515616572",
+    "verified_scope": "Original publisher abstract and complete citation metadata opened on 2026-09-10. Longitudinal adult study distinguishes amount and frequency of sugars; repeated DMFT outcome differs from concurrent ENS untreated caries. Subscription full text not accessed.",
+    "source_type": "original research",
+    "id": 2,
+    "key": "bernabe2016",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "label": "Alosaimi and Bernabé, 2022",
+    "citation": "Alosaimi N, Bernabé E. Amount and frequency of added sugars intake and their associations with dental caries in United States adults. Int J Environ Res Public Health. 2022;19(8):4511.",
+    "doi": "10.3390/ijerph19084511",
+    "url": "https://mdpi-res.com/d_attachment/ijerph/ijerph-19-04511/article_deploy/ijerph-19-04511.pdf",
+    "verified_scope": "Original publisher PDF, title page, abstract and methods opened on 2026-09-10. Survey analysis differentiates grams/day, items/day and episodes/day; ENS standard glasses/day are not equivalent to grams of added sugar.",
+    "source_type": "original research",
+    "id": 3,
+    "key": "alosaimi2022",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 4,
+    "label": "Margozzini et al., 2020",
+    "citation": "Margozzini P, Berrios R, García-Huidobro R, Véliz C, del Valle C, Vargas JP, et al. Number of remaining teeth and its association with educational level in Chilean adults: data from the National Health Survey 2016–2017. Int J Dent. 2020;2020:8848190.",
+    "doi": "10.1155/2020/8848190",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7479467/",
+    "verified_scope": "Primary article and author-institution bibliography: ENS oral-examination procedures, complex survey design and education/tooth-loss association. Does not identify the examination weight variable; its n=5,473 is not this analysis cohort.",
+    "key": "margozzini2020",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "label": "Ogwo et al., 2024",
+    "citation": "Ogwo C, Brown G, Warren J, Caplan D, Levy S. Predicting dental caries outcomes in young adults using machine learning approach. BMC Oral Health. 2024;24:529.",
+    "doi": "10.1186/s12903-024-04294-7",
+    "url": "https://link.springer.com/article/10.1186/s12903-024-04294-7",
+    "verified_scope": "Original publisher full text opened on 2026-09-10: longitudinal Iowa Fluoride Study, dietary predictors and nested resampling. Cite its design and measurement context; do not import its numerical accuracy because abstract and Results report inconsistent binary AUC values. Do not infer that prior caries measures may be used as concurrent outcome proxies here.",
+    "source_type": "original research",
+    "id": 5,
+    "key": "ogwo2024",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "label": "Tirkkonen et al., 2026",
+    "citation": "Tirkkonen O, Tiensuu H, Väyrynen E, Suutala J, Vuollo V, Laitala ML, et al. An explainable and transparent machine learning approach for predicting dental caries: a cross-national validation study. BMC Oral Health. 2026;26:280.",
+    "doi": "10.1186/s12903-026-07660-9",
+    "url": "https://link.springer.com/article/10.1186/s12903-026-07660-9",
+    "verified_scope": "Original publisher full text opened on 2026-09-10, version of record dated 2026-02-11. Questionnaire models developed in NHANES and externally assessed in Northern Finland cohorts. Supports the existence of prior adult questionnaire ML models and the importance of external assessment; published AUCs are not directly comparable with ENS because measurement, population and evaluation differ.",
+    "source_type": "original research",
+    "id": 6,
+    "key": "tirkkonen2026",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 7,
+    "label": "Uribe et al., 2026",
+    "citation": "Uribe SE, Carrasco-Labra A, Schwendicke F, Maldupa I. Prognostic clinical predictive models for dental caries using artificial intelligence: methodological considerations. Caries Res. 2026 Jul 16. doi:10.1159/000553309. Online ahead of print.",
+    "doi": "10.1159/000553309",
+    "url": "https://karger.com/cre/article/doi/10.1159/000553309/952744/Prognostic-Clinical-Predictive-Models-for-Dental",
+    "verified_scope": "Karger online-first listing and Europe PMC MEDLINE core record/abstract, PMID 42461868: validation, calibration and clinical usefulness in caries prognostic modelling; cited as a methodological review, not journal policy or evidence that this cross-sectional model predicts incidence.",
+    "key": "uribe2026",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 8,
+    "label": "Collins et al., 2024",
+    "citation": "Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378.",
+    "doi": "10.1136/bmj-2023-078378",
+    "url": "https://www.bmj.com/content/385/bmj-2023-078378",
+    "verified_scope": "PubMed/PMC record and statement abstract: reporting guidance for regression and machine-learning prediction studies. Citing the checklist does not certify compliance.",
+    "key": "tripod2024",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 9,
+    "label": "von Elm et al., 2007",
+    "citation": "von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP; STROBE Initiative. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. Lancet. 2007;370(9596):1453–1457.",
+    "doi": "10.1016/S0140-6736(07)61602-X",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18064739/",
+    "verified_scope": "PubMed record/abstract and EQUATOR guidance: reporting of observational studies, including cross-sectional designs.",
+    "key": "strobe2007",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 10,
+    "label": "Varma and Simon, 2006",
+    "citation": "Varma S, Simon R. Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics. 2006;7:91.",
+    "doi": "10.1186/1471-2105-7-91",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/16504092/",
+    "verified_scope": "PubMed/PMC record and abstract: bias when cross-validation model-selection scores are reused for error estimation; rationale for nested validation.",
+    "key": "varma2006",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 11,
+    "label": "Roberts et al., 2017",
+    "citation": "Roberts DR, Bahn V, Ciuti S, Boyce MS, Elith J, Guillera-Arroita G, et al. Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. Ecography. 2017;40(8):913–929.",
+    "doi": "10.1111/ecog.02881",
+    "url": "https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.02881",
+    "verified_scope": "Primary Wiley article: validation that respects dependence structures. Supports grouping related observations, not a claim of external validation or official ENS survey weighting.",
+    "key": "roberts2017",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 12,
+    "label": "Steyerberg et al., 2010",
+    "citation": "Steyerberg EW, Vickers AJ, Cook NR, Gerds T, Gönen M, Obuchowski N, et al. Assessing the performance of prediction models: a framework for traditional and novel measures. Epidemiology. 2010;21(1):128–138.",
+    "doi": "10.1097/EDE.0b013e3181c30fb2",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/20010215/",
+    "verified_scope": "PubMed record/abstract and author-institution record: discrimination, calibration and overall prediction error assess distinct aspects of performance.",
+    "key": "steyerberg2010",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 13,
+    "label": "Strobl et al., 2008",
+    "citation": "Strobl C, Boulesteix AL, Kneib T, Augustin T, Zeileis A. Conditional variable importance for random forests. BMC Bioinformatics. 2008;9:307.",
+    "doi": "10.1186/1471-2105-9-307",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18620558/",
+    "verified_scope": "Europe PMC MEDLINE core record and abstract, PMID 18620558: correlated predictors can affect unconditional permutation importance. This study uses marginal, not conditional, permutations.",
+    "key": "strobl2008",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  },
+  {
+    "id": 14,
+    "label": "Breiman, 2001",
+    "citation": "Breiman L. Random forests. Mach Learn. 2001;45(1):5–32.",
+    "doi": "10.1023/A:1010933404324",
+    "url": "https://link.springer.com/article/10.1023/A:1010933404324",
+    "verified_scope": "Primary Springer publication record and author’s Berkeley random-forests page: original algorithm reference.",
+    "key": "breiman2001",
+    "verified_date": "2026-09-10",
+    "verification_context": "Source verified earlier in the same 2026-09-10 research session; citation reused as background/method evidence only, with no former-analysis results."
+  }
+]

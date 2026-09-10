@@ -1,0 +1,199 @@
+{
+  "scope": "New dietary incremental-value proposal only",
+  "figures": [
+    {
+      "name": "figure1_performance",
+      "panels": 4,
+      "caption": "Performance of 21 newly developed model variants in 5,036 dentate participants. B, eight basic predictors; C, 17 context predictors; D, 15 direct-consumption indicators; L, six label behaviours; S, six concurrent oral-status indicators. Panels a–c show survey-weighted held-out estimates and conditional 95% intervals from 1,000 shared stratified PSU-bootstrap draws. Bars begin at zero. Panel d shows calibration-slope point estimates without confidence intervals. Dashed references are AUC 0.5 and calibration slope 1. Higher AUC, lower probability losses and slopes near one are desirable. No model is selected from these outer-validation results.",
+      "alt_text": "Performance of 21 newly developed model variants in 5,036 dentate participants. B, eight basic predictors; C, 17 context predictors; D, 15 direct-consumption indicators; L, six label behaviours; S, six concurrent oral-status indicators. Panels a–c show survey-weighted held-out estimates and conditional 95% intervals from 1,000 shared stratified PSU-bootstrap draws. Bars begin at zero. Panel d shows calibration-slope point estimates without confidence intervals. Dashed references are AUC 0.5 and calibration slope 1. Higher AUC, lower probability losses and slopes near one are desirable. No model is selected from these outer-validation results.",
+      "width_mm": 180.0,
+      "height_mm": 172.0,
+      "dpi": 300,
+      "source_tables": [
+        "model_performance.csv"
+      ],
+      "source_sha256": {
+        "model_performance.csv": "bc7d3dff4529847a69557d6ea4fb296c1012f4e437ce2cdbe94a290160cb0bca"
+      },
+      "files": {
+        "figure1_performance.png": "0ca0b15f72f46f69e860d26412e92099ea917c89f2f54fa7a5f1d839283df56e",
+        "figure1_performance.pdf": "13e7674d8b5746f3d7e8a266ff690734c1c2c4c2904f025b697855d6aa1b0254",
+        "figure1_performance.svg": "90c124ae3a8051cef3ae2d824b4215c2813ee812175367f42967014fb6738f94"
+      }
+    },
+    {
+      "name": "figure2_dietary_gain",
+      "panels": 6,
+      "caption": "Incremental contribution of the 15 direct dietary indicators beyond context (a–c) and beyond context plus concurrent oral status (d–f). Brier and log-loss gains subtract the extended model loss from the reference loss; AUC gain subtracts reference AUC from extended AUC. Positive values uniformly favour adding diet. Whiskers are paired conditional 95% PSU-bootstrap intervals with shared draws. The spline Brier gain in panel a is the predeclared primary comparison for this dataset-informed extension; all other comparisons are complementary or exploratory. Zero-crossing intervals do not establish equivalence or the absence of a biological dietary role.",
+      "alt_text": "Incremental contribution of the 15 direct dietary indicators beyond context (a–c) and beyond context plus concurrent oral status (d–f). Brier and log-loss gains subtract the extended model loss from the reference loss; AUC gain subtracts reference AUC from extended AUC. Positive values uniformly favour adding diet. Whiskers are paired conditional 95% PSU-bootstrap intervals with shared draws. The spline Brier gain in panel a is the predeclared primary comparison for this dataset-informed extension; all other comparisons are complementary or exploratory. Zero-crossing intervals do not establish equivalence or the absence of a biological dietary role.",
+      "width_mm": 180.0,
+      "height_mm": 151.0,
+      "dpi": 300,
+      "source_tables": [
+        "paired_contrasts.csv"
+      ],
+      "source_sha256": {
+        "paired_contrasts.csv": "0bb2c6ce4c9607b53fd789b57bec58d3097c5fee7cf4083652de06b05b8481dd"
+      },
+      "files": {
+        "figure2_dietary_gain.png": "7d14d56c0ea8e02f52e72223e31d4925264ab0c28a9ee79403ebea9da044adc3",
+        "figure2_dietary_gain.pdf": "df22b6143820738a6badb697484a3681dc52717fd7ae1575c704a6cde1e1bf98",
+        "figure2_dietary_gain.svg": "6c876e23c3b4d94612353c94bc95b76536964bf7ae401ed619aa2bdf8e3b735a"
+      }
+    },
+    {
+      "name": "figure3_dietary_importance",
+      "panels": 4,
+      "caption": "All 15 direct dietary indicators in questionnaire order, retaining the blue horizontal bars of the original manuscript. Panels a–b use the context, diet and label models; panels c–d add concurrent oral-status indicators. Each variable is permuted before the trained transformations, five times per held-out fold. Bars are weighted averages of fold mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. The signed axis is shared across panels and negative values are retained. Frequency and volume indicators are dependent, so isolated-variable perturbations may create unusual combinations. These scores describe model reliance and do not establish causal direction, dietary effects or fractions of disease explained. Water remains explicitly displayed.",
+      "alt_text": "All 15 direct dietary indicators in questionnaire order, retaining the blue horizontal bars of the original manuscript. Panels a–b use the context, diet and label models; panels c–d add concurrent oral-status indicators. Each variable is permuted before the trained transformations, five times per held-out fold. Bars are weighted averages of fold mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. The signed axis is shared across panels and negative values are retained. Frequency and volume indicators are dependent, so isolated-variable perturbations may create unusual combinations. These scores describe model reliance and do not establish causal direction, dietary effects or fractions of disease explained. Water remains explicitly displayed.",
+      "width_mm": 180.0,
+      "height_mm": 218.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv",
+        "feature_blocks.json"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "f944cd90b51140a6a037b6cbf2d29262deffa7fe1b3b016da10b89ad200e55ae",
+        "feature_blocks.json": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+      },
+      "files": {
+        "figure3_dietary_importance.png": "c450a0143589d5e8aa0f2a99f393dcd0f4a2f4ff7171b4be625e04729e5834ac",
+        "figure3_dietary_importance.pdf": "85bc5fd436b36a33a77aaba07fbbdc9811a89b759ffabd43d7fb2bc765c8062b",
+        "figure3_dietary_importance.svg": "ef83f180c4a5938acf754fc1c59954f1b232a73c2867a4d10445f907c9c5be98"
+      }
+    },
+    {
+      "name": "figure4_blocks",
+      "panels": 4,
+      "caption": "Joint permutation of complete predictor blocks in spline and random forest, shown as Brier increases (a–b) and AUC decreases (c–d). Unhatched bars correspond to C+D+L; hatched bars correspond to C+S+D+L. A single common donor permutation moves all raw variables in a block together, preserving their internal combinations. Counts of constructs are shown in labels. Bars combine fold means using held-out expansion totals; whiskers are minimum–maximum fold means and are not confidence intervals. Joint scores cannot be obtained by adding individual importances, and blocks of different sizes are not comparable percentages of explained disease. The refitted dietary comparison in Figure 2 addresses a different question.",
+      "alt_text": "Joint permutation of complete predictor blocks in spline and random forest, shown as Brier increases (a–b) and AUC decreases (c–d). Unhatched bars correspond to C+D+L; hatched bars correspond to C+S+D+L. A single common donor permutation moves all raw variables in a block together, preserving their internal combinations. Counts of constructs are shown in labels. Bars combine fold means using held-out expansion totals; whiskers are minimum–maximum fold means and are not confidence intervals. Joint scores cannot be obtained by adding individual importances, and blocks of different sizes are not comparable percentages of explained disease. The refitted dietary comparison in Figure 2 addresses a different question.",
+      "width_mm": 180.0,
+      "height_mm": 167.0,
+      "dpi": 300,
+      "source_tables": [
+        "grouped_importance_stability.csv",
+        "grouped_permutation_importance.csv"
+      ],
+      "source_sha256": {
+        "grouped_importance_stability.csv": "acec0e0de6761c7cbcd3a4e180751419d4a8cd9ac3710d5c576ccc92d1a3b197",
+        "grouped_permutation_importance.csv": "65cf4b47dca80ee707c68e8215ef68aa7a494137e6cbca6f86e1bc7b401ec491"
+      },
+      "files": {
+        "figure4_blocks.png": "a919ad6c0d0cb26281b45754607bbf991a8cd73c36d0b147195ad8d305da792e",
+        "figure4_blocks.pdf": "14909b97fbb9a987fb60ca993bc1456a3f84999eaff01349c238105925cdce6c",
+        "figure4_blocks.svg": "3679031815e284e44f4be13aae7cef09eea1fa299c54faab5ad1be859a8fe06f"
+      }
+    },
+    {
+      "name": "figure5_validation",
+      "panels": 6,
+      "caption": "Validation of the primary spline information scenarios: ROC and binned calibration without oral status (a–b), and with oral status (c–d). Calibration bins summarize held-out predictions and do not have confidence intervals. Panels e–f compare the two additional spline sensitivities with their corresponding uncapped diet models. Sensitivities cap each beverage frequency/volume at its 99th percentile among positive training values before log1p; the cutoff and all other transformations are learned within each inner training set and outer refit. Paired conditional 95% intervals use the same 1,000 PSU-bootstrap draws. Positive gains favour the sensitivity. Neither validation display is an independent external validation.",
+      "alt_text": "Validation of the primary spline information scenarios: ROC and binned calibration without oral status (a–b), and with oral status (c–d). Calibration bins summarize held-out predictions and do not have confidence intervals. Panels e–f compare the two additional spline sensitivities with their corresponding uncapped diet models. Sensitivities cap each beverage frequency/volume at its 99th percentile among positive training values before log1p; the cutoff and all other transformations are learned within each inner training set and outer refit. Paired conditional 95% intervals use the same 1,000 PSU-bootstrap draws. Positive gains favour the sensitivity. Neither validation display is an independent external validation.",
+      "width_mm": 180.0,
+      "height_mm": 220.0,
+      "dpi": 300,
+      "source_tables": [
+        "roc.csv",
+        "calibration.csv",
+        "paired_contrasts.csv"
+      ],
+      "source_sha256": {
+        "roc.csv": "e88c1f818f8eb9a74f944192fa0c5845e2b0e1921432fb41a802ba87b5aa6c11",
+        "calibration.csv": "0e41253386a0ffbe7fd42530cf948467f72ff46ea6cf960279a40c1152c7395c",
+        "paired_contrasts.csv": "0bb2c6ce4c9607b53fd789b57bec58d3097c5fee7cf4083652de06b05b8481dd"
+      },
+      "files": {
+        "figure5_validation.png": "7d135d4f2a84fd31c527908eeed1fe701aabda76d05f0229f8d2c59a821644c2",
+        "figure5_validation.pdf": "52d02379ea0f560e9076a3bd270b84d40866d4878ac2b2b461241a750e4c0eee",
+        "figure5_validation.svg": "938eeabc75edf7e13af5c3aa54827b9eb15f8bf48746095e88174928a164fe58"
+      }
+    },
+    {
+      "name": "supplement1_context_importance",
+      "panels": 4,
+      "caption": "Complete individual contributions for the 38-predictor context scenario. Every predictor appears once per model. Columns divide the display into non-dietary and diet/label information without changing the fitted models. Signed bars are weighted fold-mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. Five held-out permutations per predictor and fold are used; shared scales retain negative values. These are marginal, model-specific reliance measures.",
+      "alt_text": "Complete individual contributions for the 38-predictor context scenario. Every predictor appears once per model. Columns divide the display into non-dietary and diet/label information without changing the fitted models. Signed bars are weighted fold-mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. Five held-out permutations per predictor and fold are used; shared scales retain negative values. These are marginal, model-specific reliance measures.",
+      "width_mm": 180.0,
+      "height_mm": 223.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv",
+        "feature_blocks.json"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "f944cd90b51140a6a037b6cbf2d29262deffa7fe1b3b016da10b89ad200e55ae",
+        "feature_blocks.json": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+      },
+      "files": {
+        "supplement1_context_importance.png": "c54bc26e2d2c2649b8451712e0dd968a649ee9712f2d3c99fb942dac546acd7c",
+        "supplement1_context_importance.pdf": "e868f1586435cb08dd17d3a47d4fbe14701ee7aa9e9624c6b499aa335f4ad822",
+        "supplement1_context_importance.svg": "9b3b9b3ef6e8c34f1dda9c9a3d52df60a3358e0d90497a21efb69c3f47cf9cca"
+      }
+    },
+    {
+      "name": "supplement2_symptom_importance",
+      "panels": 4,
+      "caption": "Complete individual contributions for the symptom-aware 44-predictor scenario. Every predictor appears once per model. Columns divide the display into non-dietary and diet/label information without changing the fitted models. Signed bars are weighted fold-mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. Five held-out permutations per predictor and fold are used; shared scales retain negative values. These are marginal, model-specific reliance measures.",
+      "alt_text": "Complete individual contributions for the symptom-aware 44-predictor scenario. Every predictor appears once per model. Columns divide the display into non-dietary and diet/label information without changing the fitted models. Signed bars are weighted fold-mean Brier increases; whiskers are minimum–maximum fold means, not confidence intervals. Five held-out permutations per predictor and fold are used; shared scales retain negative values. These are marginal, model-specific reliance measures.",
+      "width_mm": 180.0,
+      "height_mm": 223.0,
+      "dpi": 300,
+      "source_tables": [
+        "importance_stability.csv",
+        "feature_blocks.json"
+      ],
+      "source_sha256": {
+        "importance_stability.csv": "f944cd90b51140a6a037b6cbf2d29262deffa7fe1b3b016da10b89ad200e55ae",
+        "feature_blocks.json": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+      },
+      "files": {
+        "supplement2_symptom_importance.png": "4cecf41bc54d418fb19bcc39d3516368f805e4de4ebcad3d4f88fcef84b87d83",
+        "supplement2_symptom_importance.pdf": "883af1cb3702d7eba1135b4349b6796a8dc385e84d738c28ffe3420a86560c81",
+        "supplement2_symptom_importance.svg": "bd8c3934f2a1149c0a352d1f882ad3c78d66f0716d4f5ef92427ea3e68c35d46"
+      }
+    },
+    {
+      "name": "supplement3_missingness",
+      "panels": 4,
+      "caption": "Observed predictor missingness in the 5,036-person analytical cohort, before any statistical imputation. All 44 predictors are shown by predefined block. Structural categories and confirmed nonconsumption have already been resolved; zero bars denote fully observed derived predictors. Numbers are unweighted percentages rounded to one decimal place; a displayed 0.0 may represent a very small nonzero proportion. No participant is excluded because of these missing predictors.",
+      "alt_text": "Observed predictor missingness in the 5,036-person analytical cohort, before any statistical imputation. All 44 predictors are shown by predefined block. Structural categories and confirmed nonconsumption have already been resolved; zero bars denote fully observed derived predictors. Numbers are unweighted percentages rounded to one decimal place; a displayed 0.0 may represent a very small nonzero proportion. No participant is excluded because of these missing predictors.",
+      "width_mm": 180.0,
+      "height_mm": 205.99999999999997,
+      "dpi": 300,
+      "source_tables": [
+        "predictor_missingness.csv",
+        "feature_blocks.json"
+      ],
+      "source_sha256": {
+        "predictor_missingness.csv": "1e566113b4932a97311af9fbf1517333426aade285fc0e82f0cd857ddc9f9138",
+        "feature_blocks.json": "ca7afdfa082f725610324576413df6370c6236e9242980f38a9a14a2eadc0912"
+      },
+      "files": {
+        "supplement3_missingness.png": "676afc13b13f9d2958321a88964587cc9bf2c6475e0cb30a2184f829b5859bd3",
+        "supplement3_missingness.pdf": "ffc474e36298420f649f08426427dbb87b345a5b6a646bdde97f45aac7ec8329",
+        "supplement3_missingness.svg": "402a36fa3a1bb380bc10164bd0326cbb37b0116ea74d7121c488ed39df9eb39f"
+      }
+    },
+    {
+      "name": "supplement4_calibration",
+      "panels": 6,
+      "caption": "Held-out calibration summaries for the three model families without and with direct dietary indicators. The first row uses context references; the second adds oral-status indicators. Points are survey-weighted observed proportions in prediction-quantile bins. Lines connect bin summaries and have no confidence intervals; the dotted diagonal marks perfect calibration.",
+      "alt_text": "Held-out calibration summaries for the three model families without and with direct dietary indicators. The first row uses context references; the second adds oral-status indicators. Points are survey-weighted observed proportions in prediction-quantile bins. Lines connect bin summaries and have no confidence intervals; the dotted diagonal marks perfect calibration.",
+      "width_mm": 180.0,
+      "height_mm": 150.0,
+      "dpi": 300,
+      "source_tables": [
+        "calibration.csv"
+      ],
+      "source_sha256": {
+        "calibration.csv": "0e41253386a0ffbe7fd42530cf948467f72ff46ea6cf960279a40c1152c7395c"
+      },
+      "files": {
+        "supplement4_calibration.png": "42740e77c541c052d6f369a66937d882245756fdcba95fea4e5d35a903009e82",
+        "supplement4_calibration.pdf": "be90968483eb1ac1f6b408f9db50012c0d2a23a5331a4c0a266fda925296fdde",
+        "supplement4_calibration.svg": "2d0299b46faded6cfa44750636433318572192fc867f01121c4c73099f8e5cae"
+      }
+    }
+  ]
+}
