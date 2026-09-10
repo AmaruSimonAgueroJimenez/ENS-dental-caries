@@ -629,5 +629,18 @@ def make_figures(
             metadata["source_table_sha256"].update({
                 name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in flow_sources
             })
+        correa_sources = ["model_performance.csv", "permutation_importance.csv",
+                          "grouped_importance_stability.csv", "paired_comparisons.csv",
+                          "roc.csv", "calibration.csv", "outer_fold_performance.csv",
+                          "prediction_subset_sensitivity.csv", "subgroup_performance.csv"]
+        if all((source / name).exists() for name in correa_sources):
+            from .correa_figures import make_correa_figures
+            from .correa_validation_figures import make_correa_validation_figures
+
+            paths += make_correa_figures(source, destination, metadata)
+            paths += make_correa_validation_figures(source, destination, metadata)
+            metadata["destination"]["main_statistical_figures_with_preserved_canvas"] = [
+                "correa_model_performance", "correa_predictor_importance", "correa_validation",
+                "correa_predictor_groups", "correa_sensitivity"]
     (destination / "figure_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n")
     return paths

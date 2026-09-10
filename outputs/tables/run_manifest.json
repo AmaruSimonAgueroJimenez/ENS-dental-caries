@@ -1,8 +1,8 @@
 {
   "status": "complete",
   "stage": "summarize",
-  "started_utc": "2026-09-10T15:24:21.454353+00:00",
-  "completed_utc": "2026-09-10T15:24:48.924930+00:00",
+  "started_utc": "2026-09-10T15:59:41.412653+00:00",
+  "completed_utc": "2026-09-10T16:00:11.168797+00:00",
   "input_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
   "bootstrap_replicates": 1000,
   "code_sha256": {
@@ -10,9 +10,11 @@
     "scripts/run_caries.py": "330ad36928cff4686d5bc9ed4fc2e23d58832df89b600823a739d419485ee210",
     "src/ens_analysis/__init__.py": "84c150d27bf0c0806a30aae5f330c98109d5cc23a7be7c8a21e7f7664b4adff0",
     "src/ens_analysis/contributions.py": "9ad53a10b6d7faa4a4178bf31636e5678c9fe3ab272efd24456707528925eec5",
+    "src/ens_analysis/correa_figures.py": "502c11492026f3b0c2fe0fa7b708ea1ec1d0761790ec72deb4b4493d26df7d45",
+    "src/ens_analysis/correa_validation_figures.py": "ec3982596c19f90f1f49279d58095c8c740231ce0edb7b07ae6ccfa114f73055",
     "src/ens_analysis/data.py": "373b1c00a0969e3a95b2ae214daa47c485d32f82bc06273e398f33ccec2bc4b6",
-    "src/ens_analysis/evaluation.py": "37c71d2f198165d903eeb19f7b47012d7cb9ffd518f3eb0dc400ca2b6206ec58",
-    "src/ens_analysis/figures.py": "f8b3c836650c079c8f0dfab47bec941225913c12454cac2de72f86e801102110",
+    "src/ens_analysis/evaluation.py": "82201d4236d73f8248cc202e85075103e03f7fbd69d5eade23eefc3df4d1bc49",
+    "src/ens_analysis/figures.py": "5f4116761c00e314e64656da4e2219b485ccaa3aa318a8ee6da923ae405121e9",
     "src/ens_analysis/inference.py": "2626c20ec665130bc3b462918e02405dc24b7bd3518de194253154c77620eb0d",
     "src/ens_analysis/models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
     "src/ens_analysis/reconciliation.py": "77a60c74f952ad25737a82a3f53a588d70acdf2ef1f7ab65cf3e47c4088c020f",
@@ -448,13 +450,13 @@
         "model": "random_forest",
         "fold": 4,
         "n_test": 1007,
-        "max_absolute_probability_difference": 3.3306690738754696e-16
+        "max_absolute_probability_difference": 2.220446049250313e-16
       },
       {
         "model": "random_forest",
         "fold": 5,
         "n_test": 1005,
-        "max_absolute_probability_difference": 3.3306690738754696e-16
+        "max_absolute_probability_difference": 2.220446049250313e-16
       },
       {
         "model": "spline_logistic",

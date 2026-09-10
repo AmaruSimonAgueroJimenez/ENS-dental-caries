@@ -155,6 +155,133 @@
       "physical_canvas_preserved": true,
       "svg_text": "Editable text; requires Arial or the specified fallback font",
       "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "correa_model_performance",
+      "files": [
+        "correa_model_performance.png",
+        "correa_model_performance.svg",
+        "correa_model_performance.pdf"
+      ],
+      "caption": "Performance metrics for the seven full-feature algorithms, retaining the grouped-bar presentation of the original manuscript. Panel a shows sensitivity, specificity, precision (positive predictive value) and accuracy at a fixed threshold of 0.5; panels b–d show AUC, Brier score and log loss. All bars start at zero and use survey-weighted held-out predictions. Whiskers are 95% intervals from the same 1,000 stratified rescaled PSU-bootstrap replicates, conditional on trained models and validation folds. All replicates had valid denominators for the displayed metrics. The dashed AUC line denotes chance discrimination. Higher AUC and lower Brier score/log loss indicate better performance. KNN fitting is unweighted, with weighted tuning and evaluation. DT, decision tree; LR, logistic regression; RF, random forest; SVM, support vector machine; HGB, histogram gradient boosting. Nested cross-validation and the conditional bootstrap serve different purposes and are not presented as independent validation experiments.",
+      "source_tables": [
+        "model_performance.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Performance metrics for the seven full-feature algorithms, retaining the grouped-bar presentation of the original manuscript. Panel a shows sensitivity, specificity, precision (positive predictive value) and accuracy at a fixed threshold of 0.5; panels b–d show AUC, Brier score and log loss. All bars start at zero and use survey-weighted held-out predictions. Whiskers are 95% intervals from the same 1,000 stratified rescaled PSU-bootstrap replicates, conditional on trained models and validation folds. All replicates had valid denominators for the displayed metrics. The dashed AUC line denotes chance discrimination. Higher AUC and lower Brier score/log loss indicate better performance. KNN fitting is unweighted, with weighted tuning and evaluation. DT, decision tree; LR, logistic regression; RF, random forest; SVM, support vector machine; HGB, histogram gradient boosting. Nested cross-validation and the conditional bootstrap serve different purposes and are not presented as independent validation experiments.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 176.0,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "correa_predictor_importance",
+      "files": [
+        "correa_predictor_importance.png",
+        "correa_predictor_importance.svg",
+        "correa_predictor_importance.pdf"
+      ],
+      "caption": "Leading predictors and their stability, retaining the blue horizontal-bar presentation of the original manuscript. Panels a and b show the ten predictors with the largest mean held-out Brier-score increases in random forest and spline logistic regression, respectively. Selection uses each model’s own mean contribution; the two lists need not be identical. Bar lengths begin at zero on a common scale, and negative endpoints remain visible. Whiskers span minimum to maximum fold-mean contributions, not 95% confidence intervals. Five raw-variable permutations are averaged within each fold, then fold means are weighted by test-set expansion-weight totals. Panels c and d show ranks among all 27 predictors in each held-out fold for those same displayed predictors; 1 is highest and darker blue indicates a higher rank. Full results for all 27 predictors, including null and negative contributions, are retained in the supplement. The score is an increase in Brier error, not the original rescaled mean-decrease-in-accuracy score. Importance has no causal or directional interpretation.",
+      "source_tables": [
+        "permutation_importance.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Leading predictors and their stability, retaining the blue horizontal-bar presentation of the original manuscript. Panels a and b show the ten predictors with the largest mean held-out Brier-score increases in random forest and spline logistic regression, respectively. Selection uses each model’s own mean contribution; the two lists need not be identical. Bar lengths begin at zero on a common scale, and negative endpoints remain visible. Whiskers span minimum to maximum fold-mean contributions, not 95% confidence intervals. Five raw-variable permutations are averaged within each fold, then fold means are weighted by test-set expansion-weight totals. Panels c and d show ranks among all 27 predictors in each held-out fold for those same displayed predictors; 1 is highest and darker blue indicates a higher rank. Full results for all 27 predictors, including null and negative contributions, are retained in the supplement. The score is an increase in Brier error, not the original rescaled mean-decrease-in-accuracy score. Importance has no causal or directional interpretation.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 215.0,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)",
+      "displayed_predictors": {
+        "random_forest": [
+          "teeth_remaining",
+          "age",
+          "sex",
+          "region",
+          "education",
+          "wholegrain",
+          "dairy_frequency",
+          "soda_frequency",
+          "legumes",
+          "juice_frequency"
+        ],
+        "spline_logistic": [
+          "teeth_remaining",
+          "age",
+          "sex",
+          "region",
+          "label_warnings",
+          "fruit_portions",
+          "label_brand",
+          "dairy_frequency",
+          "education",
+          "vegetable_days"
+        ]
+      }
+    },
+    {
+      "name": "correa_predictor_groups",
+      "files": [
+        "correa_predictor_groups.png",
+        "correa_predictor_groups.svg",
+        "correa_predictor_groups.pdf"
+      ],
+      "caption": "Predictor-family contributions and added value after refitting. Panels a and b show joint held-out permutation of six exhaustive groups, with numbers of predictors in parentheses. Groups were specified after inspection of the initial results. Whiskers span fold-mean ranges, not confidence intervals. Within-group relationships are preserved through joint row permutation. Panels c and d show paired differences after separately redeveloping the specified model variants, with 95% conditional intervals from 1,000 shared stratified PSU-bootstrap replicates. Positive AUC differences and negative Brier-score differences favour the first or expanded model. The contextual extension adds household water supply, recent rural/well/spring water use and dental-attendance recency together. Permutation contributions and refitted comparisons answer different questions and are not interchangeable or causal. Group sizes differ; group contributions are not additive shares of disease explained. All comparisons are exploratory without multiplicity adjustment.",
+      "source_tables": [
+        "grouped_importance_stability.csv",
+        "paired_comparisons.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Predictor-family contributions and added value after refitting. Panels a and b show joint held-out permutation of six exhaustive groups, with numbers of predictors in parentheses. Groups were specified after inspection of the initial results. Whiskers span fold-mean ranges, not confidence intervals. Within-group relationships are preserved through joint row permutation. Panels c and d show paired differences after separately redeveloping the specified model variants, with 95% conditional intervals from 1,000 shared stratified PSU-bootstrap replicates. Positive AUC differences and negative Brier-score differences favour the first or expanded model. The contextual extension adds household water supply, recent rural/well/spring water use and dental-attendance recency together. Permutation contributions and refitted comparisons answer different questions and are not interchangeable or causal. Group sizes differ; group contributions are not additive shares of disease explained. All comparisons are exploratory without multiplicity adjustment.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 210.00000000000003,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "correa_validation",
+      "files": [
+        "correa_validation.png",
+        "correa_validation.svg",
+        "correa_validation.pdf"
+      ],
+      "caption": "Validation of the seven full-feature algorithms using fixed out-of-fold predictions for 5,036 dentate participants. (a) Survey-weighted ROC curves. (b) Survey-weighted observed prevalence versus mean predicted probability within model-specific quantile bins; lines join bin summaries and are not fitted calibration functions. The diagonal denotes chance discrimination in a and perfect calibration in b. (c) Survey-weighted AUC in each of the five held-out folds; the explicitly labelled local AUC scale applies only to this point-and-line panel. These are descriptive fold estimates, not uncertainty intervals. (d) Pooled survey-weighted and unweighted AUC point estimates on a zero-baseline bar scale. Horizontal dashed lines denote AUC=0.5. No confidence intervals or tests of differences are displayed in this figure. LR, logistic regression; RF, random forest; KNN, nearest neighbours; SVM, support vector machine.",
+      "source_tables": [
+        "roc.csv",
+        "calibration.csv",
+        "outer_fold_performance.csv",
+        "model_performance.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Four panels compare seven models: survey-weighted ROC curves and calibration, AUC across five validation folds, and pooled weighted versus unweighted AUC. All values are descriptive estimates.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 210.00000000000003,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "correa_sensitivity",
+      "files": [
+        "correa_sensitivity.png",
+        "correa_sensitivity.svg",
+        "correa_sensitivity.pdf"
+      ],
+      "caption": "Descriptive sensitivity checks for linear logistic regression, spline logistic regression and random forest. (a,b) Survey-weighted AUC and Brier scores in the primary dentate cohort (n=5,036) and its overlapping original-manuscript subset with observed education and water intake (n=4,994). The same held-out predictions are restricted to the subset; models are not refitted or retuned, and these are not independent cohorts or a reproduction of the original R model estimates. (c,d) Survey-weighted AUC and Brier scores within sex, age, residence and education groups, in the same row order in both panels. These three models are the prespecified subgroup-reporting models. All bars start at zero; the dashed line denotes AUC=0.5. All panels show point estimates without confidence intervals. No subgroup heterogeneity test or claim of differential performance is implied; overlapping subgroup partitions and unequal sample sizes must be considered. Higher AUC and lower Brier scores are favourable. Age is in years; subgroup sample sizes are available in subgroup_performance.csv.",
+      "source_tables": [
+        "model_performance.csv",
+        "prediction_subset_sensitivity.csv",
+        "subgroup_performance.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Four descriptive panels compare AUC and Brier scores for logistic regression, spline logistic and random forest in the full dentate cohort, the original complete subset and eleven demographic subgroups.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 210.00000000000003,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     }
   ],
   "language": "English",
@@ -210,9 +337,11 @@
       "maximum_height": 223
     },
     "main_statistical_figures_with_preserved_canvas": [
-      "performance_dot",
-      "permutation_importance",
-      "predictor_group_contributions"
+      "correa_model_performance",
+      "correa_predictor_importance",
+      "correa_validation",
+      "correa_predictor_groups",
+      "correa_sensitivity"
     ],
     "official_guidance_checked_on": "2026-09-10",
     "guidance_urls": [
@@ -226,7 +355,7 @@
     "pandas": "3.0.5"
   },
   "source_table_sha256": {
-    "model_performance.csv": "92031323079f275bfe63820f2f8b34c82b792aa5ea4f20327c14d18c7b5147eb",
+    "model_performance.csv": "414488a0398c1389fcab793255616da20df49b90d1a1cb0d9b0e1d553636feb8",
     "calibration.csv": "c51f34b2045ef5c018108a50ec503628d8e80ea82664c5fadf5754a680be12fb",
     "roc.csv": "1a9fa69652fe27a23f7eb1b99e17f6d70a85514d6016b84a2aa6262ada6e970f",
     "water_curve.csv": "84fa68f8f102b50596f9b820e7c2538d0873dd71632c37a19b6dd21c054c5b8f",
@@ -234,9 +363,36 @@
     "paired_comparisons.csv": "5978a1ab9735f51a90a38c4de755cc23302e6e356f734f1babe19434a43531ef",
     "permutation_importance.csv": "4f63d2777621d95f90219518feb4208d5a76bedf994f7c35681929bad28bd338",
     "descriptive_prevalence.csv": "d599b37b81f7ed7c48c3bd543076cf5764df078a18ac5ad9456a45bba08e2614",
-    "grouped_importance_stability.csv": "1fd4a6224b62e890243745180207947a3231d4d2d67414eede02b56fc64d8ace",
+    "grouped_importance_stability.csv": "0cc2704c717ba4063cbee1e02083f907a7d1f6b5fc20f52a18a7c99b10755560",
     "data_audit.json": "b403838d2b3c6a43315bb934e09a9712a52175c97461e1af60f768e8a2bfaab8",
     "sample_flow.csv": "f283d217bb05ca67db012cf0d2417eee590fb37dd39402f81b66743837428250",
-    "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426"
+    "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426",
+    "outer_fold_performance.csv": "175156880001bcd3e0b1bff61788db5a767da8643b9257134c6afef20d642de6",
+    "prediction_subset_sensitivity.csv": "ae7e39354c7cec113258ddbf716c1ba69c18d73026efe8d64282ef804275a3e3",
+    "subgroup_performance.csv": "89dd3c533f97a815c7a04976c62fed1b676b13c3bb5a804e1047a0336e11ed0f"
+  },
+  "correa_presentation": {
+    "reference": "Figures embedded in the user-supplied Correa manuscript",
+    "style_preserved": [
+      "Grouped vertical model-performance bars",
+      "Blue horizontal predictor-importance bars",
+      "White background and light grey grids"
+    ],
+    "methodological_changes": [
+      "Shared conditional PSU-bootstrap intervals",
+      "Explicit metric definitions",
+      "Held-out permutation",
+      "Visible fold stability"
+    ],
+    "selection": "Top ten per model shown compactly; all 27 remain available in the full figure and tables",
+    "model_colours": {
+      "decision_tree": "#1F77B4",
+      "knn": "#2CA02C",
+      "logistic": "#D62728",
+      "random_forest": "#9467BD",
+      "svm": "#FF7F0E",
+      "spline_logistic": "#168A8A",
+      "hist_gradient_boosting": "#7F7F7F"
+    }
   }
 }

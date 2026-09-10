@@ -23,10 +23,13 @@ The approximately 3,000–3,800-word main text will retain the scientific result
 - Table 1: cohort and weighted prevalence by demographic characteristics.
 - Table 2: seven algorithms using the same 27 predictors, with AUC, Brier score and log loss. Calibration and fixed-threshold metrics are in supplementary Table S4.
 - Table 3: paired algorithm and global feature-set comparisons, with conditional confidence intervals.
-- Figure 1: participant flow and nested PSU validation design.
-- Figure 2: discrimination and probability-error performance.
-- Figure 3: all 27 individual contributions in random forest and spline logistic regression, including fold/rank stability.
-- Figure 4: joint contributions of the six predictor blocks.
+- Figure 1: original-style grouped model-comparison bars, with classification metrics, AUC, Brier score and log loss in four panels and shared conditional PSU-bootstrap intervals.
+- Figure 2: blue horizontal bars for the ten leading predictors in each model and two corresponding fold-rank panels; complete results for all 27 remain in Figure S7.
+- Figure 3: ROC, calibration, fold AUC and weighted versus unweighted AUC.
+- Figure 4: joint predictor-family contributions and paired refitted comparisons.
+- Figure 5: full/subset performance and demographic subgroup summaries, with four descriptive panels.
+
+The author-review Word embeds all five four-panel figures, as requested, preserving the original Correa manuscript’s graphical language. Separate figure exports and legends are also retained for submission preparation. The original eight analytical displays form supplementary Figures S1–S8, including the participant flow and complete 27-predictor results. Five figures plus three tables match the upper end of the journal’s suggested combined range.
 
 One supplementary document will include the full variable dictionary, source reconciliation, grids and fold diagnostics, all 13 fitted variants plus the prevalence baseline, unweighted results, calibration/ROC plots, subgroup and subset evaluations, full permutation tables, and the complete exploratory water analyses. Water is a result-motivated secondary question. Include STROBE and TRIPOD+AI reporting checklists as identifiable supplementary items, with accurate locations and genuinely unresolved items marked for author review. This allocation is a proposal rather than a journal-imposed arrangement.
 

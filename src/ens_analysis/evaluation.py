@@ -8,6 +8,13 @@ from scipy.special import expit, logit
 from sklearn.metrics import roc_auc_score, average_precision_score
 
 
+# Keep the first three columns stable for existing paired probability-metric
+# comparisons. The remaining columns support the manuscript's classification
+# performance display at its fixed, untuned probability threshold.
+BOOTSTRAP_METRICS = ("auc", "brier", "log_loss", "sensitivity", "specificity", "ppv", "accuracy")
+CLASSIFICATION_THRESHOLD = 0.5
+
+
 def probability_metrics(y, probability, weights=None, calibration=True):
     y, p = np.asarray(y, float), np.asarray(probability, float)
     w = np.ones(len(y)) if weights is None else np.asarray(weights, float)
@@ -19,7 +26,7 @@ def probability_metrics(y, probability, weights=None, calibration=True):
         raise ValueError("Predicted probabilities must lie between zero and one")
     pc=np.clip(p,1e-7,1-1e-7)
     w = w / w.sum()
-    positive = p >= 0.5
+    positive = p >= CLASSIFICATION_THRESHOLD
     tp, tn = np.sum(w * y * positive), np.sum(w * (1-y) * ~positive)
     fp, fn = np.sum(w * (1-y) * positive), np.sum(w * y * ~positive)
     ratio = lambda a, b: float(a / b) if b > 0 else np.nan
@@ -92,7 +99,15 @@ def replicate_multipliers(design, evaluation, replicates=1000, seed=20260910):
 
 
 def evaluate_oof(oof, design, replicates=1000, seed=20260910):
-    """Return aggregate metrics and paired conditional bootstrap differences."""
+    """Return aggregate metrics and shared conditional bootstrap replicates.
+
+    All metrics use the same stratified PSU draws and fixed OOF probabilities.
+    Sensitivity, specificity, PPV and accuracy use p >= 0.5, without threshold
+    tuning. Percentile intervals omit undefined replicate ratios, whose valid
+    replicate counts are exposed; an entirely undefined metric has NaN bounds.
+    The bootstrap array columns follow BOOTSTRAP_METRICS. Unweighted point
+    estimates remain descriptive and receive no survey-bootstrap intervals.
+    """
     index = ["row_index", "participant_id", "psu", "stratum", "y", "weight", "fold"]
     wide = oof.pivot(index=index, columns="model", values="p").reset_index()
     if wide.drop(columns=index).isna().any().any():
@@ -104,19 +119,34 @@ def evaluate_oof(oof, design, replicates=1000, seed=20260910):
     for name in models:
         p = wide[name].to_numpy()
         point = probability_metrics(y, p, w)
+        positive = p >= CLASSIFICATION_THRESHOLD
         rows = []
         for draw in mult:
             wb = w*draw
             wn = wb / wb.sum()
+            tp, tn = np.sum(wn * y * positive), np.sum(wn * (1-y) * ~positive)
+            fp, fn = np.sum(wn * (1-y) * positive), np.sum(wn * y * ~positive)
+            ratio = lambda a, b: float(a / b) if b > 0 else np.nan
             rows.append([roc_auc_score(y, p, sample_weight=wb),
                          float(wn @ (y-p)**2),
                          float(-wn @ (y*np.log(np.clip(p,1e-7,1-1e-7)) +
-                                      (1-y)*np.log1p(-np.clip(p,1e-7,1-1e-7))))])
+                                      (1-y)*np.log1p(-np.clip(p,1e-7,1-1e-7)))),
+                         ratio(tp, tp+fn), ratio(tn, tn+fp),
+                         ratio(tp, tp+fp), float(tp+tn)])
         bootstrap[name] = np.asarray(rows)
-        for j, metric in enumerate(["auc", "brier", "log_loss"]):
-            point[metric+"_low"], point[metric+"_high"] = np.quantile(bootstrap[name][:, j], [.025, .975])
-        metrics.append({"model":name, "weighting":"Survey weighted", **point})
-        metrics.append({"model":name, "weighting":"Unweighted", **probability_metrics(y, p)})
+        for j, metric in enumerate(BOOTSTRAP_METRICS):
+            values = bootstrap[name][:, j]
+            valid = np.isfinite(values)
+            point[metric+"_bootstrap_valid"] = int(valid.sum())
+            point[metric+"_low"], point[metric+"_high"] = (
+                np.quantile(values[valid], [.025, .975]) if valid.any() else (np.nan, np.nan)
+            )
+        metrics.append({"model":name, "weighting":"Survey weighted",
+                        "classification_threshold":CLASSIFICATION_THRESHOLD,
+                        "bootstrap_replicates":replicates, **point})
+        metrics.append({"model":name, "weighting":"Unweighted",
+                        "classification_threshold":CLASSIFICATION_THRESHOLD,
+                        **probability_metrics(y, p)})
     return pd.DataFrame(metrics), bootstrap, wide
 
 

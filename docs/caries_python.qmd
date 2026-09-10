@@ -1,5 +1,5 @@
 ---
-title: "Predictor contributions to prevalent dental caries classification in Chile"
+title: "Predictors of prevalent dental caries in Chile using machine learning"
 subtitle: "Python reanalysis of ENS 2016–17"
 lang: en
 jupyter: python3
@@ -186,7 +186,7 @@ assert (FIGURES / "figure_metadata.json").is_file(), "Figure metadata are missin
 figure_meta = json.loads((FIGURES / "figure_metadata.json").read_text())
 assert not figure_meta.get("missing_or_empty_source_tables"), "Figures have incomplete inputs."
 figure_lookup = {item["name"]: item for item in figure_meta["figures"]}
-figure_names = ["study_flow", "performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "predictor_group_contributions", "descriptive_prevalence"]
+figure_names = ["correa_model_performance", "correa_predictor_importance", "correa_validation", "correa_predictor_groups", "correa_sensitivity", "study_flow", "performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "predictor_group_contributions", "descriptive_prevalence"]
 for name in figure_names:
     assert name in figure_lookup and (FIGURES / f"{name}.png").is_file(), f"Missing figure: {name}"
 
@@ -211,6 +211,8 @@ def simple_metric_table(ids):
 ```
 
 ## Structured summary
+
+Five four-panel figures preserve the original manuscript’s model-comparison bars and blue predictor-importance bars, with updated held-out estimates, clearly distinguished uncertainty, validation and sensitivity panels. The complete 27-predictor displays remain available below and in the manuscript supplement.
 
 **Question.** How do the 27 demographic, dental and dietary predictors contribute to classification of existing cavitated caries, and how stable are their contributions across held-out survey clusters and model families?
 
@@ -422,7 +424,7 @@ display(Markdown(
 ))
 show_table(simple_metric_table(model_order), "Table 6. Survey-weighted out-of-fold performance for all 14 variants.",
            "Intervals are conditional stratified PSU-bootstrap intervals. The prevalence benchmark predicts the weighted training-fold prevalence. Feature-block variants answer different questions from the seven full-feature algorithm comparisons.")
-show_figure("performance_dot")
+show_figure("correa_model_performance")
 detail_rows = []
 for model in main_models:
     row, unrow = weighted.loc[model], unweighted.loc[model]
@@ -432,8 +434,8 @@ for model in main_models:
                        "Sensitivity": number(row.sensitivity), "Specificity": number(row.specificity),
                        "PPV": number(row.ppv), "NPV": number(row.npv)})
 show_table(pd.DataFrame(detail_rows), "Table 7. Calibration and additional metrics for the seven full-feature algorithms.",
-           "Only the explicitly labelled AUC column is unweighted; remaining columns use survey weights. Calibration values are point estimates. Threshold-based measures use 0.5 and do not establish clinical utility. PPV/NPV are positive/negative predictive values.")
-show_figure("calibration_roc")
+           "Only the explicitly labelled AUC column is unweighted; remaining columns use survey weights. Calibration values are point estimates. Threshold-based measures use 0.5 and do not establish clinical utility. Their intervals in the compound figure use the same 1,000 conditional PSU-bootstrap replicates, with valid metric denominators in every replicate. PPV/NPV are positive/negative predictive values.")
+show_figure("correa_validation")
 ```
 
 ## Contributions and stability of all predictors
@@ -445,7 +447,7 @@ Correlation can distribute importance across predictors, and permutation can cre
 ```{python}
 #| label: importance
 #| echo: false
-show_figure("permutation_importance")
+show_figure("correa_predictor_importance")
 importance_rows = []
 importance_order = all_importance.groupby("feature")["brier_increase"].max().sort_values(ascending=False).index
 for feature in importance_order:
@@ -494,7 +496,7 @@ block_definitions = []
 for block, features in contributions["groups"].items():
     block_definitions.append(f'**{block}:** ' + ', '.join(feature_labels[name] for name in features))
 display(Markdown('; '.join(block_definitions) + '.'))
-show_figure("predictor_group_contributions")
+show_figure("correa_predictor_groups")
 ```
 
 ## Comparisons of algorithms and predictor blocks
@@ -531,6 +533,7 @@ show_figure("incremental_water")
 ```{python}
 #| label: subgroups
 #| echo: false
+show_figure("correa_sensitivity")
 selected = ["logistic", "spline_logistic", "random_forest"]
 subgroups = tables["subgroup_performance"]
 group_rows = []
@@ -616,6 +619,17 @@ display(Markdown(
     f'The modified Poisson model produced **{int(poisson.predictions_above_one):,} fitted values above one**. '
     'Its robust prevalence-ratio coefficient is reported as a sensitivity analysis; those fitted values must not be presented as valid individual probabilities.'
 ))
+```
+
+## Complete graphical detail
+
+These complementary displays retain all 27 predictors and provide the participant flow and detailed analytical presentation used during development. Their fold ranges are stability summaries, not confidence intervals.
+
+```{python}
+#| label: complete-graphical-detail
+#| echo: false
+for name in ["performance_dot", "calibration_roc", "permutation_importance", "predictor_group_contributions"]:
+    show_figure(name)
 ```
 
 ## Reproducibility and aggregate outputs
