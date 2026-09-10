@@ -191,6 +191,12 @@ def main():
         # Private caches are produced locally by this pipeline; never load an
         # untrusted downloaded pickle into this process.
         metrics=summarize(frame,results,tables,args.bootstrap)
+        from ens_analysis.contributions import predictor_contributions
+        grouped,grouped_stability,contribution_manifest=predictor_contributions(
+            frame.loc[frame.eligible],results,n_jobs=args.jobs)
+        grouped.to_csv(tables/'grouped_permutation_importance.csv',index=False)
+        grouped_stability.to_csv(tables/'grouped_importance_stability.csv',index=False)
+        write_json(tables/'predictor_contributions_manifest.json',contribution_manifest)
         from ens_analysis.figures import make_figures
         make_figures(tables,ROOT/'outputs/figures')
         if source_hashes(ROOT)!=code_sha256:
@@ -210,6 +216,7 @@ def main():
             'packages':{p:version(p) for p in ['numpy','pandas','scipy','scikit-learn','statsmodels','pyreadstat','matplotlib','patsy']},
             'n_primary':int(frame.eligible.sum()),'n_manuscript':int(frame.paper_complete.sum()),
             'model_names':list(results['manifest']['models']),
+            'predictor_contributions':contribution_manifest,
             'outer_folds':results['manifest']['settings']['outer_folds'],
             'inner_folds':results['manifest']['settings']['inner_folds'],
             'weight_confirmation':'Working phase-based choice; official manual confirmation outstanding',

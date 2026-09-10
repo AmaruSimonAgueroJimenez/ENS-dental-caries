@@ -1,6 +1,6 @@
-# ENS dental caries: R reference and Python reanalysis
+# Predictor contributions to prevalent dental caries classification in Chile
 
-This repository contains a reproducible Python reanalysis of reported water consumption and prevalent cavitated caries in the Chilean National Health Survey 2016–2017. The English report is generated from Python results using Quarto.
+This repository contains a reproducible Python reanalysis of how 27 demographic, dental and dietary predictors contribute to classification of prevalent cavitated caries in the Chilean National Health Survey 2016–2017. The English report presents all predictor contributions and their stability across held-out survey clusters in random forest and spline logistic regression, with overall performance as context. Water was an emerging finding of interest and is retained as an exploratory follow-up, not the original primary objective. Quarto generates the report from completed Python results.
 
 This is the original [ENS-dental-caries repository](https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries), with the R reference audited at commit [`77c107feb56d3f825cd4ad26354b672f8bfebe38`](https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries/tree/77c107feb56d3f825cd4ad26354b672f8bfebe38). The original water-and-caries source, `docs/index.qmd`, and its saved HTML are preserved. The saved HTML contains the manuscript's reported AUC values; identifying those outputs is distinct from rerunning the R analysis.
 
@@ -12,11 +12,13 @@ This is a **Python reanalysis with verified original data and an audited R refer
 
 - `docs/caries_python.html`: standalone English report generated from a completed Python run.
 - `docs/caries_python.qmd`: Python-executed Quarto source.
-- `docs/caries-analysis-plan.md`: analysis decisions and the documented internal-grid amendment.
+- `docs/caries-analysis-plan.md`: analysis decisions, the internal-grid amendment and the dated correction of reporting focus.
 - `docs/methodological-sources.md`: source verification and outstanding survey-documentation questions.
 - `docs/r-to-python-migration.md`: comparison of the original caries R workflow and the Python reanalysis, including verified source reconciliation and intentional methodological changes.
 - `docs/index.qmd` and `docs/index.html`: preserved original R source and saved reference results.
 - `outputs/tables/`: aggregate results and reproducibility manifests.
+- `outputs/tables/importance_stability.csv`: all 27 raw-variable contributions and fold stability in both model families.
+- `outputs/tables/grouped_importance_stability.csv` and `predictor_contributions_manifest.json`: joint contributions of conceptual blocks and checks against the existing models.
 - `outputs/tables/source_reconciliation.json`, `source_comparison.csv` and `legacy_water_coding.csv`: source hashes, agreement checks and the original water-index mapping.
 - `outputs/figures/`: publication figures in PNG at 300 dpi and SVG.
 
@@ -35,13 +37,15 @@ python3 -m venv .venv
 
 `requirements-lock.txt` records the verified macOS environment. On another platform, install the declared dependencies with `pip install -e '.[report,test]'` and preserve a fresh environment manifest. Quarto is installed separately.
 
-The pipeline also supports `--stage prepare`, `--stage models`, and `--stage summarize`. Nested model/fold fits resume from a cache only if input fields, feature specifications, software versions, analysis settings and model source match. Summarization rejects stale model results. A failed or unfinished run must not be rendered as a completed report.
+The pipeline also supports `--stage prepare`, `--stage models`, and `--stage summarize`. The summary stage includes joint predictor-block permutations using the selected random-forest and spline models; refitted held-out probabilities must reproduce the saved predictions within numerical tolerance. Nested model/fold fits resume from a cache only if input fields, feature specifications, software versions, analysis settings and model source match. Summarization rejects stale model results. A failed or unfinished run must not be rendered as a completed report.
 
 ## Scientific scope
 
 The primary predictive cohort includes all 5,036 dentate participants with observed outcomes; predictor imputation is learned within training folds. The reconciled education-and-water-complete manuscript subset contains 4,994 participants and 2,664 caries cases. It is retained as a sensitivity evaluation of existing held-out predictions, rather than a separately developed complete-case model. The report distinguishes concurrent classification, adjusted associations and future prognosis. It does not infer a preventive effect of water from variable importance.
 
-The analysis includes survey-weighted descriptions and design-based regression uncertainty, shared PSU-disjoint nested validation, calibrated-probability diagnostics, paired incremental comparisons, held-out variable importance and sensitivity analyses. The corrected F1/F2 weight is a documented working choice; confirmation against the official phase-selection manual remains outstanding. The report explicitly distinguishes singleton-stratum handling in analytical variance estimation and in conditional bootstrap intervals.
+The primary presentation includes all individual permutation importances, rank stability across folds, and joint permutation of sociodemographic, remaining-teeth, food-intake, label-related, beverage and cooking-fat blocks. A block is permuted jointly; its importance is neither the sum of its individual variables nor a performance change after redeveloping a model without it. Contributions depend on the fitted classifier and correlated predictors, and have no causal or directional interpretation.
+
+Survey-weighted descriptions, shared PSU-disjoint nested validation, probability calibration and paired model comparisons provide the evaluation context. Existing water follow-ups and design-based association sensitivities remain secondary. The reporting focus was corrected on 10 September 2026 after model results were available; joint block analyses are a documented exploratory addition. The corrected F1/F2 weight is a working choice pending official phase-selection confirmation, and singleton-stratum conventions differ between analytic variance estimation and conditional bootstrap intervals.
 
 ## Data boundaries
 

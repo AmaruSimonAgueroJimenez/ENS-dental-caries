@@ -1,5 +1,5 @@
 ---
-title: "Water consumption and prevalent dental caries in Chile"
+title: "Predictor contributions to prevalent dental caries classification in Chile"
 subtitle: "Python reanalysis of ENS 2016–17"
 lang: en
 jupyter: python3
@@ -48,8 +48,9 @@ csv_names = [
     "diagnostics", "subgroup_performance", "prediction_subset_sensitivity",
     "importance_stability", "predictor_missingness", "variable_dictionary",
     "validation_split_checks", "hyperparameter_search", "source_comparison", "legacy_water_coding",
+    "grouped_permutation_importance", "grouped_importance_stability",
 ]
-json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation"]
+json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation", "predictor_contributions_manifest"]
 for name in csv_names:
     assert (TABLES / f"{name}.csv").is_file(), f"Missing required aggregate: {name}.csv"
 for name in json_names:
@@ -61,6 +62,7 @@ model_manifest = metadata["model_manifest"]
 audit = metadata["data_audit"]
 assoc_metadata = metadata["association_metadata"]
 source = metadata["source_reconciliation"]
+contributions = metadata["predictor_contributions_manifest"]
 assert run["status"] == "complete", "The analysis run is not complete."
 assert run["input_sha256"] == audit["source_sha256"], "Input hashes disagree."
 assert source["status"] == "verified", "Original-source reconciliation is not verified."
@@ -78,6 +80,12 @@ assert run["outer_folds"] == 5 and run["inner_folds"] == 3, "Full nested validat
 assert min(c["C"] for c in model_manifest["models"]["logistic"]["candidates"]) <= 0.0001, "The final expanded-grid run is required."
 assert tables["validation_split_checks"]["psu_overlap"].eq(0).all(), "Survey clusters overlap across validation partitions."
 assert model_manifest["n_participants"] == run["n_primary"], "Model cohort and run manifest disagree."
+assert contributions["status"] == "complete", "The predictor-contribution analysis is incomplete."
+assert contributions["n_participants"] == run["n_primary"], "Contribution and prediction cohorts disagree."
+assert contributions["seed"] == run["analysis_seed"], "Contribution-analysis seed disagrees."
+for name, fingerprint in contributions["model_fingerprints"].items():
+    assert fingerprint == model_manifest["models"][name]["fingerprint"], "Contributions use a different fitted model."
+assert all(check["max_absolute_probability_difference"] <= 1e-10 for check in contributions["refit_checks"]), "A model refit failed to reproduce its held-out predictions."
 
 main_models = ["logistic", "spline_logistic", "random_forest", "hist_gradient_boosting", "svm", "decision_tree", "knn"]
 model_order = main_models + ["spline_base", "spline_no_water", "rf_base", "rf_no_water", "spline_extended", "spline_no_teeth", "prevalence_only"]
@@ -104,6 +112,30 @@ roles.update({
     "spline_extended": "Exploratory extension", "spline_no_teeth": "Dental-measure sensitivity",
     "prevalence_only": "Reference benchmark",
 })
+feature_labels = {
+    "age": "Age", "sex": "Sex", "region": "Region", "rural": "Rural residence",
+    "education": "Education", "indigenous": "Indigenous identification", "born_chile": "Born in Chile",
+    "teeth_remaining": "Remaining teeth", "fish": "Fish/seafood frequency",
+    "dairy_frequency": "Dairy frequency", "dairy_type": "Dairy type", "wholegrain": "Wholegrain frequency",
+    "legumes": "Legume frequency", "fruit_days": "Fruit days/week", "fruit_portions": "Fruit portions",
+    "vegetable_days": "Vegetable days/week", "vegetable_portions": "Vegetable portions",
+    "label_ingredients": "Label: ingredients", "label_nutrition": "Label: nutrition",
+    "label_warnings": "Label: warnings", "label_health": "Label: health", "label_brand": "Label: brand",
+    "label_discounts": "Label: discounts", "water": "Water intake", "soda_frequency": "Sweetened soda frequency",
+    "juice_frequency": "Sweetened juice frequency", "oil": "Cooking oil/fat",
+}
+importance_models = ["random_forest", "spline_logistic"]
+assert set(contributions["model_names"]) == set(importance_models), "Both existing model families are required for contributions."
+grouped_features = [feature for block in contributions["groups"].values() for feature in block]
+assert len(grouped_features) == len(set(grouped_features)) == 27 and set(grouped_features) == set(feature_labels), "Conceptual blocks must partition all 27 predictors."
+assert len(contributions["refit_checks"]) == len(importance_models) * run["outer_folds"], "Every model/fold must pass refit verification."
+all_importance = tables["importance_stability"]
+for model in importance_models:
+    assert set(all_importance.loc[all_importance.model.eq(model), "feature"]) == set(feature_labels), "All 27 predictors must have importance results."
+importance_leaders = {
+    model: all_importance.loc[all_importance.model.eq(model)].sort_values("brier_increase", ascending=False).head(3)
+    for model in importance_models
+}
 perf = tables["model_performance"]
 weighted = perf.loc[perf["weighting"].eq("Survey weighted")].set_index("model")
 unweighted = perf.loc[perf["weighting"].eq("Unweighted")].set_index("model")
@@ -154,7 +186,7 @@ assert (FIGURES / "figure_metadata.json").is_file(), "Figure metadata are missin
 figure_meta = json.loads((FIGURES / "figure_metadata.json").read_text())
 assert not figure_meta.get("missing_or_empty_source_tables"), "Figures have incomplete inputs."
 figure_lookup = {item["name"]: item for item in figure_meta["figures"]}
-figure_names = ["performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "descriptive_prevalence"]
+figure_names = ["study_flow", "performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "predictor_group_contributions", "descriptive_prevalence"]
 for name in figure_names:
     assert name in figure_lookup and (FIGURES / f"{name}.png").is_file(), f"Missing figure: {name}"
 
@@ -180,7 +212,7 @@ def simple_metric_table(ids):
 
 ## Structured summary
 
-**Question.** Does reported daily water consumption contribute information about existing cavitated caries beyond demographic, dental and dietary characteristics, and do flexible algorithms improve discrimination in previously unseen survey clusters?
+**Question.** How do the 27 demographic, dental and dietary predictors contribute to classification of existing cavitated caries, and how stable are their contributions across held-out survey clusters and model families?
 
 ```{python}
 #| label: summary-results
@@ -189,33 +221,31 @@ best_full = weighted.loc[main_models, "auc"].idxmax()
 best_variant = weighted.drop(index="prevalence_only")["auc"].idxmax()
 summary_cards = [
     (f'{run["n_primary"]:,}', "Dentate participants in model development"),
+    (str(len(feature_labels)), "Predictors evaluated in both importance analyses"),
     (f'{overall.estimate:.1%}', "Survey-weighted prevalence of cavitated caries"),
-    (f'{weighted.loc[best_full, "auc"]:.3f}', "Highest AUC among the seven full-feature algorithms"),
 ]
 display(HTML('<div class="summary-grid">' + ''.join(
     f'<div class="summary-card"><strong>{escape(value)}</strong><span>{escape(label)}</span></div>'
     for value, label in summary_cards) + '</div>'))
 display(Markdown(
-    f'**Design and findings.** This cross-sectional reconstruction included {run["n_primary"]:,} dentate ENS participants aged 15 years or older, '
+    f'**Design.** This cross-sectional reanalysis included {run["n_primary"]:,} dentate ENS participants aged 15 years or older, '
     f'with one held-out probability per model from {run["outer_folds"]}-fold outer and {run["inner_folds"]}-fold inner cluster-grouped validation. '
-    f'The adjusted odds ratio per additional reported glass/day was **{interval(water_linear)}**. '
-    f'For {water_spline.comparison_water:g} versus {water_spline.reference_water:g} glasses/day, the spline conditional odds ratio was **{interval(water_spline)}**. '
-    f'Adding water changed AUC by **{delta_text("spline_logistic", "spline_no_water")}** in spline logistic regression and '
-    f'**{delta_text("random_forest", "rf_no_water")}** in random forest. All intervals shown here are 95% intervals.'
+    'Raw-variable permutation importance and fold stability are reported for every predictor in random forest and spline logistic regression. '
+    'Joint permutation also evaluates conceptually defined predictor blocks. Classification performance provides context for interpreting these contributions.'
 ))
-water_pairs = [effect_pair("spline_logistic", "spline_no_water"), effect_pair("random_forest", "rf_no_water")]
-if all(row.ci_low <= 0 <= row.ci_high for row in water_pairs) and water_linear.ci_low <= 1 <= water_linear.ci_high:
-    conclusion = ("The analyses do not establish an incremental discrimination benefit of water or a clear adjusted association with caries. "
-                  "The intervals retain uncertainty; they are not evidence that every plausible association is absent.")
-else:
-    conclusion = ("The association and paired model estimates must be interpreted together, with attention to their magnitudes and intervals. "
-                  "Any incremental information remains exploratory and requires independent validation.")
-display(Markdown(f'**Interpretation.** {conclusion} These findings concern concurrent disease classification; they do not establish prevention, future risk prediction or clinical usefulness.'))
+leader_text = []
+for model in importance_models:
+    values = ', '.join(f'{feature_labels[row.feature]} (ΔBrier {row.brier_increase:.4f})' for _, row in importance_leaders[model].iterrows())
+    leader_text.append(f'**{labels[model]}:** {values}')
+display(Markdown('**Findings.** The three largest mean held-out Brier-score increases were ' + '; '.join(leader_text) + '. '
+                 f'The highest full-feature AUC was {weighted.loc[best_full, "auc"]:.3f}; the importance results must be read in that performance context.'))
+display(Markdown('**Interpretation.** Importance describes the contribution to a particular fitted classifier, with uncertainty reflected by fold-to-fold stability. '
+                 'It does not identify causes, exposure-effect directions or a uniquely correct predictor ranking. Water was an emerging result of interest and is examined in a secondary exploratory section; it was not the primary scientific objective.'))
 ```
 
 ## Scope, provenance and study population
 
-This report reanalyses the original water-and-caries data with an audited R reference in the [ENS-dental-caries repository](https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries/tree/77c107feb56d3f825cd4ad26354b672f8bfebe38). The original `docs/index.qmd` and saved HTML are preserved; the HTML contains the manuscript's reported AUC values. Those saved results identify the reference analysis but are not newly rerun R estimates.
+This report evaluates contributions of all measured predictor constructs to current caries classification, using the original data and an audited R reference in the [ENS-dental-caries repository](https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries/tree/77c107feb56d3f825cd4ad26354b672f8bfebe38). The original `docs/index.qmd` and saved HTML are preserved; the HTML contains the manuscript's reported AUC values. Those saved results identify the reference analysis but are not newly rerun R estimates.
 
 The original Stata attachment was recovered from Andrea Correa's email of 31 July 2023 and reconciled by survey identifier with the supplementary SPSS release. SPSS supplies survey weights, PSUs and additional water-context fields absent from the original Stata file. This is a **Python reanalysis with verified original data**. The [analysis plan](caries-analysis-plan.md) and [R-to-Python audit](r-to-python-migration.md) explain the intentional methodological changes; identical historical `caret` metrics are not an objective.
 
@@ -268,6 +298,7 @@ flow_rows = [
 show_table(pd.DataFrame([{"Stage": label, "Participants": f"{flow[key]:,}"} for label, key in flow_rows]),
            "Table 1. Population flow and manuscript reconstruction.",
            "Rows showing cases and missing predictors describe nested groups, not additional sequential exclusions. No outcomes were imputed.")
+show_figure("study_flow")
 display(Markdown(
     f'The primary prediction cohort retains **{run["n_primary"]:,}** participants through training-fold imputation. '
     f'The exact manuscript subset has **{run["n_manuscript"]:,}** participants with observed education and water. '
@@ -341,6 +372,8 @@ Training weights are normalized to mean one. Inner validation minimizes pooled s
 
 An audit restricted to internal tuning tables found repeated selection of the strongest available regularization. One expanded grid was fixed and the complete nested procedure rerun for every corresponding variant. The audit folds overlap and do not constitute independent experiments. This dataset-informed amendment makes the results exploratory development evidence; it does not justify describing the procedure as wholly prespecified or as external validation.
 
+The reporting focus was corrected on 10 September 2026 to reflect the scientific objective of evaluating all predictor contributions. Water had emerged as a result of interest; its follow-up analyses are retained as exploratory. The comprehensive presentation and joint block permutations were added after the existing model results were available. This change did not retune or add algorithms, and must not be represented as a prospectively specified analysis of a privileged water exposure.
+
 ```{python}
 #| label: model-grids
 #| echo: false
@@ -376,7 +409,7 @@ display(Markdown(
 ))
 ```
 
-## Classification performance and incremental information
+## Classification performance
 
 ```{python}
 #| label: performance-all
@@ -403,7 +436,68 @@ show_table(pd.DataFrame(detail_rows), "Table 7. Calibration and additional metri
 show_figure("calibration_roc")
 ```
 
-### Paired comparisons
+## Contributions and stability of all predictors
+
+All 27 raw predictors are evaluated in held-out folds, retaining the encoded columns of each predictor as a group. Mean increases in weighted Brier score quantify disruption of each fitted classifier; AUC decreases are complementary summaries. Higher positive values indicate greater reliance on that predictor for held-out performance. Negative values mean performance improved after permutation in these evaluations; they do not imply a protective effect. Ranks are compared across folds and model families rather than treated as fixed biological attributes.
+
+Correlation can distribute importance across predictors, and permutation can create unrealistic covariate combinations. These analyses measure model reliance, not a causal effect or the direction of an exposure–outcome association. A predictor can be useful jointly with others while having little individual permutation importance. Conversely, measurable permutation importance does not establish that adding it improves a separately developed model.
+
+```{python}
+#| label: importance
+#| echo: false
+show_figure("permutation_importance")
+importance_rows = []
+importance_order = all_importance.groupby("feature")["brier_increase"].max().sort_values(ascending=False).index
+for feature in importance_order:
+    feature_rows = all_importance.loc[all_importance.feature.eq(feature)].set_index("model")
+    result = {"Predictor": feature_labels[feature]}
+    for model, short in [("random_forest", "RF"), ("spline_logistic", "Spline")]:
+        row = feature_rows.loc[model]
+        result[f"{short}: ΔBrier"] = number(row.brier_increase, 4)
+        result[f"{short}: AUC drop"] = number(row.auc_drop, 4)
+        result[f"{short}: median rank (range)"] = f'{row.median_rank:g} ({int(row.best_rank)}–{int(row.worst_rank)})'
+        result[f"{short}: top-three folds"] = f'{row.fraction_top3:.0%}'
+    importance_rows.append(result)
+show_table(pd.DataFrame(importance_rows), "Table 8. Contributions and fold stability of all 27 predictors.",
+           "RF = random forest; spline = spline logistic regression. ΔBrier and AUC drop are means using held-out expansion-weight totals. Rank ranges are stability summaries, not confidence intervals. Rows are ordered by the larger mean ΔBrier across the two models; this ordering is descriptive. Complete fold ranges are available in the aggregate importance file.")
+shared_leaders = set(importance_leaders["random_forest"].feature) & set(importance_leaders["spline_logistic"].feature)
+shared_text = ', '.join(feature_labels[name] for name in sorted(shared_leaders)) if shared_leaders else 'none'
+display(Markdown(
+    f'The two top-three lists share **{shared_text}**. '
+    'Agreement between algorithms supports a model-comparison description; disagreement and broad rank ranges indicate dependence on the fitted functional form and training sample. '
+    'The full table retains low, null and negative contributions, avoiding selection of only the most prominent findings.'
+))
+```
+
+### Joint contributions of predictor blocks
+
+The conceptual blocks are jointly permuted with the same row permutation for all variables in a block. This preserves relationships within that block while disrupting its relationship to the remaining predictors and outcome. Group importance is not the sum of individual importances, and blocks differ in size. It is also distinct from retraining a model after removing a block. The existing random-forest and spline models are reproduced from their selected parameters, with held-out probabilities checked against the saved values; no new algorithm is added.
+
+```{python}
+#| label: group-contributions
+#| echo: false
+group_stability = tables["grouped_importance_stability"]
+block_rows = []
+block_order = group_stability.groupby("block")["brier_increase"].max().sort_values(ascending=False).index
+assert set(block_order) == set(contributions["groups"]), "Group definitions and estimates disagree."
+for block in block_order:
+    indexed = group_stability.loc[group_stability.block.eq(block)].set_index("model")
+    result = {"Block": block, "Predictors": len(contributions["groups"][block])}
+    for model, short in [("random_forest", "RF"), ("spline_logistic", "Spline")]:
+        row = indexed.loc[model]
+        result[f"{short}: ΔBrier (fold range)"] = f'{row.brier_increase:.4f} ({row.minimum_fold_brier_increase:.4f} to {row.maximum_fold_brier_increase:.4f})'
+        result[f"{short}: median rank (range)"] = f'{row.median_rank:g} ({int(row.best_rank)}–{int(row.worst_rank)})'
+    block_rows.append(result)
+show_table(pd.DataFrame(block_rows), "Table 9. Joint permutation importance of conceptual predictor blocks.",
+           "Blocks are defined for this exploratory follow-up. Fold ranges are descriptive stability intervals, not confidence intervals. Joint disruption preserves within-block relationships; block sizes differ, so values must not be interpreted as per-variable contributions.")
+block_definitions = []
+for block, features in contributions["groups"].items():
+    block_definitions.append(f'**{block}:** ' + ', '.join(feature_labels[name] for name in features))
+display(Markdown('; '.join(block_definitions) + '.'))
+show_figure("predictor_group_contributions")
+```
+
+## Comparisons of algorithms and predictor blocks
 
 ```{python}
 #| label: incremental-results
@@ -414,19 +508,13 @@ for (model, reference), group in pairs.groupby(["model", "reference"], sort=Fals
                       "ΔAUC (95% CI)": delta_text(model, reference, "auc"),
                       "ΔBrier (95% CI)": delta_text(model, reference, "brier"),
                       "Δlog loss (95% CI)": delta_text(model, reference, "log_loss")})
-show_table(pd.DataFrame(pair_rows), "Table 8. Paired incremental differences on identical participants and folds.",
-           "Difference = first model minus reference. Positive AUC differences favour the first model; negative Brier/log-loss differences favour it. These are conditional intervals without adjustment for multiple comparisons.")
-display(Markdown(
-    f'For **water**, the spline comparison gives ΔAUC {delta_text("spline_logistic", "spline_no_water")}; '
-    f'{pair_interpretation("spline_logistic", "spline_no_water")}. The random-forest comparison gives '
-    f'ΔAUC {delta_text("random_forest", "rf_no_water")}; {pair_interpretation("random_forest", "rf_no_water")}. '
-    'A predictor can have permutation importance while adding little beyond correlated variables. Importance ranking is therefore insufficient evidence of incremental usefulness.'
-))
+show_table(pd.DataFrame(pair_rows), "Table 10. Paired incremental differences on identical participants and folds.",
+           "Difference = first model minus reference. Positive AUC differences favour the first model; negative Brier/log-loss differences favour it. These separately developed model contrasts differ from joint permutation of fixed fitted models. All are exploratory, including the water follow-ups; intervals are conditional and unadjusted for multiple comparisons.")
 display(Markdown(
     f'For **model flexibility**, spline versus linear logistic regression gives ΔAUC {delta_text("spline_logistic", "logistic")}; '
     f'{pair_interpretation("spline_logistic", "logistic")}. Random forest versus linear logistic gives '
     f'ΔAUC {delta_text("random_forest", "logistic")}; {pair_interpretation("random_forest", "logistic")}. '
-    'The probability-score contrasts in Table 8 provide a separate check against interpreting ranking gains alone as improvement in predicted probabilities.'
+    'The probability-score contrasts in Table 10 provide a separate check against interpreting ranking gains alone as improvement in predicted probabilities.'
 ))
 display(Markdown(
     f'Adding the **entire dietary block** to spline regression gives ΔAUC {delta_text("spline_logistic", "spline_base")}. '
@@ -438,20 +526,64 @@ display(Markdown(
 show_figure("incremental_water")
 ```
 
-## Adjusted water association
+## Subgroups and robustness
+
+```{python}
+#| label: subgroups
+#| echo: false
+selected = ["logistic", "spline_logistic", "random_forest"]
+subgroups = tables["subgroup_performance"]
+group_rows = []
+for (variable, level), group in subgroups.groupby(["variable", "level"], sort=False):
+    row = {"Grouping": variable.replace("_", " ").capitalize(), "Level": level, "n": f'{int(group.iloc[0]["n"]):,}'}
+    indexed = group.set_index("model")
+    for model, short in zip(selected, ["Linear", "Spline", "RF"]):
+        row[f"{short}: AUC / Brier"] = f'{number(indexed.loc[model, "auc"])} / {number(indexed.loc[model, "brier"])}'
+    group_rows.append(row)
+show_table(pd.DataFrame(group_rows), "Table 11. Exploratory subgroup performance for three central comparisons.",
+           "These weighted point estimates reuse the full-cohort held-out predictions. They have no subgroup-specific confidence intervals or formal interaction tests; apparent ranking differences are not established heterogeneity.")
+sensitivity = tables["prediction_subset_sensitivity"]
+subset_rows = []
+for _, row in sensitivity.loc[sensitivity.model.isin(selected)].iterrows():
+    subset_rows.append({"Subset": row["subset"], "Model": labels[row.model], "n": f'{int(row["n"]):,}',
+                       "AUC": number(row.auc), "Brier": number(row.brier),
+                       "Calibration intercept": number(row.calibration_intercept), "Calibration slope": number(row.calibration_slope)})
+show_table(pd.DataFrame(subset_rows), "Table 12. Evaluation on the manuscript subset and participants aged at least 18.",
+           "These analyses restrict existing out-of-fold predictions. The manuscript subset is not a newly developed complete-case model; training retains the primary imputation-based strategy. Association-model sample sizes differ because their covariate completeness rules differ.")
+```
+
+## Implications for the manuscript
+
+The manuscript should lead with the contributions of all demographic, dental and dietary predictors to current caries classification. Present both model families, all 27 predictor results and their fold stability, alongside the joint block analyses. Calibration, probability scores and discrimination establish the performance context in which those contributions were measured. A prominent importance rank is a hypothesis-generating finding, not evidence of causation or a reason to make one exposure the study's original objective.
+
+Claims of general algorithm superiority should be tied to the actual comparisons. A small AUC improvement over a linear model does not establish clinically useful discrimination, and a full dietary model need not outperform a simpler demographic/dental model. Correlated predictors and unequal block sizes limit direct attribution. Findings such as water can motivate explicitly secondary analyses; their selection after observing results must remain transparent. No finding here supports a clinical recommendation to increase water intake to prevent caries.
+
+This emphasis is consistent with the distinction between diagnostic and prognostic models, appropriate validation and practical usefulness discussed in the [Caries Research methodological review](https://karger.com/cre/article/doi/10.1159/000553309/952744/Prognostic-Clinical-Predictive-Models-for-Dental). Transparent descriptions of population, missingness, model development and performance also follow the reporting aims of [TRIPOD+AI](https://doi.org/10.1136/bmj-2023-078378). Neither reference substitutes for evaluation of this dataset or guarantees journal acceptance.
+
+The main limitations are cross-sectional temporality; self-reported predictors, exposure tails and measurement error; selection into the examination and dentate domains; the working, incompletely documented weight choice; singleton-variance conventions; and reliance on a concurrent tooth-count predictor. Importance depends on the fitted model, correlations and the perturbation scheme. The dataset-informed grid amendment, later block analysis and multiple exploratory comparisons add development uncertainty; permutation stability ranges and conditional metric intervals do not cover all of it. There is no temporal or geographic external validation, no assessment of clinical net benefit, and no demonstrated transportability or deployment readiness. The water follow-up additionally lacks measured fluoride exposure, a verified glass volume and temporal ordering.
+
+## Supplementary exploratory follow-up: water
+
+Water was an emerging finding considered after inspecting predictor results, rather than the primary scientific objective. The analyses below assess that finding's adjusted association and sensitivity to assumptions. Their placement and interpretation preserve this exploratory status.
 
 Eight survey-weighted association analyses separate effect estimation from algorithm comparison. The primary logistic model estimates a linear water term while adjusting flexibly for age, remaining teeth and soda/juice frequency, plus sex, region, rurality, education, indigenous identification and birthplace. A second model uses a water spline. Further analyses add the three contextual variables, restrict age, assess the exposure tail, omit remaining teeth, estimate a modified Poisson prevalence ratio, or retain the original 28-day beverage conversion. The last analysis was added after source reconciliation. These regressions use complete required covariates, rather than the prediction pipeline's imputation strategy.
 
 ```{python}
 #| label: association-results
 #| echo: false
+display(Markdown(
+    f'For the exploratory **water** comparison, the spline comparison gives ΔAUC {delta_text("spline_logistic", "spline_no_water")}; '
+    f'{pair_interpretation("spline_logistic", "spline_no_water")}. The random-forest comparison gives '
+    f'ΔAUC {delta_text("random_forest", "rf_no_water")}; {pair_interpretation("random_forest", "rf_no_water")}. '
+    'A predictor can have permutation importance while adding little beyond correlated variables. Importance ranking is therefore insufficient evidence of incremental usefulness.'
+))
 effect_rows = []
 for _, row in tables["water_effects"].iterrows():
     effect_rows.append({"Analysis": row["model"], "n": f'{int(row["n"]):,}', "Measure": row["measure"],
                         "Estimate (95% CI)": interval(row), "p value": number(row.p_value)})
 effect_rows.insert(1, {"Analysis": f'Water spline: {water_spline["contrast"]}', "n": f'{int(water_spline["n"]):,}',
                        "Measure": water_spline["measure"], "Estimate (95% CI)": interval(water_spline), "p value": number(water_spline.p_value)})
-show_table(pd.DataFrame(effect_rows), "Table 9. Adjusted cross-sectional water associations and sensitivity analyses.",
+show_table(pd.DataFrame(effect_rows), "Table 13. Adjusted cross-sectional water associations and sensitivity analyses.",
            "All linear estimates compare one additional reported glass/day. The spline row is a conditional odds ratio at identical other covariates. Odds ratios and prevalence ratios are different measures; p values are exploratory and unadjusted for multiplicity.")
 association_interpretation = (
     "The interval includes no association and remains compatible with modest associations in either direction."
@@ -486,59 +618,6 @@ display(Markdown(
 ))
 ```
 
-## Importance, subgroups and robustness
-
-Raw predictors are permuted in held-out folds, retaining their encoded columns as a group. Brier-score increases and AUC decreases measure disruption of each fitted model. Correlation can distribute importance across predictors, and permutation can create unrealistic covariate combinations. Neither the sign of an exposure–outcome association nor a causal mechanism follows from importance.
-
-```{python}
-#| label: importance
-#| echo: false
-show_figure("permutation_importance")
-importance = tables["importance_stability"].query("feature == 'water'")
-importance_rows = []
-for _, row in importance.iterrows():
-    importance_rows.append({"Model": labels[row.model], "Mean ΔBrier": number(row.brier_increase, 4),
-                           "Mean AUC drop": number(row.auc_drop, 4), "Median rank": number(row.median_rank, 1),
-                           "Rank range": f'{int(row.best_rank)}–{int(row.worst_rank)}',
-                           "Folds in top three": f'{row.fraction_top3:.0%}'})
-show_table(pd.DataFrame(importance_rows), "Table 10. Stability of held-out water importance.",
-           "Ranks compare the raw full-model predictors within a fold. Fold ranges are stability summaries, not confidence intervals. Mean importance uses held-out expansion-weight totals.")
-```
-
-```{python}
-#| label: subgroups
-#| echo: false
-selected = ["logistic", "spline_logistic", "random_forest"]
-subgroups = tables["subgroup_performance"]
-group_rows = []
-for (variable, level), group in subgroups.groupby(["variable", "level"], sort=False):
-    row = {"Grouping": variable.replace("_", " ").capitalize(), "Level": level, "n": f'{int(group.iloc[0]["n"]):,}'}
-    indexed = group.set_index("model")
-    for model, short in zip(selected, ["Linear", "Spline", "RF"]):
-        row[f"{short}: AUC / Brier"] = f'{number(indexed.loc[model, "auc"])} / {number(indexed.loc[model, "brier"])}'
-    group_rows.append(row)
-show_table(pd.DataFrame(group_rows), "Table 11. Exploratory subgroup performance for three central comparisons.",
-           "These weighted point estimates reuse the full-cohort held-out predictions. They have no subgroup-specific confidence intervals or formal interaction tests; apparent ranking differences are not established heterogeneity.")
-sensitivity = tables["prediction_subset_sensitivity"]
-subset_rows = []
-for _, row in sensitivity.loc[sensitivity.model.isin(selected)].iterrows():
-    subset_rows.append({"Subset": row["subset"], "Model": labels[row.model], "n": f'{int(row["n"]):,}',
-                       "AUC": number(row.auc), "Brier": number(row.brier),
-                       "Calibration intercept": number(row.calibration_intercept), "Calibration slope": number(row.calibration_slope)})
-show_table(pd.DataFrame(subset_rows), "Table 12. Evaluation on the manuscript subset and participants aged at least 18.",
-           "These analyses restrict existing out-of-fold predictions. The manuscript subset is not a newly developed complete-case model; training retains the primary imputation-based strategy. Association-model sample sizes differ because their covariate completeness rules differ.")
-```
-
-## Implications for the manuscript
-
-The manuscript should lead with a survey-aware comparison of current caries classification and the incremental contribution of water. An importance rank should not be framed as evidence that water is protective. Report the adjusted linear and nonlinear associations, paired model differences, calibration and probability scores together, with their uncertainty. The original sample is reconciled explicitly while additional eligible participants are retained through fold-specific imputation in the primary prediction analysis. Water coefficients should use physical reported units, with the factor-index correction and beverage-conversion sensitivity disclosed.
-
-Claims of general algorithm superiority should be tied to the actual comparisons. A small AUC improvement over a linear model does not establish clinically useful discrimination, and a full dietary model need not outperform a simpler demographic/dental model. The contextual extension is informative as an exploratory block; it does not measure fluoride exposure or eliminate reverse causation. No finding here supports a clinical recommendation to increase water intake to prevent caries.
-
-This emphasis is consistent with the distinction between diagnostic and prognostic models, appropriate validation and practical usefulness discussed in the [Caries Research methodological review](https://karger.com/cre/article/doi/10.1159/000553309/952744/Prognostic-Clinical-Predictive-Models-for-Dental). Transparent descriptions of population, missingness, model development and performance also follow the reporting aims of [TRIPOD+AI](https://doi.org/10.1136/bmj-2023-078378). Neither reference substitutes for evaluation of this dataset or guarantees journal acceptance.
-
-The main limitations are cross-sectional temporality; self-reported exposures and uncertain glass volume; unverified fluoride exposure; exposure tails and residual measurement error; selection into the examination and dentate domains; possible residual confounding; the working, incompletely documented weight choice; singleton-variance conventions; and reliance on a concurrent tooth-count predictor. The dataset-informed grid amendment, multiple exploratory comparisons and conditional intervals add development uncertainty. There is no temporal or geographic external validation, no assessment of clinical net benefit, and no demonstrated transportability or deployment readiness.
-
 ## Reproducibility and aggregate outputs
 
 The report executes Python against completed aggregate results and stops if required inputs, source hashes, verified reconciliation, cohort checks or the final model grid are inconsistent. Model development and statistical inference are performed by the repository's analysis pipeline; rendering this document does not retrain models. The recovered Stata source remains intact. Participant-level data, held-out predictions and serialized estimators are excluded from this report. All displayed estimates and figures are read from the completed run.
@@ -552,6 +631,9 @@ repro = [
     ("Outer / inner folds", f'{run["outer_folds"]} / {run["inner_folds"]}'),
     ("Bootstrap replicates", f'{run["bootstrap_replicates"]:,}'),
     ("Permutation repeats per predictor/fold", str(model_manifest["settings"]["permutation_repeats"])),
+    ("Predictor-contribution analysis", contributions["status"]),
+    ("Joint-permutation seed / repeats", f'{contributions["seed"]} / {contributions["permutation_repeats"]}'),
+    ("Largest reproduced-probability difference", f'{max(check["max_absolute_probability_difference"] for check in contributions["refit_checks"]):.2g}'),
     ("Log-probability epsilon", str(model_manifest["settings"]["probability_log_epsilon"])),
     ("Python", run["python"]),
     ("Original Stata source", source["sources"]["original_dta"]["file"]),
@@ -563,13 +645,13 @@ repro = [
     ("Statistically imputed outcomes", str(audit["integrity"]["outcomes_imputed"])),
     ("Clipped extreme observations", str(audit["integrity"]["extreme_values_clipped"])),
 ]
-show_table(pd.DataFrame(repro, columns=["Item", "Recorded value"]), "Table 13. Reproducibility record.",
+show_table(pd.DataFrame(repro, columns=["Item", "Recorded value"]), "Table 14. Reproducibility record.",
            "Hashes identify both input releases without exposing participant records or private filesystem locations. The original R reference is linked in the provenance section. Fold overlap checks assess shared PSUs across train/test partitions.")
 show_table(pd.DataFrame(sorted(run["packages"].items()), columns=["Package", "Version"]),
-           "Table 14. Recorded software versions.")
+           "Table 15. Recorded software versions.")
 diagnostic_display = diagnostics[["model", "n", "df", "rank", "parameters", "converged", "predictions_above_one"]].copy()
 diagnostic_display.columns = ["Association analysis", "n", "Design df", "Rank", "Parameters", "Converged", "Fitted values >1"]
-show_table(diagnostic_display, "Table 15. Association-model diagnostics.",
+show_table(diagnostic_display, "Table 16. Association-model diagnostics.",
            "Convergence and full rank are necessary numerical checks; they do not validate causal assumptions or exposure measurement. The Poisson diagnostic is discussed in the association section.")
 ```
 
@@ -580,4 +662,5 @@ The standalone HTML embeds its figures. The following links provide repository-l
 - [All model metrics](../outputs/tables/model_performance.csv), [paired comparisons](../outputs/tables/paired_comparisons.csv) and [internal tuning results](../outputs/tables/hyperparameter_search.csv).
 - [Water effects](../outputs/tables/water_effects.csv), [spline contrast](../outputs/tables/water_contrasts.csv) and [association diagnostics](../outputs/tables/diagnostics.csv).
 - [Subgroup estimates](../outputs/tables/subgroup_performance.csv), [subset sensitivity](../outputs/tables/prediction_subset_sensitivity.csv) and [importance stability](../outputs/tables/importance_stability.csv).
+- [Raw joint permutations](../outputs/tables/grouped_permutation_importance.csv), [group stability](../outputs/tables/grouped_importance_stability.csv) and [predictor-contribution manifest](../outputs/tables/predictor_contributions_manifest.json).
 - [Validation split checks](../outputs/tables/validation_split_checks.csv), [run manifest](../outputs/tables/run_manifest.json), [analysis plan](caries-analysis-plan.md) and [methodological source audit](methodological-sources.md).

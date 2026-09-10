@@ -1,20 +1,22 @@
 {
   "status": "complete",
   "stage": "summarize",
-  "started_utc": "2026-09-10T13:46:49.213114+00:00",
-  "completed_utc": "2026-09-10T13:47:09.000825+00:00",
+  "started_utc": "2026-09-10T15:02:34.870125+00:00",
+  "completed_utc": "2026-09-10T15:03:02.265975+00:00",
   "input_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
   "bootstrap_replicates": 1000,
   "code_sha256": {
     "scripts/render_caries.py": "8ef0f286a278b2f3c231ea52428cf2697c7aff505f43a2dec7602440faecffb4",
-    "scripts/run_caries.py": "c725da8d84a20586ae0b1388d0f99bd7c22d11f3d1949303ca9aacf5bfe00d79",
+    "scripts/run_caries.py": "330ad36928cff4686d5bc9ed4fc2e23d58832df89b600823a739d419485ee210",
     "src/ens_analysis/__init__.py": "84c150d27bf0c0806a30aae5f330c98109d5cc23a7be7c8a21e7f7664b4adff0",
+    "src/ens_analysis/contributions.py": "9ad53a10b6d7faa4a4178bf31636e5678c9fe3ab272efd24456707528925eec5",
     "src/ens_analysis/data.py": "373b1c00a0969e3a95b2ae214daa47c485d32f82bc06273e398f33ccec2bc4b6",
     "src/ens_analysis/evaluation.py": "37c71d2f198165d903eeb19f7b47012d7cb9ffd518f3eb0dc400ca2b6206ec58",
-    "src/ens_analysis/figures.py": "06395d6664e2987de90fc50a3c3d07c6fe07a983d14a075f28622221d3654f38",
+    "src/ens_analysis/figures.py": "e3346b69d3f37f75508d0b57aa61438a5620ccd541d4b78846ee11d68e389188",
     "src/ens_analysis/inference.py": "2626c20ec665130bc3b462918e02405dc24b7bd3518de194253154c77620eb0d",
     "src/ens_analysis/models.py": "a48ea884a1502ef5a2b89eae672372d52e01f65d59a511be79c12ee84ba90967",
     "src/ens_analysis/reconciliation.py": "77a60c74f952ad25737a82a3f53a588d70acdf2ef1f7ab65cf3e47c4088c020f",
+    "src/ens_analysis/study_flow.py": "8a7c77f8df088c0fffbb49841b9969715dd90dfb579f1576dbf7d6b63f894012",
     "src/ens_analysis/survey.py": "9707c7b0498a891451f130e6788fdc941b3a800adf4b1e30a58b346443a67bb1"
   },
   "original_input_sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966",
@@ -368,6 +370,130 @@
     "spline_extended",
     "spline_no_teeth"
   ],
+  "predictor_contributions": {
+    "status": "complete",
+    "scope": "Exploratory predictor-contribution analysis",
+    "seed": 20260910,
+    "permutation_repeats": 5,
+    "model_names": [
+      "random_forest",
+      "spline_logistic"
+    ],
+    "n_participants": 5036,
+    "groups": {
+      "Sociodemographic": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile"
+      ],
+      "Remaining teeth": [
+        "teeth_remaining"
+      ],
+      "Food intake": [
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions"
+      ],
+      "Label-related behaviours": [
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts"
+      ],
+      "Beverages": [
+        "water",
+        "soda_frequency",
+        "juice_frequency"
+      ],
+      "Cooking fat": [
+        "oil"
+      ]
+    },
+    "model_fingerprints": {
+      "random_forest": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee",
+      "spline_logistic": "919734e44ef9f897fd8497e1a29e7dc2c3d5e97913289d8db5f48c9fc64b6a0e"
+    },
+    "refit_checks": [
+      {
+        "model": "random_forest",
+        "fold": 1,
+        "n_test": 1006,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 2,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 3,
+        "n_test": 1011,
+        "max_absolute_probability_difference": 3.3306690738754696e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 4,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 3.3306690738754696e-16
+      },
+      {
+        "model": "random_forest",
+        "fold": 5,
+        "n_test": 1005,
+        "max_absolute_probability_difference": 2.220446049250313e-16
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 1,
+        "n_test": 1006,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 2,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 3,
+        "n_test": 1011,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 4,
+        "n_test": 1007,
+        "max_absolute_probability_difference": 0.0
+      },
+      {
+        "model": "spline_logistic",
+        "fold": 5,
+        "n_test": 1005,
+        "max_absolute_probability_difference": 0.0
+      }
+    ],
+    "prediction_match_tolerance": 1e-10,
+    "grouping_status": "Conceptual grouping added after initial model results, 2026-09-10",
+    "method": "Joint uniform held-out row permutation within predictor families, fixed outcomes and survey scoring weights",
+    "aggregation": "Mean over repeats within fold, then mean over folds weighted by held-out expansion-weight totals",
+    "uncertainty": "Minimum to maximum fold means are stability ranges, not confidence intervals",
+    "interpretation": "Model-specific marginal perturbation; not a causal effect, conditional importance, refitted feature-ablation contrast, or additive percentage of explained disease"
+  },
   "outer_folds": 5,
   "inner_folds": 3,
   "weight_confirmation": "Working phase-based choice; official manual confirmation outstanding",

@@ -84,7 +84,10 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
     monkeypatch.setattr(module, 'summarize', summarize)
     monkeypatch.setattr(module, 'version', lambda _: 'test-version')
     import ens_analysis.figures
+    import ens_analysis.contributions
     monkeypatch.setattr(ens_analysis.figures, 'make_figures', lambda *_: None)
+    monkeypatch.setattr(ens_analysis.contributions, 'predictor_contributions',
+                        lambda *_, **__: (pd.DataFrame(), pd.DataFrame(), {'status': 'complete'}))
     private = root / 'outputs' / 'private'
     private.mkdir(parents=True)
     (private / 'model_results.pkl').write_bytes(pickle.dumps({
@@ -106,4 +109,5 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
         'src/ens_analysis/inference.py': sha256(source.read_bytes()).hexdigest(),
     }
     assert manifest['source_reconciliation']['status'] == 'verified'
+    assert manifest['predictor_contributions']['status'] == 'complete'
     assert prepared == [True]

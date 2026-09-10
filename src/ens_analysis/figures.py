@@ -1,12 +1,13 @@
 """Publication-oriented figures generated from shareable summary tables only.
 
-All figures are written as 300-dpi PNG and editable SVG. Captions, source table
+All figures are written as 300-dpi PNG and editable SVG/PDF. Captions, source table
 names, and uncertainty definitions accompany them in figure_metadata.json.
 """
 
 from __future__ import annotations
 
 import json
+import hashlib
 import textwrap
 from pathlib import Path
 from typing import Any
@@ -57,10 +58,20 @@ ASSOCIATION_LABELS = {
     "Original 28-day beverage conversion": "Original beverage conversion",
 }
 TEAL, ORANGE, INK, GREY = "#14616B", "#CC7028", "#243740", "#77858A"
-COLORS = ["#14616B", "#CC7028", "#5576A1", "#6E8B54", "#9674A4", "#9A6357", "#5C9291"]
+MODEL_STYLE = {
+    "spline_logistic": {"color": TEAL, "marker": "o", "short": "Spline logistic"},
+    "random_forest": {"color": "#82528B", "marker": "s", "short": "Random forest"},
+}
+PREDICTOR_BLOCKS = [
+    "Sociodemographic", "Remaining teeth", "Food intake", "Label-related behaviours",
+    "Beverages", "Cooking fat",
+]
+COLORS = ["#5576A1", TEAL, "#82528B", "#9A6357", "#6E8B54", ORANGE, "#477D8A"]
+MODEL_COLORS = dict(zip(FULL_MODELS, COLORS, strict=True))
+MODEL_MARKERS = dict(zip(FULL_MODELS, ["^", "o", "s", "D", "v", "P", "X"], strict=True))
 LINESTYLES = ["-", "-", "--", "--", "-.", ":", ":"]
 STYLE = {
-    "font.family": "sans-serif", "font.sans-serif": ["DejaVu Sans", "Arial"],
+    "font.family": "sans-serif", "font.sans-serif": ["Arial", "DejaVu Sans"],
     "font.size": 10, "axes.titlesize": 11, "axes.titleweight": "bold",
     "axes.labelsize": 10, "xtick.labelsize": 9, "ytick.labelsize": 9,
     "legend.fontsize": 9, "text.color": INK, "axes.labelcolor": INK,
@@ -97,13 +108,14 @@ def _wrap(value: str, width: int = 29) -> str:
     return "\n".join(textwrap.wrap(str(value), width=width, break_long_words=False))
 
 
-def _interval(ax, estimate, low, high, y, color=TEAL, marker="o", hollow=False):
+def _interval(ax, estimate, low, high, y, color=TEAL, marker="o", hollow=False,
+              size=34, linewidth=1.5):
     """Draw endpoints directly; a bootstrap CI need not contain the point estimate."""
     if np.isfinite(low) and np.isfinite(high):
-        ax.hlines(y, low, high, color=color, lw=1.5, zorder=2)
+        ax.hlines(y, low, high, color=color, lw=linewidth, zorder=2)
         ax.vlines([low, high], y - .045, y + .045, color=color, lw=1.1)
     if np.isfinite(estimate):
-        ax.scatter(estimate, y, s=34, marker=marker, facecolor="white" if hollow else color,
+        ax.scatter(estimate, y, s=size, marker=marker, facecolor="white" if hollow else color,
                    edgecolor=color, linewidth=1.3, zorder=3)
 
 
@@ -112,16 +124,23 @@ def _grid(ax, axis="x"):
     ax.tick_params(length=3)
 
 
-def _save(fig, name: str, directory: Path, metadata: dict, caption: str, sources: list[str]):
+def _save(fig, name: str, directory: Path, metadata: dict, caption: str, sources: list[str],
+          *, preserve_size=False, alt_text=None):
     paths = []
-    for extension in ["png", "svg"]:
+    for extension in ["png", "svg", "pdf"]:
         path = directory / f"{name}.{extension}"
-        fig.savefig(path, dpi=300, bbox_inches="tight", pad_inches=.12)
+        fig.savefig(path, dpi=300, bbox_inches=None if preserve_size else "tight", pad_inches=.12)
         paths.append(path)
+    dimensions = (fig.get_size_inches() * 25.4).tolist()
     plt.close(fig)
     metadata["figures"].append({
         "name": name, "files": [p.name for p in paths], "caption": caption,
         "source_tables": sources, "png_dpi": 300,
+        "alt_text": alt_text or caption,
+        "canvas_width_mm": dimensions[0], "canvas_height_mm": dimensions[1],
+        "physical_canvas_preserved": preserve_size,
+        "svg_text": "Editable text; requires the specified font on the viewing system",
+        "pdf_text": "Embedded TrueType fonts (Type 42)",
     })
     return paths
 
@@ -191,12 +210,12 @@ def _calibration_roc(calibration, roc, directory, metadata, labels, models):
         ax.set_title(title, loc="left", pad=12)
         _grid(ax, "both")
     for i, model in enumerate(models):
-        color, linestyle = COLORS[i % len(COLORS)], LINESTYLES[i % len(LINESTYLES)]
+        color, linestyle = MODEL_COLORS.get(model, COLORS[i % len(COLORS)]), LINESTYLES[i % len(LINESTYLES)]
         present = False
         if calibration is not None:
             block = _weighted(calibration).loc[lambda d: d.model.eq(model)].sort_values("predicted")
             if len(block):
-                axes[0].plot(block.predicted, block.observed, marker="o", markersize=3.3,
+                axes[0].plot(block.predicted, block.observed, marker=MODEL_MARKERS.get(model, "o"), markersize=3.3,
                              color=color, ls=linestyle, lw=1.4, alpha=.95)
                 present = True
         if roc is not None:
@@ -205,7 +224,9 @@ def _calibration_roc(calibration, roc, directory, metadata, labels, models):
                 axes[1].plot(block.fpr, block.tpr, color=color, ls=linestyle, lw=1.35, alpha=.95)
                 present = True
         if present:
-            handles.append(Line2D([], [], color=color, ls=linestyle, lw=1.6, label=labels.get(model, model)))
+            handles.append(Line2D([], [], color=color, ls=linestyle, lw=1.6,
+                                  marker=MODEL_MARKERS.get(model, "o"), markersize=3.3,
+                                  label=labels.get(model, model)))
     if calibration is not None:
         sources.append("calibration.csv")
     if roc is not None:
@@ -299,8 +320,12 @@ def _incremental(table, directory, metadata):
         return []
     fig, ax = plt.subplots(figsize=(10.5, max(3.5, len(rows) * .7 + 1.7)))
     for i, row in enumerate(rows.to_dict("records")):
+        # Encode the larger model's algorithm family, never a selected predictor.
+        model = str(row.get("model", ""))
+        family = "spline_logistic" if model.startswith("spline") else "random_forest" if model.startswith(("random_forest", "rf_")) else model
+        style = MODEL_STYLE.get(family, {"color": GREY, "marker": "D"})
         _interval(ax, row["difference"], row["ci_low"], row["ci_high"], i,
-                  color=ORANGE if "water" in row["comparison"].lower() else TEAL)
+                  color=style["color"], marker=style["marker"])
     ax.set_yticks(np.arange(len(rows)), [_wrap(value, 41) for value in rows.comparison])
     ax.set_ylim(len(rows) - .5, -.5)
     ax.axvline(0, color=GREY, lw=1, ls=":")
@@ -308,18 +333,21 @@ def _incremental(table, directory, metadata):
     ax.set_xlim(-bound, bound)
     ax.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:+.3f}" if value else "0"))
     ax.set_xlabel("Difference in AUC (first model minus reference)")
-    ax.set_title("Incremental predictive value", loc="left", pad=13)
+    ax.set_title("Algorithm and predictor-set comparisons", loc="left", pad=13)
     _grid(ax)
     fig.subplots_adjust(left=.40, right=.975, top=.87, bottom=.18)
     return _save(fig, "incremental_water", directory, metadata,
                  "Paired differences in survey-weighted out-of-fold AUC, with 95% conditional stratified "
                  "PSU-bootstrap intervals. Each contrast subtracts the reference model from the first model. "
-                 "Positive differences favour the first model. Orange identifies contrasts mentioning water; "
-                 "other planned comparisons are teal. Validation participants and bootstrap draws are shared "
+                 "Positive differences favour the first model. Markers and colours identify the first model's "
+                 "algorithm family: teal circles for spline logistic regression, purple squares for random forest, "
+                 "and grey diamonds for other algorithms. "
+                 "Validation participants and bootstrap draws are shared "
                  "within each pair; models and the validation split remain fixed.", ["paired_comparisons.csv"])
 
 
-def _importance(table, directory, metadata, labels):
+def _importance_summary(table):
+    """Collapse repeats within folds before summarizing fold-level stability."""
     needed = {"model", "fold", "feature", "brier_increase"}
     if not needed.issubset(table):
         raise ValueError("permutation_importance.csv must retain raw model, fold, feature, brier_increase columns")
@@ -328,42 +356,157 @@ def _importance(table, directory, metadata, labels):
         fold_rows.append({"model": model, "feature": feature, "fold": fold,
                           "increase": block.brier_increase.mean(),
                           "weight": block.test_weight_sum.iloc[0] if "test_weight_sum" in block else block.n_test.iloc[0] if "n_test" in block else 1})
+    folds = pd.DataFrame(fold_rows)
+    folds["rank"] = folds.groupby(["model", "fold"]).increase.rank(ascending=False, method="min")
     aggregates = []
-    for (model, feature), block in pd.DataFrame(fold_rows).groupby(["model", "feature"], sort=False):
+    for (model, feature), block in folds.groupby(["model", "feature"], sort=False):
         aggregates.append({"model": model, "feature": feature,
                            "mean": float(np.average(block.increase, weights=block.weight)),
-                           "low": block.increase.min(), "high": block.increase.max()})
-    summary = pd.DataFrame(aggregates)
-    models = summary.model.drop_duplicates().tolist()
+                           "low": block.increase.min(), "high": block.increase.max(),
+                           "median_rank": block["rank"].median(),
+                           "best_rank": block["rank"].min(), "worst_rank": block["rank"].max(),
+                           "n_folds": len(block)})
+    return pd.DataFrame(aggregates)
+
+
+def _common_limits(values, padding=.08, minimum_span=.001):
+    finite = np.asarray(values, float).ravel()
+    finite = finite[np.isfinite(finite)]
+    if not len(finite):
+        raise ValueError("Figure has no finite estimates or stability endpoints")
+    low, high = min(0., finite.min()), max(0., finite.max())
+    span = max(high - low, minimum_span)
+    return low - padding * span, high + padding * span
+
+
+def _importance(table, directory, metadata, labels):
+    summary = _importance_summary(table)
+    models = [name for name in MODEL_STYLE if name in summary.model.values]
     if not models:
         return []
-    top = summary.groupby("feature")["mean"].max().sort_values(ascending=False).head(10).index.tolist()
-    if "water" in summary.feature.values and "water" not in top:
-        top = top[:9] + ["water"]
-    fig, axes = plt.subplots(1, len(models), figsize=(6 + 4 * len(models), 5.6), sharey=True, squeeze=False)
+    summary = summary.loc[summary.model.isin(models)].copy()
+    # All observed predictors are shown; the order uses both models equally.
+    order = (summary.groupby("feature").median_rank.median().sort_values(kind="stable").index.tolist())
+    expected = set(FEATURE_LABELS)
+    for model in models:
+        if set(summary.loc[summary.model.eq(model), "feature"]) != expected:
+            raise ValueError(f"Importance figure requires all 27 primary predictors for {model}")
+    fig, axes = plt.subplots(1, len(models) + 1, figsize=(180 / 25.4, 235 / 25.4),
+                             sharey=True, gridspec_kw={"width_ratios": [1] * len(models) + [.95]})
+    limits = _common_limits(summary[["mean", "low", "high"]])
     for i, model in enumerate(models):
-        ax = axes[0, i]
+        ax = axes[i]
+        style = MODEL_STYLE[model]
         rows = summary.loc[summary.model.eq(model)].set_index("feature")
-        for j, feature in enumerate(top):
-            if feature in rows.index:
-                row = rows.loc[feature]
-                _interval(ax, row["mean"], row.low, row.high, j, color=ORANGE if feature == "water" else TEAL)
-        ax.axvline(0, color=GREY, lw=1, ls=":")
-        ax.set_title(labels.get(model, model), loc="left", pad=12)
-        ax.set_xlabel("Increase in held-out Brier score")
-        ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+        for j, feature in enumerate(order):
+            row = rows.loc[feature]
+            _interval(ax, row["mean"], row.low, row.high, j, color=style["color"],
+                      marker=style["marker"], size=13, linewidth=.8)
+        ax.axvline(0, color=GREY, lw=.7, ls=":")
+        ax.set_xlim(limits)
+        ax.set_title(f"{chr(97 + i)}  {style['short']}", loc="left", pad=8, fontsize=8)
+        ax.set_xlabel("Increase in Brier score", fontsize=7)
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=3))
+        ax.tick_params(labelsize=7)
         _grid(ax)
-    axes[0, 0].set_yticks(np.arange(len(top)), [FEATURE_LABELS.get(feature, feature) for feature in top])
-    axes[0, 0].set_ylim(len(top) - .5, -.5)
-    fig.subplots_adjust(left=.20, right=.98, top=.9, bottom=.13, wspace=.20)
+    ranks = axes[-1]
+    for i, model in enumerate(models):
+        rows = summary.loc[summary.model.eq(model)].set_index("feature")
+        style = MODEL_STYLE[model]
+        for j, feature in enumerate(order):
+            row = rows.loc[feature]
+            _interval(ranks, row.median_rank, row.best_rank, row.worst_rank,
+                      j + (i - (len(models) - 1) / 2) * .29, color=style["color"],
+                      marker=style["marker"], size=11, linewidth=.65)
+    ranks.set(xlim=(.3, len(order) + .7), xlabel="Median rank (1 = highest)")
+    ranks.set_title(f"{chr(97 + len(models))}  Rank stability", loc="left", pad=8, fontsize=8)
+    ranks.set_xticks([1, 10, 20, 27])
+    ranks.tick_params(labelsize=7)
+    ranks.xaxis.label.set_size(7)
+    _grid(ranks)
+    axes[0].set_yticks(np.arange(len(order)), [FEATURE_LABELS.get(feature, feature) for feature in order])
+    axes[0].tick_params(axis="y", labelsize=7)
+    axes[0].set_ylim(len(order) - .5, -.5)
+    handles = [Line2D([], [], color=MODEL_STYLE[m]["color"], marker=MODEL_STYLE[m]["marker"],
+                      lw=.8, markersize=3, label=MODEL_STYLE[m]["short"]) for m in models]
+    fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.59, .008),
+               ncol=len(models), frameon=False, fontsize=7)
+    fig.subplots_adjust(left=.245, right=.985, top=.965, bottom=.075, wspace=.23)
     return _save(fig, "permutation_importance", directory, metadata,
-                 "Permutation importance of raw held-out predictors. Points are mean increases in survey-weighted "
+                 "Contributions of all 27 raw held-out predictors, without predictor-specific selection or colour. "
+                 "The two model panels share the same Brier-score scale. Points are mean increases in survey-weighted "
                  "Brier score after permutation, averaged within each fold over repeats and then across folds using "
                  "test-set expansion-weight totals. Whiskers show the minimum to maximum fold means; they are "
-                 "stability ranges, not confidence intervals. The displayed variables are the ten with the largest "
-                 "maximum mean importance across models, retaining water when necessary. Orange identifies water. "
-                 "Importance has no direction or causal interpretation and can be shared among correlated predictors.",
-                 ["permutation_importance.csv"])
+                 "stability ranges, not confidence intervals. The final panel displays median within-fold ranks "
+                 "and best-to-worst rank ranges; rank 1 denotes the largest fold-mean Brier increase, with ties "
+                 "assigned the minimum rank. Row order follows the median of the model-specific median ranks. "
+                 "Teal circles denote spline logistic regression and purple squares denote random forest. "
+                 "Negative and null contributions are retained. Importance has no direction or causal "
+                 "interpretation and can be shared among correlated predictors.",
+                 ["permutation_importance.csv"], preserve_size=True,
+                 alt_text="Three aligned panels show all 27 predictor contributions to caries classification: "
+                          "held-out Brier-score increases for spline logistic regression and random forest, "
+                          "followed by their median and best-to-worst ranks across validation folds.")
+
+
+def _group_contributions(table, directory, metadata):
+    """Display joint permutations; never sum individual-variable importances."""
+    models = [name for name in MODEL_STYLE if name in table.model.values]
+    if not models:
+        return []
+    if table.duplicated(["model", "block"]).any():
+        raise ValueError("Grouped importance requires one aggregate per model and predictor block")
+    for model in models:
+        if set(table.loc[table.model.eq(model), "block"]) != set(PREDICTOR_BLOCKS):
+            raise ValueError(f"Grouped importance requires all six predefined blocks for {model}")
+    order = PREDICTOR_BLOCKS
+    fig, axes = plt.subplots(1, 2, figsize=(180 / 25.4, 116 / 25.4), sharey=True)
+    for ax, (metric, low, high, title, xlabel) in zip(axes, [
+        ("brier_increase", "minimum_fold_brier_increase", "maximum_fold_brier_increase", "a  Prediction error", "Increase in Brier score"),
+        ("auc_drop", "minimum_fold_auc_drop", "maximum_fold_auc_drop", "b  Discrimination", "Decrease in AUC"),
+    ], strict=True):
+        limits = _common_limits(table[[metric, low, high]])
+        for i, model in enumerate(models):
+            rows = table.loc[table.model.eq(model)].set_index("block")
+            style = MODEL_STYLE[model]
+            for j, group in enumerate(order):
+                row = rows.loc[group]
+                _interval(ax, row[metric], row[low], row[high],
+                          j + (i - (len(models) - 1) / 2) * .28,
+                          color=style["color"], marker=style["marker"], size=17, linewidth=.9)
+        ax.axvline(0, color=GREY, lw=.8, ls=":")
+        ax.set_xlim(limits)
+        ax.set_title(title, loc="left", pad=8, fontsize=8)
+        ax.set_xlabel(xlabel, fontsize=8)
+        ax.tick_params(labelsize=7)
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+        _grid(ax)
+    features = table.groupby("block").n_features
+    if features.nunique().gt(1).any():
+        raise ValueError("Predictor-block feature counts disagree across models")
+    sizes = features.first()
+    ylabels = [_wrap(group, 22) + f"\n({int(sizes[group])} predictor{'s' if sizes[group] != 1 else ''})" for group in order]
+    axes[0].set_yticks(np.arange(len(order)), ylabels)
+    axes[0].set_ylim(len(order) - .55, -.55)
+    handles = [Line2D([], [], color=MODEL_STYLE[m]["color"], marker=MODEL_STYLE[m]["marker"],
+                      lw=.9, markersize=4, label=MODEL_STYLE[m]["short"]) for m in models]
+    fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.60, .018),
+               ncol=len(models), frameon=False, fontsize=7)
+    fig.subplots_adjust(left=.255, right=.985, top=.91, bottom=.18, wspace=.25)
+    return _save(fig, "predictor_group_contributions", directory, metadata,
+                 "Contributions of six predefined, exhaustive predictor groups under joint held-out permutation. "
+                 "The same row permutation is applied to every column within a group, preserving associations "
+                 "among its variables while disrupting that group's relationship with the outcome and other groups. "
+                 "Points are survey-weighted mean Brier-score increases and AUC decreases, summarized over "
+                 "five permutation repeats within each fold and weighted across folds by their test-set expansion-weight "
+                 "totals. Whiskers span the minimum to maximum fold means; these stability ranges are not confidence "
+                 "intervals. Each metric uses a common axis for both models. Negative contributions remain visible. "
+                 "Group importances are not sums of individual importances and are not additive causal effects. "
+                 "Teal circles identify spline logistic regression; purple squares identify random forest.",
+                 ["grouped_importance_stability.csv"], preserve_size=True,
+                 alt_text="Two aligned dot plots compare joint permutation contributions of six predictor families "
+                          "to caries classification, using Brier-score increases and AUC decreases for spline "
+                          "logistic regression and random forest, with ranges across validation folds.")
 
 
 def _prevalence(table, directory, metadata):
@@ -428,14 +571,30 @@ def make_figures(
         "paired_comparisons.csv": ["comparison", "metric", "difference", "ci_low", "ci_high"],
         "permutation_importance.csv": ["model", "fold", "feature", "brier_increase"],
         "descriptive_prevalence.csv": ["variable", "level", "n", "estimate", "ci_low", "ci_high"],
+        "grouped_importance_stability.csv": [
+            "model", "block", "n_features", "brier_increase", "auc_drop",
+            "minimum_fold_brier_increase", "maximum_fold_brier_increase",
+            "minimum_fold_auc_drop", "maximum_fold_auc_drop",
+        ],
     }
     tables = {name: _read(source, name, required) for name, required in specifications.items()}
     metadata: dict[str, Any] = {
         "figures": [], "language": "English", "private_predictions_read": False,
         "algorithms_displayed": models, "missing_or_empty_source_tables": [name for name, table in tables.items() if table is None],
         "uncertainty_note": "See each caption: bootstrap CIs, survey-design CIs, and fold stability ranges are distinct.",
-        "style": {"background": "white", "primary_colour": TEAL, "water_accent": ORANGE,
-                  "font": "DejaVu Sans", "raster_dpi": 300, "vector_format": "SVG"},
+        "style": {"background": "white", "model_colours": MODEL_COLORS,
+                  "model_markers": MODEL_MARKERS, "font": "Arial", "fallback_font": "DejaVu Sans",
+                  "raster_dpi": 300, "vector_formats": ["SVG", "PDF"]},
+        "destination": {"journal": "Caries Research", "article_type": "Research Article",
+                        "phase": "Manuscript development and analytical report; final submission formatting remains subject to review",
+                        "new_contribution_figures_width_mm": 180,
+                        "width_note": "180 mm is an explicit design choice, not an asserted journal requirement",
+                        "official_guidance_checked_on": "2026-09-10",
+                        "guidance_urls": ["https://karger.com/CRE/pages/guidelines",
+                                          "https://karger.com/pages/technical-instructions-to-publish-a-paper"]},
+        "software_versions": {"matplotlib": matplotlib.__version__, "numpy": np.__version__, "pandas": pd.__version__},
+        "source_table_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest()
+                                for name, table in tables.items() if table is not None},
     }
     paths: list[Path] = []
     with plt.rc_context(STYLE):
@@ -449,5 +608,17 @@ def make_figures(
             paths += _importance(tables["permutation_importance.csv"], destination, metadata, labels)
         if tables["descriptive_prevalence.csv"] is not None:
             paths += _prevalence(tables["descriptive_prevalence.csv"], destination, metadata)
+        if tables["grouped_importance_stability.csv"] is not None:
+            paths += _group_contributions(tables["grouped_importance_stability.csv"], destination, metadata)
+        flow_sources = ["data_audit.json", "sample_flow.csv", "model_manifest.json"]
+        if all((source / name).exists() for name in flow_sources):
+            from .study_flow import make_study_flow
+
+            flow_metadata = make_study_flow(source, destination)
+            metadata["figures"].append(flow_metadata)
+            paths += [destination / name for name in flow_metadata["files"]]
+            metadata["source_table_sha256"].update({
+                name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in flow_sources
+            })
     (destination / "figure_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n")
     return paths

@@ -4,75 +4,157 @@
       "name": "performance_dot",
       "files": [
         "performance_dot.png",
-        "performance_dot.svg"
+        "performance_dot.svg",
+        "performance_dot.pdf"
       ],
       "caption": "Out-of-fold discrimination and Brier scores for the seven full-feature algorithms. Survey-weighted points have 95% conditional stratified PSU-bootstrap intervals; trained models and validation splits are held fixed. Open points are unweighted estimates. AUC=0.5 denotes chance discrimination. The Brier-score dot plot uses an explicitly labelled local scale covering all intervals and point estimates. Models are ordered by weighted AUC.",
       "source_tables": [
         "model_performance.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Out-of-fold discrimination and Brier scores for the seven full-feature algorithms. Survey-weighted points have 95% conditional stratified PSU-bootstrap intervals; trained models and validation splits are held fixed. Open points are unweighted estimates. AUC=0.5 denotes chance discrimination. The Brier-score dot plot uses an explicitly labelled local scale covering all intervals and point estimates. Models are ordered by weighted AUC.",
+      "canvas_width_mm": 266.7,
+      "canvas_height_mm": 116.83999999999999,
+      "physical_canvas_preserved": false,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
     {
       "name": "calibration_roc",
       "files": [
         "calibration_roc.png",
-        "calibration_roc.svg"
+        "calibration_roc.svg",
+        "calibration_roc.pdf"
       ],
       "caption": "Survey-weighted calibration and ROC curves from out-of-fold predictions for the full-feature algorithms. Calibration points represent quantile-based groups of predicted probability; the diagonal indicates perfect calibration. The ROC diagonal indicates chance discrimination. Binned calibration curves are descriptive and have no confidence intervals.",
       "source_tables": [
         "calibration.csv",
         "roc.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Survey-weighted calibration and ROC curves from out-of-fold predictions for the full-feature algorithms. Calibration points represent quantile-based groups of predicted probability; the diagonal indicates perfect calibration. The ROC diagonal indicates chance discrimination. Binned calibration curves are descriptive and have no confidence intervals.",
+      "canvas_width_mm": 266.7,
+      "canvas_height_mm": 142.23999999999998,
+      "physical_canvas_preserved": false,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
     {
       "name": "water_association",
       "files": [
         "water_association.png",
-        "water_association.svg"
+        "water_association.svg",
+        "water_association.pdf"
       ],
       "caption": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel A is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
       "source_tables": [
         "water_curve.csv",
         "water_effects.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel A is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
+      "canvas_width_mm": 317.5,
+      "canvas_height_mm": 203.2,
+      "physical_canvas_preserved": false,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
     {
       "name": "incremental_water",
       "files": [
         "incremental_water.png",
-        "incremental_water.svg"
+        "incremental_water.svg",
+        "incremental_water.pdf"
       ],
-      "caption": "Paired differences in survey-weighted out-of-fold AUC, with 95% conditional stratified PSU-bootstrap intervals. Each contrast subtracts the reference model from the first model. Positive differences favour the first model. Orange identifies contrasts mentioning water; other planned comparisons are teal. Validation participants and bootstrap draws are shared within each pair; models and the validation split remain fixed.",
+      "caption": "Paired differences in survey-weighted out-of-fold AUC, with 95% conditional stratified PSU-bootstrap intervals. Each contrast subtracts the reference model from the first model. Positive differences favour the first model. Markers and colours identify the first model's algorithm family: teal circles for spline logistic regression, purple squares for random forest, and grey diamonds for other algorithms. Validation participants and bootstrap draws are shared within each pair; models and the validation split remain fixed.",
       "source_tables": [
         "paired_comparisons.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Paired differences in survey-weighted out-of-fold AUC, with 95% conditional stratified PSU-bootstrap intervals. Each contrast subtracts the reference model from the first model. Positive differences favour the first model. Markers and colours identify the first model's algorithm family: teal circles for spline logistic regression, purple squares for random forest, and grey diamonds for other algorithms. Validation participants and bootstrap draws are shared within each pair; models and the validation split remain fixed.",
+      "canvas_width_mm": 266.7,
+      "canvas_height_mm": 185.42,
+      "physical_canvas_preserved": false,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
     {
       "name": "permutation_importance",
       "files": [
         "permutation_importance.png",
-        "permutation_importance.svg"
+        "permutation_importance.svg",
+        "permutation_importance.pdf"
       ],
-      "caption": "Permutation importance of raw held-out predictors. Points are mean increases in survey-weighted Brier score after permutation, averaged within each fold over repeats and then across folds using test-set expansion-weight totals. Whiskers show the minimum to maximum fold means; they are stability ranges, not confidence intervals. The displayed variables are the ten with the largest maximum mean importance across models, retaining water when necessary. Orange identifies water. Importance has no direction or causal interpretation and can be shared among correlated predictors.",
+      "caption": "Contributions of all 27 raw held-out predictors, without predictor-specific selection or colour. The two model panels share the same Brier-score scale. Points are mean increases in survey-weighted Brier score after permutation, averaged within each fold over repeats and then across folds using test-set expansion-weight totals. Whiskers show the minimum to maximum fold means; they are stability ranges, not confidence intervals. The final panel displays median within-fold ranks and best-to-worst rank ranges; rank 1 denotes the largest fold-mean Brier increase, with ties assigned the minimum rank. Row order follows the median of the model-specific median ranks. Teal circles denote spline logistic regression and purple squares denote random forest. Negative and null contributions are retained. Importance has no direction or causal interpretation and can be shared among correlated predictors.",
       "source_tables": [
         "permutation_importance.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Three aligned panels show all 27 predictor contributions to caries classification: held-out Brier-score increases for spline logistic regression and random forest, followed by their median and best-to-worst ranks across validation folds.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 235.00000000000003,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
     {
       "name": "descriptive_prevalence",
       "files": [
         "descriptive_prevalence.png",
-        "descriptive_prevalence.svg"
+        "descriptive_prevalence.svg",
+        "descriptive_prevalence.pdf"
       ],
       "caption": "Survey-weighted caries prevalence by age, education, and reported water intake, with 95% survey-design confidence intervals. Parentheses give unweighted group sample sizes. These are unadjusted descriptive comparisons among dentate participants; group differences must not be interpreted as causal effects.",
       "source_tables": [
         "descriptive_prevalence.csv"
       ],
-      "png_dpi": 300
+      "png_dpi": 300,
+      "alt_text": "Survey-weighted caries prevalence by age, education, and reported water intake, with 95% survey-design confidence intervals. Parentheses give unweighted group sample sizes. These are unadjusted descriptive comparisons among dentate participants; group differences must not be interpreted as causal effects.",
+      "canvas_width_mm": 317.5,
+      "canvas_height_mm": 106.67999999999999,
+      "physical_canvas_preserved": false,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "predictor_group_contributions",
+      "files": [
+        "predictor_group_contributions.png",
+        "predictor_group_contributions.svg",
+        "predictor_group_contributions.pdf"
+      ],
+      "caption": "Contributions of six predefined, exhaustive predictor groups under joint held-out permutation. The same row permutation is applied to every column within a group, preserving associations among its variables while disrupting that group's relationship with the outcome and other groups. Points are survey-weighted mean Brier-score increases and AUC decreases, summarized over five permutation repeats within each fold and weighted across folds by their test-set expansion-weight totals. Whiskers span the minimum to maximum fold means; these stability ranges are not confidence intervals. Each metric uses a common axis for both models. Negative contributions remain visible. Group importances are not sums of individual importances and are not additive causal effects. Teal circles identify spline logistic regression; purple squares identify random forest.",
+      "source_tables": [
+        "grouped_importance_stability.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Two aligned dot plots compare joint permutation contributions of six predictor families to caries classification, using Brier-score increases and AUC decreases for spline logistic regression and random forest, with ranges across validation folds.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 115.99999999999999,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
+    },
+    {
+      "name": "study_flow",
+      "files": [
+        "study_flow.png",
+        "study_flow.svg",
+        "study_flow.pdf"
+      ],
+      "caption": "Study cohort and nested validation. Panel A distinguishes the primary dentate modelling cohort from the overlapping original-manuscript reference subset, which requires observed education and water. Participants outside that reference subset remain eligible for modelling. Panel B shows training-only preprocessing and tuning with PSU-disjoint folds. Each participant receives one out-of-fold probability per fitted model variant. Survey-weighted performance is evaluated for all variants; individual and joint-group permutation analyses use random forest and spline logistic regression. ENS, Chilean National Health Survey; PSU, primary sampling unit.",
+      "source_tables": [
+        "data_audit.json",
+        "sample_flow.csv",
+        "model_manifest.json"
+      ],
+      "alt_text": "Two-panel flow. 6,233 survey participants include 5,520 with complete dental examinations and 713 without. After excluding 484 edentulous participants, 5,036 enter modelling. The overlapping manuscript subset contains 4,994, including 2,664 caries cases. Modelling retains the 42 with missing education or water. Nested 5-outer/3-inner-fold PSU-grouped validation yields one held-out probability per participant for each of 13 model variants. Permutation evaluates two model families.",
+      "canvas_width_mm": 180,
+      "canvas_height_mm": 155,
+      "png_dpi": 300,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires Arial or the specified fallback font",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     }
   ],
   "language": "English",
@@ -90,10 +172,61 @@
   "uncertainty_note": "See each caption: bootstrap CIs, survey-design CIs, and fold stability ranges are distinct.",
   "style": {
     "background": "white",
-    "primary_colour": "#14616B",
-    "water_accent": "#CC7028",
-    "font": "DejaVu Sans",
+    "model_colours": {
+      "logistic": "#5576A1",
+      "spline_logistic": "#14616B",
+      "random_forest": "#82528B",
+      "hist_gradient_boosting": "#9A6357",
+      "svm": "#6E8B54",
+      "decision_tree": "#CC7028",
+      "knn": "#477D8A"
+    },
+    "model_markers": {
+      "logistic": "^",
+      "spline_logistic": "o",
+      "random_forest": "s",
+      "hist_gradient_boosting": "D",
+      "svm": "v",
+      "decision_tree": "P",
+      "knn": "X"
+    },
+    "font": "Arial",
+    "fallback_font": "DejaVu Sans",
     "raster_dpi": 300,
-    "vector_format": "SVG"
+    "vector_formats": [
+      "SVG",
+      "PDF"
+    ]
+  },
+  "destination": {
+    "journal": "Caries Research",
+    "article_type": "Research Article",
+    "phase": "Manuscript development and analytical report; final submission formatting remains subject to review",
+    "new_contribution_figures_width_mm": 180,
+    "width_note": "180 mm is an explicit design choice, not an asserted journal requirement",
+    "official_guidance_checked_on": "2026-09-10",
+    "guidance_urls": [
+      "https://karger.com/CRE/pages/guidelines",
+      "https://karger.com/pages/technical-instructions-to-publish-a-paper"
+    ]
+  },
+  "software_versions": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5"
+  },
+  "source_table_sha256": {
+    "model_performance.csv": "92031323079f275bfe63820f2f8b34c82b792aa5ea4f20327c14d18c7b5147eb",
+    "calibration.csv": "c51f34b2045ef5c018108a50ec503628d8e80ea82664c5fadf5754a680be12fb",
+    "roc.csv": "1a9fa69652fe27a23f7eb1b99e17f6d70a85514d6016b84a2aa6262ada6e970f",
+    "water_curve.csv": "84fa68f8f102b50596f9b820e7c2538d0873dd71632c37a19b6dd21c054c5b8f",
+    "water_effects.csv": "49195bfc5dd4568bfe8386d90532748499e610ea157801cf431fd14de314f759",
+    "paired_comparisons.csv": "5978a1ab9735f51a90a38c4de755cc23302e6e356f734f1babe19434a43531ef",
+    "permutation_importance.csv": "4f63d2777621d95f90219518feb4208d5a76bedf994f7c35681929bad28bd338",
+    "descriptive_prevalence.csv": "d599b37b81f7ed7c48c3bd543076cf5764df078a18ac5ad9456a45bba08e2614",
+    "grouped_importance_stability.csv": "ae40a4ca97d1f4ddf3cc64a7b8347e6c50ded6d69c23882900116d49fc5708c1",
+    "data_audit.json": "b403838d2b3c6a43315bb934e09a9712a52175c97461e1af60f768e8a2bfaab8",
+    "sample_flow.csv": "f283d217bb05ca67db012cf0d2417eee590fb37dd39402f81b66743837428250",
+    "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426"
   }
 }

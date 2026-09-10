@@ -1,0 +1,124 @@
+{
+  "status": "complete",
+  "scope": "Exploratory predictor-contribution analysis",
+  "seed": 20260910,
+  "permutation_repeats": 5,
+  "model_names": [
+    "random_forest",
+    "spline_logistic"
+  ],
+  "n_participants": 5036,
+  "groups": {
+    "Sociodemographic": [
+      "age",
+      "sex",
+      "region",
+      "rural",
+      "education",
+      "indigenous",
+      "born_chile"
+    ],
+    "Remaining teeth": [
+      "teeth_remaining"
+    ],
+    "Food intake": [
+      "fish",
+      "dairy_frequency",
+      "dairy_type",
+      "wholegrain",
+      "legumes",
+      "fruit_days",
+      "fruit_portions",
+      "vegetable_days",
+      "vegetable_portions"
+    ],
+    "Label-related behaviours": [
+      "label_ingredients",
+      "label_nutrition",
+      "label_warnings",
+      "label_health",
+      "label_brand",
+      "label_discounts"
+    ],
+    "Beverages": [
+      "water",
+      "soda_frequency",
+      "juice_frequency"
+    ],
+    "Cooking fat": [
+      "oil"
+    ]
+  },
+  "model_fingerprints": {
+    "random_forest": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee",
+    "spline_logistic": "919734e44ef9f897fd8497e1a29e7dc2c3d5e97913289d8db5f48c9fc64b6a0e"
+  },
+  "refit_checks": [
+    {
+      "model": "random_forest",
+      "fold": 1,
+      "n_test": 1006,
+      "max_absolute_probability_difference": 2.220446049250313e-16
+    },
+    {
+      "model": "random_forest",
+      "fold": 2,
+      "n_test": 1007,
+      "max_absolute_probability_difference": 2.220446049250313e-16
+    },
+    {
+      "model": "random_forest",
+      "fold": 3,
+      "n_test": 1011,
+      "max_absolute_probability_difference": 3.3306690738754696e-16
+    },
+    {
+      "model": "random_forest",
+      "fold": 4,
+      "n_test": 1007,
+      "max_absolute_probability_difference": 3.3306690738754696e-16
+    },
+    {
+      "model": "random_forest",
+      "fold": 5,
+      "n_test": 1005,
+      "max_absolute_probability_difference": 2.220446049250313e-16
+    },
+    {
+      "model": "spline_logistic",
+      "fold": 1,
+      "n_test": 1006,
+      "max_absolute_probability_difference": 0.0
+    },
+    {
+      "model": "spline_logistic",
+      "fold": 2,
+      "n_test": 1007,
+      "max_absolute_probability_difference": 0.0
+    },
+    {
+      "model": "spline_logistic",
+      "fold": 3,
+      "n_test": 1011,
+      "max_absolute_probability_difference": 0.0
+    },
+    {
+      "model": "spline_logistic",
+      "fold": 4,
+      "n_test": 1007,
+      "max_absolute_probability_difference": 0.0
+    },
+    {
+      "model": "spline_logistic",
+      "fold": 5,
+      "n_test": 1005,
+      "max_absolute_probability_difference": 0.0
+    }
+  ],
+  "prediction_match_tolerance": 1e-10,
+  "grouping_status": "Conceptual grouping added after initial model results, 2026-09-10",
+  "method": "Joint uniform held-out row permutation within predictor families, fixed outcomes and survey scoring weights",
+  "aggregation": "Mean over repeats within fold, then mean over folds weighted by held-out expansion-weight totals",
+  "uncertainty": "Minimum to maximum fold means are stability ranges, not confidence intervals",
+  "interpretation": "Model-specific marginal perturbation; not a causal effect, conditional importance, refitted feature-ablation contrast, or additive percentage of explained disease"
+}

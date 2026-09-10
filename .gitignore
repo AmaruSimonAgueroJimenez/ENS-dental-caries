@@ -58,3 +58,6 @@ __pycache__/
 .DS_Store
 outputs/private/
 outputs/cache/
+
+# Local manuscript proposals and editorial revisions awaiting author review
+/manuscript_drafts/
