@@ -20,6 +20,13 @@ DOCUMENTS = [
     'STROBE_reporting_map.docx', 'TRIPOD_AI_reporting_map.docx',
     'tables/Table_1.docx', 'tables/Table_2.docx', 'tables/Table_3.docx',
 ]
+AGGREGATES = (
+    'calibration.csv', 'data_audit.json', 'descriptive_profile.csv', 'descriptive_profile_metadata.json',
+    'feature_blocks.json', 'grouped_importance_stability.csv', 'grouped_permutation_importance.csv',
+    'hyperparameter_search.csv', 'importance_stability.csv', 'model_manifest.json', 'model_performance.csv',
+    'outer_fold_performance.csv', 'paired_contrasts.csv', 'permutation_importance.csv', 'predictor_missingness.csv',
+    'roc.csv', 'run_manifest.json', 'subgroup_performance.csv', 'validation_split_checks.csv', 'variable_dictionary.csv',
+)
 
 
 def sha(path):
@@ -47,6 +54,12 @@ def main():
         assert item['pages'] > 0 and item['sha256'] == sha(DRAFT / name), f'Stale document review: {name}'
     content = read(DRAFT / 'manuscript_source.json')
     assert content['status'] == 'complete'
+    provenance = content['provenance']
+    assert provenance['run_manifest_sha256'] == sha(tables / 'run_manifest.json')
+    assert provenance['pre_fit_plan_sha256'] == sha(ROOT / 'docs/dietary-incremental-analysis-plan.md')
+    assert provenance['source_table_sha256'], 'Manuscript has no result provenance'
+    for name, expected in provenance['source_table_sha256'].items():
+        assert sha(tables / name) == expected, f'Stale manuscript result source: {name}'
     maps = read(DRAFT / 'reporting_maps_source.json')
     assert maps['status'] == 'complete' and maps['manuscript_source_sha256'] == sha(DRAFT / 'manuscript_source.json')
     metadata = read(figures / 'figure_metadata.json')
@@ -56,6 +69,14 @@ def main():
             assert sha(figures / name) == expected
         for name, expected in figure['source_sha256'].items():
             assert sha(tables / name) == expected
+    report_qa = read(DRAFT / 'report_qa.json')
+    assert report_qa['status'] == 'pass' and report_qa['quarto_execution']['completed_cells'] == 16
+    assert report_qa['html_sha256'] == sha(ROOT / 'docs/dietary_incremental.html')
+    assert report_qa['qmd_sha256'] == sha(ROOT / 'docs/dietary_incremental.qmd')
+    assert report_qa['run_manifest_sha256'] == sha(tables / 'run_manifest.json')
+    assert report_qa['self_contained'] and report_qa['embedded_png_count'] == 9
+    assert sorted(report_qa['embedded_png_sha256']) == sorted(
+        sha(figures / (f['name'] + '.png')) for f in metadata['figures'])
 
     # A dedicated staging tree cannot accidentally include adjacent Andrea files.
     stage = DRAFT / 'package_contents'
@@ -63,12 +84,15 @@ def main():
     selected = {}
     for name in DOCUMENTS:
         selected[name] = DRAFT / name
-    for path in sorted(tables.iterdir()):
-        if path.suffix in {'.csv', '.json'}:
-            selected['aggregate_results/' + path.name] = path
-    for path in sorted(figures.iterdir()):
-        if path.suffix in {'.png', '.svg', '.pdf', '.json'}:
-            selected['figures/' + path.name] = path
+    assert {p.name for p in tables.iterdir() if p.is_file()} == set(AGGREGATES)
+    for name in AGGREGATES:
+        selected['aggregate_results/' + name] = tables / name
+    figure_files = {f['name'] + '.' + ext for f in metadata['figures'] for ext in ('png', 'svg', 'pdf')}
+    figure_files.add('figure_metadata.json')
+    assert len(figure_files) == 28
+    assert {p.name for p in figures.iterdir() if p.is_file()} == figure_files
+    for name in sorted(figure_files):
+        selected['figures/' + name] = figures / name
     for name in ['manuscript_source.json', 'reporting_maps_source.json', 'references.json',
                  'build_documents.py', 'author_notes.md']:
         selected['editorial_sources/' + name] = DRAFT / name
@@ -110,6 +134,7 @@ def main():
         'run_manifest_sha256': sha(tables / 'run_manifest.json'),
         'manuscript_source_sha256': sha(DRAFT / 'manuscript_source.json'),
         'document_review_sha256': sha(DRAFT / 'document_qa.json'),
+        'report_review_sha256': sha(DRAFT / 'report_qa.json'),
         'document_count': len(DOCUMENTS), 'figure_count': 9,
         'files': {str(p.relative_to(stage)): sha(p) for p in sorted(stage.rglob('*'))
                   if p.is_file() and p.name != 'package_manifest.json'},
