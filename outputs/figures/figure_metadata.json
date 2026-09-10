@@ -13,9 +13,9 @@
       ],
       "png_dpi": 300,
       "alt_text": "Out-of-fold discrimination and Brier scores for the seven full-feature algorithms. Survey-weighted points have 95% conditional stratified PSU-bootstrap intervals; trained models and validation splits are held fixed. Open points are unweighted estimates. AUC=0.5 denotes chance discrimination. The Brier-score dot plot uses an explicitly labelled local scale covering all intervals and point estimates. Models are ordered by weighted AUC.",
-      "canvas_width_mm": 266.7,
-      "canvas_height_mm": 116.83999999999999,
-      "physical_canvas_preserved": false,
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 95.0,
+      "physical_canvas_preserved": true,
       "svg_text": "Editable text; requires the specified font on the viewing system",
       "pdf_text": "Embedded TrueType fonts (Type 42)"
     },
@@ -46,13 +46,13 @@
         "water_association.svg",
         "water_association.pdf"
       ],
-      "caption": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel A is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
+      "caption": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel a is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels b and c show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
       "source_tables": [
         "water_curve.csv",
         "water_effects.csv"
       ],
       "png_dpi": 300,
-      "alt_text": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel A is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
+      "alt_text": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel a is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels b and c show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
       "canvas_width_mm": 317.5,
       "canvas_height_mm": 203.2,
       "physical_canvas_preserved": false,
@@ -92,7 +92,7 @@
       "png_dpi": 300,
       "alt_text": "Three aligned panels show all 27 predictor contributions to caries classification: held-out Brier-score increases for spline logistic regression and random forest, followed by their median and best-to-worst ranks across validation folds.",
       "canvas_width_mm": 180.0,
-      "canvas_height_mm": 235.00000000000003,
+      "canvas_height_mm": 220.0,
       "physical_canvas_preserved": true,
       "svg_text": "Editable text; requires the specified font on the viewing system",
       "pdf_text": "Embedded TrueType fonts (Type 42)"
@@ -123,7 +123,7 @@
         "predictor_group_contributions.svg",
         "predictor_group_contributions.pdf"
       ],
-      "caption": "Contributions of six predefined, exhaustive predictor groups under joint held-out permutation. The same row permutation is applied to every column within a group, preserving associations among its variables while disrupting that group's relationship with the outcome and other groups. Points are survey-weighted mean Brier-score increases and AUC decreases, summarized over five permutation repeats within each fold and weighted across folds by their test-set expansion-weight totals. Whiskers span the minimum to maximum fold means; these stability ranges are not confidence intervals. Each metric uses a common axis for both models. Negative contributions remain visible. Group importances are not sums of individual importances and are not additive causal effects. Teal circles identify spline logistic regression; purple squares identify random forest.",
+      "caption": "Contributions of six exhaustive predictor groups specified after inspection of the initial model results under joint held-out permutation. The same row permutation is applied to every column within a group, preserving associations among its variables while disrupting that group's relationship with the outcome and other groups. Points are survey-weighted mean Brier-score increases and AUC decreases, summarized over five permutation repeats within each fold and weighted across folds by their test-set expansion-weight totals. Whiskers span the minimum to maximum fold means; these stability ranges are not confidence intervals. Each metric uses a common axis for both models. Negative contributions remain visible. Group importances are not sums of individual importances and are not additive causal effects. Teal circles identify spline logistic regression; purple squares identify random forest.",
       "source_tables": [
         "grouped_importance_stability.csv"
       ],
@@ -142,7 +142,7 @@
         "study_flow.svg",
         "study_flow.pdf"
       ],
-      "caption": "Study cohort and nested validation. Panel A distinguishes the primary dentate modelling cohort from the overlapping original-manuscript reference subset, which requires observed education and water. Participants outside that reference subset remain eligible for modelling. Panel B shows training-only preprocessing and tuning with PSU-disjoint folds. Each participant receives one out-of-fold probability per fitted model variant. Survey-weighted performance is evaluated for all variants; individual and joint-group permutation analyses use random forest and spline logistic regression. ENS, Chilean National Health Survey; PSU, primary sampling unit.",
+      "caption": "Study cohort and nested validation. Panel a distinguishes the primary dentate modelling cohort from the overlapping original-manuscript reference subset, which requires observed education and water. Participants outside that reference subset remain eligible for modelling. Panel b shows training-only preprocessing and tuning with PSU-disjoint folds. Each participant receives one out-of-fold probability per fitted model variant. Survey-weighted performance is evaluated for all variants; individual and joint-group permutation analyses use random forest and spline logistic regression. ENS, Chilean National Health Survey; PSU, primary sampling unit.",
       "source_tables": [
         "data_audit.json",
         "sample_flow.csv",
@@ -203,7 +203,17 @@
     "article_type": "Research Article",
     "phase": "Manuscript development and analytical report; final submission formatting remains subject to review",
     "new_contribution_figures_width_mm": 180,
-    "width_note": "180 mm is an explicit design choice, not an asserted journal requirement",
+    "width_note": "Main figures use 180 mm, the upper bound of Karger's 57–180 mm final-size range",
+    "verified_final_size_limits_mm": {
+      "minimum_width": 57,
+      "maximum_width": 180,
+      "maximum_height": 223
+    },
+    "main_statistical_figures_with_preserved_canvas": [
+      "performance_dot",
+      "permutation_importance",
+      "predictor_group_contributions"
+    ],
     "official_guidance_checked_on": "2026-09-10",
     "guidance_urls": [
       "https://karger.com/CRE/pages/guidelines",
@@ -224,7 +234,7 @@
     "paired_comparisons.csv": "5978a1ab9735f51a90a38c4de755cc23302e6e356f734f1babe19434a43531ef",
     "permutation_importance.csv": "4f63d2777621d95f90219518feb4208d5a76bedf994f7c35681929bad28bd338",
     "descriptive_prevalence.csv": "d599b37b81f7ed7c48c3bd543076cf5764df078a18ac5ad9456a45bba08e2614",
-    "grouped_importance_stability.csv": "ae40a4ca97d1f4ddf3cc64a7b8347e6c50ded6d69c23882900116d49fc5708c1",
+    "grouped_importance_stability.csv": "1fd4a6224b62e890243745180207947a3231d4d2d67414eede02b56fc64d8ace",
     "data_audit.json": "b403838d2b3c6a43315bb934e09a9712a52175c97461e1af60f768e8a2bfaab8",
     "sample_flow.csv": "f283d217bb05ca67db012cf0d2417eee590fb37dd39402f81b66743837428250",
     "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426"

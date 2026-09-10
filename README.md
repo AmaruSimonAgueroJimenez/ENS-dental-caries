@@ -15,12 +15,14 @@ This is a **Python reanalysis with verified original data and an audited R refer
 - `docs/caries-analysis-plan.md`: analysis decisions, the internal-grid amendment and the dated correction of reporting focus.
 - `docs/methodological-sources.md`: source verification and outstanding survey-documentation questions.
 - `docs/r-to-python-migration.md`: comparison of the original caries R workflow and the Python reanalysis, including verified source reconciliation and intentional methodological changes.
+- `docs/caries-research-submission-plan.md`: journal fit, verified requirements and proposed manuscript allocation.
+- `docs/manuscript-references.json`: thirteen verified scientific references with links and verification scope.
 - `docs/index.qmd` and `docs/index.html`: preserved original R source and saved reference results.
 - `outputs/tables/`: aggregate results and reproducibility manifests.
 - `outputs/tables/importance_stability.csv`: all 27 raw-variable contributions and fold stability in both model families.
 - `outputs/tables/grouped_importance_stability.csv` and `predictor_contributions_manifest.json`: joint contributions of conceptual blocks and checks against the existing models.
 - `outputs/tables/source_reconciliation.json`, `source_comparison.csv` and `legacy_water_coding.csv`: source hashes, agreement checks and the original water-index mapping.
-- `outputs/figures/`: publication figures in PNG at 300 dpi and SVG.
+- `outputs/figures/`: scientific figures in PNG at 300 dpi, SVG and PDF; four proposed main figures fit the journal's physical size limits.
 
 ## Reproduce
 
@@ -59,7 +61,9 @@ Participant records, recovered source attachments, fold assignments, out-of-fold
 | `src/ens_analysis/survey.py` | Stratified PSU linearization and domain-aware GLM inference |
 | `src/ens_analysis/models.py` | Fold-contained preprocessing, grouped tuning/calibration and model comparisons |
 | `src/ens_analysis/evaluation.py` | Held-out metrics, conditional cluster bootstrap and paired comparisons |
+| `src/ens_analysis/contributions.py` | Joint predictor-family permutation with checks against archived held-out probabilities |
 | `src/ens_analysis/inference.py` | Water associations, adjusted curves and sensitivity analyses |
 | `src/ens_analysis/figures.py` | Aggregate scientific figures |
+| `src/ens_analysis/study_flow.py` | Editable participant-flow and nested-validation diagram |
 | `scripts/run_caries.py` | Reproducible orchestration and result manifests |
 | `scripts/render_caries.py` | Verified-environment report rendering |

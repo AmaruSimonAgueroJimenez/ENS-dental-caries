@@ -71,7 +71,7 @@ def test_all_predictors_retained_and_water_not_selected_or_highlighted(tmp_path,
                              if isinstance(collection, figures.matplotlib.collections.PathCollection)]
             assert len(point_colours) == 27
             assert np.unique(np.round(point_colours, 6), axis=0).shape[0] == 1
-        assert fig.get_size_inches() * 25.4 == pytest.approx([180, 235])
+        assert fig.get_size_inches() * 25.4 == pytest.approx([180, 220])
     finally:
         plt.close(fig)
 

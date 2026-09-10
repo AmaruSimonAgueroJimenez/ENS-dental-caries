@@ -150,23 +150,27 @@ def _performance(table, directory, metadata, labels, models):
     primary = _weighted(selected).drop_duplicates("model").sort_values("auc", ascending=False)
     if primary.empty:
         return []
-    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.6), sharey=True,
+    fig, axes = plt.subplots(1, 2, figsize=(180 / 25.4, 95 / 25.4), sharey=True,
                              gridspec_kw={"width_ratios": [1.2, 1]})
     y = np.arange(len(primary))
     unweighted = selected.loc[selected.get("weighting", pd.Series("", index=selected.index)).eq("Unweighted")]
-    for panel, (metric, title) in enumerate([("auc", "A  Discrimination"), ("brier", "B  Prediction error")]):
+    for panel, (metric, title) in enumerate([("auc", "a  Discrimination"), ("brier", "b  Prediction error")]):
         ax = axes[panel]
         for i, row in enumerate(primary.to_dict("records")):
-            _interval(ax, row[metric], row.get(metric + "_low", np.nan), row.get(metric + "_high", np.nan), i - .10)
+            _interval(ax, row[metric], row.get(metric + "_low", np.nan), row.get(metric + "_high", np.nan),
+                      i - .10, size=17, linewidth=.9)
             comparison = unweighted.loc[unweighted.model.eq(row["model"])]
             if len(comparison):
-                _interval(ax, float(comparison.iloc[0][metric]), np.nan, np.nan, i + .13, color=GREY, hollow=True)
-        ax.set_title(title, loc="left", pad=12)
+                _interval(ax, float(comparison.iloc[0][metric]), np.nan, np.nan, i + .13,
+                          color=GREY, hollow=True, size=17, linewidth=.9)
+        ax.set_title(title, loc="left", pad=8, fontsize=8)
+        ax.tick_params(labelsize=7)
         _grid(ax)
         if metric == "auc":
             ax.axvline(.5, color=GREY, lw=1, ls=":")
             ax.set_xlim(min(.45, float(primary.auc.min()) - .03), 1)
-            ax.set_xlabel("Area under the ROC curve (higher is better)")
+            ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+            ax.set_xlabel("AUC (higher is better)", fontsize=8)
         else:
             # A dot plot can use a clearly labelled local scale: retain every
             # interval endpoint and both sets of points, with rounded margins.
@@ -179,23 +183,25 @@ def _performance(table, directory, metadata, labels, models):
             lower = max(0, np.floor((bounds.min() - span * .12) / .005) * .005)
             upper = min(1, np.ceil((bounds.max() + span * .12) / .005) * .005)
             ax.set_xlim(lower, upper)
-            ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+            ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
             ax.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:.3f}"))
-            ax.set_xlabel("Brier score (lower is better)")
+            ax.set_xlabel("Brier score (lower is better)", fontsize=8)
     axes[0].set_yticks(y, [labels.get(m, m) for m in primary.model])
     axes[0].set_ylim(len(primary) - .5, -.5)
-    handles = [Line2D([], [], color=TEAL, marker="o", lw=1.5, label="Survey weighted, with 95% CI")]
+    axes[0].tick_params(axis="y", labelsize=7)
+    handles = [Line2D([], [], color=TEAL, marker="o", markersize=4, lw=.9, label="Survey weighted, with 95% CI")]
     if len(unweighted):
-        handles.append(Line2D([], [], color=GREY, marker="o", mfc="white", lw=0, label="Unweighted point estimate"))
-    fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(.53, -.025))
-    fig.subplots_adjust(left=.24, right=.985, wspace=.18, bottom=.20, top=.9)
+        handles.append(Line2D([], [], color=GREY, marker="o", markersize=4, mfc="white", lw=0, label="Unweighted point estimate"))
+    fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False,
+               bbox_to_anchor=(.55, .025), fontsize=7)
+    fig.subplots_adjust(left=.255, right=.975, wspace=.25, bottom=.23, top=.88)
     return _save(fig, "performance_dot", directory, metadata,
                  "Out-of-fold discrimination and Brier scores for the seven full-feature algorithms. "
                  "Survey-weighted points have 95% conditional stratified PSU-bootstrap intervals; "
                  "trained models and validation splits are held fixed. Open points are unweighted estimates. "
                  "AUC=0.5 denotes chance discrimination. The Brier-score dot plot uses an explicitly labelled "
                  "local scale covering all intervals and point estimates. Models are ordered by weighted AUC.",
-                 ["model_performance.csv"])
+                 ["model_performance.csv"], preserve_size=True)
 
 
 def _calibration_roc(calibration, roc, directory, metadata, labels, models):
@@ -203,7 +209,7 @@ def _calibration_roc(calibration, roc, directory, metadata, labels, models):
         return []
     fig, axes = plt.subplots(1, 2, figsize=(10.5, 5.6))
     sources, handles = [], []
-    for ax, title in zip(axes, ["A  Calibration", "B  Receiver operating characteristic"], strict=True):
+    for ax, title in zip(axes, ["a  Calibration", "b  Receiver operating characteristic"], strict=True):
         ax.plot([0, 1], [0, 1], color="#B0B8BB", lw=1, ls="--", zorder=0)
         ax.set(xlim=(0, 1), ylim=(0, 1))
         ax.set_aspect("equal", adjustable="box")
@@ -285,7 +291,7 @@ def _water(curve, effects, directory, metadata):
     grid = fig.add_gridspec(2 if has_pr else 1, 2, width_ratios=[1.25, 1.0],
                            height_ratios=[4.8, 1.5] if has_pr else [1], wspace=.85, hspace=.75)
     ax = fig.add_subplot(grid[:, 0])
-    ax.set_title("A  Adjusted prevalence across water intake", loc="left", pad=12)
+    ax.set_title("a  Adjusted prevalence across water intake", loc="left", pad=12)
     sources = []
     if curve is not None:
         curve = curve.sort_values("water")
@@ -299,16 +305,16 @@ def _water(curve, effects, directory, metadata):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=7))
     _grid(ax, "both")
     if effects is not None:
-        _effect_panel(fig.add_subplot(grid[0, 1]), effects, "Odds ratio", "B  Linear-water sensitivity analyses")
+        _effect_panel(fig.add_subplot(grid[0, 1]), effects, "Odds ratio", "b  Linear-water sensitivity analyses")
         sources.append("water_effects.csv")
         if has_pr:
-            _effect_panel(fig.add_subplot(grid[1, 1]), effects, "Prevalence ratio", "C  Prevalence-ratio sensitivity")
+            _effect_panel(fig.add_subplot(grid[1, 1]), effects, "Prevalence ratio", "c  Prevalence-ratio sensitivity")
     fig.subplots_adjust(left=.07, right=.985, top=.93, bottom=.12)
     return _save(fig, "water_association", directory, metadata,
                  "Adjusted cross-sectional association of reported water intake with cavitated caries. "
-                 "Panel A is survey-weighted marginal standardization of the water-spline model, with 95% "
+                 "Panel a is survey-weighted marginal standardization of the water-spline model, with 95% "
                  "pointwise delta-method confidence intervals; the displayed exposure grid is restricted to "
-                 "the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates "
+                 "the range supplied in water_curve.csv. Panels b and c show linear-water sensitivity estimates "
                  "per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence "
                  "ratios are displayed separately on logarithmic axes; the vertical line denotes no association. "
                  "These estimates do not establish causal protection.", sources)
@@ -391,7 +397,7 @@ def _importance(table, directory, metadata, labels):
     for model in models:
         if set(summary.loc[summary.model.eq(model), "feature"]) != expected:
             raise ValueError(f"Importance figure requires all 27 primary predictors for {model}")
-    fig, axes = plt.subplots(1, len(models) + 1, figsize=(180 / 25.4, 235 / 25.4),
+    fig, axes = plt.subplots(1, len(models) + 1, figsize=(180 / 25.4, 220 / 25.4),
                              sharey=True, gridspec_kw={"width_ratios": [1] * len(models) + [.95]})
     limits = _common_limits(summary[["mean", "low", "high"]])
     for i, model in enumerate(models):
@@ -494,7 +500,8 @@ def _group_contributions(table, directory, metadata):
                ncol=len(models), frameon=False, fontsize=7)
     fig.subplots_adjust(left=.255, right=.985, top=.91, bottom=.18, wspace=.25)
     return _save(fig, "predictor_group_contributions", directory, metadata,
-                 "Contributions of six predefined, exhaustive predictor groups under joint held-out permutation. "
+                 "Contributions of six exhaustive predictor groups specified after inspection of the initial "
+                 "model results under joint held-out permutation. "
                  "The same row permutation is applied to every column within a group, preserving associations "
                  "among its variables while disrupting that group's relationship with the outcome and other groups. "
                  "Points are survey-weighted mean Brier-score increases and AUC decreases, summarized over "
@@ -510,9 +517,9 @@ def _group_contributions(table, directory, metadata):
 
 
 def _prevalence(table, directory, metadata):
-    specs = [("age", "A  Age", "Age group (years)"),
-             ("education", "B  Education", "Education level"),
-             ("water", "C  Water intake", "Reported glasses/day")]
+    specs = [("age", "a  Age", "Age group (years)"),
+             ("education", "b  Education", "Education level"),
+             ("water", "c  Water intake", "Reported glasses/day")]
     fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.2), sharey=True)
     available = False
     for ax, (variable, title, xlabel) in zip(axes, specs, strict=True):
@@ -588,7 +595,9 @@ def make_figures(
         "destination": {"journal": "Caries Research", "article_type": "Research Article",
                         "phase": "Manuscript development and analytical report; final submission formatting remains subject to review",
                         "new_contribution_figures_width_mm": 180,
-                        "width_note": "180 mm is an explicit design choice, not an asserted journal requirement",
+                        "width_note": "Main figures use 180 mm, the upper bound of Karger's 57–180 mm final-size range",
+                        "verified_final_size_limits_mm": {"minimum_width": 57, "maximum_width": 180, "maximum_height": 223},
+                        "main_statistical_figures_with_preserved_canvas": ["performance_dot", "permutation_importance", "predictor_group_contributions"],
                         "official_guidance_checked_on": "2026-09-10",
                         "guidance_urls": ["https://karger.com/CRE/pages/guidelines",
                                           "https://karger.com/pages/technical-instructions-to-publish-a-paper"]},

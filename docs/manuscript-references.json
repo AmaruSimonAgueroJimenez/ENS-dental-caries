@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "label": "Pitts et al., 2017",
+    "citation": "Pitts NB, Zero DT, Marsh PD, Ekstrand K, Weintraub JA, Ramos-Gomez F, et al. Dental caries. Nat Rev Dis Primers. 2017;3:17030.",
+    "doi": "10.1038/nrdp.2017.30",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/28540937/",
+    "verified_scope": "PubMed record and abstract: caries as a biofilm-mediated, sugar-driven, multifactorial dynamic disease.",
+    "key": "pitts2017",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 2,
+    "label": "Moynihan and Kelly, 2014",
+    "citation": "Moynihan PJ, Kelly SA. Effect on caries of restricting sugars intake: systematic review to inform WHO guidelines. J Dent Res. 2014;93(1):8–18.",
+    "doi": "10.1177/0022034513508954",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/24323509/",
+    "verified_scope": "Europe PMC MEDLINE core record and abstract, PMID 24323509: evidence relating sugars intake and caries across the life course; no inference about this survey’s dietary measurements.",
+    "key": "moynihan2014",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 3,
+    "label": "Margozzini et al., 2020",
+    "citation": "Margozzini P, Berrios R, García-Huidobro R, Véliz C, del Valle C, Vargas JP, et al. Number of remaining teeth and its association with educational level in Chilean adults: data from the National Health Survey 2016–2017. Int J Dent. 2020;2020:8848190.",
+    "doi": "10.1155/2020/8848190",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7479467/",
+    "verified_scope": "Primary article and author-institution bibliography: ENS oral-examination procedures, complex survey design and education/tooth-loss association. Does not identify the examination weight variable; its n=5,473 is not this analysis cohort.",
+    "key": "margozzini2020",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 4,
+    "label": "Uribe et al., 2026",
+    "citation": "Uribe SE, Carrasco-Labra A, Schwendicke F, Maldupa I. Prognostic clinical predictive models for dental caries using artificial intelligence: methodological considerations. Caries Res. 2026 Jul 16. doi:10.1159/000553309. Online ahead of print.",
+    "doi": "10.1159/000553309",
+    "url": "https://karger.com/cre/article/doi/10.1159/000553309/952744/Prognostic-Clinical-Predictive-Models-for-Dental",
+    "verified_scope": "Karger online-first listing and Europe PMC MEDLINE core record/abstract, PMID 42461868: validation, calibration and clinical usefulness in caries prognostic modelling; cited as a methodological review, not journal policy or evidence that this cross-sectional model predicts incidence.",
+    "key": "uribe2026",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 5,
+    "label": "Fisher et al., 2019",
+    "citation": "Fisher A, Rudin C, Dominici F. All models are wrong, but many are useful: learning a variable’s importance by studying an entire class of prediction models simultaneously. J Mach Learn Res. 2019;20(177):1–81.",
+    "doi": null,
+    "url": "https://jmlr.org/papers/v20/18-760.html",
+    "verified_scope": "Primary JMLR publication page and abstract: dependence of importance on model choice and importance variation across well-performing models. This study does not estimate model class reliance. No DOI is listed by JMLR.",
+    "key": "fisher2019",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 6,
+    "label": "Strobl et al., 2008",
+    "citation": "Strobl C, Boulesteix AL, Kneib T, Augustin T, Zeileis A. Conditional variable importance for random forests. BMC Bioinformatics. 2008;9:307.",
+    "doi": "10.1186/1471-2105-9-307",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18620558/",
+    "verified_scope": "Europe PMC MEDLINE core record and abstract, PMID 18620558: correlated predictors can affect unconditional permutation importance. This study uses marginal, not conditional, permutations.",
+    "key": "strobl2008",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 7,
+    "label": "Collins et al., 2024",
+    "citation": "Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378.",
+    "doi": "10.1136/bmj-2023-078378",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/38626948/",
+    "verified_scope": "PubMed/PMC record and statement abstract: reporting guidance for regression and machine-learning prediction studies. Citing the checklist does not certify compliance.",
+    "key": "tripod2024",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 8,
+    "label": "von Elm et al., 2007",
+    "citation": "von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP; STROBE Initiative. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. Lancet. 2007;370(9596):1453–1457.",
+    "doi": "10.1016/S0140-6736(07)61602-X",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18064739/",
+    "verified_scope": "PubMed record/abstract and EQUATOR guidance: reporting of observational studies, including cross-sectional designs.",
+    "key": "strobe2007",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 9,
+    "label": "Breiman, 2001",
+    "citation": "Breiman L. Random forests. Mach Learn. 2001;45(1):5–32.",
+    "doi": "10.1023/A:1010933404324",
+    "url": "https://link.springer.com/article/10.1023/A:1010933404324",
+    "verified_scope": "Primary Springer publication record and author’s Berkeley random-forests page: original algorithm reference.",
+    "key": "breiman2001",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 10,
+    "label": "Varma and Simon, 2006",
+    "citation": "Varma S, Simon R. Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics. 2006;7:91.",
+    "doi": "10.1186/1471-2105-7-91",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/16504092/",
+    "verified_scope": "PubMed/PMC record and abstract: bias when cross-validation model-selection scores are reused for error estimation; rationale for nested validation.",
+    "key": "varma2006",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 11,
+    "label": "Roberts et al., 2017",
+    "citation": "Roberts DR, Bahn V, Ciuti S, Boyce MS, Elith J, Guillera-Arroita G, et al. Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. Ecography. 2017;40(8):913–929.",
+    "doi": "10.1111/ecog.02881",
+    "url": "https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.02881",
+    "verified_scope": "Primary Wiley article: validation that respects dependence structures. Supports grouping related observations, not a claim of external validation or official ENS survey weighting.",
+    "key": "roberts2017",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 12,
+    "label": "Steyerberg et al., 2010",
+    "citation": "Steyerberg EW, Vickers AJ, Cook NR, Gerds T, Gönen M, Obuchowski N, et al. Assessing the performance of prediction models: a framework for traditional and novel measures. Epidemiology. 2010;21(1):128–138.",
+    "doi": "10.1097/EDE.0b013e3181c30fb2",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/20010215/",
+    "verified_scope": "PubMed record/abstract and author-institution record: discrimination, calibration and overall prediction error assess distinct aspects of performance.",
+    "key": "steyerberg2010",
+    "verified_date": "2026-09-10"
+  },
+  {
+    "id": 13,
+    "label": "Christodoulou et al., 2019",
+    "citation": "Christodoulou E, Ma J, Collins GS, Steyerberg EW, Verbakel JY, Van Calster B. A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. J Clin Epidemiol. 2019;110:12–22.",
+    "doi": "10.1016/j.jclinepi.2019.02.004",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/30763612/",
+    "verified_scope": "Crossref publisher metadata and Europe PMC MEDLINE core record/abstract: review found no evidence of superior ML performance over LR and identified validation/reporting limitations; not a claim that all algorithms are equivalent in every dataset.",
+    "key": "christodoulou2019",
+    "verified_date": "2026-09-10"
+  }
+]

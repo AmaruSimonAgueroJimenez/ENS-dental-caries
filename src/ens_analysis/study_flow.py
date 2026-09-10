@@ -77,8 +77,8 @@ def make_study_flow(tables_dir, figures_dir):
                                         linewidth=.8, color="black", shrinkA=.4, shrinkB=.5,
                                         zorder=1))
 
-        ax.text(5, 147, "A  Study cohort", fontsize=9, fontweight="bold")
-        ax.text(96, 147, "B  Model development and evaluation", fontsize=9, fontweight="bold")
+        ax.text(5, 147, "a  Study cohort", fontsize=9, fontweight="bold")
+        ax.text(96, 147, "b  Model development and evaluation", fontsize=9, fontweight="bold")
         ax.plot([90, 90], [7, 142], color="#B8CDCF", linewidth=.6)
 
         box(5, 128, 49, 14, f"ENS 2016–2017 release\nn = {n('all_participants')}")
@@ -132,9 +132,9 @@ def make_study_flow(tables_dir, figures_dir):
         plt.close(fig)
 
     caption = (
-        "Study cohort and nested validation. Panel A distinguishes the primary dentate modelling cohort "
+        "Study cohort and nested validation. Panel a distinguishes the primary dentate modelling cohort "
         "from the overlapping original-manuscript reference subset, which requires observed education "
-        "and water. Participants outside that reference subset remain eligible for modelling. Panel B "
+        "and water. Participants outside that reference subset remain eligible for modelling. Panel b "
         "shows training-only preprocessing and tuning with PSU-disjoint folds. Each participant receives "
         "one out-of-fold probability per fitted model variant. Survey-weighted performance is evaluated "
         "for all variants; individual and joint-group permutation analyses use random forest and spline "
