@@ -21,6 +21,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
 from ens_analysis.data import load_caries_data, SOCIO_FEATURES, DIET_FEATURES, EXTENDED_FEATURES
 from ens_analysis.inference import descriptive_tables, run_associations
+from ens_analysis.descriptive_profile import descriptive_profile
 from ens_analysis.reconciliation import reconcile_original_data
 from ens_analysis.evaluation import probability_metrics, evaluate_oof, paired_differences, calibration_bins
 
@@ -57,6 +58,9 @@ def prepare(frame,dictionary,audit,tables,legacy_frequencies=None):
         prevalence,numeric=descriptive_tables(frame)
     prevalence.to_csv(tables/'descriptive_prevalence.csv',index=False)
     numeric.to_csv(tables/'descriptive_numeric.csv',index=False)
+    profile,profile_metadata=descriptive_profile(frame)
+    profile.to_csv(tables/'descriptive_profile.csv',index=False)
+    write_json(tables/'descriptive_profile_metadata.json',profile_metadata)
     print('Fitting survey-adjusted association and sensitivity models',flush=True)
     association=run_associations(frame,legacy_frequencies=legacy_frequencies)
     for key,value in association.items():
@@ -197,6 +201,20 @@ def main():
         grouped.to_csv(tables/'grouped_permutation_importance.csv',index=False)
         grouped_stability.to_csv(tables/'grouped_importance_stability.csv',index=False)
         write_json(tables/'predictor_contributions_manifest.json',contribution_manifest)
+        from ens_analysis.water_encoding import run_water_encoding_sensitivity
+        encoding=run_water_encoding_sensitivity(
+            frame,results,water_coding,private/'water_encoding',
+            bootstrap_replicates=args.bootstrap,n_jobs=args.jobs)
+        for key,filename in {
+            'performance':'water_encoding_performance',
+            'comparisons':'water_encoding_comparisons',
+            'water_importance':'water_encoding_importance',
+            'water_importance_stability':'water_encoding_importance_stability',
+            'fold_scores':'water_encoding_fold_scores',
+        }.items():
+            encoding[key].to_csv(tables/(filename+'.csv'),index=False)
+        encoding['oof'].to_csv(private/'water_encoding_oof.csv',index=False)
+        write_json(tables/'water_encoding_manifest.json',encoding['manifest'])
         from ens_analysis.figures import make_figures
         make_figures(tables,ROOT/'outputs/figures')
         if source_hashes(ROOT)!=code_sha256:
@@ -217,6 +235,7 @@ def main():
             'n_primary':int(frame.eligible.sum()),'n_manuscript':int(frame.paper_complete.sum()),
             'model_names':list(results['manifest']['models']),
             'predictor_contributions':contribution_manifest,
+            'water_encoding':encoding['manifest'],
             'outer_folds':results['manifest']['settings']['outer_folds'],
             'inner_folds':results['manifest']['settings']['inner_folds'],
             'weight_confirmation':'Working phase-based choice; official manual confirmation outstanding',

@@ -1,0 +1,86 @@
+{
+  "cohort": "Primary eligible dentate cohort, with no predictor complete-case restriction",
+  "input_rows": 6233,
+  "design_n": 5520,
+  "n_strata": 30,
+  "n_psu": 1075,
+  "df": 1045,
+  "singleton_strata": 1,
+  "singleton_method": "average",
+  "domain_counts": {
+    "No caries": 2347,
+    "Caries": 2689,
+    "Total": 5036
+  },
+  "primary_predictor_count": 27,
+  "primary_predictors": [
+    "age",
+    "sex",
+    "region",
+    "rural",
+    "education",
+    "indigenous",
+    "born_chile",
+    "teeth_remaining",
+    "fish",
+    "dairy_frequency",
+    "dairy_type",
+    "wholegrain",
+    "legumes",
+    "fruit_days",
+    "fruit_portions",
+    "vegetable_days",
+    "vegetable_portions",
+    "label_ingredients",
+    "label_nutrition",
+    "label_warnings",
+    "label_health",
+    "label_brand",
+    "label_discounts",
+    "water",
+    "soda_frequency",
+    "juice_frequency",
+    "oil"
+  ],
+  "additional_variables": {
+    "age_group": "Secondary descriptive grouping, not an additional predictor",
+    "decayed_teeth": "Outcome description, never a predictor",
+    "water_group": "Secondary descriptive grouping, not a recoding used by the models"
+  },
+  "age_group_boundaries": [
+    15,
+    24,
+    44,
+    64
+  ],
+  "age_group_labels": [
+    "15–24",
+    "25–44",
+    "45–64",
+    "65+"
+  ],
+  "water_group_labels": [
+    "0",
+    ">0–2",
+    ">2–4",
+    ">4–6",
+    ">6–10",
+    ">10"
+  ],
+  "water_model_units_unchanged": "reported glasses/day",
+  "category_denominator": "Observed predictor values within each outcome domain; column composition, not caries prevalence within a predictor category",
+  "missing_rows": "Separate raw missing counts; missing-row unweighted percent uses the full outcome-domain denominator",
+  "numeric_sd_definition": "Weighted empirical population SD: sqrt(sum(w*(x-weighted_mean)^2)/sum(w)); not an SE or a design-based uncertainty interval",
+  "variance_method": "Full examination-design ratio linearization, stratum-centred PSU totals, with-replacement first-stage approximation, no finite-population correction",
+  "confidence": 0.95,
+  "categorical_ci": "Logit-scale t intervals, reported in percent; boundary 0/100% intervals unavailable",
+  "numeric_ci": "Original-scale t intervals for the weighted mean; design df includes zero-score PSUs outside the domain",
+  "weight_note": "Supplied examination-phase weight remains the previously documented working choice pending confirmation against the original ENS manual",
+  "hypothesis_tests": false,
+  "imputation": false,
+  "model_refitting": false,
+  "boundary_ci_rows": 0,
+  "warnings": [
+    "1 singleton stratum/strata use the average variance contribution of non-singleton strata; original strata are preserved."
+  ]
+}

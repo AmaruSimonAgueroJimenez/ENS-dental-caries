@@ -31,6 +31,7 @@ from pathlib import Path
 from html import escape
 import base64
 import json
+from hashlib import sha256
 import numpy as np
 import pandas as pd
 from IPython.display import display, HTML, Markdown
@@ -49,8 +50,10 @@ csv_names = [
     "importance_stability", "predictor_missingness", "variable_dictionary",
     "validation_split_checks", "hyperparameter_search", "source_comparison", "legacy_water_coding",
     "grouped_permutation_importance", "grouped_importance_stability",
+    "descriptive_profile", "water_encoding_performance", "water_encoding_comparisons",
+    "water_encoding_importance_stability",
 ]
-json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation", "predictor_contributions_manifest"]
+json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation", "predictor_contributions_manifest", "descriptive_profile_metadata", "water_encoding_manifest"]
 for name in csv_names:
     assert (TABLES / f"{name}.csv").is_file(), f"Missing required aggregate: {name}.csv"
 for name in json_names:
@@ -63,7 +66,16 @@ audit = metadata["data_audit"]
 assoc_metadata = metadata["association_metadata"]
 source = metadata["source_reconciliation"]
 contributions = metadata["predictor_contributions_manifest"]
+encoding = metadata["water_encoding_manifest"]
+profile_meta = metadata["descriptive_profile_metadata"]
 assert run["status"] == "complete", "The analysis run is not complete."
+current_hashes = {p.relative_to(ROOT).as_posix(): sha256(p.read_bytes()).hexdigest()
+                  for folder in ["scripts", "src"] for p in sorted((ROOT / folder).rglob("*.py"))}
+assert run["code_sha256"] == current_hashes, "Analysis sources changed after the completed run; regenerate aggregates."
+assert run["water_encoding"] == encoding and encoding["status"] == "complete", "Water-encoding results are incomplete or stale."
+assert encoding["n_participants"] == run["n_primary"] and encoding["new_hyperparameter_searches"] == 0
+assert encoding["bootstrap_replicates"] == run["bootstrap_replicates"]
+assert profile_meta["domain_counts"]["Total"] == run["n_primary"] and profile_meta["primary_predictor_count"] == 27
 assert run["input_sha256"] == audit["source_sha256"], "Input hashes disagree."
 assert source["status"] == "verified", "Original-source reconciliation is not verified."
 assert run["source_reconciliation"] == source, "Run manifest and source reconciliation disagree."
@@ -132,6 +144,7 @@ assert len(contributions["refit_checks"]) == len(importance_models) * run["outer
 all_importance = tables["importance_stability"]
 for model in importance_models:
     assert set(all_importance.loc[all_importance.model.eq(model), "feature"]) == set(feature_labels), "All 27 predictors must have importance results."
+    assert encoding["original_model_fingerprints"][model] == model_manifest["models"][model]["fingerprint"]
 importance_leaders = {
     model: all_importance.loc[all_importance.model.eq(model)].sort_values("brier_increase", ascending=False).head(3)
     for model in importance_models
@@ -212,7 +225,7 @@ def simple_metric_table(ids):
 
 ## Structured summary
 
-Five four-panel figures preserve the original manuscript’s model-comparison bars and blue predictor-importance bars, with updated held-out estimates, clearly distinguished uncertainty, validation and sensitivity panels. The complete 27-predictor displays remain available below and in the manuscript supplement.
+Five composite figures, with four to six panels each, preserve the original manuscript’s model-comparison bars and blue predictor-importance bars. The main importance figure now displays all 27 predictors, including water, in six panels with a common axis. Updated descriptive tables retain the original no-caries/caries/total comparison and add survey-weighted uncertainty and explicit missingness.
 
 **Question.** How do the 27 demographic, dental and dietary predictors contribute to classification of existing cavitated caries, and how stable are their contributions across held-out survey clusters and model families?
 
@@ -271,14 +284,17 @@ show_table(pd.DataFrame(source_rows, columns=["Source check", "Verified result"]
 legacy_water = tables["legacy_water_coding"]
 maximum_water_mapping = legacy_water.loc[legacy_water["reported_glasses_per_day"].idxmax()]
 display(Markdown(
-    f'The Stata metadata confirms that the R expression converts labelled water values to **factor indices**, preserving order but changing cardinal spacing. '
+    f'The recovered water values and R source show that the later Quarto expression converts labelled water values to **factor indices**, preserving order but changing cardinal spacing. Earlier R scripts leave water as a factor. '
     f'For example, {maximum_water_mapping.reported_glasses_per_day:g} reported glasses/day becomes index '
     f'{int(maximum_water_mapping.original_r_factor_index)}. The Python analysis retains the reported numeric glasses/day. '
+    'These are codes for individual observed quantities, not documented low/medium/high intake groups. A separate controlled encoding sensitivity is reported below. '
     'Questionnaire-conditional and original unconditional skip recoding happen to give identical values in this observed dataset; the revised rules explicitly distinguish structural non-consumption from nonresponse.'
 ))
 ```
 
 The original R program uses an individual-level training/test partition with internal cross-validation and omits survey fitting weights and PSU grouping. The Python analysis groups survey clusters, uses weights where supported and learns statistical preprocessing within training folds. These are substantive changes to development and evaluation, so historical AUCs should not be compared as if they arose from the same validation experiment.
+
+The recovered 2024 dietary supplement presents water as mean (standard deviation) in glasses/day. This confirms its descriptive presentation, not the data type supplied to every historical algorithm. No explicit low/medium/high water cutoffs were located in the recovered scripts, manuscript, tables or relevant email exchanges. The legacy code requests random-forest importance without explicitly enabling permutation importance, making the original figure caption alone insufficient to establish its exact metric. The recorded analysis agreements describe Mean Decrease Gini; this differs from the held-out, unscaled Brier-score permutation importance used here. The coding and metric issues are therefore documented separately.
 
 ENS is a cross-sectional, stratified, multistage survey. Published documentation describes an oral examination by trained nurses during the second home visit. Eligibility in other oral-health publications differs from the present dentate domain and should not be imposed on this analysis. [Margozzini et al., 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7479467/)
 
@@ -339,6 +355,36 @@ show_table(missing[["Predictor", "missing", "Missing (%)"]].rename(columns={"mis
 ```
 
 Frequency units are converted using seven days/week and 30 days/month. The original Stata weekly-frequency derivation used four weeks per month, equivalent to 28 days after conversion to daily units. Raw quantities and unit codes agree; the month convention explains the two derived predictor differences. An added association sensitivity retains the original conversion. Zero consumption is retained. A no-dairy category distinguishes nonconsumers; fruit and vegetable portions become zero when the corresponding frequency is zero. Statistical imputation occurs only inside prediction training folds. Association models use observed outcomes and complete required covariates. The [variable dictionary](../outputs/tables/variable_dictionary.csv) records source variables, categories and derivation rules.
+
+### Descriptive distributions by caries status
+
+The original manuscript and separate dietary table compared participants without caries, with caries, and overall. The following reconstruction retains those columns and all 27 predictors in the primary dentate cohort. It reports raw counts with survey-weighted column percentages and 95% intervals, or weighted means with 95% intervals and weighted standard deviations. These column percentages describe composition; they are different from caries prevalence within predictor categories. Descriptive intervals do not screen variables for model inclusion.
+
+```{python}
+#| label: descriptive-profile
+#| echo: false
+profile = pd.read_csv(TABLES / "descriptive_profile.csv", keep_default_na=False, na_values=[""])
+profile_rows = []
+for feature in full_features:
+    block = profile.loc[profile.variable.eq(feature)]
+    for level in block.level.drop_duplicates():
+        levels = block.loc[block.level.eq(level)].set_index("domain")
+        result = {"Predictor": feature_labels[feature], "Category / measure": str(level)}
+        for domain in ["No caries", "Caries", "Total"]:
+            row = levels.loc[domain]
+            if row.row_type == "missing":
+                text = f'{int(row.missing_n):,} missing / {int(row.domain_n):,}'
+            elif row.row_type == "mean":
+                text = f'{interval(row, digits=2)}; SD {number(row.weighted_sd, 2)}; n={int(row.observed_n):,}'
+            else:
+                ci = (f'{number(row.ci_low, 1)}–{number(row.ci_high, 1)}'
+                      if pd.notna(row.ci_low) else "CI unavailable at boundary")
+                text = f'{int(row.n):,}; {number(row.estimate, 1)}% ({ci})'
+            result[domain] = text
+        profile_rows.append(result)
+show_table(pd.DataFrame(profile_rows), "Descriptive supplement. All 27 predictors by caries status.",
+           "Category denominator: observed predictor values within the outcome column. Missing rows use the full outcome-column denominator. Means and percentages use the full examination-phase survey design for variance. No values are imputed for this table. SD describes participant dispersion; it is not a standard error. Original unweighted significance tests are not reused.")
+```
 
 ```{python}
 #| label: extreme-values
@@ -530,6 +576,8 @@ show_figure("incremental_water")
 
 ## Subgroups and robustness
 
+The six-panel sensitivity figure combines population restrictions and subgroup point estimates with a controlled examination of water encoding. The encoding comparison was added after reviewing the historical scripts and uses the original physical-model hyperparameters, identical outer folds, weights and seeds. Four alternative variants require 20 additional outer fits; the two physical-reference models and their predictions are reused. There is no new hyperparameter search. Nominal categories retain each observed intake as a separate level; they are not low/medium/high groups. The historical index lookup is a fixed, data-derived artifact from the original dentate data, while imputation, scaling, knots and the nominal vocabulary are learned within outer training samples.
+
 ```{python}
 #| label: subgroups
 #| echo: false
@@ -568,6 +616,51 @@ The main limitations are cross-sectional temporality; self-reported predictors, 
 ## Supplementary exploratory follow-up: water
 
 Water was an emerging finding considered after inspecting predictor results, rather than the primary scientific objective. The analyses below assess that finding's adjusted association and sensitivity to assumptions. Their placement and interpretation preserve this exploratory status.
+
+### Historical coding and controlled representation sensitivity
+
+```{python}
+#| label: water-encoding-results
+#| echo: false
+encoding_performance = tables["water_encoding_performance"].query("weighting == 'Survey weighted'")
+encoding_pairs = tables["water_encoding_comparisons"]
+encoding_rows = []
+for _, row in encoding_performance.iterrows():
+    encoding_rows.append({"Model": labels[row.base_model], "Water representation": row.encoding_label,
+                          "AUC (95% CI)": interval(row, "auc", "auc_low", "auc_high"),
+                          "Brier (95% CI)": interval(row, "brier", "brier_low", "brier_high"),
+                          "Log loss (95% CI)": interval(row, "log_loss", "log_loss_low", "log_loss_high")})
+show_table(pd.DataFrame(encoding_rows), "Water-encoding supplement A. Six variants under fixed hyperparameters.",
+           "Physical references use reported glasses/day; historical indices code ordered individual quantities; nominal categories use one-hot encoding. Physical models are unchanged. These are controlled representation sensitivities, not independently tuned model comparisons or exact reconstructions of R factor handling.")
+encoding_delta_rows = []
+for model, group in encoding_pairs.groupby("model", sort=False):
+    row = group.iloc[0]
+    result = {"Model": labels[row.base_model], "Water representation": row.encoding_label}
+    for metric, label in [("auc", "ΔAUC"), ("brier", "ΔBrier"), ("log_loss", "Δlog loss")]:
+        value = group.loc[group.metric.eq(metric)].iloc[0]
+        result[label + " (95% CI)"] = interval(value, value="difference", digits=4)
+    encoding_delta_rows.append(result)
+show_table(pd.DataFrame(encoding_delta_rows), "Water-encoding supplement B. Paired differences versus reported glasses/day.",
+           "Positive ΔAUC and negative probability-score differences favour the alternative. Intervals use 1,000 shared rescaled PSU draws and hold fits and folds fixed. A point and interval at zero can result from identical predictions; this is not a missing uncertainty estimate.")
+rf_physical = encoding_performance.loc[encoding_performance.model.eq("random_forest")].iloc[0]
+rf_index = encoding_performance.loc[encoding_performance.model.eq("random_forest_water_index")].iloc[0]
+index_difference = encoding_pairs.query("model == 'random_forest_water_index' and metric == 'auc'").iloc[0]
+display(Markdown(
+    f'Random forest gives AUC **{rf_physical.auc:.6f}** with reported glasses/day and **{rf_index.auc:.6f}** with historical indices '
+    f'(paired ΔAUC {index_difference.difference:.6f}). The two probability sets agree to numerical precision in this run. '
+    'Thus, changing the index representation to physical units does not explain the earlier prominence of water in this fitted random forest. '
+    'All four paired AUC intervals include zero; this does not establish equivalence. The comparison changes representation under fixed settings, '
+    'and cannot isolate the effects of historical importance metrics, weighting, sample selection or validation design.'
+))
+encoding_importance = tables["water_encoding_importance_stability"]
+water_rows = []
+for _, row in encoding_importance.iterrows():
+    water_rows.append({"Model": labels[row.base_model], "Water representation": row.encoding_label,
+                       "Mean ΔBrier": number(row.brier_increase, 6),
+                       "Five-fold range": f'{number(row.minimum_fold_brier_increase, 6)} to {number(row.maximum_fold_brier_increase, 6)}'})
+show_table(pd.DataFrame(water_rows), "Water-encoding supplement C. Held-out water permutation importance.",
+           "Five shared donor-row permutations per outer fold include missing water values. Ranges summarize fold stability and are not confidence intervals. Only water is permuted in the alternative encodings, so no new global predictor ranks are inferred. One-hot dimensionality may also alter random-forest feature subsampling under fixed settings.")
+```
 
 Eight survey-weighted association analyses separate effect estimation from algorithm comparison. The primary logistic model estimates a linear water term while adjusting flexibly for age, remaining teeth and soda/juice frequency, plus sex, region, rurality, education, indigenous identification and birthplace. A second model uses a water spline. Further analyses add the three contextual variables, restrict age, assess the exposure tail, omit remaining teeth, estimate a modified Poisson prevalence ratio, or retain the original 28-day beverage conversion. The last analysis was added after source reconciliation. These regressions use complete required covariates, rather than the prediction pipeline's imputation strategy.
 
@@ -646,6 +739,8 @@ repro = [
     ("Bootstrap replicates", f'{run["bootstrap_replicates"]:,}'),
     ("Permutation repeats per predictor/fold", str(model_manifest["settings"]["permutation_repeats"])),
     ("Predictor-contribution analysis", contributions["status"]),
+    ("Water-encoding sensitivity", encoding["status"]),
+    ("Alternative water-encoding outer fits / new tuning searches", f'{encoding["alternative_outer_fits_required"]} / {encoding["new_hyperparameter_searches"]}'),
     ("Joint-permutation seed / repeats", f'{contributions["seed"]} / {contributions["permutation_repeats"]}'),
     ("Largest reproduced-probability difference", f'{max(check["max_absolute_probability_difference"] for check in contributions["refit_checks"]):.2g}'),
     ("Log-probability epsilon", str(model_manifest["settings"]["probability_log_epsilon"])),
@@ -672,6 +767,8 @@ show_table(diagnostic_display, "Table 16. Association-model diagnostics.",
 The standalone HTML embeds its figures. The following links provide repository-local aggregate supplements:
 
 - [Population flow](../outputs/tables/sample_flow.csv), [weighted prevalence](../outputs/tables/descriptive_prevalence.csv) and [predictor dictionary](../outputs/tables/variable_dictionary.csv).
+- [All predictor distributions by caries status](../outputs/tables/descriptive_profile.csv) and [descriptive variance definitions](../outputs/tables/descriptive_profile_metadata.json).
+- [Water-encoding performance](../outputs/tables/water_encoding_performance.csv), [paired encoding comparisons](../outputs/tables/water_encoding_comparisons.csv), [water importance by encoding](../outputs/tables/water_encoding_importance_stability.csv) and [encoding methods](../outputs/tables/water_encoding_manifest.json).
 - [Verified source reconciliation](../outputs/tables/source_reconciliation.json), [construct comparisons](../outputs/tables/source_comparison.csv), [original water-index mapping](../outputs/tables/legacy_water_coding.csv) and [R-to-Python migration audit](r-to-python-migration.md).
 - [All model metrics](../outputs/tables/model_performance.csv), [paired comparisons](../outputs/tables/paired_comparisons.csv) and [internal tuning results](../outputs/tables/hyperparameter_search.csv).
 - [Water effects](../outputs/tables/water_effects.csv), [spline contrast](../outputs/tables/water_contrasts.csv) and [association diagnostics](../outputs/tables/diagnostics.csv).

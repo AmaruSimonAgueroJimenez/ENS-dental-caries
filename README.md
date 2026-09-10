@@ -47,6 +47,10 @@ The primary predictive cohort includes all 5,036 dentate participants with obser
 
 The primary presentation includes all individual permutation importances, rank stability across folds, and joint permutation of sociodemographic, remaining-teeth, food-intake, label-related, beverage and cooking-fat blocks. A block is permuted jointly; its importance is neither the sum of its individual variables nor a performance change after redeveloping a model without it. Contributions depend on the fitted classifier and correlated predictors, and have no causal or directional interpretation.
 
+Five main composite figures have four to six panels. The blue importance bars retain the original visual style and now show all 27 predictors, including water, across six panels with a common axis. Descriptive tables preserve no-caries/caries/total columns, restore the original demographic and dietary coverage, and make survey-weighted uncertainty and observed/missing denominators explicit.
+
+A post hoc water-encoding sensitivity compares physical glasses/day, historical numeric factor indices and nominal intake levels under the same outer folds and fixed selected hyperparameters. It reuses physical-reference predictions and adds 20 alternative outer fits without retuning. The physical and index random forests give identical results within numerical precision; all four paired AUC intervals include zero. Encoding alone does not explain the historical water ranking in this fitted forest. The report distinguishes this finding from differences in importance metrics, validation, weights and the historical model implementation.
+
 Survey-weighted descriptions, shared PSU-disjoint nested validation, probability calibration and paired model comparisons provide the evaluation context. Existing water follow-ups and design-based association sensitivities remain secondary. The reporting focus was corrected on 10 September 2026 after model results were available; joint block analyses are a documented exploratory addition. The corrected F1/F2 weight is a working choice pending official phase-selection confirmation, and singleton-stratum conventions differ between analytic variance estimation and conditional bootstrap intervals.
 
 ## Data boundaries
@@ -63,6 +67,8 @@ Participant records, recovered source attachments, fold assignments, out-of-fold
 | `src/ens_analysis/evaluation.py` | Held-out metrics, conditional cluster bootstrap and paired comparisons |
 | `src/ens_analysis/contributions.py` | Joint predictor-family permutation with checks against archived held-out probabilities |
 | `src/ens_analysis/inference.py` | Water associations, adjusted curves and sensitivity analyses |
+| `src/ens_analysis/descriptive_profile.py` | All predictor distributions by caries status with full-design uncertainty and denominators |
+| `src/ens_analysis/water_encoding.py` | Controlled historical water-representation sensitivity with unchanged reference models |
 | `src/ens_analysis/figures.py` | Aggregate scientific figures |
 | `src/ens_analysis/study_flow.py` | Editable participant-flow and nested-validation diagram |
 | `scripts/run_caries.py` | Reproducible orchestration and result manifests |

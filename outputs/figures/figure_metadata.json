@@ -182,12 +182,12 @@
         "correa_predictor_importance.svg",
         "correa_predictor_importance.pdf"
       ],
-      "caption": "Leading predictors and their stability, retaining the blue horizontal-bar presentation of the original manuscript. Panels a and b show the ten predictors with the largest mean held-out Brier-score increases in random forest and spline logistic regression, respectively. Selection uses each model’s own mean contribution; the two lists need not be identical. Bar lengths begin at zero on a common scale, and negative endpoints remain visible. Whiskers span minimum to maximum fold-mean contributions, not 95% confidence intervals. Five raw-variable permutations are averaged within each fold, then fold means are weighted by test-set expansion-weight totals. Panels c and d show ranks among all 27 predictors in each held-out fold for those same displayed predictors; 1 is highest and darker blue indicates a higher rank. Full results for all 27 predictors, including null and negative contributions, are retained in the supplement. The score is an increase in Brier error, not the original rescaled mean-decrease-in-accuracy score. Importance has no causal or directional interpretation.",
+      "caption": "All 27 predictors in random forest and spline logistic regression, retaining the original blue horizontal-bar style. Panels a–b contain eight demographic/dental predictors; c–d contain nine food-intake variables and cooking fat; e–f contain water, sweetened-drink frequencies and six label behaviours. Within each row, both models have the same fixed conceptual order; no variable is selected or omitted on its importance. All six panels use the same numerical axis and zero bar baseline, preserving null and negative results. Bars show mean held-out Brier-score increases after raw-variable permutation. Five repeats are averaged within each fold, then weighted by held-out expansion-weight totals. Whiskers span minimum to maximum fold means, not confidence intervals. Water is shown in the beverage panels regardless of rank. Complete numerical ranks and stability remain in the supplementary tables and Figure S7. Scores are unscaled Brier changes, not the original rescaled importance score; importance is neither causal nor directional.",
       "source_tables": [
         "permutation_importance.csv"
       ],
       "png_dpi": 300,
-      "alt_text": "Leading predictors and their stability, retaining the blue horizontal-bar presentation of the original manuscript. Panels a and b show the ten predictors with the largest mean held-out Brier-score increases in random forest and spline logistic regression, respectively. Selection uses each model’s own mean contribution; the two lists need not be identical. Bar lengths begin at zero on a common scale, and negative endpoints remain visible. Whiskers span minimum to maximum fold-mean contributions, not 95% confidence intervals. Five raw-variable permutations are averaged within each fold, then fold means are weighted by test-set expansion-weight totals. Panels c and d show ranks among all 27 predictors in each held-out fold for those same displayed predictors; 1 is highest and darker blue indicates a higher rank. Full results for all 27 predictors, including null and negative contributions, are retained in the supplement. The score is an increase in Brier error, not the original rescaled mean-decrease-in-accuracy score. Importance has no causal or directional interpretation.",
+      "alt_text": "Six aligned blue bar plots display all 27 predictors in both models, including water, with fold ranges and a common scale.",
       "canvas_width_mm": 180.0,
       "canvas_height_mm": 215.0,
       "physical_canvas_preserved": true,
@@ -195,28 +195,98 @@
       "pdf_text": "Embedded TrueType fonts (Type 42)",
       "displayed_predictors": {
         "random_forest": [
-          "teeth_remaining",
           "age",
           "sex",
           "region",
+          "rural",
           "education",
-          "wholegrain",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "fish",
           "dairy_frequency",
-          "soda_frequency",
+          "dairy_type",
+          "wholegrain",
           "legumes",
-          "juice_frequency"
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "oil",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
         ],
         "spline_logistic": [
-          "teeth_remaining",
           "age",
           "sex",
           "region",
-          "label_warnings",
-          "fruit_portions",
-          "label_brand",
-          "dairy_frequency",
+          "rural",
           "education",
-          "vegetable_days"
+          "indigenous",
+          "born_chile",
+          "teeth_remaining",
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "oil",
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
+        ]
+      },
+      "panel_count": 6,
+      "display_groups": {
+        "Demographic and dental": [
+          "age",
+          "sex",
+          "region",
+          "rural",
+          "education",
+          "indigenous",
+          "born_chile",
+          "teeth_remaining"
+        ],
+        "Food intake and cooking fat": [
+          "fish",
+          "dairy_frequency",
+          "dairy_type",
+          "wholegrain",
+          "legumes",
+          "fruit_days",
+          "fruit_portions",
+          "vegetable_days",
+          "vegetable_portions",
+          "oil"
+        ],
+        "Beverages and label behaviours": [
+          "water",
+          "soda_frequency",
+          "juice_frequency",
+          "label_ingredients",
+          "label_nutrition",
+          "label_warnings",
+          "label_health",
+          "label_brand",
+          "label_discounts"
         ]
       }
     },
@@ -269,19 +339,44 @@
         "correa_sensitivity.svg",
         "correa_sensitivity.pdf"
       ],
-      "caption": "Descriptive sensitivity checks for linear logistic regression, spline logistic regression and random forest. (a,b) Survey-weighted AUC and Brier scores in the primary dentate cohort (n=5,036) and its overlapping original-manuscript subset with observed education and water intake (n=4,994). The same held-out predictions are restricted to the subset; models are not refitted or retuned, and these are not independent cohorts or a reproduction of the original R model estimates. (c,d) Survey-weighted AUC and Brier scores within sex, age, residence and education groups, in the same row order in both panels. These three models are the prespecified subgroup-reporting models. All bars start at zero; the dashed line denotes AUC=0.5. All panels show point estimates without confidence intervals. No subgroup heterogeneity test or claim of differential performance is implied; overlapping subgroup partitions and unequal sample sizes must be considered. Higher AUC and lower Brier scores are favourable. Age is in years; subgroup sample sizes are available in subgroup_performance.csv.",
+      "caption": "Exploratory sensitivity analyses. (a,b) Weighted AUC and Brier scores in the primary cohort (n=5,036) and overlapping original subset (n=4,994), using identical held-out predictions. (c,d) Corresponding subgroup point estimates, without intervals or heterogeneity tests. (e) Paired ΔAUC for historical-index or nominal water coding versus reported glasses/day, with conditional 95% stratified PSU-bootstrap intervals. (f) Water’s mean held-out ΔBrier under all three codings in RF and spline logistic regression; whiskers span five fold means and are not confidence intervals. Encoding sensitivities retain selected parameters. Higher AUC and lower Brier favour performance; positive permutation ΔBrier indicates contribution. RF, random forest.",
       "source_tables": [
         "model_performance.csv",
         "prediction_subset_sensitivity.csv",
-        "subgroup_performance.csv"
+        "subgroup_performance.csv",
+        "water_encoding_comparisons.csv",
+        "water_encoding_importance_stability.csv"
       ],
       "png_dpi": 300,
-      "alt_text": "Four descriptive panels compare AUC and Brier scores for logistic regression, spline logistic and random forest in the full dentate cohort, the original complete subset and eleven demographic subgroups.",
+      "alt_text": "Six panels retain the cohort and eleven demographic subgroup comparisons for three algorithms, then show four paired AUC contrasts for alternative water codings with confidence intervals and six water permutation estimates with ranges across five held-out folds. Water remains visible without imposing a rank or a favourable direction.",
       "canvas_width_mm": 180.0,
-      "canvas_height_mm": 210.00000000000003,
+      "canvas_height_mm": 220.0,
       "physical_canvas_preserved": true,
       "svg_text": "Editable text; requires the specified font on the viewing system",
-      "pdf_text": "Embedded TrueType fonts (Type 42)"
+      "pdf_text": "Embedded TrueType fonts (Type 42)",
+      "panel_count": 6,
+      "panel_uncertainty": {
+        "a": "Point estimates",
+        "b": "Point estimates",
+        "c": "Point estimates",
+        "d": "Point estimates",
+        "e": "Conditional 95% stratified PSU-bootstrap confidence intervals",
+        "f": "Minimum and maximum of five fold means; not confidence intervals"
+      },
+      "displayed_water_encodings": [
+        "physical",
+        "index",
+        "nominal"
+      ],
+      "water_comparison_reference": "physical",
+      "displayed_water_models": [
+        "random_forest",
+        "random_forest_water_index",
+        "random_forest_water_nominal",
+        "spline_logistic",
+        "spline_logistic_water_index",
+        "spline_logistic_water_nominal"
+      ]
     }
   ],
   "language": "English",
@@ -363,13 +458,15 @@
     "paired_comparisons.csv": "5978a1ab9735f51a90a38c4de755cc23302e6e356f734f1babe19434a43531ef",
     "permutation_importance.csv": "4f63d2777621d95f90219518feb4208d5a76bedf994f7c35681929bad28bd338",
     "descriptive_prevalence.csv": "d599b37b81f7ed7c48c3bd543076cf5764df078a18ac5ad9456a45bba08e2614",
-    "grouped_importance_stability.csv": "0cc2704c717ba4063cbee1e02083f907a7d1f6b5fc20f52a18a7c99b10755560",
+    "grouped_importance_stability.csv": "d0d288f4778297ded4348bc224e64dac54263bb07b2417b1adc704a477b6ce34",
     "data_audit.json": "b403838d2b3c6a43315bb934e09a9712a52175c97461e1af60f768e8a2bfaab8",
     "sample_flow.csv": "f283d217bb05ca67db012cf0d2417eee590fb37dd39402f81b66743837428250",
     "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426",
     "outer_fold_performance.csv": "175156880001bcd3e0b1bff61788db5a767da8643b9257134c6afef20d642de6",
     "prediction_subset_sensitivity.csv": "ae7e39354c7cec113258ddbf716c1ba69c18d73026efe8d64282ef804275a3e3",
-    "subgroup_performance.csv": "89dd3c533f97a815c7a04976c62fed1b676b13c3bb5a804e1047a0336e11ed0f"
+    "subgroup_performance.csv": "89dd3c533f97a815c7a04976c62fed1b676b13c3bb5a804e1047a0336e11ed0f",
+    "water_encoding_comparisons.csv": "5569bca32036789550a07fc58845c9cd7c78f6f9c07be984586619025f52ccba",
+    "water_encoding_importance_stability.csv": "928e18f8fe8ec028f2d4ba1fb46668a880fe8d905502c2ff85797a8eda83d067"
   },
   "correa_presentation": {
     "reference": "Figures embedded in the user-supplied Correa manuscript",
@@ -384,7 +481,7 @@
       "Held-out permutation",
       "Visible fold stability"
     ],
-    "selection": "Top ten per model shown compactly; all 27 remain available in the full figure and tables",
+    "selection": "All 27 predictors shown in both models without importance-based selection; six panels preserve conceptual groups",
     "model_colours": {
       "decision_tree": "#1F77B4",
       "knn": "#2CA02C",

@@ -1,4 +1,4 @@
-"""Four-panel validation and sensitivity figures from aggregate tables only."""
+"""Composite validation and sensitivity figures from aggregate tables only."""
 from __future__ import annotations
 
 from hashlib import sha256
@@ -10,6 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
+from matplotlib.ticker import FormatStrFormatter, MaxNLocator
 import numpy as np
 import pandas as pd
 
@@ -17,6 +18,9 @@ import pandas as pd
 MODELS = ["decision_tree", "knn", "logistic", "random_forest", "svm",
           "spline_logistic", "hist_gradient_boosting"]
 SENSITIVITY_MODELS = ["logistic", "spline_logistic", "random_forest"]
+WATER_MODELS = ["random_forest", "spline_logistic"]
+WATER_ENCODINGS = ["physical", "index", "nominal"]
+WATER_ENCODING_SHORT = {"physical":"glasses/day", "index":"index", "nominal":"nominal"}
 COLOURS = dict(zip(MODELS, ["#1F77B4", "#2CA02C", "#D62728", "#9467BD",
                             "#FF7F0E", "#168A8A", "#7F7F7F"], strict=True))
 LABELS = dict(zip(MODELS, ["Decision tree", "Nearest neighbours", "Logistic regression",
@@ -176,9 +180,35 @@ def _sensitivity(tables, destination, metadata):
         "Original manuscript subset table").set_index("model")
     subgroup = _complete(tables["subgroup_performance.csv"],SENSITIVITY_MODELS,
                          ["model","variable","level"],"Subgroup table")
-    fig = plt.figure(figsize=(180/25.4,210/25.4))
-    a=fig.add_axes([.10,.64,.38,.29]); b=fig.add_axes([.60,.64,.37,.29])
-    c=fig.add_axes([.255,.14,.29,.40]); d=fig.add_axes([.635,.14,.335,.40],sharey=c)
+    paired=tables["water_encoding_comparisons.csv"].loc[lambda x:x.metric.eq("auc")].copy()
+    importance=tables["water_encoding_importance_stability.csv"].loc[lambda x:x.feature.eq("water")].copy()
+    paired_keys=[(model,encoding) for model in WATER_MODELS for encoding in WATER_ENCODINGS[1:]]
+    importance_keys=[(model,encoding) for model in WATER_MODELS for encoding in WATER_ENCODINGS]
+    for data,keys,name in [(paired,paired_keys,"Water encoding comparisons"),
+                           (importance,importance_keys,"Water encoding importance")]:
+        if data.duplicated(["base_model","encoding"]).any():
+            raise ValueError(f"{name} has duplicate model/coding records")
+        if set(zip(data.base_model,data.encoding,strict=True))!=set(keys):
+            raise ValueError(f"{name} must contain every displayed model/coding combination")
+    paired=paired.set_index(["base_model","encoding"]).loc[paired_keys]
+    importance=importance.set_index(["base_model","encoding"]).loc[importance_keys]
+    if not paired.reference_encoding.eq("physical").all():
+        raise ValueError("Water encoding comparisons must use reported glasses/day as reference")
+    if not importance.n_folds.eq(5).all():
+        raise ValueError("Water encoding importance must summarize five held-out folds")
+    for data,columns,name in [
+        (paired,["difference","ci_low","ci_high"],"Water encoding comparisons"),
+        (importance,["brier_increase","minimum_fold_brier_increase","maximum_fold_brier_increase"],
+         "Water encoding importance"),
+    ]:
+        if not np.isfinite(data[columns].to_numpy(dtype=float)).all():
+            raise ValueError(f"{name} contains missing or nonfinite displayed estimates")
+        if (data[columns[1]]>data[columns[2]]).any():
+            raise ValueError(f"{name} contains reversed interval endpoints")
+    fig = plt.figure(figsize=(180/25.4,220/25.4))
+    a=fig.add_axes([.10,.755,.38,.19]); b=fig.add_axes([.61,.755,.36,.19])
+    c=fig.add_axes([.245,.365,.29,.285]); d=fig.add_axes([.63,.365,.34,.285],sharey=c)
+    e=fig.add_axes([.24,.105,.29,.16]); f=fig.add_axes([.74,.105,.23,.16])
     x=np.arange(len(SENSITIVITY_MODELS))
     for ax,metric,title,limit in [(a,"auc","a  Cohort sensitivity: AUC",1),
                                  (b,"brier","b  Cohort sensitivity: Brier",.30)]:
@@ -217,27 +247,64 @@ def _sensitivity(tables, destination, metadata):
         for boundary in [1.5,5.5,7.5]:
             ax.axhline(boundary,color="#BBBBBB",linewidth=.5)
     _title(c,"c  AUC by subgroup"); _title(d,"d  Brier score by subgroup")
-    _legend(fig,SENSITIVITY_MODELS,location=(.5,.035),columns=3)
-    sources=["model_performance.csv","prediction_subset_sensitivity.csv","subgroup_performance.csv"]
-    caption=(f"Descriptive sensitivity checks for linear logistic regression, spline logistic regression "
-             f"and random forest. (a,b) Survey-weighted AUC and Brier scores in the primary dentate cohort "
-             f"(n={n_primary:,}) and its overlapping original-manuscript subset with observed education and "
-             f"water intake (n={n_subset:,}). The same held-out predictions are restricted to the subset; "
-             "models are not refitted or retuned, and these are not independent cohorts or a reproduction "
-             "of the original R model estimates. (c,d) Survey-weighted AUC and Brier scores within sex, age, "
-             "residence and education groups, in the same row order in both panels. These three models "
-             "are the prespecified subgroup-reporting models. All bars start at zero; the dashed line "
-             "denotes AUC=0.5. All panels show point estimates without confidence intervals. No subgroup "
-             "heterogeneity test or claim of differential performance is implied; overlapping subgroup "
-             "partitions and unequal sample sizes must be considered. Higher AUC and lower Brier scores "
-             "are favourable. Age is in years; subgroup sample sizes are available in subgroup_performance.csv.")
-    return _save_and_record(fig,"correa_sensitivity",destination,metadata,caption,sources,
-        "Four descriptive panels compare AUC and Brier scores for logistic regression, spline logistic and "
-        "random forest in the full dentate cohort, the original complete subset and eleven demographic subgroups.")
+    for ax,data,keys,point,low,high in [
+        (e,paired,paired_keys,"difference","ci_low","ci_high"),
+        (f,importance,importance_keys,"brier_increase","minimum_fold_brier_increase","maximum_fold_brier_increase"),
+    ]:
+        for position,(model,encoding) in enumerate(keys):
+            row=data.loc[(model,encoding)]
+            ax.hlines(position,row[low],row[high],color=COLOURS[model],linewidth=1.15)
+            ax.vlines([row[low],row[high]],position-.08,position+.08,
+                      color=COLOURS[model],linewidth=.75)
+            ax.scatter(row[point],position,color=COLOURS[model],marker=MARKERS[model],
+                       s=21,edgecolors="black",linewidths=.3,zorder=3)
+        labels=[f'{SHORT[model]}: {WATER_ENCODING_SHORT[encoding]}' for model,encoding in keys]
+        ax.set(yticks=np.arange(len(keys)),yticklabels=labels,ylim=(len(keys)-.5,-.5))
+        lower=min(0,float(data[low].min()),float(data[point].min()))
+        upper=max(0,float(data[high].max()),float(data[point].max()))
+        padding=max((upper-lower)*.10,1e-6)
+        ax.set_xlim(lower-padding,upper+padding)
+        ax.axvline(0,color="black",linewidth=.75,linestyle=(0,(3,3)),zorder=0)
+        ax.axhline((len(keys)/2)-.5,color="#BBBBBB",linewidth=.5)
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=3))
+        ax.xaxis.set_major_formatter(FormatStrFormatter('%.3f' if ax is e else '%.4f'))
+        _grid(ax,"x")
+    e.set_xlabel("ΔAUC versus glasses/day\n(95% confidence interval)")
+    f.set_xlabel("Permutation ΔBrier\n(range of fold means)")
+    _title(e,"e  Water coding: ΔAUC")
+    _title(f,"f  Water contribution")
+    _legend(fig,SENSITIVITY_MODELS,location=(.5,.005),columns=3)
+    sources=["model_performance.csv","prediction_subset_sensitivity.csv","subgroup_performance.csv",
+             "water_encoding_comparisons.csv","water_encoding_importance_stability.csv"]
+    caption=(f"Exploratory sensitivity analyses. (a,b) Weighted AUC and Brier scores in the primary cohort "
+             f"(n={n_primary:,}) and overlapping original subset (n={n_subset:,}), using identical held-out "
+             "predictions. (c,d) Corresponding subgroup point estimates, without intervals or heterogeneity "
+             "tests. (e) Paired ΔAUC for historical-index or nominal water coding versus reported glasses/day, "
+             "with conditional 95% stratified PSU-bootstrap intervals. (f) Water’s mean held-out ΔBrier under "
+             "all three codings in RF and spline logistic regression; whiskers span five fold means and are "
+             "not confidence intervals. Encoding sensitivities retain selected parameters. Higher AUC and "
+             "lower Brier favour performance; positive permutation ΔBrier indicates contribution. RF, random forest.")
+    paths=_save_and_record(fig,"correa_sensitivity",destination,metadata,caption,sources,
+        "Six panels retain the cohort and eleven demographic subgroup comparisons for three algorithms, "
+        "then show four paired AUC contrasts for alternative water codings with confidence intervals and "
+        "six water permutation estimates with ranges across five held-out folds. Water remains visible "
+        "without imposing a rank or a favourable direction.")
+    metadata["figures"][-1].update({
+        "panel_count":6,
+        "panel_uncertainty":{
+            "a":"Point estimates", "b":"Point estimates", "c":"Point estimates", "d":"Point estimates",
+            "e":"Conditional 95% stratified PSU-bootstrap confidence intervals",
+            "f":"Minimum and maximum of five fold means; not confidence intervals",
+        },
+        "displayed_water_encodings":WATER_ENCODINGS.copy(),
+        "water_comparison_reference":"physical",
+        "displayed_water_models":importance.model.tolist(),
+    })
+    return paths
 
 
 def make_correa_validation_figures(source, destination, metadata):
-    """Append two four-panel figures and provenance; return their PNG/SVG/PDF paths.
+    """Append four-panel validation and six-panel sensitivity figures with provenance.
 
     Only aggregate CSVs are read. Missing input groups skip their corresponding
     figure, while malformed or incomplete existing input tables fail explicitly.
@@ -251,6 +318,10 @@ def make_correa_validation_figures(source, destination, metadata):
         "model_performance.csv":["model","weighting","n","auc","brier"],
         "prediction_subset_sensitivity.csv":["model","subset","n","auc","brier"],
         "subgroup_performance.csv":["model","variable","level","n","auc","brier"],
+        "water_encoding_comparisons.csv":["model","base_model","encoding","reference_encoding",
+                                            "metric","difference","ci_low","ci_high"],
+        "water_encoding_importance_stability.csv":["model","base_model","encoding","feature","n_folds",
+            "brier_increase","minimum_fold_brier_increase","maximum_fold_brier_increase"],
     }
     tables={name:_read(source,name,columns) for name,columns in requirements.items()}
     metadata.setdefault("figures",[])
@@ -266,6 +337,8 @@ def make_correa_validation_figures(source, destination, metadata):
                                                     "outer_fold_performance.csv","model_performance.csv"]):
             paths+=_validation(tables,destination,metadata)
         if all(tables[name] is not None for name in ["model_performance.csv",
-                                                    "prediction_subset_sensitivity.csv","subgroup_performance.csv"]):
+                                                    "prediction_subset_sensitivity.csv","subgroup_performance.csv",
+                                                    "water_encoding_comparisons.csv",
+                                                    "water_encoding_importance_stability.csv"]):
             paths+=_sensitivity(tables,destination,metadata)
     return paths

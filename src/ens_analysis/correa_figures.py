@@ -90,39 +90,55 @@ def performance(table,destination,metadata):
 
 
 def importance(table,destination,metadata):
+    """Display every raw predictor in both models, without rank-based selection."""
+    from .data import SOCIO_FEATURES, DIET_FEATURES
+
     summary=_importance_summary(table)
-    fold=table.groupby(['model','fold','feature'],sort=False).brier_increase.mean().reset_index()
-    fold['rank']=fold.groupby(['model','fold']).brier_increase.rank(ascending=False,method='min')
     models=['random_forest','spline_logistic']
-    chosen={m:summary.loc[summary.model.eq(m)].sort_values(['mean','feature'],ascending=[False,True]).head(10) for m in models}
-    selected=pd.concat(chosen.values());limits=_common_limits(selected[['mean','low','high']])
-    fig,axes=plt.subplots(2,2,figsize=(180/25.4,215/25.4),gridspec_kw={'height_ratios':[1,1]})
-    for col,model in enumerate(models):
-        rows=chosen[model];features=rows.feature.tolist();names=[FEATURE_LABELS[f] for f in features];ys=np.arange(10)
-        ax=axes[0,col];panel(ax,f'{chr(97+col)}  '+('Random forest' if col==0 else 'Spline logistic'),axis='x')
-        ax.barh(ys,rows['mean'],height=.55,color=BLUE,edgecolor='#333333',linewidth=.25,zorder=3)
-        for y,row in zip(ys,rows.itertuples(),strict=True):horizontal_interval(ax,y,row.low,row.high)
-        ax.set_yticks(ys,names);ax.invert_yaxis();ax.set_xlim(limits);ax.axvline(0,color='#555555',linewidth=.75)
-        ax.set_xlabel('Increase in Brier score');ax.xaxis.set_major_locator(MaxNLocator(3))
-        ax=axes[1,col]
-        matrix=fold.loc[fold.model.eq(model)].pivot(index='feature',columns='fold',values='rank').loc[features].sort_index(axis=1)
-        im=ax.imshow(matrix.to_numpy(),cmap='Blues_r',vmin=1,vmax=27,aspect='auto',interpolation='nearest')
-        panel(ax,f'{chr(99+col)}  '+('Random forest ranks' if col==0 else 'Spline logistic ranks'),axis='x');ax.grid(False)
-        ax.set_yticks(ys,names);ax.set_xticks(range(len(matrix.columns)),[str(x) for x in matrix.columns]);ax.set_xlabel('Held-out fold')
-        for row in range(10):
-            for c in range(len(matrix.columns)):
-                value=matrix.iloc[row,c]
-                ax.text(c,row,f'{value:g}',ha='center',va='center',fontsize=7,color='white' if value<13 else 'black')
-    fig.subplots_adjust(left=.24,right=.985,bottom=.055,top=.95,wspace=1.4,hspace=.28)
-    caption=('Leading predictors and their stability, retaining the blue horizontal-bar presentation of the original manuscript. '
-             'Panels a and b show the ten predictors with the largest mean held-out Brier-score increases in random forest and spline logistic regression, respectively. '
-             'Selection uses each model’s own mean contribution; the two lists need not be identical. Bar lengths begin at zero on a common scale, and negative endpoints remain visible. '
-             'Whiskers span minimum to maximum fold-mean contributions, not 95% confidence intervals. Five raw-variable permutations are averaged within each fold, '
-             'then fold means are weighted by test-set expansion-weight totals. Panels c and d show ranks among all 27 predictors in each held-out fold for those same displayed predictors; '
-             '1 is highest and darker blue indicates a higher rank. Full results for all 27 predictors, including null and negative contributions, are retained in the supplement. '
-             'The score is an increase in Brier error, not the original rescaled mean-decrease-in-accuracy score. Importance has no causal or directional interpretation.')
-    paths=_save(fig,'correa_predictor_importance',destination,metadata,caption,['permutation_importance.csv'],preserve_size=True)
-    metadata['figures'][-1]['displayed_predictors']={m:chosen[m].feature.tolist() for m in models}
+    groups=[('Demographic and dental',list(SOCIO_FEATURES)),
+            ('Food intake and cooking fat',DIET_FEATURES[:9]+['oil']),
+            ('Beverages and label behaviours',['water','soda_frequency','juice_frequency']+
+             [f for f in DIET_FEATURES if f.startswith('label_')])]
+    expected=[f for _, features in groups for f in features]
+    if len(expected)!=27 or len(set(expected))!=27:
+        raise ValueError('The display must partition all 27 predictors exactly once')
+    for model in models:
+        actual=summary.loc[summary.model.eq(model),'feature'].tolist()
+        if len(actual)!=27 or set(actual)!=set(expected):
+            raise ValueError('All 27 predictors are required for each displayed model')
+    selected=summary.loc[summary.model.isin(models)]
+    limits=_common_limits(selected[['mean','low','high']])
+    fig,axes=plt.subplots(3,2,figsize=(180/25.4,215/25.4),
+                          gridspec_kw={'height_ratios':[8,10,9]})
+    displayed={m:[] for m in models}
+    for row,(group,features) in enumerate(groups):
+        # Shared order preserves direct comparison; it is fixed by the declared
+        # conceptual groups, never by statistical significance or rank.
+        ys=np.arange(len(features))
+        for col,model in enumerate(models):
+            values=summary.loc[summary.model.eq(model)].set_index('feature').loc[features]
+            ax=axes[row,col]
+            panel(ax,f'{chr(97+row*2+col)}  '+('Random forest' if col==0 else 'Spline logistic'),axis='x')
+            ax.barh(ys,values['mean'],height=.52,color=BLUE,edgecolor='#333333',linewidth=.25,zorder=3)
+            for y,item in zip(ys,values.itertuples(),strict=True):horizontal_interval(ax,y,item.low,item.high)
+            ax.set_yticks(ys,[FEATURE_LABELS[f] for f in features]);ax.invert_yaxis()
+            ax.set_xlim(limits);ax.axvline(0,color='#555555',linewidth=.75)
+            ax.set_xlabel('Increase in Brier score');ax.xaxis.set_major_locator(MaxNLocator(3))
+            displayed[model].extend(features)
+    fig.subplots_adjust(left=.245,right=.985,bottom=.055,top=.96,wspace=1.42,hspace=.46)
+    caption=('All 27 predictors in random forest and spline logistic regression, retaining the original blue horizontal-bar style. '
+             'Panels a–b contain eight demographic/dental predictors; c–d contain nine food-intake variables and cooking fat; '
+             'e–f contain water, sweetened-drink frequencies and six label behaviours. Within each row, both models have the same fixed '
+             'conceptual order; no variable is selected or omitted on its importance. All six panels use the same numerical axis and '
+             'zero bar baseline, preserving null and negative results. Bars show mean held-out Brier-score increases after raw-variable '
+             'permutation. Five repeats are averaged within each fold, then weighted by held-out expansion-weight totals. '
+             'Whiskers span minimum to maximum fold means, not confidence intervals. Water is shown in the beverage panels regardless '
+             'of rank. Complete numerical ranks and stability remain in the supplementary tables and Figure S7. Scores are unscaled '
+             'Brier changes, not the original rescaled importance score; importance is neither causal nor directional.')
+    paths=_save(fig,'correa_predictor_importance',destination,metadata,caption,['permutation_importance.csv'],preserve_size=True,
+                alt_text='Six aligned blue bar plots display all 27 predictors in both models, including water, with fold ranges and a common scale.')
+    metadata['figures'][-1].update(displayed_predictors=displayed,panel_count=6,
+                                 display_groups={name:features for name,features in groups})
     return paths
 
 
@@ -180,6 +196,6 @@ def make_correa_figures(source:Path,destination:Path,metadata:dict):
     metadata['correa_presentation']={'reference':'Figures embedded in the user-supplied Correa manuscript',
         'style_preserved':['Grouped vertical model-performance bars','Blue horizontal predictor-importance bars','White background and light grey grids'],
         'methodological_changes':['Shared conditional PSU-bootstrap intervals','Explicit metric definitions','Held-out permutation','Visible fold stability'],
-        'selection':'Top ten per model shown compactly; all 27 remain available in the full figure and tables',
+        'selection':'All 27 predictors shown in both models without importance-based selection; six panels preserve conceptual groups',
         'model_colours':MODEL_COLOURS}
     return paths

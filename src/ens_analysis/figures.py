@@ -632,7 +632,8 @@ def make_figures(
         correa_sources = ["model_performance.csv", "permutation_importance.csv",
                           "grouped_importance_stability.csv", "paired_comparisons.csv",
                           "roc.csv", "calibration.csv", "outer_fold_performance.csv",
-                          "prediction_subset_sensitivity.csv", "subgroup_performance.csv"]
+                          "prediction_subset_sensitivity.csv", "subgroup_performance.csv",
+                          "water_encoding_comparisons.csv", "water_encoding_importance_stability.csv"]
         if all((source / name).exists() for name in correa_sources):
             from .correa_figures import make_correa_figures
             from .correa_validation_figures import make_correa_validation_figures

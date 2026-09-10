@@ -85,9 +85,17 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
     monkeypatch.setattr(module, 'version', lambda _: 'test-version')
     import ens_analysis.figures
     import ens_analysis.contributions
+    import ens_analysis.water_encoding
     monkeypatch.setattr(ens_analysis.figures, 'make_figures', lambda *_: None)
     monkeypatch.setattr(ens_analysis.contributions, 'predictor_contributions',
                         lambda *_, **__: (pd.DataFrame(), pd.DataFrame(), {'status': 'complete'}))
+    monkeypatch.setattr(ens_analysis.water_encoding, 'run_water_encoding_sensitivity',
+                        lambda *_, **__: {
+                            **{key: pd.DataFrame({'fixture': [1]}) for key in [
+                                'performance', 'comparisons', 'water_importance',
+                                'water_importance_stability', 'fold_scores', 'oof']},
+                            'manifest': {'status': 'complete', 'new_hyperparameter_searches': 0},
+                        })
     private = root / 'outputs' / 'private'
     private.mkdir(parents=True)
     (private / 'model_results.pkl').write_bytes(pickle.dumps({

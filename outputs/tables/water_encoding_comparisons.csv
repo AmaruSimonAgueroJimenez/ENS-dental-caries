@@ -1,0 +1,13 @@
+comparison,model,reference,metric,difference,ci_low,ci_high,reference_encoding,base_model,encoding,encoding_label
+random_forest: index minus physical,random_forest_water_index,random_forest,auc,0.0,0.0,0.0,physical,random_forest,index,Historical factor index
+random_forest: index minus physical,random_forest_water_index,random_forest,brier,0.0,-2.7755575615628914e-17,2.7755575615628914e-17,physical,random_forest,index,Historical factor index
+random_forest: index minus physical,random_forest_water_index,random_forest,log_loss,1.1102230246251565e-16,-1.1102230246251565e-16,1.1102230246251565e-16,physical,random_forest,index,Historical factor index
+random_forest: nominal minus physical,random_forest_water_nominal,random_forest,auc,-0.002593069808973003,-0.008555582130595341,0.00347578671261544,physical,random_forest,nominal,Nominal water categories
+random_forest: nominal minus physical,random_forest_water_nominal,random_forest,brier,8.251558204414033e-05,-0.0007733082855651003,0.0009282526366891744,physical,random_forest,nominal,Nominal water categories
+random_forest: nominal minus physical,random_forest_water_nominal,random_forest,log_loss,0.00010192531716790576,-0.001673393514840349,0.0018555605217733472,physical,random_forest,nominal,Nominal water categories
+spline_logistic: index minus physical,spline_logistic_water_index,spline_logistic,auc,-0.00040762242330805165,-0.0009675210302594356,0.00012574760230604765,physical,spline_logistic,index,Historical factor index
+spline_logistic: index minus physical,spline_logistic_water_index,spline_logistic,brier,6.766073899783231e-05,1.1939971588623144e-05,0.0001290730362217343,physical,spline_logistic,index,Historical factor index
+spline_logistic: index minus physical,spline_logistic_water_index,spline_logistic,log_loss,0.00014190395148649948,2.9107681577658642e-05,0.0002670700799286523,physical,spline_logistic,index,Historical factor index
+spline_logistic: nominal minus physical,spline_logistic_water_nominal,spline_logistic,auc,0.0018335457119359466,-0.0008238851599226798,0.004531681978123153,physical,spline_logistic,nominal,Nominal water categories
+spline_logistic: nominal minus physical,spline_logistic_water_nominal,spline_logistic,brier,-0.0001823102282115796,-0.0005139769092966124,0.0001324474428847359,physical,spline_logistic,nominal,Nominal water categories
+spline_logistic: nominal minus physical,spline_logistic_water_nominal,spline_logistic,log_loss,-0.0003818263576891301,-0.0010685549079041735,0.00025281051683506114,physical,spline_logistic,nominal,Nominal water categories
