@@ -123,6 +123,10 @@ def main():
         'These files are a proposal, not a submitted article or a public preprint.\n\n'
         'Open report/dietary_incremental.html for the self-contained executed report. The QMD is provided '
         'as source; rerun it from the repository using scripts/render_dietary.py after completing the analysis. '
+        'To rebuild the Word files, restore the contents of editorial_sources to '
+        'manuscript_drafts/dietary_incremental_proposal within that repository and run build_documents.py '
+        'with a Python environment providing python-docx and pandas. The builder validates the completed '
+        'aggregate run and its sources; it is not intended to run from the extracted package directory. '
         'No individual records, predictions, fold assignments or fitted caches are included.\n'
     )
     (stage / 'README.md').write_text(readme)
