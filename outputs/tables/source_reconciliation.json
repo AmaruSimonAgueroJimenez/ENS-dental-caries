@@ -1,0 +1,320 @@
+{
+  "status": "verified",
+  "identity": {
+    "key": "IdEncuesta",
+    "n_original_participants": 5520,
+    "original_ids_unique": true,
+    "unmatched_original_ids": 0,
+    "ids_equal_complete_sav_examination_cohort": true,
+    "row_order_equal_to_sav": false,
+    "join_requirement": "Match by IdEncuesta; original row order differs from SAV"
+  },
+  "cohorts": {
+    "examined": 5520,
+    "dentate": 5036,
+    "original_complete_cases": 4994,
+    "original_complete_case_events": 2664,
+    "original_complete_case_ids_equal_python": true
+  },
+  "outcome": {
+    "caries_discrepancies": 0,
+    "remaining_teeth_discrepancies": 0,
+    "decayed_teeth_discrepancies": 0
+  },
+  "raw_numeric_checks": [
+    {
+      "dta_variable": "IdEncuesta",
+      "sav_variable": "IdEncuesta",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "Edad",
+      "sav_variable": "Edad",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "region",
+      "sav_variable": "Region",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "zona",
+      "sav_variable": "Zona",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "sexo",
+      "sav_variable": "Sexo",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "c1",
+      "sav_variable": "c1",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "Estrato",
+      "sav_variable": "Estrato",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "m5p3",
+      "sav_variable": "m5p3",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "m5p5",
+      "sav_variable": "m5p5",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "m5p6",
+      "sav_variable": "m5p6",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "m5p8",
+      "sav_variable": "m5p8",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die1a",
+      "sav_variable": "die1a",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die2",
+      "sav_variable": "die2",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die3",
+      "sav_variable": "die3",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die4",
+      "sav_variable": "die4",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die5",
+      "sav_variable": "die5",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die6",
+      "sav_variable": "die6",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die7",
+      "sav_variable": "die7",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die8",
+      "sav_variable": "die8",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die9",
+      "sav_variable": "die9",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_a",
+      "sav_variable": "die10_a",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_b",
+      "sav_variable": "die10_b",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_c",
+      "sav_variable": "die10_c",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_d",
+      "sav_variable": "die10_d",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_e",
+      "sav_variable": "die10_e",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die10_f",
+      "sav_variable": "die10_f",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die11",
+      "sav_variable": "die11",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die14",
+      "sav_variable": "die14",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die12_cantidad",
+      "sav_variable": "die12_cantidad",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die12_unidad",
+      "sav_variable": "die12_unidad",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die13_cantidad",
+      "sav_variable": "die13_cantidad",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    },
+    {
+      "dta_variable": "die13_unidad",
+      "sav_variable": "die13_unidad",
+      "n_compared": 5520,
+      "n_discrepant": 0
+    }
+  ],
+  "primary_predictors": {
+    "n": 27,
+    "n_matching_after_declared_harmonization": 27,
+    "n_matching_without_beverage_month_harmonization": 25,
+    "unexpected_discrepancies": 0
+  },
+  "category_harmonization": {
+    "education": "DTA nedu0=high,1=intermediate,2=low; SAV education3=high,2=intermediate,1=low",
+    "indigenous": "DTA c6=0 replaces SAV c6=10; DTA indigena0/1 equals decoded SAV indicator"
+  },
+  "beverage_month_conversion": {
+    "original": "Quantity *7 daily; quantity weekly; quantity /4 monthly; zero for nonconsumers. Divide weekly result by7 for legacy daily sensitivity.",
+    "primary": "Quantity daily; quantity /7 weekly; quantity /30 monthly; zero for nonconsumers.",
+    "interpretation": "Original monthly conversion implies28 days; primary conversion uses30 days. Source quantity/unit values are identical.",
+    "differences": {
+      "soda_frequency": {
+        "n_different_examined": 569,
+        "n_different_dentate": 520,
+        "maximum_absolute_difference_times_per_day": 0.0714285714285714
+      },
+      "juice_frequency": {
+        "n_different_examined": 305,
+        "n_different_dentate": 286,
+        "maximum_absolute_difference_times_per_day": 0.0714285714285714
+      }
+    }
+  },
+  "water_coding": {
+    "reported_glasses_match": true,
+    "original_r_uses_factor_indices": true,
+    "observed_levels_before_complete_case_deletion": 25,
+    "note": "An ordered factor index preserves ranking but changes cardinal spacing and the meaning of a unit increase."
+  },
+  "structural_skip_handling": "Original unconditional and corrected questionnaire-conditional recoding give identical values in this observed dataset; validation rejects unexplained missing responses.",
+  "aggregate_outputs_contain_identifiers": false,
+  "legacy_frequency_table": "Contains participant_id for in-memory joining only; do not export as a public result.",
+  "sources": {
+    "original_dta": {
+      "file": "23.07.26_base_ens_5520_R_enviar.dta",
+      "sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966",
+      "size_bytes": 18595786,
+      "rows": 5520,
+      "numeric_columns_read": [
+        "IdEncuesta",
+        "Edad",
+        "region",
+        "zona",
+        "sexo",
+        "c1",
+        "Estrato",
+        "m5p3",
+        "m5p5",
+        "m5p6",
+        "m5p8",
+        "die1a",
+        "die2",
+        "die3",
+        "die4",
+        "die5",
+        "die6",
+        "die7",
+        "die8",
+        "die9",
+        "die10_a",
+        "die10_b",
+        "die10_c",
+        "die10_d",
+        "die10_e",
+        "die10_f",
+        "die11",
+        "die14",
+        "die12_cantidad",
+        "die12_unidad",
+        "die13_cantidad",
+        "die13_unidad",
+        "c6",
+        "nedu",
+        "indigena",
+        "remanentes",
+        "cariados",
+        "cariesnt",
+        "frecsembebida",
+        "frecsemjugo"
+      ],
+      "read_encoding": "latin1",
+      "encoding_note": "Fallback for a truncated UTF-8 source label; numeric values unchanged. Labels interpreted through an explicit dictionary, not mojibake text."
+    },
+    "supplemental_sav": {
+      "file": "data.sav",
+      "sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+      "size_bytes": 18157353,
+      "rows": 6233,
+      "role": "Survey weight/PSU and additional water context absent from original DTA; ID-matched supplementation"
+    },
+    "original_code": {
+      "repository": "https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries",
+      "commit": "77c107feb56d3f825cd4ad26354b672f8bfebe38",
+      "file": "docs/index.qmd"
+    }
+  },
+  "sav_sha256": "9873b421d446190070bfff6495321fb152485c47457692936dbcd18c542eb89a",
+  "original_dta_sha256": "754c2d32bafd002b861221d9d468f74a703de4ea9dd6c492cf848f042f3b0966"
+}

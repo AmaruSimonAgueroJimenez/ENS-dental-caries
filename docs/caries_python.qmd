@@ -1,0 +1,583 @@
+---
+title: "Water consumption and prevalent dental caries in Chile"
+subtitle: "Python reanalysis of ENS 2016–17"
+lang: en
+jupyter: python3
+format:
+  html:
+    theme: cosmo
+    css: caries-report.css
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    toc-location: right
+    number-sections: true
+    code-fold: true
+    code-summary: "Show analysis code"
+    code-tools: true
+    smooth-scroll: true
+    page-layout: article
+execute:
+  echo: true
+  warning: false
+  error: false
+  cache: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+from pathlib import Path
+from html import escape
+import base64
+import json
+import numpy as np
+import pandas as pd
+from IPython.display import display, HTML, Markdown
+
+ROOT = Path.cwd()
+if ROOT.name == "docs":
+    ROOT = ROOT.parent
+TABLES = ROOT / "outputs" / "tables"
+FIGURES = ROOT / "outputs" / "figures"
+assert TABLES.is_dir(), "Render from the repository root or its docs directory."
+
+csv_names = [
+    "sample_flow", "descriptive_prevalence", "descriptive_numeric",
+    "model_performance", "paired_comparisons", "water_effects", "water_contrasts",
+    "diagnostics", "subgroup_performance", "prediction_subset_sensitivity",
+    "importance_stability", "predictor_missingness", "variable_dictionary",
+    "validation_split_checks", "hyperparameter_search", "source_comparison", "legacy_water_coding",
+]
+json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation"]
+for name in csv_names:
+    assert (TABLES / f"{name}.csv").is_file(), f"Missing required aggregate: {name}.csv"
+for name in json_names:
+    assert (TABLES / f"{name}.json").is_file(), f"Missing required metadata: {name}.json"
+tables = {name: pd.read_csv(TABLES / f"{name}.csv") for name in csv_names}
+metadata = {name: json.loads((TABLES / f"{name}.json").read_text()) for name in json_names}
+run = metadata["run_manifest"]
+model_manifest = metadata["model_manifest"]
+audit = metadata["data_audit"]
+assoc_metadata = metadata["association_metadata"]
+source = metadata["source_reconciliation"]
+assert run["status"] == "complete", "The analysis run is not complete."
+assert run["input_sha256"] == audit["source_sha256"], "Input hashes disagree."
+assert source["status"] == "verified", "Original-source reconciliation is not verified."
+assert run["source_reconciliation"] == source, "Run manifest and source reconciliation disagree."
+assert source["sav_sha256"] == run["input_sha256"], "Supplementary source hashes disagree."
+assert source["original_dta_sha256"] == run["original_input_sha256"], "Original Stata hashes disagree."
+assert source["identity"]["original_ids_unique"] and source["identity"]["ids_equal_complete_sav_examination_cohort"], "Original participants do not match the examination cohort."
+assert source["cohorts"]["original_complete_case_ids_equal_python"], "The manuscript cohort does not reconcile."
+assert source["cohorts"]["dentate"] == run["n_primary"] and source["cohorts"]["original_complete_cases"] == run["n_manuscript"], "Reconciled cohort sizes disagree."
+assert all(value == 0 for value in source["outcome"].values()), "Outcomes do not reconcile."
+assert source["primary_predictors"]["unexpected_discrepancies"] == 0, "Unexpected predictor discrepancies remain."
+assert source["primary_predictors"]["n_matching_after_declared_harmonization"] == source["primary_predictors"]["n"] == 27, "All primary constructs must reconcile."
+assert tables["source_comparison"]["n_discrepant_primary"].eq(0).all(), "Source comparison contains unexplained differences."
+assert run["outer_folds"] == 5 and run["inner_folds"] == 3, "Full nested validation required."
+assert min(c["C"] for c in model_manifest["models"]["logistic"]["candidates"]) <= 0.0001, "The final expanded-grid run is required."
+assert tables["validation_split_checks"]["psu_overlap"].eq(0).all(), "Survey clusters overlap across validation partitions."
+assert model_manifest["n_participants"] == run["n_primary"], "Model cohort and run manifest disagree."
+
+main_models = ["logistic", "spline_logistic", "random_forest", "hist_gradient_boosting", "svm", "decision_tree", "knn"]
+model_order = main_models + ["spline_base", "spline_no_water", "rf_base", "rf_no_water", "spline_extended", "spline_no_teeth", "prevalence_only"]
+labels = {
+    "logistic": "Linear logistic regression",
+    "spline_logistic": "Spline logistic regression",
+    "random_forest": "Random forest",
+    "hist_gradient_boosting": "Histogram gradient boosting",
+    "svm": "Support vector machine",
+    "decision_tree": "Decision tree",
+    "knn": "K-nearest neighbours",
+    "spline_base": "Spline: demographic/dental base",
+    "spline_no_water": "Spline: full without water",
+    "rf_base": "Random forest: demographic/dental base",
+    "rf_no_water": "Random forest: full without water",
+    "spline_extended": "Spline: water context + dental attendance",
+    "spline_no_teeth": "Spline: full without remaining teeth",
+    "prevalence_only": "Training-fold prevalence benchmark",
+}
+roles = {m: "Full-feature algorithm" for m in main_models}
+roles.update({
+    "spline_base": "Dietary-block comparison", "rf_base": "Dietary-block comparison",
+    "spline_no_water": "Water comparison", "rf_no_water": "Water comparison",
+    "spline_extended": "Exploratory extension", "spline_no_teeth": "Dental-measure sensitivity",
+    "prevalence_only": "Reference benchmark",
+})
+perf = tables["model_performance"]
+weighted = perf.loc[perf["weighting"].eq("Survey weighted")].set_index("model")
+unweighted = perf.loc[perf["weighting"].eq("Unweighted")].set_index("model")
+assert set(weighted.index) == set(model_order), "Expected all 14 final model variants."
+assert weighted["n"].eq(run["n_primary"]).all(), "Performance estimates use inconsistent cohorts."
+pairs = tables["paired_comparisons"]
+flow = audit["sample_flow"]
+overall = tables["descriptive_prevalence"].query("variable == 'Overall'").iloc[0]
+water_linear = tables["water_effects"].query("model == 'Primary linear water'").iloc[0]
+water_spline = tables["water_contrasts"].iloc[0]
+assert bool(water_spline["supported"]), "The water contrast lacks observed support."
+assert len(tables["diagnostics"]) == 8, "Expected all eight association analyses."
+assert tables["water_effects"]["model"].eq("Original 28-day beverage conversion").sum() == 1, "The original-conversion sensitivity is missing."
+assert tables["diagnostics"]["converged"].all(), "An association model did not converge."
+
+def number(x, digits=3):
+    return "—" if pd.isna(x) else f"{float(x):.{digits}f}"
+
+def interval(row, value="estimate", low="ci_low", high="ci_high", digits=3, scale=1):
+    return f"{float(row[value])*scale:.{digits}f} ({float(row[low])*scale:.{digits}f} to {float(row[high])*scale:.{digits}f})"
+
+def effect_pair(model, reference, metric="auc"):
+    found = pairs.loc[pairs["model"].eq(model) & pairs["reference"].eq(reference) & pairs["metric"].eq(metric)]
+    assert len(found) == 1, f"Expected one paired comparison: {model}, {reference}, {metric}"
+    return found.iloc[0]
+
+def delta_text(model, reference, metric="auc"):
+    return interval(effect_pair(model, reference, metric), value="difference", digits=4)
+
+def pair_interpretation(model, reference, metric="auc"):
+    row = effect_pair(model, reference, metric)
+    lower, upper = float(row.ci_low), float(row.ci_high)
+    better = lower > 0 if metric == "auc" else upper < 0
+    worse = upper < 0 if metric == "auc" else lower > 0
+    if better:
+        return "the conditional interval favours the first model"
+    if worse:
+        return "the conditional interval favours the reference model"
+    return "the conditional interval includes no difference"
+
+def show_table(frame, caption, note=""):
+    table = frame.to_html(index=False, escape=True, border=0, classes="report-table", na_rep="—")
+    display(HTML(f'<div class="table-block"><div class="table-caption">{escape(caption)}</div>'
+                 f'<div class="table-scroll" tabindex="0">{table}</div>'
+                 f'<p class="table-note">{escape(note)}</p></div>'))
+
+assert (FIGURES / "figure_metadata.json").is_file(), "Figure metadata are missing."
+figure_meta = json.loads((FIGURES / "figure_metadata.json").read_text())
+assert not figure_meta.get("missing_or_empty_source_tables"), "Figures have incomplete inputs."
+figure_lookup = {item["name"]: item for item in figure_meta["figures"]}
+figure_names = ["performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "descriptive_prevalence"]
+for name in figure_names:
+    assert name in figure_lookup and (FIGURES / f"{name}.png").is_file(), f"Missing figure: {name}"
+
+def show_figure(name):
+    item = figure_lookup[name]
+    encoded = base64.b64encode((FIGURES / f"{name}.png").read_bytes()).decode("ascii")
+    caption = escape(item["caption"])
+    display(HTML(f'<figure class="analysis-figure"><img src="data:image/png;base64,{encoded}" alt="{caption}">'
+                 f'<figcaption>{caption}</figcaption></figure>'))
+
+def simple_metric_table(ids):
+    rows = []
+    for model in ids:
+        row = weighted.loc[model]
+        rows.append({
+            "Model": labels[model], "Role": roles[model],
+            "AUC (95% CI)": interval(row, "auc", "auc_low", "auc_high"),
+            "Brier (95% CI)": interval(row, "brier", "brier_low", "brier_high"),
+            "Log loss (95% CI)": interval(row, "log_loss", "log_loss_low", "log_loss_high"),
+        })
+    return pd.DataFrame(rows)
+```
+
+## Structured summary
+
+**Question.** Does reported daily water consumption contribute information about existing cavitated caries beyond demographic, dental and dietary characteristics, and do flexible algorithms improve discrimination in previously unseen survey clusters?
+
+```{python}
+#| label: summary-results
+#| echo: false
+best_full = weighted.loc[main_models, "auc"].idxmax()
+best_variant = weighted.drop(index="prevalence_only")["auc"].idxmax()
+summary_cards = [
+    (f'{run["n_primary"]:,}', "Dentate participants in model development"),
+    (f'{overall.estimate:.1%}', "Survey-weighted prevalence of cavitated caries"),
+    (f'{weighted.loc[best_full, "auc"]:.3f}', "Highest AUC among the seven full-feature algorithms"),
+]
+display(HTML('<div class="summary-grid">' + ''.join(
+    f'<div class="summary-card"><strong>{escape(value)}</strong><span>{escape(label)}</span></div>'
+    for value, label in summary_cards) + '</div>'))
+display(Markdown(
+    f'**Design and findings.** This cross-sectional reconstruction included {run["n_primary"]:,} dentate ENS participants aged 15 years or older, '
+    f'with one held-out probability per model from {run["outer_folds"]}-fold outer and {run["inner_folds"]}-fold inner cluster-grouped validation. '
+    f'The adjusted odds ratio per additional reported glass/day was **{interval(water_linear)}**. '
+    f'For {water_spline.comparison_water:g} versus {water_spline.reference_water:g} glasses/day, the spline conditional odds ratio was **{interval(water_spline)}**. '
+    f'Adding water changed AUC by **{delta_text("spline_logistic", "spline_no_water")}** in spline logistic regression and '
+    f'**{delta_text("random_forest", "rf_no_water")}** in random forest. All intervals shown here are 95% intervals.'
+))
+water_pairs = [effect_pair("spline_logistic", "spline_no_water"), effect_pair("random_forest", "rf_no_water")]
+if all(row.ci_low <= 0 <= row.ci_high for row in water_pairs) and water_linear.ci_low <= 1 <= water_linear.ci_high:
+    conclusion = ("The analyses do not establish an incremental discrimination benefit of water or a clear adjusted association with caries. "
+                  "The intervals retain uncertainty; they are not evidence that every plausible association is absent.")
+else:
+    conclusion = ("The association and paired model estimates must be interpreted together, with attention to their magnitudes and intervals. "
+                  "Any incremental information remains exploratory and requires independent validation.")
+display(Markdown(f'**Interpretation.** {conclusion} These findings concern concurrent disease classification; they do not establish prevention, future risk prediction or clinical usefulness.'))
+```
+
+## Scope, provenance and study population
+
+This report reanalyses the original water-and-caries data with an audited R reference in the [ENS-dental-caries repository](https://github.com/AmaruSimonAgueroJimenez/ENS-dental-caries/tree/77c107feb56d3f825cd4ad26354b672f8bfebe38). The original `docs/index.qmd` and saved HTML are preserved; the HTML contains the manuscript's reported AUC values. Those saved results identify the reference analysis but are not newly rerun R estimates.
+
+The original Stata attachment was recovered from Andrea Correa's email of 31 July 2023 and reconciled by survey identifier with the supplementary SPSS release. SPSS supplies survey weights, PSUs and additional water-context fields absent from the original Stata file. This is a **Python reanalysis with verified original data**. The [analysis plan](caries-analysis-plan.md) and [R-to-Python audit](r-to-python-migration.md) explain the intentional methodological changes; identical historical `caret` metrics are not an objective.
+
+```{python}
+#| label: verified-source
+#| echo: false
+source_identity = source["identity"]
+source_predictors = source["primary_predictors"]
+source_cohorts = source["cohorts"]
+source_rows = [
+    ("Original Stata participants matched by identifier", f'{source_identity["n_original_participants"]:,}'),
+    ("Unmatched original participants", str(source_identity["unmatched_original_ids"])),
+    ("Caries / decayed-teeth / remaining-teeth discrepancies", " / ".join(str(source["outcome"][key]) for key in ["caries_discrepancies", "decayed_teeth_discrepancies", "remaining_teeth_discrepancies"])),
+    ("Predictors matching before beverage-month harmonization", f'{source_predictors["n_matching_without_beverage_month_harmonization"]} / {source_predictors["n"]}'),
+    ("Predictors matching after documented harmonization", f'{source_predictors["n_matching_after_declared_harmonization"]} / {source_predictors["n"]}'),
+    ("Unexplained predictor discrepancies", str(source_predictors["unexpected_discrepancies"])),
+]
+show_table(pd.DataFrame(source_rows, columns=["Source check", "Verified result"]),
+           "Source verification. Original Stata input and supplementary SPSS release.",
+           "Source rows occur in different orders, so checks join by survey identifier. Decoded education and indigenous identification agree. Aggregate checks contain no participant identifiers; both file hashes appear in the reproducibility record.")
+legacy_water = tables["legacy_water_coding"]
+maximum_water_mapping = legacy_water.loc[legacy_water["reported_glasses_per_day"].idxmax()]
+display(Markdown(
+    f'The Stata metadata confirms that the R expression converts labelled water values to **factor indices**, preserving order but changing cardinal spacing. '
+    f'For example, {maximum_water_mapping.reported_glasses_per_day:g} reported glasses/day becomes index '
+    f'{int(maximum_water_mapping.original_r_factor_index)}. The Python analysis retains the reported numeric glasses/day. '
+    'Questionnaire-conditional and original unconditional skip recoding happen to give identical values in this observed dataset; the revised rules explicitly distinguish structural non-consumption from nonresponse.'
+))
+```
+
+The original R program uses an individual-level training/test partition with internal cross-validation and omits survey fitting weights and PSU grouping. The Python analysis groups survey clusters, uses weights where supported and learns statistical preprocessing within training folds. These are substantive changes to development and evaluation, so historical AUCs should not be compared as if they arose from the same validation experiment.
+
+ENS is a cross-sectional, stratified, multistage survey. Published documentation describes an oral examination by trained nurses during the second home visit. Eligibility in other oral-health publications differs from the present dentate domain and should not be imposed on this analysis. [Margozzini et al., 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7479467/)
+
+```{python}
+#| label: sample-flow
+#| echo: false
+flow_rows = [
+    ("Supplied survey records", "all_participants"),
+    ("No complete oral examination", "no_complete_dental_examination"),
+    ("Complete oral examination", "dental_examination"),
+    ("Excluded: completely edentulous", "edentulous"),
+    ("Primary dentate prediction cohort", "dentate_eligible"),
+    ("Participants with cavitated caries", "dentate_cases"),
+    ("Missing education within the dentate cohort", "dentate_missing_education"),
+    ("Missing water within the dentate cohort", "dentate_missing_water"),
+    ("Education-and-water-complete manuscript subset", "paper_complete"),
+    ("Caries cases in the manuscript subset", "paper_cases"),
+]
+show_table(pd.DataFrame([{"Stage": label, "Participants": f"{flow[key]:,}"} for label, key in flow_rows]),
+           "Table 1. Population flow and manuscript reconstruction.",
+           "Rows showing cases and missing predictors describe nested groups, not additional sequential exclusions. No outcomes were imputed.")
+display(Markdown(
+    f'The primary prediction cohort retains **{run["n_primary"]:,}** participants through training-fold imputation. '
+    f'The exact manuscript subset has **{run["n_manuscript"]:,}** participants with observed education and water. '
+    f'Weighted caries prevalence was **{interval(overall, digits=1, scale=100)}%**, compared with **{overall.unweighted_prevalence:.1%}** unweighted. '
+    f'Design-based intervals use {int(overall.df):,} degrees of freedom.'
+))
+show_figure("descriptive_prevalence")
+```
+
+The outcome is at least one currently decayed permanent tooth, obtained from valid upper- and lower-jaw counts and verified against the original Stata outcome. Completely edentulous people are outside this target population. This measure is neither DMFT nor incident disease; participants without current decay can have substantial prior dental disease or tooth loss. Remaining teeth is a concurrent dental measure, potentially affecting both opportunity to observe decay and model performance.
+
+## Exposures, predictors and data quality
+
+The full comparison uses eight demographic/dental predictors and 19 dietary constructs. Water is self-reported glasses/day. Available metadata do not establish glass volume, fluoride concentration, individual fluoride exposure or substitution for sugary drinks. The three-variable extension adds household supply, recent rural/well/spring water use and dental attendance. These are available contextual variables, but household supply need not be the source of each glass, and attendance may follow disease.
+
+```{python}
+#| label: predictor-definitions
+#| echo: false
+dictionary = tables["variable_dictionary"].set_index("variable")
+base_features = model_manifest["models"]["spline_base"]["features"]
+full_features = model_manifest["models"]["logistic"]["features"]
+diet_features = [name for name in full_features if name not in base_features]
+extra_features = [name for name in model_manifest["models"]["spline_extended"]["features"] if name not in full_features]
+assert len(base_features) == 8 and len(diet_features) == 19 and len(extra_features) == 3
+display(Markdown('**Demographic/dental block:** ' + '; '.join(dictionary.loc[name, "description"] for name in base_features) + '.'))
+diet_display = dictionary.loc[diet_features, ["description", "units"]].reset_index(drop=True)
+diet_display.columns = ["Dietary construct", "Unit / coding"]
+show_table(diet_display, "Table 2. The 19 dietary predictors in the full models.",
+           "Fruit and vegetable portions refer to a consumption day, with zero assigned to structural nonconsumers. They are not daily averages. Beverage frequencies are occasions per day, not glasses per day.")
+missing = tables["predictor_missingness"].query("missing > 0").copy()
+missing["Predictor"] = missing["variable"].map(dictionary["description"])
+missing["Missing (%)"] = missing["percent_missing"].map(lambda x: f"{x:.2f}")
+show_table(missing[["Predictor", "missing", "Missing (%)"]].rename(columns={"missing": "Missing, n"}),
+           "Table 3. Predictor nonresponse in the dentate population.",
+           "Missingness is distinguished from documented structural non-consumption. Exploratory extension variables are included in this audit.")
+```
+
+Frequency units are converted using seven days/week and 30 days/month. The original Stata weekly-frequency derivation used four weeks per month, equivalent to 28 days after conversion to daily units. Raw quantities and unit codes agree; the month convention explains the two derived predictor differences. An added association sensitivity retains the original conversion. Zero consumption is retained. A no-dairy category distinguishes nonconsumers; fruit and vegetable portions become zero when the corresponding frequency is zero. Statistical imputation occurs only inside prediction training folds. Association models use observed outcomes and complete required covariates. The [variable dictionary](../outputs/tables/variable_dictionary.csv) records source variables, categories and derivation rules.
+
+```{python}
+#| label: extreme-values
+#| echo: false
+extremes = audit["extreme_values_dentate"]
+tail_rows = []
+for variable, item in extremes.items():
+    tail_rows.append({"Variable": variable.replace("_", " "), "Median": number(item["median"], 2),
+                      "99th percentile": number(item["p99"], 2), "Maximum": number(item["max"], 2),
+                      "Audit flag above": number(item["audit_threshold"], 1), "Flagged, n": item["n_above_threshold"]})
+show_table(pd.DataFrame(tail_rows), "Table 4. Exposure-tail audit.",
+           "Review thresholds are audit flags, not validated exclusion rules. Primary models retain the observations. Quantity-derived soda/juice glasses are ancillary and are not in the 27-predictor comparison.")
+display(Markdown(
+    f'Water responses extend to {extremes["water"]["max"]:g} glasses/day. The water-tail sensitivity excludes responses above '
+    f'{assoc_metadata["tail_cutoff"]:g} glasses/day, the observed 99th percentile. Implausibly large fruit, vegetable and beverage responses '
+    'remain a measurement limitation; deterministic unit conversion does not validate their accuracy.'
+))
+```
+
+## Survey inference and model development
+
+The supplied stratum and primary sampling unit (PSU) identifiers are preserved. `Fexp_F1F2p_Corr` is the **working** examination-stage expansion weight: it matches `Fexp_F2p_Corr` exactly in this release and its availability corresponds to the oral-examination stage. The official phase-selection manual could not be retrieved, so definitive confirmation remains outstanding. The accessible [ENS technical workshop](https://rstudio-pubs-static.s3.amazonaws.com/666227_f822f21ebae44f219a23764b448be668.html) supports using the supplied design variables and constructing the design before subsetting; it is teaching material, not official certification of this weight choice. The [source audit](methodological-sources.md) separates verified observations from documentation gaps.
+
+Descriptive and regression variance estimation starts with the complete examination-phase design before defining analytic domains. Centred PSU score totals provide a first-stage, with-replacement linearization without a finite-population correction. The singleton stratum receives the average variance contribution of non-singleton strata. Metric bootstrap intervals use a different convention: the singleton PSU is fixed because its variance cannot be identified from one observed PSU.
+
+### Common validation and preprocessing
+
+Every algorithm uses the same five outer and three inner PSU-grouped folds, with approximate outcome stratification. Median imputation with numeric missingness indicators, categorical “Missing” values, one-hot encoding, scaling and spline construction are fitted within the applicable training sample. Unknown categories are handled without refitting on held-out participants. Predictive splines use three training-derived quantile knots for age, remaining teeth and water where included. There is no class balancing or full-sample outcome-based feature selection.
+
+Training weights are normalized to mean one. Inner validation minimizes pooled survey-weighted log loss. K-nearest neighbours is an unweighted-training benchmark because its estimator does not accept fitting weights; its tuning and evaluation remain weighted. SVM probabilities use grouped, training-only out-of-fold Platt calibration before refitting the classifier. Numeric preprocessing and calibration never use outer evaluation outcomes.
+
+### Transparent grid amendment
+
+An audit restricted to internal tuning tables found repeated selection of the strongest available regularization. One expanded grid was fixed and the complete nested procedure rerun for every corresponding variant. The audit folds overlap and do not constitute independent experiments. This dataset-informed amendment makes the results exploratory development evidence; it does not justify describing the procedure as wholly prespecified or as external validation.
+
+```{python}
+#| label: model-grids
+#| echo: false
+grid_rows = []
+for model in main_models:
+    spec = model_manifest["models"][model]
+    candidate_keys = sorted({key for candidate in spec["candidates"] for key in candidate})
+    entries = []
+    for key in candidate_keys:
+        values = {str(candidate[key]) for candidate in spec["candidates"] if key in candidate}
+        try:
+            ordered_values = sorted(values, key=float)
+        except ValueError:
+            ordered_values = sorted(values)
+        entries.append(f'{key}: {", ".join(ordered_values)}')
+    grid_rows.append({"Algorithm": labels[model], "Candidate values": "; ".join(entries),
+                      "Candidates": len(spec["candidates"]), "Weighted fitting": "Yes" if spec["weighted_training"] else "No"})
+show_table(pd.DataFrame(grid_rows), "Table 5. Final candidate grids, read from the completed model manifest.",
+           "The SVM C range was retained because the internal audit showed no consistent boundary direction. The same expanded grids apply to corresponding feature-block variants. No further expansion was made to pursue a desired result.")
+```
+
+### Performance and uncertainty
+
+AUC describes ranking; Brier score and log loss assess probability predictions, with lower values preferred. Calibration-in-the-large is an intercept with slope fixed at one; the reported calibration slope comes from a joint intercept/slope fit. Their ideal values are zero and one, respectively. Sensitivity, specificity and predictive values use a fixed 0.5 threshold, which was not selected as a clinical operating point. Logarithmic scores clip probabilities at the manifest-defined numerical epsilon; AUC and Brier use the original probabilities.
+
+```{python}
+#| label: uncertainty-method
+#| echo: false
+display(Markdown(
+    f'The {run["bootstrap_replicates"]:,} shared, stratified rescaled PSU-bootstrap replicates produce paired 95% intervals conditional on the fitted models and fixed fold assignments. '
+    'They describe sampling variation in evaluated predictions and exclude variability from redevelopment, retuning and alternative partitions. '
+    'Repeated model comparisons and subgroup summaries are exploratory; no multiplicity adjustment is applied.'
+))
+```
+
+## Classification performance and incremental information
+
+```{python}
+#| label: performance-all
+#| echo: false
+display(Markdown(
+    f'Among the seven full-feature algorithms, **{labels[best_full]}** had the highest point AUC: '
+    f'**{interval(weighted.loc[best_full], "auc", "auc_low", "auc_high")}**. '
+    f'Across all developed variants, **{labels[best_variant]}** had the highest point AUC '
+    f'(**{weighted.loc[best_variant, "auc"]:.3f}**). This is a descriptive ranking, not a separately validated selection rule.'
+))
+show_table(simple_metric_table(model_order), "Table 6. Survey-weighted out-of-fold performance for all 14 variants.",
+           "Intervals are conditional stratified PSU-bootstrap intervals. The prevalence benchmark predicts the weighted training-fold prevalence. Feature-block variants answer different questions from the seven full-feature algorithm comparisons.")
+show_figure("performance_dot")
+detail_rows = []
+for model in main_models:
+    row, unrow = weighted.loc[model], unweighted.loc[model]
+    detail_rows.append({"Algorithm": labels[model], "AUC, unweighted": number(unrow.auc),
+                       "Average precision": number(row.average_precision),
+                       "Calibration intercept": number(row.calibration_intercept), "Calibration slope": number(row.calibration_slope),
+                       "Sensitivity": number(row.sensitivity), "Specificity": number(row.specificity),
+                       "PPV": number(row.ppv), "NPV": number(row.npv)})
+show_table(pd.DataFrame(detail_rows), "Table 7. Calibration and additional metrics for the seven full-feature algorithms.",
+           "Only the explicitly labelled AUC column is unweighted; remaining columns use survey weights. Calibration values are point estimates. Threshold-based measures use 0.5 and do not establish clinical utility. PPV/NPV are positive/negative predictive values.")
+show_figure("calibration_roc")
+```
+
+### Paired comparisons
+
+```{python}
+#| label: incremental-results
+#| echo: false
+pair_rows = []
+for (model, reference), group in pairs.groupby(["model", "reference"], sort=False):
+    pair_rows.append({"Comparison": group.iloc[0]["comparison"],
+                      "ΔAUC (95% CI)": delta_text(model, reference, "auc"),
+                      "ΔBrier (95% CI)": delta_text(model, reference, "brier"),
+                      "Δlog loss (95% CI)": delta_text(model, reference, "log_loss")})
+show_table(pd.DataFrame(pair_rows), "Table 8. Paired incremental differences on identical participants and folds.",
+           "Difference = first model minus reference. Positive AUC differences favour the first model; negative Brier/log-loss differences favour it. These are conditional intervals without adjustment for multiple comparisons.")
+display(Markdown(
+    f'For **water**, the spline comparison gives ΔAUC {delta_text("spline_logistic", "spline_no_water")}; '
+    f'{pair_interpretation("spline_logistic", "spline_no_water")}. The random-forest comparison gives '
+    f'ΔAUC {delta_text("random_forest", "rf_no_water")}; {pair_interpretation("random_forest", "rf_no_water")}. '
+    'A predictor can have permutation importance while adding little beyond correlated variables. Importance ranking is therefore insufficient evidence of incremental usefulness.'
+))
+display(Markdown(
+    f'For **model flexibility**, spline versus linear logistic regression gives ΔAUC {delta_text("spline_logistic", "logistic")}; '
+    f'{pair_interpretation("spline_logistic", "logistic")}. Random forest versus linear logistic gives '
+    f'ΔAUC {delta_text("random_forest", "logistic")}; {pair_interpretation("random_forest", "logistic")}. '
+    'The probability-score contrasts in Table 8 provide a separate check against interpreting ranking gains alone as improvement in predicted probabilities.'
+))
+display(Markdown(
+    f'Adding the **entire dietary block** to spline regression gives ΔAUC {delta_text("spline_logistic", "spline_base")}. '
+    f'Adding **water context and dental attendance** gives ΔAUC {delta_text("spline_extended", "spline_logistic")}; '
+    f'{pair_interpretation("spline_extended", "spline_logistic")}. The extension changes three variables together, so its difference cannot be assigned to water source alone. '
+    f'Adding **remaining teeth** gives ΔAUC {delta_text("spline_logistic", "spline_no_teeth")}; '
+    'this concurrent clinical measurement should be considered when defining any intended future use.'
+))
+show_figure("incremental_water")
+```
+
+## Adjusted water association
+
+Eight survey-weighted association analyses separate effect estimation from algorithm comparison. The primary logistic model estimates a linear water term while adjusting flexibly for age, remaining teeth and soda/juice frequency, plus sex, region, rurality, education, indigenous identification and birthplace. A second model uses a water spline. Further analyses add the three contextual variables, restrict age, assess the exposure tail, omit remaining teeth, estimate a modified Poisson prevalence ratio, or retain the original 28-day beverage conversion. The last analysis was added after source reconciliation. These regressions use complete required covariates, rather than the prediction pipeline's imputation strategy.
+
+```{python}
+#| label: association-results
+#| echo: false
+effect_rows = []
+for _, row in tables["water_effects"].iterrows():
+    effect_rows.append({"Analysis": row["model"], "n": f'{int(row["n"]):,}', "Measure": row["measure"],
+                        "Estimate (95% CI)": interval(row), "p value": number(row.p_value)})
+effect_rows.insert(1, {"Analysis": f'Water spline: {water_spline["contrast"]}', "n": f'{int(water_spline["n"]):,}',
+                       "Measure": water_spline["measure"], "Estimate (95% CI)": interval(water_spline), "p value": number(water_spline.p_value)})
+show_table(pd.DataFrame(effect_rows), "Table 9. Adjusted cross-sectional water associations and sensitivity analyses.",
+           "All linear estimates compare one additional reported glass/day. The spline row is a conditional odds ratio at identical other covariates. Odds ratios and prevalence ratios are different measures; p values are exploratory and unadjusted for multiplicity.")
+association_interpretation = (
+    "The interval includes no association and remains compatible with modest associations in either direction."
+    if water_linear.ci_low <= 1 <= water_linear.ci_high else
+    "The interval excludes the null within this model, but cross-sectional adjustment does not establish a causal effect."
+)
+display(Markdown(
+    f'The primary adjusted odds ratio was **{interval(water_linear)} per reported glass/day**. {association_interpretation} '
+    f'The spline comparison of {water_spline.comparison_water:g} versus {water_spline.reference_water:g} glasses/day was '
+    f'**{interval(water_spline)}**, supported by {int(water_spline.n_at_comparison):,} and {int(water_spline.n_at_reference):,} participants '
+    'at those exact intakes, respectively. This contrast is an odds ratio at the same other covariates, not a ratio of standardized prevalences.'
+))
+legacy_effect = tables["water_effects"].query("model == 'Original 28-day beverage conversion'").iloc[0]
+beverage_differences = source["beverage_month_conversion"]["differences"]
+display(Markdown(
+    f'The original monthly convention changes daily-equivalent soda frequency for '
+    f'{beverage_differences["soda_frequency"]["n_different_dentate"]:,} dentate participants and juice frequency for '
+    f'{beverage_differences["juice_frequency"]["n_different_dentate"]:,}. '
+    f'Retaining those original frequencies gives a water odds ratio of **{interval(legacy_effect)}** '
+    f'in {int(legacy_effect["n"]):,} participants. This sensitivity changes the association adjustment only; '
+    'the primary nested prediction models retain the declared 30-day convention.'
+))
+show_figure("water_association")
+diagnostics = tables["diagnostics"]
+poisson = diagnostics.query("model == 'Modified Poisson prevalence ratio'").iloc[0]
+display(Markdown(
+    'The adjusted curve averages spline-model predictions over the observed covariate distribution using survey weights. '
+    'Its pointwise delta-method intervals propagate design-based coefficient uncertainty **conditional on that fixed covariate composition**; '
+    'they do not include uncertainty in the composition itself. '
+    f'The modified Poisson model produced **{int(poisson.predictions_above_one):,} fitted values above one**. '
+    'Its robust prevalence-ratio coefficient is reported as a sensitivity analysis; those fitted values must not be presented as valid individual probabilities.'
+))
+```
+
+## Importance, subgroups and robustness
+
+Raw predictors are permuted in held-out folds, retaining their encoded columns as a group. Brier-score increases and AUC decreases measure disruption of each fitted model. Correlation can distribute importance across predictors, and permutation can create unrealistic covariate combinations. Neither the sign of an exposure–outcome association nor a causal mechanism follows from importance.
+
+```{python}
+#| label: importance
+#| echo: false
+show_figure("permutation_importance")
+importance = tables["importance_stability"].query("feature == 'water'")
+importance_rows = []
+for _, row in importance.iterrows():
+    importance_rows.append({"Model": labels[row.model], "Mean ΔBrier": number(row.brier_increase, 4),
+                           "Mean AUC drop": number(row.auc_drop, 4), "Median rank": number(row.median_rank, 1),
+                           "Rank range": f'{int(row.best_rank)}–{int(row.worst_rank)}',
+                           "Folds in top three": f'{row.fraction_top3:.0%}'})
+show_table(pd.DataFrame(importance_rows), "Table 10. Stability of held-out water importance.",
+           "Ranks compare the raw full-model predictors within a fold. Fold ranges are stability summaries, not confidence intervals. Mean importance uses held-out expansion-weight totals.")
+```
+
+```{python}
+#| label: subgroups
+#| echo: false
+selected = ["logistic", "spline_logistic", "random_forest"]
+subgroups = tables["subgroup_performance"]
+group_rows = []
+for (variable, level), group in subgroups.groupby(["variable", "level"], sort=False):
+    row = {"Grouping": variable.replace("_", " ").capitalize(), "Level": level, "n": f'{int(group.iloc[0]["n"]):,}'}
+    indexed = group.set_index("model")
+    for model, short in zip(selected, ["Linear", "Spline", "RF"]):
+        row[f"{short}: AUC / Brier"] = f'{number(indexed.loc[model, "auc"])} / {number(indexed.loc[model, "brier"])}'
+    group_rows.append(row)
+show_table(pd.DataFrame(group_rows), "Table 11. Exploratory subgroup performance for three central comparisons.",
+           "These weighted point estimates reuse the full-cohort held-out predictions. They have no subgroup-specific confidence intervals or formal interaction tests; apparent ranking differences are not established heterogeneity.")
+sensitivity = tables["prediction_subset_sensitivity"]
+subset_rows = []
+for _, row in sensitivity.loc[sensitivity.model.isin(selected)].iterrows():
+    subset_rows.append({"Subset": row["subset"], "Model": labels[row.model], "n": f'{int(row["n"]):,}',
+                       "AUC": number(row.auc), "Brier": number(row.brier),
+                       "Calibration intercept": number(row.calibration_intercept), "Calibration slope": number(row.calibration_slope)})
+show_table(pd.DataFrame(subset_rows), "Table 12. Evaluation on the manuscript subset and participants aged at least 18.",
+           "These analyses restrict existing out-of-fold predictions. The manuscript subset is not a newly developed complete-case model; training retains the primary imputation-based strategy. Association-model sample sizes differ because their covariate completeness rules differ.")
+```
+
+## Implications for the manuscript
+
+The manuscript should lead with a survey-aware comparison of current caries classification and the incremental contribution of water. An importance rank should not be framed as evidence that water is protective. Report the adjusted linear and nonlinear associations, paired model differences, calibration and probability scores together, with their uncertainty. The original sample is reconciled explicitly while additional eligible participants are retained through fold-specific imputation in the primary prediction analysis. Water coefficients should use physical reported units, with the factor-index correction and beverage-conversion sensitivity disclosed.
+
+Claims of general algorithm superiority should be tied to the actual comparisons. A small AUC improvement over a linear model does not establish clinically useful discrimination, and a full dietary model need not outperform a simpler demographic/dental model. The contextual extension is informative as an exploratory block; it does not measure fluoride exposure or eliminate reverse causation. No finding here supports a clinical recommendation to increase water intake to prevent caries.
+
+This emphasis is consistent with the distinction between diagnostic and prognostic models, appropriate validation and practical usefulness discussed in the [Caries Research methodological review](https://karger.com/cre/article/doi/10.1159/000553309/952744/Prognostic-Clinical-Predictive-Models-for-Dental). Transparent descriptions of population, missingness, model development and performance also follow the reporting aims of [TRIPOD+AI](https://doi.org/10.1136/bmj-2023-078378). Neither reference substitutes for evaluation of this dataset or guarantees journal acceptance.
+
+The main limitations are cross-sectional temporality; self-reported exposures and uncertain glass volume; unverified fluoride exposure; exposure tails and residual measurement error; selection into the examination and dentate domains; possible residual confounding; the working, incompletely documented weight choice; singleton-variance conventions; and reliance on a concurrent tooth-count predictor. The dataset-informed grid amendment, multiple exploratory comparisons and conditional intervals add development uncertainty. There is no temporal or geographic external validation, no assessment of clinical net benefit, and no demonstrated transportability or deployment readiness.
+
+## Reproducibility and aggregate outputs
+
+The report executes Python against completed aggregate results and stops if required inputs, source hashes, verified reconciliation, cohort checks or the final model grid are inconsistent. Model development and statistical inference are performed by the repository's analysis pipeline; rendering this document does not retrain models. The recovered Stata source remains intact. Participant-level data, held-out predictions and serialized estimators are excluded from this report. All displayed estimates and figures are read from the completed run.
+
+```{python}
+#| label: reproducibility
+#| echo: false
+repro = [
+    ("Run status", run["status"]), ("Completed (UTC)", run["completed_utc"]),
+    ("Analysis seed", str(run["analysis_seed"])),
+    ("Outer / inner folds", f'{run["outer_folds"]} / {run["inner_folds"]}'),
+    ("Bootstrap replicates", f'{run["bootstrap_replicates"]:,}'),
+    ("Permutation repeats per predictor/fold", str(model_manifest["settings"]["permutation_repeats"])),
+    ("Log-probability epsilon", str(model_manifest["settings"]["probability_log_epsilon"])),
+    ("Python", run["python"]),
+    ("Original Stata source", source["sources"]["original_dta"]["file"]),
+    ("Original Stata SHA-256", run["original_input_sha256"]),
+    ("Supplementary SPSS SHA-256", run["input_sha256"]),
+    ("Source reconciliation", source["status"]),
+    ("Original R reference commit", source["sources"]["original_code"]["commit"]),
+    ("Supplied stratum / cluster overlap violations", str(int(tables["validation_split_checks"]["psu_overlap"].sum()))),
+    ("Statistically imputed outcomes", str(audit["integrity"]["outcomes_imputed"])),
+    ("Clipped extreme observations", str(audit["integrity"]["extreme_values_clipped"])),
+]
+show_table(pd.DataFrame(repro, columns=["Item", "Recorded value"]), "Table 13. Reproducibility record.",
+           "Hashes identify both input releases without exposing participant records or private filesystem locations. The original R reference is linked in the provenance section. Fold overlap checks assess shared PSUs across train/test partitions.")
+show_table(pd.DataFrame(sorted(run["packages"].items()), columns=["Package", "Version"]),
+           "Table 14. Recorded software versions.")
+diagnostic_display = diagnostics[["model", "n", "df", "rank", "parameters", "converged", "predictions_above_one"]].copy()
+diagnostic_display.columns = ["Association analysis", "n", "Design df", "Rank", "Parameters", "Converged", "Fitted values >1"]
+show_table(diagnostic_display, "Table 15. Association-model diagnostics.",
+           "Convergence and full rank are necessary numerical checks; they do not validate causal assumptions or exposure measurement. The Poisson diagnostic is discussed in the association section.")
+```
+
+The standalone HTML embeds its figures. The following links provide repository-local aggregate supplements:
+
+- [Population flow](../outputs/tables/sample_flow.csv), [weighted prevalence](../outputs/tables/descriptive_prevalence.csv) and [predictor dictionary](../outputs/tables/variable_dictionary.csv).
+- [Verified source reconciliation](../outputs/tables/source_reconciliation.json), [construct comparisons](../outputs/tables/source_comparison.csv), [original water-index mapping](../outputs/tables/legacy_water_coding.csv) and [R-to-Python migration audit](r-to-python-migration.md).
+- [All model metrics](../outputs/tables/model_performance.csv), [paired comparisons](../outputs/tables/paired_comparisons.csv) and [internal tuning results](../outputs/tables/hyperparameter_search.csv).
+- [Water effects](../outputs/tables/water_effects.csv), [spline contrast](../outputs/tables/water_contrasts.csv) and [association diagnostics](../outputs/tables/diagnostics.csv).
+- [Subgroup estimates](../outputs/tables/subgroup_performance.csv), [subset sensitivity](../outputs/tables/prediction_subset_sensitivity.csv) and [importance stability](../outputs/tables/importance_stability.csv).
+- [Validation split checks](../outputs/tables/validation_split_checks.csv), [run manifest](../outputs/tables/run_manifest.json), [analysis plan](caries-analysis-plan.md) and [methodological source audit](methodological-sources.md).

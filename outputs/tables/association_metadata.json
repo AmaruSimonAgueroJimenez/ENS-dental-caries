@@ -1,0 +1,4 @@
+{
+  "water_curve_ci_method": "delta_method_beta_only_conditional_on_fixed_observed_covariate_composition",
+  "tail_cutoff": 15.0
+}

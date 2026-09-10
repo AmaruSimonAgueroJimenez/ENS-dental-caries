@@ -1,0 +1,801 @@
+{
+  "settings": {
+    "seed": 20260910,
+    "outer_folds": 5,
+    "inner_folds": 3,
+    "permutation_repeats": 5,
+    "selection": "pooled_inner_validation_weighted_log_loss",
+    "probability_log_epsilon": 1e-07,
+    "numeric_features": [
+      "age",
+      "fruit_days",
+      "fruit_portions",
+      "juice_frequency",
+      "soda_frequency",
+      "teeth_remaining",
+      "vegetable_days",
+      "vegetable_portions",
+      "water"
+    ],
+    "spline_features": [
+      "age",
+      "teeth_remaining",
+      "water"
+    ]
+  },
+  "models": {
+    "logistic": {
+      "kind": "logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "7a5836c926f7433de6a77ae4250108932b8181d93ee4b509129a84109cc55268"
+    },
+    "spline_logistic": {
+      "kind": "spline_logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "919734e44ef9f897fd8497e1a29e7dc2c3d5e97913289d8db5f48c9fc64b6a0e"
+    },
+    "random_forest": {
+      "kind": "random_forest",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "bdd974941469da700b19134e2aa7b3194531e410aa71d024cf6627aa6f871bee"
+    },
+    "hist_gradient_boosting": {
+      "kind": "hist_gradient_boosting",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 1.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 10.0,
+          "max_leaf_nodes": 15
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 3
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 7
+        },
+        {
+          "l2_regularization": 100.0,
+          "max_leaf_nodes": 15
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "04432cfa751b10eb89e691cf123540a06630dd54d9dfac2da780c6306d21e002"
+    },
+    "svm": {
+      "kind": "svm",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "9d02ec4b38b7417c26ded4b30822b2b4511c8170a65189788beb43f31d5dff25"
+    },
+    "decision_tree": {
+      "kind": "decision_tree",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "max_depth": 1,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_depth": 1,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_depth": 1,
+          "min_samples_leaf": 100
+        },
+        {
+          "max_depth": 2,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_depth": 2,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_depth": 2,
+          "min_samples_leaf": 100
+        },
+        {
+          "max_depth": 3,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_depth": 3,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_depth": 3,
+          "min_samples_leaf": 100
+        },
+        {
+          "max_depth": 6,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_depth": 6,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_depth": 6,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "role": "algorithm_comparison",
+      "fingerprint": "17b0b892f3a574dc84c7f87de3180698a8fa493fb92dd77457c7ccc645b4a36c"
+    },
+    "knn": {
+      "kind": "knn",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "n_neighbors": 25
+        },
+        {
+          "n_neighbors": 75
+        },
+        {
+          "n_neighbors": 150
+        },
+        {
+          "n_neighbors": 300
+        }
+      ],
+      "weighted_training": false,
+      "role": "algorithm_comparison",
+      "fingerprint": "2edda76c1f1279c50d5128214475136fccbc3567d0f2cf9771a527f8a222b1d4"
+    },
+    "spline_base": {
+      "kind": "spline_logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "c90497288627bed20e6c1f4facc0689549425cb7894c2af8926ebb9f5b8c5ef8"
+    },
+    "spline_no_water": {
+      "kind": "spline_logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "2f3f74313f59a747568a5c30911968a742fe1b2a9dc806e2c08f56d6f81a60ce"
+    },
+    "rf_no_water": {
+      "kind": "random_forest",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "f8107325127c91c49aa14d5b622d29317c16389ff3b9ae98e1476099b68e02ee"
+    },
+    "rf_base": {
+      "kind": "random_forest",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining"
+      ],
+      "candidates": [
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": "sqrt",
+          "min_samples_leaf": 100
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 5
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 20
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 50
+        },
+        {
+          "max_features": 0.7,
+          "min_samples_leaf": 100
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "999155a2fe8b52b5e3f01a184000692bff111b1703ad1e23333e13b4d09755a9"
+    },
+    "spline_extended": {
+      "kind": "spline_logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "teeth_remaining",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil",
+        "household_water_source",
+        "rural_water_consumption",
+        "dental_visit"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "117b0b2fc54bf1299b400f72dda2db5cf19472f92e3f839f002f3ec641735e1f"
+    },
+    "spline_no_teeth": {
+      "kind": "spline_logistic",
+      "features": [
+        "age",
+        "sex",
+        "region",
+        "rural",
+        "education",
+        "indigenous",
+        "born_chile",
+        "fish",
+        "dairy_frequency",
+        "dairy_type",
+        "wholegrain",
+        "legumes",
+        "fruit_days",
+        "fruit_portions",
+        "vegetable_days",
+        "vegetable_portions",
+        "label_ingredients",
+        "label_nutrition",
+        "label_warnings",
+        "label_health",
+        "label_brand",
+        "label_discounts",
+        "water",
+        "soda_frequency",
+        "juice_frequency",
+        "oil"
+      ],
+      "candidates": [
+        {
+          "C": 0.0001
+        },
+        {
+          "C": 0.001
+        },
+        {
+          "C": 0.01
+        },
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "weighted_training": true,
+      "role": "ablation_or_sensitivity",
+      "fingerprint": "4059ab3dcb7b7ee768566a645c599bab1846fc9a542d246ce12e70a03d797bc9"
+    }
+  },
+  "n_participants": 5036,
+  "n_psu": 1072,
+  "n_strata": 30,
+  "software": {
+    "sklearn": "1.9.0",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3"
+  },
+  "cache_hits": 0,
+  "elapsed_seconds": 186.46368491700014,
+  "notes": [
+    "The supplied analytical domain is not changed by the model engine.",
+    "All algorithms use identical outer and inner PSU-disjoint folds.",
+    "Fitting weights are normalized to mean one within each training sample.",
+    "KNN does not support sample weights and is an unweighted-training benchmark; selection and scoring remain weighted.",
+    "SVM uses three-fold grouped OOF Platt calibration within each training sample, then refits its SVC on that training sample.",
+    "Spline knots and median imputation are learned only within the applicable training fold.",
+    "Permutation importance permutes raw held-out variables; it has no causal or directional interpretation.",
+    "No class balancing, synthetic oversampling, or outcome-based predictor selection is used.",
+    "Fold scores are descriptive; survey-aware uncertainty should use the OOF table and original design."
+  ]
+}

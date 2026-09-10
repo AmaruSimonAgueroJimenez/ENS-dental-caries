@@ -1,0 +1,99 @@
+{
+  "figures": [
+    {
+      "name": "performance_dot",
+      "files": [
+        "performance_dot.png",
+        "performance_dot.svg"
+      ],
+      "caption": "Out-of-fold discrimination and Brier scores for the seven full-feature algorithms. Survey-weighted points have 95% conditional stratified PSU-bootstrap intervals; trained models and validation splits are held fixed. Open points are unweighted estimates. AUC=0.5 denotes chance discrimination. The Brier-score dot plot uses an explicitly labelled local scale covering all intervals and point estimates. Models are ordered by weighted AUC.",
+      "source_tables": [
+        "model_performance.csv"
+      ],
+      "png_dpi": 300
+    },
+    {
+      "name": "calibration_roc",
+      "files": [
+        "calibration_roc.png",
+        "calibration_roc.svg"
+      ],
+      "caption": "Survey-weighted calibration and ROC curves from out-of-fold predictions for the full-feature algorithms. Calibration points represent quantile-based groups of predicted probability; the diagonal indicates perfect calibration. The ROC diagonal indicates chance discrimination. Binned calibration curves are descriptive and have no confidence intervals.",
+      "source_tables": [
+        "calibration.csv",
+        "roc.csv"
+      ],
+      "png_dpi": 300
+    },
+    {
+      "name": "water_association",
+      "files": [
+        "water_association.png",
+        "water_association.svg"
+      ],
+      "caption": "Adjusted cross-sectional association of reported water intake with cavitated caries. Panel A is survey-weighted marginal standardization of the water-spline model, with 95% pointwise delta-method confidence intervals; the displayed exposure grid is restricted to the range supplied in water_curve.csv. Panels B and C show linear-water sensitivity estimates per additional reported glass/day and survey-design 95% intervals. Odds ratios and prevalence ratios are displayed separately on logarithmic axes; the vertical line denotes no association. These estimates do not establish causal protection.",
+      "source_tables": [
+        "water_curve.csv",
+        "water_effects.csv"
+      ],
+      "png_dpi": 300
+    },
+    {
+      "name": "incremental_water",
+      "files": [
+        "incremental_water.png",
+        "incremental_water.svg"
+      ],
+      "caption": "Paired differences in survey-weighted out-of-fold AUC, with 95% conditional stratified PSU-bootstrap intervals. Each contrast subtracts the reference model from the first model. Positive differences favour the first model. Orange identifies contrasts mentioning water; other planned comparisons are teal. Validation participants and bootstrap draws are shared within each pair; models and the validation split remain fixed.",
+      "source_tables": [
+        "paired_comparisons.csv"
+      ],
+      "png_dpi": 300
+    },
+    {
+      "name": "permutation_importance",
+      "files": [
+        "permutation_importance.png",
+        "permutation_importance.svg"
+      ],
+      "caption": "Permutation importance of raw held-out predictors. Points are mean increases in survey-weighted Brier score after permutation, averaged within each fold over repeats and then across folds using test-set expansion-weight totals. Whiskers show the minimum to maximum fold means; they are stability ranges, not confidence intervals. The displayed variables are the ten with the largest maximum mean importance across models, retaining water when necessary. Orange identifies water. Importance has no direction or causal interpretation and can be shared among correlated predictors.",
+      "source_tables": [
+        "permutation_importance.csv"
+      ],
+      "png_dpi": 300
+    },
+    {
+      "name": "descriptive_prevalence",
+      "files": [
+        "descriptive_prevalence.png",
+        "descriptive_prevalence.svg"
+      ],
+      "caption": "Survey-weighted caries prevalence by age, education, and reported water intake, with 95% survey-design confidence intervals. Parentheses give unweighted group sample sizes. These are unadjusted descriptive comparisons among dentate participants; group differences must not be interpreted as causal effects.",
+      "source_tables": [
+        "descriptive_prevalence.csv"
+      ],
+      "png_dpi": 300
+    }
+  ],
+  "language": "English",
+  "private_predictions_read": false,
+  "algorithms_displayed": [
+    "logistic",
+    "spline_logistic",
+    "random_forest",
+    "hist_gradient_boosting",
+    "svm",
+    "decision_tree",
+    "knn"
+  ],
+  "missing_or_empty_source_tables": [],
+  "uncertainty_note": "See each caption: bootstrap CIs, survey-design CIs, and fold stability ranges are distinct.",
+  "style": {
+    "background": "white",
+    "primary_colour": "#14616B",
+    "water_accent": "#CC7028",
+    "font": "DejaVu Sans",
+    "raster_dpi": 300,
+    "vector_format": "SVG"
+  }
+}

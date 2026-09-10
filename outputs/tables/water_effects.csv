@@ -1,0 +1,8 @@
+model,n,measure,estimate,ci_low,ci_high,p_value,contrast
+Primary linear water,4994,Odds ratio,0.9875402080373152,0.9574568527895407,1.0185687842214974,0.42664195878902256,One additional reported glass/day
+Additional water context and dental attendance,4987,Odds ratio,0.987302605626797,0.9574722612709992,1.0180623235847128,0.4139396327789101,One additional reported glass/day
+Age at least 18,4780,Odds ratio,0.984662931744601,0.9538019127343935,1.016522483554578,0.341106376325004,One additional reported glass/day
+Exclude water above 99th percentile,4962,Odds ratio,0.9760886020802341,0.9417324493371808,1.011698131227737,0.18534714903645316,One additional reported glass/day
+Without remaining teeth,4994,Odds ratio,0.9868049257818339,0.957614095211719,1.016885576785497,0.38558766831414115,One additional reported glass/day
+Modified Poisson prevalence ratio,4994,Prevalence ratio,0.9947228787821499,0.9816685556422694,1.0079507995703008,0.4320916164999182,One additional reported glass/day
+Original 28-day beverage conversion,4994,Odds ratio,0.9875403557274401,0.9574575021056093,1.0185683981227072,0.42663957371735317,One additional reported glass/day

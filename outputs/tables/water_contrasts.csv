@@ -1,0 +1,2 @@
+model,measure,contrast,reference_water,comparison_water,n,n_at_reference,n_at_comparison,n_water_2,n_water_6,df,confidence,supported,method,estimate,ci_low,ci_high,log_odds_ratio,se_log_odds_ratio,p_value
+Water spline,Conditional odds ratio,6 versus 2 reported glasses/day,2.0,6.0,4994,729,408,729,408,1045,0.95,True,same_covariates_spline_log_odds_contrast_with_design_covariance,0.9048896250133517,0.6838589322489784,1.1973598571915522,-0.09994230403131003,0.14272555385067592,0.4839325880830698
