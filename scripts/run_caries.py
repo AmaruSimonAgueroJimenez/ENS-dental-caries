@@ -215,6 +215,22 @@ def main():
             encoding[key].to_csv(tables/(filename+'.csv'),index=False)
         encoding['oof'].to_csv(private/'water_encoding_oof.csv',index=False)
         write_json(tables/'water_encoding_manifest.json',encoding['manifest'])
+        from ens_analysis.historical_coding import load_historical_matrix
+        from ens_analysis.historical_comparison import run_historical_comparison
+        historical_x, historical_y, historical_metadata = load_historical_matrix(args.original_data, frame)
+        historical = run_historical_comparison(
+            frame, results, historical_x, historical_metadata['column_map'], private/'historical_comparison',
+            bootstrap_replicates=args.bootstrap, n_jobs=args.jobs)
+        for key in ['performance', 'comparisons', 'foldscores', 'importance27', 'importance27_summary',
+                    'mdi_columns', 'mdi27', 'mdi27_summary']:
+            historical[key].to_csv(tables/('historical_'+key+'.csv'), index=False)
+        historical['oof'].to_csv(private/'historical_comparison_oof.csv', index=False)
+        write_json(tables/'historical_coding_metadata.json', historical_metadata)
+        reference = ROOT/'docs/reference/historical_importance.csv'
+        historical['manifest']['saved_reference_sha256'] = sha256(reference.read_bytes()).hexdigest()
+        historical['manifest']['coding_metadata'] = historical_metadata
+        write_json(tables/'historical_comparison_manifest.json', historical['manifest'])
+        (tables/'historical_saved_importance.csv').write_bytes(reference.read_bytes())
         from ens_analysis.figures import make_figures
         make_figures(tables,ROOT/'outputs/figures')
         if source_hashes(ROOT)!=code_sha256:
@@ -236,6 +252,7 @@ def main():
             'model_names':list(results['manifest']['models']),
             'predictor_contributions':contribution_manifest,
             'water_encoding':encoding['manifest'],
+            'historical_comparison':historical['manifest'],
             'outer_folds':results['manifest']['settings']['outer_folds'],
             'inner_folds':results['manifest']['settings']['inner_folds'],
             'weight_confirmation':'Working phase-based choice; official manual confirmation outstanding',

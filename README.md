@@ -19,6 +19,7 @@ This is a **Python reanalysis with verified original data and an audited R refer
 - `docs/caries-research-submission-plan.md`: journal fit, verified requirements and proposed manuscript allocation.
 - `docs/manuscript-references.json`: thirteen verified scientific references with links and verification scope.
 - `docs/index.qmd` and `docs/index.html`: preserved original R source and saved reference results.
+- `docs/historical-coding-schema.json`: fixed original factor levels, treatment contrasts and column-to-predictor mapping.
 - `outputs/tables/`: aggregate results and reproducibility manifests.
 - `outputs/tables/importance_stability.csv`: all 27 raw-variable contributions and fold stability in both model families.
 - `outputs/tables/grouped_importance_stability.csv` and `predictor_contributions_manifest.json`: joint contributions of conceptual blocks and checks against the existing models.
@@ -74,3 +75,7 @@ Participant records, recovered source attachments, fold assignments, out-of-fold
 | `src/ens_analysis/study_flow.py` | Editable participant-flow and nested-validation diagram |
 | `scripts/run_caries.py` | Reproducible orchestration and result manifests |
 | `scripts/render_caries.py` | Verified-environment report rendering |
+
+## Implemented original-paper coding comparison
+
+The Python reconstruction reproduces the 4,994 × 90 original R design matrix, independently checked against R preprocessing and its saved data cache. Two new random forests compare modern versus historical coding within the same complete-case cohort, inherited PSU folds and weights, using the primary forest parameters previously selected in the corresponding outer training samples. Historical coding includes water indices, categorical fruit/vegetable days, original weekly beverages using four-week months and treatment contrasts. This post hoc fixed-parameter comparison reports paired performance, encoded-column impurity, summed impurity by predictor, and held-out whole-predictor permutation for all 27 variables. Figure S9 and Table S13 distinguish this experiment from the original saved score and the prior water-only encoding sensitivity.

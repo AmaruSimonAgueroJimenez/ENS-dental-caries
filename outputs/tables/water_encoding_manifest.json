@@ -229,7 +229,7 @@
       "accuracy": 1000
     }
   },
-  "elapsed_seconds": 6.857435666999663,
+  "elapsed_seconds": 7.1962060000005295,
   "notes": [
     "Physical OOF predictions, selected hyperparameters and held-out water permutations are reused unchanged; no physical model is refitted.",
     "Alternative encodings use the identical outer training/test participants, original model seeds and selected physical-model hyperparameters; no retuning is performed.",

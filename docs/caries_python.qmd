@@ -52,8 +52,10 @@ csv_names = [
     "grouped_permutation_importance", "grouped_importance_stability",
     "descriptive_profile", "water_encoding_performance", "water_encoding_comparisons",
     "water_encoding_importance_stability",
+    "historical_performance", "historical_comparisons", "historical_importance27_summary",
+    "historical_mdi27_summary",
 ]
-json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation", "predictor_contributions_manifest", "descriptive_profile_metadata", "water_encoding_manifest"]
+json_names = ["run_manifest", "model_manifest", "data_audit", "association_metadata", "source_reconciliation", "predictor_contributions_manifest", "descriptive_profile_metadata", "water_encoding_manifest", "historical_comparison_manifest"]
 for name in csv_names:
     assert (TABLES / f"{name}.csv").is_file(), f"Missing required aggregate: {name}.csv"
 for name in json_names:
@@ -67,8 +69,10 @@ assoc_metadata = metadata["association_metadata"]
 source = metadata["source_reconciliation"]
 contributions = metadata["predictor_contributions_manifest"]
 encoding = metadata["water_encoding_manifest"]
+historical = metadata["historical_comparison_manifest"]
 profile_meta = metadata["descriptive_profile_metadata"]
 assert run["status"] == "complete", "The analysis run is not complete."
+assert historical["status"] == "complete" and run["historical_comparison"] == historical
 current_hashes = {p.relative_to(ROOT).as_posix(): sha256(p.read_bytes()).hexdigest()
                   for folder in ["scripts", "src"] for p in sorted((ROOT / folder).rglob("*.py"))}
 assert run["code_sha256"] == current_hashes, "Analysis sources changed after the completed run; regenerate aggregates."
@@ -199,7 +203,7 @@ assert (FIGURES / "figure_metadata.json").is_file(), "Figure metadata are missin
 figure_meta = json.loads((FIGURES / "figure_metadata.json").read_text())
 assert not figure_meta.get("missing_or_empty_source_tables"), "Figures have incomplete inputs."
 figure_lookup = {item["name"]: item for item in figure_meta["figures"]}
-figure_names = ["correa_model_performance", "correa_predictor_importance", "correa_validation", "correa_predictor_groups", "correa_sensitivity", "study_flow", "performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "predictor_group_contributions", "descriptive_prevalence"]
+figure_names = ["correa_model_performance", "correa_predictor_importance", "correa_validation", "correa_predictor_groups", "correa_sensitivity", "study_flow", "performance_dot", "calibration_roc", "water_association", "incremental_water", "permutation_importance", "predictor_group_contributions", "descriptive_prevalence", "historical_coding_comparison"]
 for name in figure_names:
     assert name in figure_lookup and (FIGURES / f"{name}.png").is_file(), f"Missing figure: {name}"
 
@@ -298,7 +302,7 @@ The newly recovered original materials confirm a requested change from categoric
 
 The original Word chart matches all 11 leading scores in the recovered spreadsheet exactly: water is third, at 53.9819 on a rescaled 0–100 scale. The spreadsheet ranks 90 encoded terms representing 27 predictors, including seven single numeric columns and 83 category indicators. Later October/November discussions explicitly intend mean decrease in accuracy, superseding earlier Gini terminology. However, the preserved QMD omits `importance=TRUE`; archived caret 6.0-94 defaults and the recovered single-column `Overall` cache strongly support rescaled Gini under that code. The fitted forest and raw importance matrix remain unavailable, so the exact runtime metric cannot be certified. This separates the documented intention from implementation evidence. [randomForest fitting documentation](https://search.r-project.org/CRAN/refmans/randomForest/html/randomForest.html).
 
-These historical scores are not directly comparable with the revised held-out, unscaled Brier-score permutation importance of whole original predictors. The [historical analysis audit](historical-analysis-audit.md) documents the source matches, chronology, metric discrepancy and an original legume-category translation error. No Python model or numerical result was changed by this documentary audit.
+These historical scores are not directly comparable with the revised held-out, unscaled Brier-score permutation importance of whole original predictors. The [historical analysis audit](historical-analysis-audit.md) documents the source matches, chronology, metric discrepancy and an original legume-category translation error. The subsequent matched-coding refits are reported below as a separate post hoc extension.
 
 ENS is a cross-sectional, stratified, multistage survey. Published documentation describes an oral examination by trained nurses during the second home visit. Eligibility in other oral-health publications differs from the present dentate domain and should not be imposed on this analysis. [Margozzini et al., 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7479467/)
 
@@ -665,6 +669,46 @@ for _, row in encoding_importance.iterrows():
 show_table(pd.DataFrame(water_rows), "Water-encoding supplement C. Held-out water permutation importance.",
            "Five shared donor-row permutations per outer fold include missing water values. Ranges summarize fold stability and are not confidence intervals. Only water is permuted in the alternative encodings, so no new global predictor ranks are inferred. One-hot dimensionality may also alter random-forest feature subsampling under fixed settings.")
 ```
+
+## Matched comparison using the original paper coding
+
+The reconstructed historical matrix contains 90 columns for 27 predictors in the original 4,994 complete cases. An independent R preprocessing export agrees with the recovered processed-data cache; the production reconstruction and new model fits use Python. The historical representation uses water level indices, fruit/vegetable-day categories with treatment contrasts, original weekly beverage frequencies with four-week months, and the original category reference levels. The current representation retains physical quantities, numerical days and training-fitted one-hot encoding.
+
+Both random-forest variants are newly trained in the same complete cases. They inherit the same five PSU-disjoint outer assignments, weights, seeds and per-fold hyperparameters from the principal forest's outer training data. No new tuning occurs; selection originally used the larger cohort's training portion. This compares the representation package while holding the cohort fixed. It is distinct from the earlier complete-case evaluation of models trained in 5,036 participants and from the water-only sensitivity. It does not recreate the original caret engine or participant-level split.
+
+```{python}
+#| label: historical-coding-comparison
+#| echo: false
+historical_labels = {"rf_complete_modern": "Modern coding, complete-case refit", "rf_complete_historical": "Historical coding, complete-case refit"}
+hperf = tables["historical_performance"].query("weighting == 'Survey weighted'")
+show_table(pd.DataFrame([
+    {"Representation": historical_labels[r.model], "n": f'{int(r.n):,}',
+     "AUC (95% CI)": f'{r.auc:.4f} ({r.auc_low:.4f} to {r.auc_high:.4f})',
+     "Brier score": f'{r.brier:.6f}', "Log loss": f'{r.log_loss:.6f}'}
+    for r in hperf.itertuples()
+]), "Historical coding supplement A. Matched random-forest refits.",
+"Both models are trained and evaluated in the same 4,994 participants. Intervals are conditional PSU-bootstrap intervals for fixed models and inherited folds.")
+hpairs = tables["historical_comparisons"]
+show_table(pd.DataFrame([
+    {"Metric": r.metric, "Historical minus modern": number(r.difference, 6),
+     "Conditional 95% CI": f'{number(r.ci_low, 6)} to {number(r.ci_high, 6)}'}
+    for r in hpairs.itertuples()
+]), "Historical coding supplement B. Paired performance differences.",
+"Positive AUC differences and negative Brier/log-loss differences favour the historical representation. Comparisons are exploratory and do not isolate water from the other coding differences.")
+himp = tables["historical_importance27_summary"]
+water_compare = himp.loc[himp.feature.eq("water")]
+show_table(pd.DataFrame([
+    {"Representation": historical_labels[r.model], "Mean water ΔBrier": number(r.brier_increase, 6),
+     "Five-fold range": f'{number(r.minimum_fold_brier_increase, 6)} to {number(r.maximum_fold_brier_increase, 6)}'}
+    for r in water_compare.itertuples()
+]), "Historical coding supplement C. Water within the complete 27-predictor comparison.",
+"Each predictor is permuted jointly across its encoded columns using five shared row permutations per held-out fold. Negative values are retained; fold ranges are not confidence intervals.")
+show_figure("historical_coding_comparison")
+```
+
+The new impurity scores are calculated on the fitted forests, both per column and summed within each original predictor. Those sums remain impurity scores. Held-out permutation instead measures predictive deterioration after perturbing the whole predictor while preserving its category combinations. The recovered 0–100 chart is shown as a separate historical reference, with its legume-category translation corrected; none of the new fits is asserted to reproduce its scores exactly. [Permutation and impurity importance](https://scikit-learn.org/stable/modules/permutation_importance.html).
+
+## Exploratory water associations
 
 Eight survey-weighted association analyses separate effect estimation from algorithm comparison. The primary logistic model estimates a linear water term while adjusting flexibly for age, remaining teeth and soda/juice frequency, plus sex, region, rurality, education, indigenous identification and birthplace. A second model uses a water spline. Further analyses add the three contextual variables, restrict age, assess the exposure tail, omit remaining teeth, estimate a modified Poisson prevalence ratio, or retain the original 28-day beverage conversion. The last analysis was added after source reconciliation. These regressions use complete required covariates, rather than the prediction pipeline's imputation strategy.
 

@@ -643,5 +643,10 @@ def make_figures(
             metadata["destination"]["main_statistical_figures_with_preserved_canvas"] = [
                 "correa_model_performance", "correa_predictor_importance", "correa_validation",
                 "correa_predictor_groups", "correa_sensitivity"]
+        historical_sources = ["historical_saved_importance.csv", "historical_importance27_summary.csv",
+                              "historical_mdi27_summary.csv"]
+        if all((source / name).exists() for name in historical_sources):
+            from .historical_figures import make_historical_figure
+            paths += make_historical_figure(source, destination, metadata)
     (destination / "figure_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n")
     return paths

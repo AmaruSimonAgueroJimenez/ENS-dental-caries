@@ -86,6 +86,8 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
     import ens_analysis.figures
     import ens_analysis.contributions
     import ens_analysis.water_encoding
+    import ens_analysis.historical_coding
+    import ens_analysis.historical_comparison
     monkeypatch.setattr(ens_analysis.figures, 'make_figures', lambda *_: None)
     monkeypatch.setattr(ens_analysis.contributions, 'predictor_contributions',
                         lambda *_, **__: (pd.DataFrame(), pd.DataFrame(), {'status': 'complete'}))
@@ -96,6 +98,18 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
                                 'water_importance_stability', 'fold_scores', 'oof']},
                             'manifest': {'status': 'complete', 'new_hyperparameter_searches': 0},
                         })
+    monkeypatch.setattr(ens_analysis.historical_coding, 'load_historical_matrix',
+                        lambda *_: (pd.DataFrame(), pd.Series(dtype=float), {'column_map': {}}))
+    monkeypatch.setattr(ens_analysis.historical_comparison, 'run_historical_comparison',
+                        lambda *_, **__: {
+                            **{key: pd.DataFrame({'fixture': [1]}) for key in [
+                                'performance', 'comparisons', 'foldscores', 'importance27', 'importance27_summary',
+                                'mdi_columns', 'mdi27', 'mdi27_summary', 'oof']},
+                            'manifest': {'status': 'complete'},
+                        })
+    reference = root / 'docs' / 'reference' / 'historical_importance.csv'
+    reference.parent.mkdir(parents=True)
+    reference.write_text('rank,term,score\n1,example,100\n')
     private = root / 'outputs' / 'private'
     private.mkdir(parents=True)
     (private / 'model_results.pkl').write_bytes(pickle.dumps({
@@ -118,4 +132,6 @@ def test_summarize_refreshes_associations_and_requires_stable_source_hashes(
     }
     assert manifest['source_reconciliation']['status'] == 'verified'
     assert manifest['predictor_contributions']['status'] == 'complete'
+    assert manifest['historical_comparison']['status'] == 'complete'
+    assert manifest['historical_comparison']['saved_reference_sha256'] == sha256(reference.read_bytes()).hexdigest()
     assert prepared == [True]

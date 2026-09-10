@@ -196,3 +196,12 @@ Before claiming **exact numerical reproduction** of the historical model results
 4. Keep revised and compatibility outputs in distinct namespaces, and report the original-conversion sensitivity alongside the unchanged primary analysis. Retain source-validation and method-status fields in each new manifest.
 
 Current conclusion: **correct repository and source attachment recovered; survey records reconciled; two beverage-conversion differences and the R water-factor encoding documented; revised Python analysis implemented. Exact historical numerical reproduction has not been claimed or established.**
+
+
+## Implemented matched historical representation comparison
+
+The original preprocessing has now been reconstructed in `historical_coding.py`. The Python matrix has 4,994 rows and 90 columns, with all 449,460 numerical entries independently checked against the R model matrix. The preceding R data frame matches the saved 2024 cache, including factors and level order. The fixed aggregate schema and original saved importance scores are retained in `docs/historical-coding-schema.json` and `docs/reference/historical_importance.csv`; participant matrices remain private.
+
+Two newly fitted random forests compare the modern and historical representations in the same 4,994 complete cases. Historical coding includes seven numeric columns, 83 treatment indicators, water indices, fruit/vegetable days as categories and the original weekly beverage conversion. The variants inherit common PSU folds and use the principal forest's previously selected per-fold parameters and seeds. Both are survey-weighted. This is a fixed-parameter sensitivity to the combined representation package, distinct from evaluating a 4,994-person subset of a model trained on 5,036 and from the completed water-only encoding comparisons.
+
+Each fit supplies normalized impurity importance per encoded column and its sum within each of 27 predictors. Joint held-out permutation preserves each predictor's category combinations. Whole-predictor signed contributions and fold ranges are reported for both representations, with paired performance intervals based on 1,000 shared PSU-bootstrap draws. Figure S9 and Table S13 integrate these results in the manuscript proposal. This implementation does not claim to reconstruct the missing fitted caret forest or its historical numerical output.

@@ -377,6 +377,27 @@
         "spline_logistic_water_index",
         "spline_logistic_water_nominal"
       ]
+    },
+    {
+      "name": "historical_coding_comparison",
+      "files": [
+        "historical_coding_comparison.png",
+        "historical_coding_comparison.svg",
+        "historical_coding_comparison.pdf"
+      ],
+      "caption": "Historical coding and the unit of predictor importance. a, the 11 recovered original chart scores, with the legume category corrected to at least once/week; these saved scores are a separate historical result, not an exact refit. b, ranks of summed impurity importance versus whole-predictor held-out permutation importance in each new forest variant; smaller ranks indicate larger contributions. Summing impurity scores is not permutation importance. c–d, all 27 mean permutation contributions, with a common order and axis; whiskers are the five-fold minimum–maximum, not confidence intervals. Both variants are newly trained in the same 4,994 complete cases with the same inherited PSU-disjoint folds, weights and per-fold parameters selected in the principal forest's outer training data; no retuning occurs. Historical coding jointly changes water indices, fruit/vegetable-day factors, beverage units and categorical contrasts. Results evaluate this representation package, not each component separately or the original caret workflow.",
+      "source_tables": [
+        "historical_saved_importance.csv",
+        "historical_importance27_summary.csv",
+        "historical_mdi27_summary.csv"
+      ],
+      "png_dpi": 300,
+      "alt_text": "Four panels connect the original eleven-term chart to whole-predictor impurity ranks and all twenty-seven held-out contributions under two matched coding schemes. Water is explicitly labelled; signed contributions and fold ranges are retained.",
+      "canvas_width_mm": 180.0,
+      "canvas_height_mm": 229.99999999999997,
+      "physical_canvas_preserved": true,
+      "svg_text": "Editable text; requires the specified font on the viewing system",
+      "pdf_text": "Embedded TrueType fonts (Type 42)"
     }
   ],
   "language": "English",
@@ -458,7 +479,7 @@
     "paired_comparisons.csv": "5978a1ab9735f51a90a38c4de755cc23302e6e356f734f1babe19434a43531ef",
     "permutation_importance.csv": "4f63d2777621d95f90219518feb4208d5a76bedf994f7c35681929bad28bd338",
     "descriptive_prevalence.csv": "d599b37b81f7ed7c48c3bd543076cf5764df078a18ac5ad9456a45bba08e2614",
-    "grouped_importance_stability.csv": "d0d288f4778297ded4348bc224e64dac54263bb07b2417b1adc704a477b6ce34",
+    "grouped_importance_stability.csv": "dbe0da3824144236eba87180d466754c1a0faaadfb7f4a976808cb1a28b54556",
     "data_audit.json": "b403838d2b3c6a43315bb934e09a9712a52175c97461e1af60f768e8a2bfaab8",
     "sample_flow.csv": "f283d217bb05ca67db012cf0d2417eee590fb37dd39402f81b66743837428250",
     "model_manifest.json": "dab1004b29899e00b7d8a9f8994e4c28d93f95608057546d730799ca13e29426",
@@ -466,7 +487,10 @@
     "prediction_subset_sensitivity.csv": "ae7e39354c7cec113258ddbf716c1ba69c18d73026efe8d64282ef804275a3e3",
     "subgroup_performance.csv": "89dd3c533f97a815c7a04976c62fed1b676b13c3bb5a804e1047a0336e11ed0f",
     "water_encoding_comparisons.csv": "5569bca32036789550a07fc58845c9cd7c78f6f9c07be984586619025f52ccba",
-    "water_encoding_importance_stability.csv": "928e18f8fe8ec028f2d4ba1fb46668a880fe8d905502c2ff85797a8eda83d067"
+    "water_encoding_importance_stability.csv": "928e18f8fe8ec028f2d4ba1fb46668a880fe8d905502c2ff85797a8eda83d067",
+    "historical_saved_importance.csv": "1e4d1980dfcbf144265896b7fbc2236884ca471e44d39c565bf4405cfb0d84f3",
+    "historical_importance27_summary.csv": "3e6aaafcebf1d9efd0e72697d501c4f9bbfb5a9e6c2d9ccac36f96199199b68b",
+    "historical_mdi27_summary.csv": "2de6b5ee67beb1dc0074b5dac0dd367aa4b60c86888861e26234980e592f541e"
   },
   "correa_presentation": {
     "reference": "Figures embedded in the user-supplied Correa manuscript",
