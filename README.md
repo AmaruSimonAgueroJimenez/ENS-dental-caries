@@ -22,7 +22,7 @@ This is a **Python reanalysis with verified original data and an audited R refer
 - `outputs/tables/importance_stability.csv`: all 27 raw-variable contributions and fold stability in both model families.
 - `outputs/tables/grouped_importance_stability.csv` and `predictor_contributions_manifest.json`: joint contributions of conceptual blocks and checks against the existing models.
 - `outputs/tables/source_reconciliation.json`, `source_comparison.csv` and `legacy_water_coding.csv`: source hashes, agreement checks and the original water-index mapping.
-- `outputs/figures/`: scientific figures in PNG at 300 dpi, SVG and PDF; five four-panel manuscript figures retain the original Correa bar-chart style and fit the journal's physical size limits. Eight complementary figures preserve the complete analytical displays.
+- `outputs/figures/`: scientific figures in PNG at 300 dpi, SVG and PDF; five manuscript figures with four to six panels retain the original Correa bar-chart style and fit the journal's physical size limits. Eight complementary figures preserve the complete analytical displays.
 
 ## Reproduce
 
